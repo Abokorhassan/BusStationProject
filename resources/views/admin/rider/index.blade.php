@@ -52,41 +52,12 @@ Rider Lists
                                     <th>Full name</th>
                                     <th>Ph_number</th>
                                     <th>Gender</th>
-                                    <th>User_id</th>
                                     <th>Created_at</th>
                                     <th>Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
-                            @if(!empty($riders))
-                                @foreach ($riders as $rider)
-                                    <tr>
-                                        <td>{{ $rider->id }}</td>
-                                        <td>{{ $rider->id_number }}</td>
-                                        <td>{{ $rider->first_name}} {{ $rider->last_name}} {{ $rider->third_name}}</td>
-                                        <td>{{ $rider->ph_number }}</td>
-                                        <td>{{ $rider->gender }}</td>
-                                        <td>{{ $rider->user_id }}</td>
-                                        {{-- <td>{{ $test->comments->count() }}</td> --}}
-                                        <td>{{ $rider->created_at->diffForHumans() }}</td>
-                                        <td>
-                                        
-                                            <a href="{{ URL::to('admin/rider/' . $rider->id . '/edit' ) }}"><i class="livicon"
-                                                                                                            data-name="edit"
-                                                                                                            data-size="18"
-                                                                                                            data-loop="true"
-                                                                                                            data-c="#428BCA"
-                                                                                                            data-hc="#428BCA"
-                                                                                                            title="Edit rider"></i></a>
-                                            <a href="#" data-toggle="modal"
-                                            data-target="#delete"><i class="livicon" data-name="remove-alt"
-                                                                                data-size="18" data-loop="true" data-c="#f56954"
-                                                                                data-hc="#f56954"
-                                                                                title="Delete rider"></i></a>
-                                        </td>
-                                    </tr>
-                                @endforeach
-                            @endif
+
                             </tbody>
                         </table>
                     </div>
@@ -94,45 +65,52 @@ Rider Lists
             </div>
         </div>    <!-- row-->
     </section>
-
-
-    <!--Model 1 -->
-    <div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-labelledby="user_delete_confirm_title"
-            aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title" id="user_delete_confirm_title">Delete rider</h4>
-                </div>
-                <div class="modal-body">
-                    Are you sure to delete this Rider? This operation is irreversible
-                            
-                </div>
-                <div class="modal-footer">
-                    <button type="button" style="margin-right: 1%" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                    {{-- {!!Form::open(['url' => ['admin/rider', $rider->id], 'method' => 'Post', 'class' => 'pull-right']) !!}
-                        {{Form::hidden('_method', 'DELETE')}}
-                        {{Form::submit('Delete', ['class' => 'btn btn-danger'])}}
-                    {!!Form::close() !!} --}}
-                </div>
-                        
-            </div>
-        </div>
-    </div>
-
-    <script>
-        $('#exampleModal').on('show.bs.modal', event => {
-            var button = $(event.relatedTarget);
-            var modal = $(this);
-            // Use above variables to manipulate the DOM
-            
-        });
-    </script>
       
 @stop
 
 {{-- page level scripts --}}
+@section('footer_scripts')
+    <script type="text/javascript" src="{{ asset('assets/vendors/datatables/js/jquery.dataTables.js') }}" ></script>
+    <script type="text/javascript" src="{{ asset('assets/vendors/datatables/js/dataTables.bootstrap.js') }}" ></script>
+    <script>
+        $(function() {
+            var table = $('#table').DataTable({
+                processing: true,
+                serverSide: true,
+                ajax: '{!! route('admin.rider.data') !!}',
+                columns: [
+                    { data: 'id', name: 'id' },
+                    { data: 'id_number', name: 'id_number' },
+                    { data: 'first_name', name: 'first_name' },
+                    { data: 'gender', name: 'gender' },
+                    { data: 'ph_number', name: 'ph_number'},
+                    { data: 'created_at', name:'created_at'},
+                    { data: 'actions', name: 'actions', orderable: false, searchable: false }
+                ]
+            });
+            table.on( 'draw', function () {
+                $('.livicon').each(function(){
+                    $(this).updateLivicon();
+                });
+            } );
+        });
+
+    </script>
+    <div class="modal fade" id="delete_confirm" tabindex="-1" role="dialog" aria-labelledby="user_delete_confirm_title" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content"></div>
+    </div>
+    </div>
+    <script>
+        $(function () {
+            $('body').on('hidden.bs.modal', '.modal', function () {
+                $(this).removeData('bs.modal');
+            });
+        });
+    </script>
+@stop
+
+{{-- page level scripts
 @section('footer_scripts')
     <script type="text/javascript" src="{{ asset('assets/vendors/datatables/js/jquery.dataTables.js') }}"></script>
     <script type="text/javascript" src="{{ asset('assets/vendors/datatables/js/dataTables.bootstrap.js') }}"></script>
@@ -151,4 +129,5 @@ Rider Lists
             });
         });
     </script>
-@stop
+@stop --}}
+

@@ -5,7 +5,12 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Bus;
+
+use DOMDocument;
+use Intervention\Image\Facades\Image;
+use Response;
 use Sentinel;
+use Yajra\DataTables\DataTables;
 
 class BusController extends Controller
 {
@@ -19,6 +24,27 @@ class BusController extends Controller
         
         $buses = Bus::all();
         return view('admin.bus.index', compact('buses'));
+    }
+
+    public function data()
+    {
+        $bus = Bus::get(['id', 'model_type', 'bus_number', 'station_id', 'Driver_id', 'created_at']);
+
+        return DataTables::of($bus)
+            ->editColumn('created_at', function (Bus $createtime) {
+                return $createtime->created_at->diffForHumans();
+            })
+            ->addColumn('actions', function ($user) {
+                $actions = '<a href=' . route('admin.bus.edit', $user->id) . '><i class="livicon" data-name="edit" data-size="18" data-loop="true" data-c="#428BCA" data-hc="#428BCA" title="update bus"></i></a>';
+                $actions .= '<a href=' . route('admin.bus.confirm-delete', $user->id) . ' data-toggle="modal" data-target="#delete_confirm"><i class="livicon" data-name="remove-alt"
+                data-size="18" data-loop="true" data-c="#f56954"
+                data-hc="#f56954"
+                title="Delete bus"></i></a>';
+
+                return $actions;
+            })
+            ->rawColumns(['actions'])
+            ->make(true);
     }
 
     /**
@@ -126,5 +152,19 @@ class BusController extends Controller
         $bus = Bus::find($id);
         $bus->delete();
         return redirect('admin/bus')->with('success', 'Bus Deleted');
+    }
+
+    public function getModalDelete(Bus $bus)
+    {
+        $model = 'bus';
+        $confirm_route = $error = null;
+        try {
+            $confirm_route = route('admin.bus.delete', ['id' => $bus->id]);
+            return view('admin.layouts.modal_confirmation', compact('error', 'model', 'confirm_route'));
+        } catch (GroupNotFoundException $e) {
+
+            // $error = trans('news/message.error.destroy', compact('id'));
+            return view('admin.layouts.modal_confirmation', compact('error', 'model', 'confirm_route'));
+        }
     }
 }

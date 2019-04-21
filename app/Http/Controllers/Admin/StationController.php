@@ -6,6 +6,12 @@ use App\Station;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
+use DOMDocument;
+use Intervention\Image\Facades\Image;
+use Response;
+use Sentinel;
+use Yajra\DataTables\DataTables;
+
 class StationController extends Controller
 {
     /**
@@ -17,6 +23,27 @@ class StationController extends Controller
     {
         $station = Station::all();
         return view('admin.station.index', compact('station'));
+    }
+
+    public function data()
+    {
+        $station = Station::get(['id', 'name', 'lat', 'long', 'created_at']);
+
+        return DataTables::of($station)
+            ->editColumn('created_at', function (Station $createtime) {
+                return $createtime->created_at->diffForHumans();
+            })
+            ->addColumn('actions', function ($user) {
+                $actions = '<a href=' . route('admin.station.edit', $user->id) . '><i class="livicon" data-name="edit" data-size="18" data-loop="true" data-c="#428BCA" data-hc="#428BCA" title="update station"></i></a>';
+                $actions .= '<a href=' . route('admin.station.confirm-delete', $user->id) . ' data-toggle="modal" data-target="#delete_confirm"><i class="livicon" data-name="remove-alt"
+                data-size="18" data-loop="true" data-c="#f56954"
+                data-hc="#f56954"
+                title="Delete station"></i></a>';
+
+                return $actions;
+            })
+            ->rawColumns(['actions'])
+            ->make(true);
     }
 
     /**
@@ -114,5 +141,19 @@ class StationController extends Controller
         $station->delete();
         return redirect('admin/station')->with('success', 'Station Deleted');
 
+    }
+
+    public function getModalDelete(Station $station)
+    {
+        $model = 'station';
+        $confirm_route = $error = null;
+        try {
+            $confirm_route = route('admin.station.delete', ['id' => $station->id]);
+            return view('admin.layouts.modal_confirmation', compact('error', 'model', 'confirm_route'));
+        } catch (GroupNotFoundException $e) {
+
+            // $error = trans('news/message.error.destroy', compact('id'));
+            return view('admin.layouts.modal_confirmation', compact('error', 'model', 'confirm_route'));
+        }
     }
 }

@@ -6,6 +6,12 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Driver;
 
+use DOMDocument;
+use Intervention\Image\Facades\Image;
+use Response;
+use Sentinel;
+use Yajra\DataTables\DataTables;
+
 class DriverController extends Controller
 {
     /**
@@ -17,6 +23,27 @@ class DriverController extends Controller
     {
         $drivers = Driver::all();
         return view('admin.driver.index', compact('drivers'));
+    }
+
+    public function data()
+    {
+        $driver = Driver::get(['id', 'first_name', 'last_name', 'email', 'ph_number', 'license_number', 'created_at']);
+
+        return DataTables::of($driver)
+            ->editColumn('created_at', function (Driver $createtime) {
+                return $createtime->created_at->diffForHumans();
+            })
+            ->addColumn('actions', function ($user) {
+                $actions = '<a href=' . route('admin.driver.edit', $user->id) . '><i class="livicon" data-name="edit" data-size="18" data-loop="true" data-c="#428BCA" data-hc="#428BCA" title="update driver"></i></a>';
+                $actions .= '<a href=' . route('admin.driver.confirm-delete', $user->id) . ' data-toggle="modal" data-target="#delete_confirm"><i class="livicon" data-name="remove-alt"
+                data-size="18" data-loop="true" data-c="#f56954"
+                data-hc="#f56954"
+                title="Delete driver"></i></a>';
+
+                return $actions;
+            })
+            ->rawColumns(['actions'])
+            ->make(true);
     }
 
     /**
@@ -129,5 +156,19 @@ class DriverController extends Controller
         $driver = Driver::find($id);
         $driver->delete();
         return redirect('admin/driver')->with('success', 'Driver Deleted');
+    }
+
+    public function getModalDelete(Driver $driver)
+    {
+        $model = 'driver';
+        $confirm_route = $error = null;
+        try {
+            $confirm_route = route('admin.driver.delete', ['id' => $driver->id]);
+            return view('admin.layouts.modal_confirmation', compact('error', 'model', 'confirm_route'));
+        } catch (GroupNotFoundException $e) {
+
+            // $error = trans('news/message.error.destroy', compact('id'));
+            return view('admin.layouts.modal_confirmation', compact('error', 'model', 'confirm_route'));
+        }
     }
 }

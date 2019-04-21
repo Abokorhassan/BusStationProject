@@ -110,15 +110,39 @@ Route::group(['prefix' => 'admin','namespace'=>'Admin', 'middleware' => 'admin',
     Route::resource('tests', 'TestController');
 
     // Stations Management
+    Route::group(['prefix' => 'station'], function () {
+        Route::get('data', 'StationController@data')->name('station.data');
+        Route::get('{station}/delete', 'StationController@destroy')->name('station.delete');
+        Route::get('{station}/confirm-delete', 'StationController@getModalDelete')->name('station.confirm-delete');
+    });
+
     Route::resource('station', 'StationController');
 
     // Buses Management
+    Route::group(['prefix' => 'bus'], function () {
+        Route::get('data', 'BusController@data')->name('bus.data');
+        Route::get('{bus}/delete', 'BusController@destroy')->name('bus.delete');
+        Route::get('{bus}/confirm-delete', 'BusController@getModalDelete')->name('bus.confirm-delete');
+    });
+
     Route::resource('bus', 'BusController');
 
     // Drivers Management
+    Route::group(['prefix' => 'driver'], function () {
+        Route::get('data', 'DriverController@data')->name('driver.data');
+        Route::get('{driver}/delete', 'DriverController@destroy')->name('driver.delete');
+        Route::get('{driver}/confirm-delete', 'DriverController@getModalDelete')->name('driver.confirm-delete');
+    });
+
     Route::resource('driver', 'DriverController');
 
     // Rdiers Management
+    Route::group(['prefix' => 'rider'], function () {
+        Route::get('data', 'RiderController@data')->name('rider.data');
+        Route::get('{rider}/delete', 'RiderController@destroy')->name('rider.delete');
+        Route::get('{rider}/confirm-delete', 'RiderController@getModalDelete')->name('rider.confirm-delete');
+    });
+
     Route::resource('rider', 'RiderController');
 
 

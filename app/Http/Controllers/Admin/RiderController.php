@@ -5,6 +5,11 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Rider;
+use DOMDocument;
+use Intervention\Image\Facades\Image;
+use Response;
+use Sentinel;
+use Yajra\DataTables\DataTables;
 
 class RiderController extends Controller
 {
@@ -29,6 +34,27 @@ class RiderController extends Controller
         return view('admin.rider.create'); 
     }
 
+    public function data()
+    {
+        $rider = Rider::get(['id', 'id_number', 'first_name', 'gender', 'ph_number', 'created_at']);
+
+        return DataTables::of($rider)
+            ->editColumn('created_at', function (Rider $createtime) {
+                return $createtime->created_at->diffForHumans();
+            })
+            ->addColumn('actions', function ($user) {
+                $actions = '<a href=' . route('admin.rider.edit', $user->id) . '><i class="livicon" data-name="edit" data-size="18" data-loop="true" data-c="#428BCA" data-hc="#428BCA" title="update Rider"></i></a>';
+                $actions .= '<a href=' . route('admin.rider.confirm-delete', $user->id) . ' data-toggle="modal" data-target="#delete_confirm"><i class="livicon" data-name="remove-alt"
+                data-size="18" data-loop="true" data-c="#f56954"
+                data-hc="#f56954"
+                title="Delete Rider"></i></a>';
+
+                return $actions;
+            })
+            ->rawColumns(['actions'])
+            ->make(true);
+    }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -42,7 +68,7 @@ class RiderController extends Controller
             'first_name' => 'required | max:50',
             'second_name' => 'required | max:50',
             'third_name' => 'required | max:50',
-            'ph_number' => 'required | numeric',
+            'ph_number' => 'required | numeric | unique:riders',
             'gender' => 'required',
             'user_id' => 'required | numeric',
         ]);
@@ -126,6 +152,24 @@ class RiderController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $rider = Rider::find($id);
+        $rider->delete();
+        return redirect('admin/rider')->with('success', 'Rider Deleted');
+        
     }
+
+    public function getModalDelete(Rider $rider)
+    {
+        $model = 'rider';
+        $confirm_route = $error = null;
+        try {
+            $confirm_route = route('admin.rider.delete', ['id' => $rider->id]);
+            return view('admin.layouts.modal_confirmation', compact('error', 'model', 'confirm_route'));
+        } catch (GroupNotFoundException $e) {
+
+            // $error = trans('news/message.error.destroy', compact('id'));
+            return view('admin.layouts.modal_confirmation', compact('error', 'model', 'confirm_route'));
+        }
+    }
+
 }
