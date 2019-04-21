@@ -1,0 +1,158 @@
+html[dir=rtl] {
+  /* navbar section*/
+  .icon-section .list-inline .pull-right{
+    float: left !important;
+  }
+  .navbar.navbar-default.container .navbar-header{
+    float: right;
+    padding-right: 40px;
+  }
+  .tooltip.fade.bottom.in .tooltip-inner {
+    direction: ltr;
+  }
+  .navbar-nav .dropdown-menu:before{
+    right:115px;
+  }
+  .navbar-nav .dropdown-menu a:hover{
+    border-right: 2px solid #ef6f6c;
+    border-left:none;
+  }
+  /* login page */
+  .bg-light.animation.flipInX .forgot_pwd{
+    padding-right: 20px;
+  }
+  .omb_loginForm.bv-form .checkbox{
+    margin-top: 25px;
+  }
+  /* register page */
+  #reg_form .form-group.has-error .help-block{
+    text-align: right;
+    float: right !important;
+  }
+  /*forgot password*/
+  .omb_loginForm .form-group.has-error .help-block, .direction_right{
+    float: right;
+  }
+  .owl-wrapper-outer{
+    direction: ltr;
+  }
+  .frontend_navbar{
+    float: right;
+  }
+  .right_float{
+    float: right;
+  }
+  .left_float .btn.btn-primary.purchase-styl.pull-right{
+    float:left !important;
+    margin-left:15px;
+  }
+  .list-unstyled.pull-right.text-right.layout-styl li{
+    text-align: right;
+  }
+  #tab_content ul{
+    padding-right:0;
+  }
+  #tab_content ul li{
+    float:right;
+  }
+  .col-md-6.col-sm-6.wow.zoomInRight .text-left, .col-md-6.col-sm-6.wow.zoomInLeft.right_float .text-left{
+   text-align: right;
+  }
+  .row.features a.right_float{
+    float:right;
+  }
+  footer .col-sm-4.right_float .pull-right, .left_float{
+    float: left !important;
+  }
+  #footer_part{
+    padding-right: 0;
+  }
+  .frontend_navbar.dropdown .dropdown-menu li{
+    text-align: right;
+  }
+  .tabs_content li, .col-md-8.right_float .col-sm-6.news-body{
+    float: right;
+  }
+  .tabs_content{
+    padding-right:0;
+  }
+  .col-md-8.right_float .border-warning, .col-sm-12.mt-20 .border-danger{
+    text-align: right;
+  }
+  #livicon-9{
+    left:5px !important;
+  }
+  .news_padng ul, .the-box.recent ul{
+    padding-right: 0;
+  }
+  .blog_tabs .tab-pane .text-right.primary{
+    text-align: left;
+  }
+  .media-list.media-xs.media-dotted .media .pull-left{
+    float: right !important;
+  }
+
+  .media-top .box-icon>i{
+    left:-7px;
+  }
+  #address_margt address, .media.padleft10 .media-body.padbtm2{
+    direction:ltr;
+    text-align:right;
+  }
+  .box .text-right.primary, .box_read .text-right.primary{
+   text-align: left !important;
+  }
+  /* typography*/
+  .right_align{
+   text-align: right;
+  }
+  .left_align{
+    text-align: left;
+  }
+  .admn_feat blockquote{
+    border-left: none;
+    border-right: 2px solid #ef6f6c;
+  }
+  .panel_heading{
+    margin-right: 15px;
+  }
+  .prod_tabs{
+    padding-right: 25px;
+    padding-left:0;
+  }
+  .text-big3{
+    margin-left:10px;
+    margin-right: 0;
+    float:right !important;
+  }
+  .prod_tabs1{
+   text-align: right;
+    padding-right: 20px;
+  }
+  .prod_tabs1 li{
+    direction: ltr;
+  }
+  .left_paginate {
+    float: left !important;
+    padding-left: 20px;
+  }
+  .more_items{
+    text-align: left;
+  }
+  #single_portfolio_title{
+    padding-right: 25px;
+  }
+  #gallery .fa.fa-link{
+    right:-95%;
+    padding:7px 6px 0 8px;
+  }
+  #gallery .fa.fa-search-plus{
+    right: -175%;
+    padding:7px 6px 0 8px;
+  }
+  .more_items{
+    float: left;
+    padding-left:20px;
+  }
+
+}
