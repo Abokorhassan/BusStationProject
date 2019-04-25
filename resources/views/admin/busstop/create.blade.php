@@ -3,7 +3,7 @@
 {{-- Page title --}}
 @section('title')
     {{-- @lang('news/title.add-news') :: @parent --}}
-    Add Station
+    Add Bus Stop
 @stop
 
 {{-- page level styles --}}
@@ -27,7 +27,7 @@
 @section('content')
     <section class="content-header">
       <!--section starts-->
-      <h1>Add New Station</h1>
+      <h1>Add New Bus Stop</h1>
       <ol class="breadcrumb">
         <li>
             <a href="{{ route('admin.dashboard') }}"> <i class="livicon" data-name="home" data-size="14"
@@ -36,9 +36,9 @@
             </a>
         </li>
         <li>
-            <a href="#">Station</a>
+            <a href="#">Bus Stop</a>
         </li>
-        <li class="active">Add New Station</li>
+        <li class="active">Add New Bus Stop</li>
       </ol>
     </section>
     <!--section ends-->
@@ -51,7 +51,7 @@
                     <h3 class="panel-title">
                       <i class="livicon" data-name="user-add" data-size="18" data-c="#fff" data-hc="#fff" data-loop="true">
                       </i>
-                      Add New Station
+                      Add New Bus Stop
                     </h3>
                     <span class="pull-right clickable">
                       <i class="glyphicon glyphicon-chevron-up">
@@ -60,12 +60,25 @@
                   </div>
                   <div class="panel-body">
                     <!--main content-->
-                    <form id="commentForm" action="{{ route('admin.station.store') }}"
+                    <form id="commentForm" action="{{ route('admin.busstop.store') }}"
                           method="POST" class="form-horizontal">
                         <!-- CSRF Token -->
                         <input type="hidden" name="_token" value="{{ csrf_token() }}" />
                           <div id="rootwizard">
                             <h2 class="hidden">&nbsp;</h2>
+
+                            <div class="form-group {{ $errors->first('bstop_num', 'has-error') }}">
+                              <label for="bstop_num" class="col-sm-2 control-label">Bus Stop Number *
+                              </label>
+                              <div class="col-sm-10">
+                                <input id="bstop_num" name="bstop_num" placeholder="Bus Stop Number" type="text"
+                                        class="form-control required " value="{!! old('bstop_num') !!}"/>
+                                {!! $errors->first('bstop_num', '
+                                <span class="help-block">:message
+                                </span>') !!}
+                              </div>
+                            </div>
+                            
                             <div class="form-group {{ $errors->first('name', 'has-error') }}">
                               <label for="name" class="col-sm-2 control-label">Name *
                               </label>
@@ -102,9 +115,46 @@
                                 </span>') !!}
                               </div>
                             </div>
+
+                            <div class="form-group {{ $errors->first('user_id', 'has-error') }}">
+                              <label for="user_id" class="col-sm-2 control-label">User Id *
+                              </label>
+                              <div class="col-sm-10">
+                                <input id="user_id" name="user_id" placeholder="User Id" type="text"
+                                        class="form-control required " value="{!! old('user_id') !!}"/>
+                                {!! $errors->first('user_id', '
+                                <span class="help-block">:message
+                                </span>') !!}
+                              </div>
+                            </div>
+
+                            <div class="form-group {{ $errors->first('route_id', 'has-error') }}">
+                              <label for="route_id" class="col-sm-2 control-label">Route Id *
+                              </label>
+                              <div class="col-sm-10">
+                                <input id="user_id" name="route_id" placeholder="Route Id" type="text"
+                                        class="form-control required " value="{!! old('route_id') !!}"/>
+                                {!! $errors->first('route_id', '
+                                <span class="help-block">:message
+                                </span>') !!}
+                              </div>
+                            </div>
+
+                            <div class="form-group {{ $errors->first('station_id', 'has-error') }}">
+                              <label for="station_id" class="col-sm-2 control-label">Station Id *
+                              </label>
+                              <div class="col-sm-10">
+                                <input id="station_id" name="station_id" placeholder="Station Id" type="text"
+                                        class="form-control required " value="{!! old('station_id') !!}"/>
+                                {!! $errors->first('station_id', '
+                                <span class="help-block">:message
+                                </span>') !!}
+                              </div>
+                            </div>
+
                             <div class="form-group">
                                     <div class="col-sm-offset-2 col-sm-4 btn_rtl">
-                                        <a class="btn btn-danger" href="{{ route('admin.station.index') }}">
+                                        <a class="btn btn-danger" href="{{ route('admin.busstop.index') }}">
                                             @lang('button.cancel')
                                         </a>
                                         <button type="submit" class="btn btn-success">

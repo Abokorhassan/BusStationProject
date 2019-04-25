@@ -2,17 +2,16 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Station;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-
+use App\Busstop;
 use DOMDocument;
 use Intervention\Image\Facades\Image;
 use Response;
 use Sentinel;
 use Yajra\DataTables\DataTables;
 
-class StationController extends Controller
+class BusstopController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -21,24 +20,24 @@ class StationController extends Controller
      */
     public function index()
     {
-        $station = Station::all();
-        return view('admin.station.index', compact('station'));
+        $busstops = Busstop::all();
+        return view('admin.busstop.index', compact('busstops'));
     }
 
     public function data()
     {
-        $station = Station::get(['id', 'name', 'lat', 'long', 'created_at']);
+        $busstop = Busstop::get(['id','bstop_num', 'name', 'lat', 'long', 'user_id', 'route_id', 'station_id', 'created_at']);
 
-        return DataTables::of($station)
-            ->editColumn('created_at', function (Station $createtime) {
+        return DataTables::of($busstop)
+            ->editColumn('created_at', function (Busstop $createtime) {
                 return $createtime->created_at->diffForHumans();
             })
             ->addColumn('actions', function ($user) {
-                $actions = '<a href=' . route('admin.station.edit', $user->id) . '><i class="livicon" data-name="edit" data-size="18" data-loop="true" data-c="#428BCA" data-hc="#428BCA" title="update station"></i></a>';
-                $actions .= '<a href=' . route('admin.station.confirm-delete', $user->id) . ' data-toggle="modal" data-target="#delete_confirm"><i class="livicon" data-name="remove-alt"
+                $actions = '<a href=' . route('admin.busstop.edit', $user->id) . '><i class="livicon" data-name="edit" data-size="18" data-loop="true" data-c="#428BCA" data-hc="#428BCA" title="update Bus Stop"></i></a>';
+                $actions .= '<a href=' . route('admin.busstop.confirm-delete', $user->id) . ' data-toggle="modal" data-target="#delete_confirm"><i class="livicon" data-name="remove-alt"
                 data-size="18" data-loop="true" data-c="#f56954"
                 data-hc="#f56954"
-                title="Delete station"></i></a>';
+                title="Delete Bus Stop"></i></a>';
 
                 return $actions;
             })
@@ -53,7 +52,7 @@ class StationController extends Controller
      */
     public function create()
     {
-        return view('admin.station.create');   
+        return view('admin.busstop.create');  
     }
 
     /**
@@ -65,18 +64,26 @@ class StationController extends Controller
     public function store(Request $request)
     {
         $this->validate($request,[
+            'bstop_num' => 'required | max:25',
             'name' => 'required | max:25',
             'latitude' => 'required | numeric',
             'longitude' => 'required | numeric',
+            'user_id' => 'required | numeric',
+            'route_id' => 'required | numeric',
+            'station_id' => 'required | numeric',
         ]);
 
-        $station = new Station();
-        $station->name = $request->input('name');
-        $station->lat = $request->input('latitude');
-        $station->long = $request->input('longitude');
-        $station->save();
+        $busstop = new Busstop();
+        $busstop->bstop_num = $request->input('bstop_num');
+        $busstop->name = $request->input('name');
+        $busstop->lat = $request->input('latitude');
+        $busstop->long = $request->input('longitude');
+        $busstop->user_id = $request->input('user_id');
+        $busstop->route_id = $request->input('route_id');
+        $busstop->station_id = $request->input('station_id');
+        $busstop->save();
 
-        return redirect('admin/station')->with('success', 'station Created');
+        return redirect('admin/busstop')->with('success', 'Bus Stop Created');
     }
 
     /**
@@ -98,8 +105,8 @@ class StationController extends Controller
      */
     public function edit($id)
     {
-        $station = Station::find($id);
-        return view('admin.station.edit', compact('station'));
+        $busstop = Busstop::find($id);
+        return view('admin.busstop.edit', compact('busstop'));    
     }
 
     /**
@@ -115,15 +122,21 @@ class StationController extends Controller
             'name' => 'required | max:25',
             'latitude' => 'required | numeric',
             'longitude' => 'required | numeric',
+            'user_id' => 'required | numeric',
+            'route_id' => 'required | numeric',
+            'station_id' => 'required | numeric',
         ]);
 
-        $station = Station::find($id);
-        $station->name = $request->input('name');
-        $station->lat = $request->input('latitude');
-        $station->long = $request->input('longitude');
-        $station->save();
+        $busstop = Busstop::find($id);
+        $busstop->name = $request->input('name');
+        $busstop->lat = $request->input('latitude');
+        $busstop->long = $request->input('longitude');
+        $busstop->user_id = $request->input('user_id');
+        $busstop->route_id = $request->input('route_id');
+        $busstop->station_id = $request->input('station_id');
+        $busstop->save();
 
-        return redirect('admin/station')->with('success', 'station Updated');
+        return redirect('admin/busstop')->with('success', 'Bus Stop Update');
     }
 
     /**
@@ -134,18 +147,18 @@ class StationController extends Controller
      */
     public function destroy($id)
     {
-        $station = Station::find($id);
-        $station->delete();
-        return redirect('admin/station')->with('success', 'Station Deleted');
-
+        $busstop = Busstop::find($id);
+        $busstop->delete();
+        return redirect('admin/busstop')->with('success', 'Bus Stop Deleted');
+ 
     }
 
-    public function getModalDelete(Station $station)
+    public function getModalDelete(Busstop $busstop)
     {
-        $model = 'station';
+        $model = 'busstop';
         $confirm_route = $error = null;
         try {
-            $confirm_route = route('admin.station.delete', ['id' => $station->id]);
+            $confirm_route = route('admin.busstop.delete', ['id' => $busstop->id]);
             return view('admin.layouts.modal_confirmation', compact('error', 'model', 'confirm_route'));
         } catch (GroupNotFoundException $e) {
 

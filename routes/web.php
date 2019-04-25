@@ -154,6 +154,15 @@ Route::group(['prefix' => 'admin','namespace'=>'Admin', 'middleware' => 'admin',
 
     Route::resource('reserve', 'ReserveController');
 
+    // Busstop Management
+    Route::group(['prefix' => 'busstop'], function () {
+        Route::get('data', 'BusstopController@data')->name('busstop.data');
+        Route::get('{busstop}/delete', 'BusstopController@destroy')->name('busstop.delete');
+        Route::get('{busstop}/confirm-delete', 'BusstopController@getModalDelete')->name('busstop.confirm-delete');
+    });
+
+    Route::resource('busstop', 'BusstopController');
+
 
     // news Managment
     Route::group(['prefix' => 'news'], function () {
