@@ -2,7 +2,7 @@
 
 {{-- Page title --}}
 @section('title')
-    Edit Rider
+    Edit Reserved Seat
     @parent
 @stop
 
@@ -28,9 +28,9 @@
                 </a>
             </li>
             <li>
-                <a href="#">Rider</a>
+                <a href="#">Bus Reservation</a>
             </li>
-            <li class="active">Add New Rider</li>
+            <li class="active">Edit Reserved Seat</li>
         </ol>
     </section>
     <!--section ends-->
@@ -42,7 +42,7 @@
                 <h3 class="panel-title">
                   <i class="livicon" data-name="user-add" data-size="18" data-c="#fff" data-hc="#fff" data-loop="true">
                   </i>
-                  Add New Rider
+                  Edit Reserved Seat
                 </h3>
                 <span class="pull-right clickable">
                   <i class="glyphicon glyphicon-chevron-up">
@@ -51,7 +51,7 @@
               </div>
               <div class="panel-body">
                 <!--main content-->
-                {!! Form::model($rider, ['url' => URL::to('admin/rider/' . $rider->id), 'method' => 'put', 'class' => 'form-horizontal', 'files'=> true]) !!}
+                {!! Form::model($reserve, ['url' => URL::to('admin/reserve/' . $reserve->id), 'method' => 'put', 'class' => 'form-horizontal', 'files'=> true]) !!}
                 {{-- <form id="commentForm" action="{{ route('admin.bus.store') }}"
                       method="POST" class="form-horizontal"> --}}
 
@@ -86,7 +86,7 @@
                                   <label for="second_name" class="col-sm-2 control-label">Second Name *
                                   </label>
                                   <div class="col-sm-10">
-                                        {!! Form::text('second_name', $rider->last_name, array('class' => 'form-control required', 'placeholder'=>'Second Name')) !!}
+                                        {!! Form::text('second_name', $reserve->last_name, array('class' => 'form-control required', 'placeholder'=>'Second Name')) !!}
                                     {!! $errors->first('second_name', '
                                     <span class="help-block">:message
                                     </span>') !!}
@@ -104,23 +104,34 @@
                                   </div>
                                 </div>
 
-                                <div class="form-group {{ $errors->first('gender', 'has-error') }}">
-                                  <label for="gender" class="col-sm-2 control-label">Gender *
-                                  </label>
-                                  <div class="col-sm-10">
-                                        {!! Form::text('gender', null, array('class' => 'form-control required', 'placeholder'=>'gender')) !!}
-                                    {!! $errors->first('gender', '
-                                    <span class="help-block">:message
-                                    </span>') !!}
-                                  </div>
-                                </div>
-
                                 <div class="form-group {{ $errors->first('ph_number', 'has-error') }}">
                                   <label for="ph_number" class="col-sm-2 control-label">Phone Number *
                                   </label>
                                   <div class="col-sm-10">
                                         {!! Form::text('ph_number', null, array('class' => 'form-control required', 'placeholder'=>'phone number')) !!}
                                     {!! $errors->first('ph_number', '
+                                    <span class="help-block">:message
+                                    </span>') !!}
+                                  </div>
+                                </div>
+
+                                <div class="form-group {{ $errors->first('bus_id', 'has-error') }}">
+                                  <label for="bus_id" class="col-sm-2 control-label">Bus Id *
+                                  </label>
+                                  <div class="col-sm-10">
+                                        {!! Form::text('bus_id', null, array('class' => 'form-control required', 'placeholder'=>'Bus Id')) !!}
+                                    {!! $errors->first('bus_id', '
+                                    <span class="help-block">:message
+                                    </span>') !!}
+                                  </div>
+                                </div>
+
+                                <div class="form-group {{ $errors->first('station_id', 'has-error') }}">
+                                  <label for="station_id" class="col-sm-2 control-label">Station Id *
+                                  </label>
+                                  <div class="col-sm-10">
+                                        {!! Form::text('station_id', null, array('class' => 'form-control required', 'placeholder'=>'Station Id')) !!}
+                                    {!! $errors->first('station_id', '
                                     <span class="help-block">:message
                                     </span>') !!}
                                   </div>
@@ -139,7 +150,7 @@
 
                                 <div class="form-group">
                                         <div class="col-sm-offset-2 col-sm-4 btn_rtl">
-                                            <a class="btn btn-danger" href="{{ route('admin.resrve.index') }}">
+                                            <a class="btn btn-danger" href="{{ route('admin.reserve.index') }}">
                                                 @lang('button.cancel')
                                             </a>
                                             <button type="submit" class="btn btn-success">

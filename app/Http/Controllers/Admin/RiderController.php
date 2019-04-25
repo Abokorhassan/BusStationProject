@@ -154,8 +154,7 @@ class RiderController extends Controller
     {
         $rider = Rider::find($id);
         $rider->delete();
-        return redirect('admin/rider')->with('success', 'Rider Deleted');
-        
+        return redirect('admin/rider')->with('success', 'Rider Deleted');   
     }
 
     public function getModalDelete(Rider $rider)
