@@ -2,7 +2,7 @@
 
 {{-- Page title --}}
 @section('title')
-    Bus Stop Lists
+    Accident Lists
     @parent
 @stop
 
@@ -16,15 +16,15 @@
 {{-- Page content --}}
 @section('content')
     <section class="content-header">
-        <h1>Bus Stop</h1>
+        <h1>Accident</h1>
         <ol class="breadcrumb">
             <li>
                 <a href="{{ route('admin.dashboard') }}"> <i class="livicon" data-name="home" data-size="16" data-color="#000"></i>
                     Dashboard 
                 </a>
             </li>
-            <li><a href="#">Bus Stop</a></li>
-            <li class="active">Bus Stop Lists</li>
+            <li><a href="#">Accident</a></li>
+            <li class="active">Accident Lists</li>
         </ol>
     </section>
 
@@ -35,10 +35,10 @@
                 <div class="panel-heading clearfix">
                     <h4 class="panel-title pull-left"><i class="livicon" data-name="users" data-size="16"
                         data-loop="true" data-c="#fff" data-hc="white"></i>
-                    Bus Stop list
+                    Accident list
                     </h4>
                     <div class="pull-right">
-                        <a href="{{ URL::to('admin/busstop/create') }}" class="btn btn-sm btn-default"><span
+                        <a href="{{ URL::to('admin/accident/create') }}" class="btn btn-sm btn-default"><span
                                     class="glyphicon glyphicon-plus"></span> @lang('button.create')</a>
                     </div>
                 </div>
@@ -48,8 +48,8 @@
                         <table class="table table-bordered" id="table">
                             <thead>
                                 <tr class="filters">
-                                    <th>Bstop Number</th>
-                                    <th>Name</th>
+                                    <th>Driver</th>
+                                    <th>Bus</th>
                                     <th>Latitude</th>
                                     <th>Longitude</th>
                                     <th>User</th>
@@ -80,12 +80,12 @@
             var table = $('#table').DataTable({
                 processing: true,
                 serverSide: true,
-                ajax: '{!! route('admin.busstop.data') !!}',
+                ajax: '{!! route('admin.accident.data') !!}',
                 columns: [
-                    { data: 'bstop_num', name: 'bstop_num' },
-                    { data: 'name', name: 'name' },
-                    { data: 'lat', name: 'lat' },
-                    { data: 'long', name: 'long' },
+                    { data: 'driver_id', name: 'driver_id' },
+                    { data: 'bus_id', name: 'bus_id' },
+                    { data: 'acc_lat', name: 'acc_lat' },
+                    { data: 'acc_long', name: 'acc_long' },
                     { data: 'user_id', name: 'user_id' },
                     { data: 'route_id', name: 'route_id' },
                     { data: 'station_id', name: 'station_id' },

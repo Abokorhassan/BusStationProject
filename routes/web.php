@@ -163,6 +163,15 @@ Route::group(['prefix' => 'admin','namespace'=>'Admin', 'middleware' => 'admin',
 
     Route::resource('busstop', 'BusstopController');
 
+    // Accident Management
+    Route::group(['prefix' => 'accident'], function () {
+        Route::get('data', 'AccidentController@data')->name('accident.data');
+        Route::get('{accident}/delete', 'AccidentController@destroy')->name('accident.delete');
+        Route::get('{accident}/confirm-delete', 'AccidentController@getModalDelete')->name('accident.confirm-delete');
+    });
+
+    Route::resource('accident', 'AccidentController');
+
 
     // news Managment
     Route::group(['prefix' => 'news'], function () {
