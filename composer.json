@@ -54,6 +54,7 @@
             "Tests\\": "tests/"
         }
 
+
     },
     "extra": {
         "laravel": {
