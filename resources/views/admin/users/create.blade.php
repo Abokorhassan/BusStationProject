@@ -66,10 +66,6 @@
                             </a>
                           </li>
                           <li>
-                            <a href="#tab3" data-toggle="tab">Address
-                            </a>
-                          </li>
-                          <li>
                             <a href="#tab4" data-toggle="tab">User Group
                             </a>
                           </li>
@@ -176,22 +172,7 @@
                                 </span>
                               </div>
                             </div>
-                            <div class="form-group">
-                              <label for="bio" class="col-sm-2 control-label bio">Bio 
-                                <small>(brief intro) *
-                                </small>
-                              </label>
-                              <div class="col-sm-10">
-                                <textarea name="bio" id="bio" class="form-control resize_vertical"
-                                          rows="4">{!! old('bio') !!}
-                                </textarea>
-                              </div>
-                              {!! $errors->first('bio', '
-                              <span class="help-block">:message
-                              </span>') !!}
-                            </div>
-                          </div>
-                          <div class="tab-pane" id="tab3" disabled="disabled">
+                            
                             <div class="form-group {{ $errors->first('gender', 'has-error') }}">
                               <label for="email" class="col-sm-2 control-label">Gender *
                               </label>
@@ -214,35 +195,7 @@
                               <span class="help-block">{{ $errors->first('gender', ':message') }}
                               </span>
                             </div>
-                            <div class="form-group {{ $errors->first('country', 'has-error') }}">
-                              <label for="country" class="col-sm-2 control-label">Country
-                              </label>
-                              <div class="col-sm-10">
-                                {!! Form::select('country', $countries, null,['class' => 'form-control select2', 'id' => 'countries']) !!}
-                              </div>
-                              <span class="help-block">{{ $errors->first('country', ':message') }}
-                              </span>
-                            </div>
-                            <div class="form-group">
-                              <label for="state" class="col-sm-2 control-label">State
-                              </label>
-                              <div class="col-sm-10">
-                                <input id="state" name="state" type="text" class="form-control"
-                                       value="{!! old('state') !!}"/>
-                              </div>
-                              <span class="help-block">{{ $errors->first('state', ':message') }}
-                              </span>
-                            </div>
-                            <div class="form-group">
-                              <label for="city" class="col-sm-2 control-label">City
-                              </label>
-                              <div class="col-sm-10">
-                                <input id="city" name="city" type="text" class="form-control"
-                                       value="{!! old('city') !!}"/>
-                              </div>
-                              <span class="help-block">{{ $errors->first('city', ':message') }}
-                              </span>
-                            </div>
+
                             <div class="form-group">
                               <label for="address" class="col-sm-2 control-label">Address
                               </label>
@@ -253,17 +206,9 @@
                               <span class="help-block">{{ $errors->first('address', ':message') }}
                               </span>
                             </div>
-                            <div class="form-group">
-                              <label for="postal" class="col-sm-2 control-label">Postal/zip
-                              </label>
-                              <div class="col-sm-10">
-                                <input id="postal" name="postal" type="text" class="form-control"
-                                       value="{!! old('postal') !!}"/>
-                              </div>
-                              <span class="help-block">{{ $errors->first('postal', ':message') }}
-                              </span>
-                            </div>
+
                           </div>
+
                           <div class="tab-pane" id="tab4" class="last_tab" disabled="disabled">
                             <p class="text-danger">
                               <strong>Be careful with group selection, if you give admin access.. they can access admin section

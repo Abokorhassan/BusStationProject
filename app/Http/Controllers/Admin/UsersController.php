@@ -262,7 +262,7 @@ class UsersController extends JoshController
                     ->causedBy($user)
                     ->log('User Updated by '.Sentinel::getUser()->full_name);
                 // Redirect to the user page
-                return Redirect::route('admin.users.edit', $user)->with('success', $success);
+                return Redirect::route('admin.users.index', $user)->with('success', $success);
             }
 
             // Prepare the error message
