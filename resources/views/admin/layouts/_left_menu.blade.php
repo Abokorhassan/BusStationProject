@@ -11,9 +11,10 @@
       {{-- Stations --}}
     <li {!! (Request::is('admin/station') || Request::is('admin/station/create') || Request::is('admin/station/*')   ? 'class="active"' : '') !!}>
         <a href="#">
-            <i class="livicon" data-name="user" data-size="18" data-c="#6CC66C" data-hc="#6CC66C"
-               data-loop="true"></i>
-            <span class="title">Station</span>
+            {{-- <i class="livicon" data-name="user" data-size="18" data-c="#6CC66C" data-hc="#6CC66C"
+               data-loop="true"></i> --}}
+            <i style="margin-top: -2%;" class="livicon" data-name="sitemap" data-size="21" data-c="#f4425f" data-hc="#fff" data-loop="true"></i>
+            <span  class="title">Station</span>
             <span class="fa arrow"></span>
         </a>
         <ul class="sub-menu">
@@ -35,10 +36,9 @@
 
           {{-- Buses --}}
     <li {!! (Request::is('admin/bus') || Request::is('admin/bus/create') || Request::is('admin/bus/*')   ? 'class="active"' : '') !!}>
-        <a href="#">
-            <i class="livicon" data-name="user" data-size="18" data-c="#6CC66C" data-hc="#6CC66C"
-               data-loop="true"></i>
-            <span class="title">Bus</span>
+        <a style="margin-left: -1%;" href="#">
+            <img style="margin-top: -2%;"  src="https://img.icons8.com/color/23/000000/bus.png">
+            <span style="margin-left: 2%" class="title">Bus</span>
             <span class="fa arrow"></span>
         </a>
         <ul class="sub-menu">
@@ -60,10 +60,9 @@
 
     {{-- Driver --}}
     <li {!! (Request::is('admin/driver') || Request::is('admin/driver/create') || Request::is('admin/driver/*')   ? 'class="active"' : '') !!}>
-        <a href="#">
-            <i class="livicon" data-name="user" data-size="18" data-c="#6CC66C" data-hc="#6CC66C"
-               data-loop="true"></i>
-            <span class="title">Driver</span>
+        <a style="margin-left: -2%;" href="#">
+            <img style="margin-top: -4%;" src="https://img.icons8.com/color/25/000000/driver.png">
+            <span style="margin-left: 2%" class="title">Driver</span>
             <span class="fa arrow"></span>
         </a>
         <ul class="sub-menu">
@@ -85,10 +84,9 @@
 
     {{-- Rider --}}
     <li {!! (Request::is('admin/rider') || Request::is('admin/rider/create') || Request::is('admin/rider/*')   ? 'class="active"' : '') !!}>
-        <a href="#">
-            <i class="livicon" data-name="user" data-size="18" data-c="#6CC66C" data-hc="#6CC66C"
-               data-loop="true"></i>
-            <span class="title">Rider</span>
+        <a style="margin-left: -2%;" href="#">
+            <img style="margin-top: -4%;" src="https://img.icons8.com/color/26/000000/passenger.png">
+            <span style="margin-left: 2%" class="title">Rider</span>
             <span class="fa arrow"></span>
         </a>
         <ul class="sub-menu">
@@ -110,11 +108,10 @@
 
     {{-- Reserve --}}
     <li {!! (Request::is('admin/reserve') || Request::is('admin/reserve/create') || Request::is('admin/reserve/*')   ? 'class="active"' : '') !!}>
-        <a href="#">
-            <i class="livicon" data-name="user" data-size="18" data-c="#6CC66C" data-hc="#6CC66C"
-               data-loop="true"></i>
-            <span class="title">Bus Reservation</span>
-            <span class="fa arrow"></span>
+        <a style="margin-left: -1%;" href="#">
+            <img style="margin-top: -4%;"  src="https://img.icons8.com/color/25/000000/ticket-purchase.png">
+            <span style="margin-left: 2%" class="title">Bus Reservation</span>
+            <span  class="fa arrow"></span>
         </a>
         <ul class="sub-menu">
             <li {!! (Request::is('admin/reserve') ? 'class="active" id="active"' : '') !!}>
@@ -135,10 +132,9 @@
 
     {{-- Bus Stop --}}
     <li {!! (Request::is('admin/busstop') || Request::is('admin/busstop/create') || Request::is('admin/busstop/*')   ? 'class="active"' : '') !!}>
-        <a href="#">
-            <i class="livicon" data-name="user" data-size="18" data-c="#6CC66C" data-hc="#6CC66C"
-               data-loop="true"></i>
-            <span class="title">Bus Stop</span>
+        <a style="margin-left: -1%;" href="#">
+           <img style="margin-top: -3%;" width="10%" src="{{ asset('assets/img/bus-stop.png') }}" alt="">
+            <span style="margin-left: 3%" class="title">Bus Stop</span>
             <span class="fa arrow"></span>
         </a>
         <ul class="sub-menu">
@@ -160,10 +156,9 @@
 
     {{-- Accident --}}
     <li {!! (Request::is('admin/accident') || Request::is('admin/accident/create') || Request::is('admin/accident/*')   ? 'class="active"' : '') !!}>
-        <a href="#">
-            <i class="livicon" data-name="user" data-size="18" data-c="#6CC66C" data-hc="#6CC66C"
-               data-loop="true"></i>
-            <span class="title">Accident</span>
+        <a style="margin-left: -1%;" href="#">
+            <img  style="margin-top: -2%;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABkAAAAZCAYAAADE6YVjAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAABzQAAAc0BnvLTTgAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAAN9SURBVEiJvZVfbFNlFMB/57tdq1NBMQhthxqJCWGuihEBY8gGXdHEDCNJIcbgtnag8mZiwsNMwHdNNOGhrkU0PjWSKChZaMsCMWqMZgbxAUxEAm3FkGWZM3Htvff4wFpu62hdNJyne/7c8zvnfOfeD26BSCtndzbrn14286kKT6B8ds/Ukn0/xeOV/xUSymcSoGkAVdmD0fOiugeRHzDOkVLf3mv/GRLOZ75VdD1o0Reo9thz/ovA0nn3HMJRhVR5a/JM6FRmAFc/FvRgMTrytjePaQVR9OH5WjJOJbDTAwAIoLwoyulQPjOO2F+BnFbkzeY8bSDsB6ZwTFpV97aI3IZjHXOcSgJhdFGQcjSZKllXVhifGwQe87h+VlfWC/KUx7bJsnz5jqpzdFEQAPoO2K4rr3iqLhqbjeVY4jtRM+uJHAf5xPZZX64qpFYvCvLgxAd3I7qzjhDJXnkmOQWg2MOe0FQpmnxL0Xcctc6ET75f79zXDlJx7N0gnTVdlNiqk5mQIzykosladyWr+DlAKTpyKFhIz2BMDtX7ENG2EJDmA+92jBYbQ+QEfQfsmuraTFoWvyOi0GZcwUJ6M7C2bRnoJa9uGSLA2ZreEiLQYm1viIr5senFiCJ1200hK08cXo6y418wZit+JhqgSo+ItoeYDh0EAq2yC/wiSOza04k/GuxCxDVWG4iqIK2+cFD0I+lc8kgxmvjaa+8aTy8D7vqtd7B+Tj6A5ROH7vQ5geMCawT266nDZWC1J+MxDLMou+YLu1CeWjpMNO78g25pBJVztc2qQzrs215FtPd6r3pZYJ/eeO2LUn9yO0A4n3YVXgKuEo87XfmxiItkRXWw2D/yDYBrZAOezapDEB2a1y8I/vOuVgc8MecAunJjvS4SAgXoCefTL7vKKIacIsfDE2PrXEdGUQZE9QUvpHYmndenwhF1q0N4/wTKumAhvdkVyYNuqcUrvI4hV9qafM3BbDBV4wrE/Za1ttZVQydqdIe4ctAoZ1VINsxYiIkSa7Apk6X+5EaAlYXMs8Z1HrWFBwQz+Wvf0DRN4gMobxn5HngOIJgfmxFkE7CiOdgj79UeLNWEitwhwkWQNxYKXvD67c5m/dP3zmxXZRiI0bjqc8C7gAqEFR53HP+TV7ft/vNmFbW84wFCudT9iHkekdubfar8FbCsDxca0S2XvwFUMle0SdZ2YQAAAABJRU5ErkJggg==">
+            <span style="margin-left: 3%" class="title">Accident</span>
             <span class="fa arrow"></span>
         </a>
         <ul class="sub-menu">
@@ -329,7 +324,7 @@
     </li> --}}
 
     {{-- form_examples --}}
-    {{-- <li {!! (Request::is('admin/form_examples') || Request::is('admin/editor') || Request::is('admin/editor2')
+    <li {!! (Request::is('admin/form_examples') || Request::is('admin/editor') || Request::is('admin/editor2')
         || Request::is('admin/form_layout') || Request::is('admin/validation') || Request::is('admin/formelements') || Request::is('admin/dropdowns')
         || Request::is('admin/radio_checkbox') || Request::is('admin/ratings') || Request::is('admin/form_layouts') || Request::is('admin/formwizard')
         || Request::is('admin/accordionformwizard') || Request::is('admin/datepicker') | Request::is('admin/advanced_datepickers')? 'class="active"' : '') !!}>
@@ -420,10 +415,10 @@
                 </a>
             </li>
         </ul>
-    </li> --}}
+    </li>
 
     {{-- UI Features  --}}
-    {{-- <li {!! (Request::is('admin/animatedicons') || Request::is('admin/buttons') || Request::is('admin/advanced_buttons') || Request::is('admin/tabs_accordions') || Request::is('admin/panels') || Request::is('admin/icon') || Request::is('admin/color') || Request::is('admin/grid') || Request::is('admin/carousel') || Request::is('admin/advanced_modals') || Request::is('admin/tagsinput') || Request::is('admin/nestable_list') || Request::is('admin/sortable_list') || Request::is('admin/toastr') || Request::is('admin/notifications')|| Request::is('admin/treeview_jstree')|| Request::is('admin/sweetalert') || Request::is('admin/session_timeout') || Request::is('admin/portlet_draggable') ? 'class="active"' : '') !!}>
+    <li {!! (Request::is('admin/animatedicons') || Request::is('admin/buttons') || Request::is('admin/advanced_buttons') || Request::is('admin/tabs_accordions') || Request::is('admin/panels') || Request::is('admin/icon') || Request::is('admin/color') || Request::is('admin/grid') || Request::is('admin/carousel') || Request::is('admin/advanced_modals') || Request::is('admin/tagsinput') || Request::is('admin/nestable_list') || Request::is('admin/sortable_list') || Request::is('admin/toastr') || Request::is('admin/notifications')|| Request::is('admin/treeview_jstree')|| Request::is('admin/sweetalert') || Request::is('admin/session_timeout') || Request::is('admin/portlet_draggable') ? 'class="active"' : '') !!}>
         <a href="#">
             <i class="livicon" data-name="brush" data-c="#F89A14" data-hc="#F89A14" data-size="18"
                data-loop="true"></i>
@@ -551,7 +546,7 @@
                 </a>
             </li>
         </ul>
-    </li> --}}
+    </li>
 
     {{-- UI Component --}}
     {{-- <li {!! (Request::is('admin/general') || Request::is('admin/pickers') || Request::is('admin/x-editable') || Request::is('admin/timeline') || Request::is('admin/transitions') || Request::is('admin/sliders') || Request::is('admin/knob') ? 'class="active"' : '') !!}>
