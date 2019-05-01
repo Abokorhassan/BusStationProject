@@ -3,7 +3,6 @@
 {{-- Page title --}}
 @section('title')
     Edit Station
-    @parent
 @stop
 
 {{-- page level styles --}}
@@ -20,7 +19,7 @@
 @section('content')
     <section class="content-header">
         <!--section starts-->
-        <h1>@lang('news/title.edit')</h1>
+        <h1>Station</h1>
         <ol class="breadcrumb">
             <li>
                 <a href="{{ route('admin.dashboard') }}"> <i class="livicon" data-name="home" data-size="14"
@@ -31,7 +30,7 @@
             <li>
                 <a href="#">Station</a>
             </li>
-            <li class="active">Add New Station</li>
+            <li class="active">Edit Station</li>
         </ol>
     </section>
     <!--section ends-->
@@ -41,9 +40,7 @@
             <div class="panel panel-primary">
               <div class="panel-heading">
                 <h3 class="panel-title">
-                  <i class="livicon" data-name="user-add" data-size="18" data-c="#fff" data-hc="#fff" data-loop="true">
-                  </i>
-                  Add New Station
+                 Edit Station
                 </h3>
                 <span class="pull-right clickable">
                   <i class="glyphicon glyphicon-chevron-up">

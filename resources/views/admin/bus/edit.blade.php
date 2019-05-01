@@ -3,7 +3,6 @@
 {{-- Page title --}}
 @section('title')
     Edit Bus
-    @parent
 @stop
 
 {{-- page level styles --}}
@@ -20,7 +19,7 @@
 @section('content')
     <section class="content-header">
         <!--section starts-->
-        <h1>@lang('news/title.edit')</h1>
+        <h1>Edit Bus</h1>
         <ol class="breadcrumb">
             <li>
                 <a href="{{ route('admin.dashboard') }}"> <i class="livicon" data-name="home" data-size="14"
@@ -31,7 +30,7 @@
             <li>
                 <a href="#">Bus</a>
             </li>
-            <li class="active">Add New Bus</li>
+            <li class="active">Edit Bus</li>
         </ol>
     </section>
     <!--section ends-->
@@ -41,7 +40,7 @@
             <div class="panel panel-primary">
               <div class="panel-heading">
                 <h3 class="panel-title">
-                  Add New Bus
+                  Edit Bus
                 </h3>
                 <span class="pull-right clickable">
                   <i class="glyphicon glyphicon-chevron-up">

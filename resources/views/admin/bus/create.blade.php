@@ -2,8 +2,7 @@
 
 {{-- Page title --}}
 @section('title')
-    {{-- @lang('news/title.add-news') :: @parent --}}
-    Add Test
+    Add Bus
 @stop
 
 {{-- page level styles --}}
@@ -28,7 +27,7 @@
 @section('content')
     <section class="content-header">
         <!--section starts-->
-        <h1>Add New Bus</h1>
+        <h1>Bus</h1>
         <ol class="breadcrumb">
             <li>
                 <a href="{{ route('admin.dashboard') }}"> <i class="livicon" data-name="home" data-size="14"

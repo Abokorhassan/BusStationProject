@@ -33,8 +33,8 @@
         <div class="row">
             <div class="panel panel-primary ">
                 <div class="panel-heading clearfix">
-                    <h4 class="panel-title pull-left"><i class="livicon" data-name="users" data-size="16"
-                        data-loop="true" data-c="#fff" data-hc="white"></i>
+                    <h4 class="panel-title pull-left">
+                            <i style="margin-top: -100em;" class="livicon" data-name="sitemap" data-size="19" data-c="#fff" data-hc="#fff" data-loop="true"></i>
                     Staions list
                     </h4>
                     <div class="pull-right">

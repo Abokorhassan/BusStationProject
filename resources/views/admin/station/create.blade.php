@@ -2,7 +2,6 @@
 
 {{-- Page title --}}
 @section('title')
-    {{-- @lang('news/title.add-news') :: @parent --}}
     Add Station
 @stop
 
@@ -27,7 +26,7 @@
 @section('content')
     <section class="content-header">
       <!--section starts-->
-      <h1>Add New Station</h1>
+      <h1>Station</h1>
       <ol class="breadcrumb">
         <li>
             <a href="{{ route('admin.dashboard') }}"> <i class="livicon" data-name="home" data-size="14"
@@ -49,8 +48,6 @@
                 <div class="panel panel-primary">
                   <div class="panel-heading">
                     <h3 class="panel-title">
-                      <i class="livicon" data-name="user-add" data-size="18" data-c="#fff" data-hc="#fff" data-loop="true">
-                      </i>
                       Add New Station
                     </h3>
                     <span class="pull-right clickable">
@@ -103,14 +100,14 @@
                               </div>
                             </div>
                             <div class="form-group">
-                                    <div class="col-sm-offset-2 col-sm-4 btn_rtl">
-                                        <a class="btn btn-danger" href="{{ route('admin.station.index') }}">
-                                            @lang('button.cancel')
-                                        </a>
-                                        <button type="submit" class="btn btn-success">
-                                            @lang('button.save')
-                                        </button>
-                                    </div>
+                              <div class="col-sm-offset-2 col-sm-4 btn_rtl">
+                                <a class="btn btn-danger" href="{{ route('admin.station.index') }}">
+                                    @lang('button.cancel')
+                                </a>
+                                <button type="submit" class="btn btn-success">
+                                    @lang('button.save')
+                                </button>
+                            </div>
                             </div>
                           </div>
                     </form>
