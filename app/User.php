@@ -51,4 +51,9 @@ class User extends EloquentUser {
 	public function tests() {
 		return $this->hasMany('App\Test');
 	}
+
+	public function bus()
+	{
+		return $this->hasMany(Bus::class);
+	}
 }

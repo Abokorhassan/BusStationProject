@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Bus;
+use App\Station;
 
 use DOMDocument;
 use Intervention\Image\Facades\Image;
@@ -28,9 +29,24 @@ class BusController extends Controller
 
     public function data()
     {
-        $bus = Bus::get(['id', 'model_type', 'bus_number', 'station_id', 'Driver_id', 'created_at']);
+        // $bus = Bus::get(['id', 'model_type', 'bus_number', 'station_id', 'Driver_id', 'created_at']);
 
-        return DataTables::of($bus)
+        return DataTables::of(Bus::query())
+
+            ->addColumn('User', function(Bus $bus){
+                return $bus->user->first_name;
+            })
+
+            ->addColumn('Station', function(Bus $bus){
+                return $bus->station->name;
+            })
+
+            ->addColumn('Driver', function(Bus $bus){
+                return $bus->driver->first_name
+                . ' ' . $bus->driver->last_name . ' ' . $bus->driver->third_name
+                ;
+            })
+
             ->editColumn('created_at', function (Bus $createtime) {
                 return $createtime->created_at->diffForHumans();
             })
@@ -54,7 +70,8 @@ class BusController extends Controller
      */
     public function create()
     {
-        return view('admin.bus.create');   
+        $stations = Station::select('id','name')->get();
+        return view('admin.bus.create', compact('stations'));   
     }
 
     /**
@@ -69,13 +86,13 @@ class BusController extends Controller
             'model_type' => 'required | max:50',
             'bus_number' => 'required | max:50|unique:buses',
             'Driver_id' => 'required | numeric',
-            'station_id' => 'required | numeric',
+            'station' => 'required | numeric',
         ]);   
         $bus = new Bus();
         $bus->model_type =$request->input('model_type');
         $bus->bus_number =$request->input('bus_number');
         $bus->Driver_id =$request->input('Driver_id');
-        $bus->station_id =$request->input('station_id');
+        $bus->station_id =$request->input('station');
         //$bus->user_id = auth()->user()->id;
         $bus->user_id = Sentinel::getUser()->id;
 
@@ -104,10 +121,10 @@ class BusController extends Controller
     public function edit($id)
     {
         $bus = Bus::find($id);
-        // if(auth()->user()->id !== $bus->user_id){
-        //     return redirect('bus')->with('error', 'You\'\re not allowed to edit this');
-        // }
-        return view('admin.bus.edit', compact('bus'));
+        $stations = Station::select('id','name')->get();
+        $options = $stations->pluck('name', 'id')->toArray();
+        // $selected = $stations->id;
+        return view('admin.bus.edit', compact('bus', 'stations', 'options'));
     }
 
     /**
@@ -120,17 +137,12 @@ class BusController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request,[
-            'model_type' => 'required | max:50',
             'bus_number' => 'required | max:50|',
             'Driver_id' => 'required | numeric',
             'station_id' => 'required | numeric',
         ]);    
         
         $bus = Bus::find($id);
-        $bus->model_type =$request->input('model_type');
-        // if($bus->bus_number !=$request->input('bus_number')){
-
-        // }
         $bus->bus_number =$request->input('bus_number');
         $bus->Driver_id =$request->input('Driver_id');
         $bus->station_id =$request->input('station_id');

@@ -32,9 +32,11 @@
         <div class="row">
             <div class="panel panel-primary ">
                 <div class="panel-heading clearfix">
-                    <h4 class="panel-title pull-left"><i class="livicon" data-name="users" data-size="16"
-                        data-loop="true" data-c="#fff" data-hc="white"></i>
-                    Bus lists
+                    <h4 class="panel-title pull-left">
+                        <a style="margin-left: -1%;" href="#">
+                            <img style="margin-top: -2%;"  src="https://img.icons8.com/color/23/000000/bus.png">
+                        </a>
+                        Bus lists
                     </h4>
                     <div class="pull-right">
                         <a href="{{ URL::to('admin/bus/create') }}" class="btn btn-sm btn-default"><span
@@ -50,8 +52,9 @@
                                     <th>ID</th>
                                     <th>Model Type</th>
                                     <th>Bus_Number</th>
-                                    <th>Driver_ID</th>
-                                    <th>Station_Id</th>
+                                    <th>Driver</th>
+                                    <th>Station</th>
+                                    <th>User</th>
                                     <th>Created_at</th>
                                     <th>Actions</th>
                                 </tr>
@@ -82,8 +85,9 @@
                     { data: 'id', name: 'id' },
                     { data: 'model_type', name: 'model_type' },
                     { data: 'bus_number', name: 'bus_number' },		
-                    { data: 'Driver_id', name: 'Driver_id' },
-                    { data: 'station_id', name: 'station_id' },
+                    { data: 'Driver', name: 'Driver' },
+                    { data: 'Station', name: 'Station' },
+                    { data: 'User', name: 'User'},
                     { data: 'created_at', name:'created_at'},
                     { data: 'actions', name: 'actions', orderable: false, searchable: false }
                 ]
