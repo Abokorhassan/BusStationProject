@@ -914,7 +914,7 @@
     </li> --}}
 
     {{-- news --}}
-    {{-- <li {!! (Request::is('admin/news') || Request::is('admin/news/*')  ? 'class="active"' : '') !!}>
+    <li {!! (Request::is('admin/news') || Request::is('admin/news/*')  ? 'class="active"' : '') !!}>
         <a href="#">
             <i class="livicon" data-name="move" data-c="#ef6f6c" data-hc="#ef6f6c" data-size="18"
                data-loop="true"></i>
@@ -935,7 +935,7 @@
                 </a>
             </li>
         </ul>
-    </li> --}}
+    </li>
 
     {{-- mini sidebar --}}
     {{-- <li {!! (Request::is('admin/minisidebar') ? 'class="active"' : '') !!}>
