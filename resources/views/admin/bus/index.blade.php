@@ -3,7 +3,6 @@
 {{-- Page title --}}
 @section('title')
     Bus Lists
-    @parent
 @stop
 
 {{-- page level styles --}}

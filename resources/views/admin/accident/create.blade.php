@@ -44,131 +44,131 @@
     <!--section ends-->
 
     <section class="content">
-            <div class="row">
-              <div class="col-md-12">
-                <div class="panel panel-primary">
-                  <div class="panel-heading">
-                    <h3 class="panel-title">
-                      <i class="livicon" data-name="user-add" data-size="18" data-c="#fff" data-hc="#fff" data-loop="true">
-                      </i>
-                      Add New Accident
-                    </h3>
-                    <span class="pull-right clickable">
-                      <i class="glyphicon glyphicon-chevron-up">
-                      </i>
-                    </span>
-                  </div>
-                  <div class="panel-body">
-                    <!--main content-->
-                    <form id="commentForm" action="{{ route('admin.accident.store') }}"
-                          method="POST" class="form-horizontal">
-                        <!-- CSRF Token -->
-                        <input type="hidden" name="_token" value="{{ csrf_token() }}" />
-                          <div id="rootwizard">
-                            <h2 class="hidden">&nbsp;</h2>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="panel panel-primary">
+              <div class="panel-heading">
+                <h3 class="panel-title">
+                  <i class="livicon" data-name="user-add" data-size="18" data-c="#fff" data-hc="#fff" data-loop="true">
+                  </i>
+                  Add New Accident
+                </h3>
+                <span class="pull-right clickable">
+                  <i class="glyphicon glyphicon-chevron-up">
+                  </i>
+                </span>
+              </div>
+              <div class="panel-body">
+                <!--main content-->
+                <form id="commentForm" action="{{ route('admin.accident.store') }}"
+                      method="POST" class="form-horizontal">
+                    <!-- CSRF Token -->
+                    <input type="hidden" name="_token" value="{{ csrf_token() }}" />
+                      <div id="rootwizard">
+                        <h2 class="hidden">&nbsp;</h2>
 
-                            <div class="form-group {{ $errors->first('driver_id', 'has-error') }}">
-                              <label for="driver_id" class="col-sm-2 control-label">Driver *
-                              </label>
-                              <div class="col-sm-10">
-                                <input id="driver_id" name="driver_id" placeholder="Driver" type="text"
-                                        class="form-control required " value="{!! old('driver_id') !!}"/>
-                                {!! $errors->first('driver_id', '
-                                <span class="help-block">:message
-                                </span>') !!}
-                              </div>
+                        <div class="form-group {{ $errors->first('driver_id', 'has-error') }}">
+                            <label for="driver_id" class="col-sm-2 control-label">Driver *
+                            </label>
+                            <div class="col-sm-10">
+                              <input id="driver_id" name="driver_id" placeholder="Driver" type="text"
+                                      class="form-control required " value="{!! old('driver_id') !!}"/>
+                              {!! $errors->first('driver_id', '
+                              <span class="help-block">:message
+                              </span>') !!}
                             </div>
-                            
-                            <div class="form-group {{ $errors->first('bus_id', 'has-error') }}">
-                              <label for="bus_id" class="col-sm-2 control-label">Bus *
-                              </label>
-                              <div class="col-sm-10">
-                                <input id="bus_id" name="bus_id" type="text"
-                                        placeholder="Bus" class="form-control required"
-                                        value="{!! old('bus_id') !!}"/>
-                                {!! $errors->first('bus_id', '
-                                <span class="help-block">:message
-                                </span>') !!}
-                              </div>
-                            </div>
-
-                            <div class="form-group {{ $errors->first('accident_latitude', 'has-error') }}">
-                              <label for="accident_latitude" class="col-sm-2 control-label">Accident Latitude *
-                              </label>
-                              <div class="col-sm-10">
-                                <input id="accident_latitude" name="accident_latitude" type="text" placeholder="Latitude"
-                                        class="form-control required" value="{!! old('accident_latitude') !!}"/>
-                                {!! $errors->first('accident_latitude', '
-                                <span class="help-block">:message
-                                </span>') !!}
-                              </div>
-                            </div>
-
-                            <div class="form-group {{ $errors->first('accident_longitude', 'has-error') }}">
-                              <label for="accident_longitude" class="col-sm-2 control-label">Accident Longitude *
-                              </label>
-                              <div class="col-sm-10">
-                                <input id="accident_longitude" name="accident_longitude" placeholder="Longitude" type="text"
-                                        class="form-control required email" value="{!! old('accident_longitude') !!}"/>
-                                {!! $errors->first('accident_longitude', '
-                                <span class="help-block">:message
-                                </span>') !!}
-                              </div>
-                            </div>
-
-                            <div class="form-group {{ $errors->first('user_id', 'has-error') }}">
-                              <label for="user_id" class="col-sm-2 control-label">User Id *
-                              </label>
-                              <div class="col-sm-10">
-                                <input id="user_id" name="user_id" placeholder="User Id" type="text"
-                                        class="form-control required " value="{!! old('user_id') !!}"/>
-                                {!! $errors->first('user_id', '
-                                <span class="help-block">:message
-                                </span>') !!}
-                              </div>
-                            </div>
-
-                            <div class="form-group {{ $errors->first('route_id', 'has-error') }}">
-                              <label for="route_id" class="col-sm-2 control-label">Route Id *
-                              </label>
-                              <div class="col-sm-10">
-                                <input id="user_id" name="route_id" placeholder="Route Id" type="text"
-                                        class="form-control required " value="{!! old('route_id') !!}"/>
-                                {!! $errors->first('route_id', '
-                                <span class="help-block">:message
-                                </span>') !!}
-                              </div>
-                            </div>
-
-                            <div class="form-group {{ $errors->first('station_id', 'has-error') }}">
-                              <label for="station_id" class="col-sm-2 control-label">Station Id *
-                              </label>
-                              <div class="col-sm-10">
-                                <input id="station_id" name="station_id" placeholder="Station Id" type="text"
-                                        class="form-control required " value="{!! old('station_id') !!}"/>
-                                {!! $errors->first('station_id', '
-                                <span class="help-block">:message
-                                </span>') !!}
-                              </div>
-                            </div>
-
-                            <div class="form-group">
-                                    <div class="col-sm-offset-2 col-sm-4 btn_rtl">
-                                        <a class="btn btn-danger" href="{{ route('admin.busstop.index') }}">
-                                            @lang('button.cancel')
-                                        </a>
-                                        <button type="submit" class="btn btn-success">
-                                            @lang('button.save')
-                                        </button>
-                                    </div>
+                          </div>                       
+                          
+                        <div class="form-group {{ $errors->first('bus_id', 'has-error') }}">
+                            <label for="bus_id" class="col-sm-2 control-label">Bus *
+                            </label>
+                            <div class="col-sm-10">
+                              <input id="bus_id" name="bus_id" type="text"
+                                      placeholder="Bus" class="form-control required"
+                                      value="{!! old('bus_id') !!}"/>
+                              {!! $errors->first('bus_id', '
+                              <span class="help-block">:message
+                              </span>') !!}
                             </div>
                           </div>
-                    </form>
-                  </div>
-                </div>
+
+                        <div class="form-group {{ $errors->first('accident_latitude', 'has-error') }}">
+                          <label for="accident_latitude" class="col-sm-2 control-label">Accident Latitude *
+                          </label>
+                          <div class="col-sm-10">
+                            <input id="accident_latitude" name="accident_latitude" type="text" placeholder="Latitude"
+                                    class="form-control required" value="{!! old('accident_latitude') !!}"/>
+                            {!! $errors->first('accident_latitude', '
+                            <span class="help-block">:message
+                            </span>') !!}
+                          </div>
+                        </div>
+
+                        <div class="form-group {{ $errors->first('accident_longitude', 'has-error') }}">
+                          <label for="accident_longitude" class="col-sm-2 control-label">Accident Longitude *
+                          </label>
+                          <div class="col-sm-10">
+                            <input id="accident_longitude" name="accident_longitude" placeholder="Longitude" type="text"
+                                    class="form-control required email" value="{!! old('accident_longitude') !!}"/>
+                            {!! $errors->first('accident_longitude', '
+                            <span class="help-block">:message
+                            </span>') !!}
+                          </div>
+                        </div>
+
+                        <div class="form-group {{ $errors->first('user_id', 'has-error') }}">
+                          <label for="user_id" class="col-sm-2 control-label">User Id *
+                          </label>
+                          <div class="col-sm-10">
+                            <input id="user_id" name="user_id" placeholder="User Id" type="text"
+                                    class="form-control required " value="{!! old('user_id') !!}"/>
+                            {!! $errors->first('user_id', '
+                            <span class="help-block">:message
+                            </span>') !!}
+                          </div>
+                        </div>
+
+                        <div class="form-group {{ $errors->first('route_id', 'has-error') }}">
+                          <label for="route_id" class="col-sm-2 control-label">Route Id *
+                          </label>
+                          <div class="col-sm-10">
+                            <input id="user_id" name="route_id" placeholder="Route Id" type="text"
+                                    class="form-control required " value="{!! old('route_id') !!}"/>
+                            {!! $errors->first('route_id', '
+                            <span class="help-block">:message
+                            </span>') !!}
+                          </div>
+                        </div>
+
+                        <div class="form-group {{ $errors->first('station_id', 'has-error') }}">
+                          <label for="station_id" class="col-sm-2 control-label">Station Id *
+                          </label>
+                          <div class="col-sm-10">
+                            <input id="station_id" name="station_id" placeholder="Station Id" type="text"
+                                    class="form-control required " value="{!! old('station_id') !!}"/>
+                            {!! $errors->first('station_id', '
+                            <span class="help-block">:message
+                            </span>') !!}
+                          </div>
+                        </div>
+
+                        <div class="form-group">
+                                <div class="col-sm-offset-2 col-sm-4 btn_rtl">
+                                    <a class="btn btn-danger" href="{{ route('admin.busstop.index') }}">
+                                        @lang('button.cancel')
+                                    </a>
+                                    <button type="submit" class="btn btn-success">
+                                        @lang('button.save')
+                                    </button>
+                                </div>
+                        </div>
+                      </div>
+                </form>
               </div>
             </div>
-        <!--row end-->
+          </div>
+        </div>
+
     </section>
  
 @stop

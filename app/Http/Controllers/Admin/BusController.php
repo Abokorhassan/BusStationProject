@@ -30,7 +30,6 @@ class BusController extends Controller
     public function data()
     {
         // $bus = Bus::get(['id', 'model_type', 'bus_number', 'station_id', 'Driver_id', 'created_at']);
-
         return DataTables::of(Bus::query())
 
             ->addColumn('User', function(Bus $bus){
@@ -42,9 +41,11 @@ class BusController extends Controller
             })
 
             ->addColumn('Driver', function(Bus $bus){
-                return $bus->driver->first_name
-                . ' ' . $bus->driver->last_name . ' ' . $bus->driver->third_name
-                ;
+
+                $driverName = null;
+                if(isset($bus->Driver_id) && $bus->driver && $bus->driver->first_name) 
+                    $driverName = $bus->driver->first_name.' '.$bus->driver->last_name.' '.$bus->driver->third_name;
+                return $driverName;
             })
 
             ->editColumn('created_at', function (Bus $createtime) {
