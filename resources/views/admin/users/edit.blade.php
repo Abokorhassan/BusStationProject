@@ -137,8 +137,10 @@
                                                         <div class="fileinput fileinput-new" data-provides="fileinput">
                                                             <div class="fileinput-new thumbnail" style="width: 200px; height: 200px;">
                                                                 @if($user->pic)
-                                                                    <img src="{!! url('/').'/uploads/users/'.$user->pic !!}" alt="img"
-                                                                         class="img-responsive"/>
+                                                                    {{-- <img src="{!! url('/').'/uploads/users/'.$user->pic !!}" alt="img"
+                                                                         class="img-responsive"/> --}}
+                                                                    <img src="{{ asset('uploads/users/'.$user->pic) }}" alt="img"
+                                                                        class="img-responsive"/>   
                                                                 @elseif($user->gender === "male")
                                                                     <img src="{{ asset('assets/images/authors/avatar3.png') }}" alt="..."
                                                                          class="img-responsive"/>

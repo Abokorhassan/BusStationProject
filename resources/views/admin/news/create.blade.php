@@ -76,22 +76,25 @@
 
                                 </div>
                                 <div>
-                                            <span class="btn btn-primary btn-file">
-                                                <span class="fileinput-new">Select image</span>
-                                                <span class="fileinput-exists">Change</span>
-                                                <input type="file" name="image" id="pic" accept="image/*"/>
-                                            </span>
+                                        <input type="file" name="image" id="pic" accept="image/*"/>
+                                    {{-- <span class="btn btn-primary btn-file">
+                                        <span class="fileinput-new">Select image</span>
+                                        <span class="fileinput-exists">Change</span>
+                                        
+                                    </span> --}}
                                     <span class="btn btn-primary fileinput-exists"
                                           data-dismiss="fileinput">Remove</span>
                                 </div>
                                 <span class="help-block">{{ $errors->first('image', ':message') }}</span>
                             </div>
                         </div>
+                        
                         <div class="form-group col-xs-12">
                             <button type="submit" class="btn btn-success">@lang('blog/form.publish')</button>
                             <a href="{!! URL::to('admin/news/create') !!}"
                                class="btn btn-danger">@lang('blog/form.discard')</a>
                         </div>
+
                     </div>
                     <!-- /.col-sm-4 --> </div>
                 {!! Form::close() !!}

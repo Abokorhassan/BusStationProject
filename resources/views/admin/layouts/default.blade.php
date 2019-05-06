@@ -47,8 +47,8 @@
                 <li class="dropdown user user-menu rtl_list">
                     <a href="#" class="dropdown-toggle profile_user" data-toggle="dropdown">
                             @if(Sentinel::getUser()->pic)
-                                <img src="{!! url('/').'/uploads/users/'.Sentinel::getUser()->pic !!}" alt="img" height="35px" width="35px"
-                                     class="img-circle img-responsive pull-left "/>
+                                <img src="{!! asset('uploads/users/'.Sentinel::getUser()->pic) !!}" alt="img" height="35px" width="35px"
+                                    class="img-circle img-responsive pull-left "/>
 
                             @elseif(Sentinel::getUser()->gender === "male")
                                 <img src="{{ asset('assets/images/authors/avatar3.png') }}" alt="img" height="35px" width="35px"
@@ -75,7 +75,7 @@
                         <!-- User image -->
                         <li class="user-header bg-light-blue ">
                             @if(Sentinel::getUser()->pic)
-                                <img src="{!! url('/').'/uploads/users/'.Sentinel::getUser()->pic !!}" alt="img" height="35px" width="35px"
+                                <img src="{!! asset('/uploads/users/'.Sentinel::getUser()->pic) !!}" alt="img" height="35px" width="35px"
                                      class="img-circle img-responsive pull-left"/>
 
                             @elseif(Sentinel::getUser()->gender === "male")

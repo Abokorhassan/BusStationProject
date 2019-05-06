@@ -68,7 +68,7 @@
                                 <div class="fileinput-new thumbnail" style="max-width: 200px; max-height: 200px;">
                                     @if(!empty($news->image))
 
-                                        <img src="{{URL::to('uploads/news/'.$news->image)}}" class="img-responsive"
+                                        <img src="{{ asset('uploads/news/'.$news->image)}}" class="img-responsive"
                                              alt="Image">
                                     @else
                                         <img src="{{ asset('assets/images/authors/no_avatar.jpg') }}" alt="..."
@@ -79,11 +79,11 @@
                                 <div class="fileinput-preview fileinput-exists thumbnail"
                                      style="max-width: 200px; max-height: 150px;"></div>
                                 <div>
-                                            <span class="btn btn-primary btn-file">
-                                                <span class="fileinput-new">Change image</span>
-                                                <span class="fileinput-exists">Change</span>
-                                                <input type="file" name="image" id="pic" accept="image/*"/>
-                                            </span>
+                                    <span class="btn btn-primary btn-file">
+                                        <span class="fileinput-new">Change image</span>
+                                        <span class="fileinput-exists">Change</span>
+                                        <input type="file" name="image" id="pic" accept="image/*"/>
+                                    </span>
                                     <span class="btn btn-primary fileinput-exists"
                                           data-dismiss="fileinput">Remove</span>
                                 </div>
