@@ -3,7 +3,6 @@
 {{-- Page title --}}
 @section('title')
     Edit User
-    @parent
 @stop
 
 {{-- page level styles --}}

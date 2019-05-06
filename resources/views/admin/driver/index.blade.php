@@ -3,7 +3,6 @@
 {{-- Page title --}}
 @section('title')
     Driver Lists
-    @parent
 @stop
 
 {{-- page level styles --}}
@@ -33,9 +32,9 @@
         <div class="row">
             <div class="panel panel-primary ">
                 <div class="panel-heading clearfix">
-                    <h4 class="panel-title pull-left"><i class="livicon" data-name="users" data-size="16"
-                        data-loop="true" data-c="#fff" data-hc="white"></i>
-                    Driver lists
+                    <h4 class="panel-title pull-left">
+                        <img style="margin-top: -4%;" src="https://img.icons8.com/color/25/000000/driver.png">
+                        Driver lists
                     </h4>
                     <div class="pull-right">
                         <a href="{{ URL::to('admin/driver/create') }}" class="btn btn-sm btn-default"><span
