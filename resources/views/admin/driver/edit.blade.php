@@ -40,8 +40,6 @@
             <div class="panel panel-primary">
               <div class="panel-heading">
                 <h3 class="panel-title">
-                  <i class="livicon" data-name="user-add" data-size="18" data-c="#fff" data-hc="#fff" data-loop="true">
-                  </i>
                   Edit Driver
                 </h3>
                 <span class="pull-right clickable">
