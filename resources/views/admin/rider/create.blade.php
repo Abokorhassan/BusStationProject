@@ -26,7 +26,7 @@
 @section('content')
     <section class="content-header">
         <!--section starts-->
-        <h1>Add New Rider</h1>
+        <h1>Rider</h1>
         <ol class="breadcrumb">
             <li>
                 <a href="{{ route('admin.dashboard') }}"> <i class="livicon" data-name="home" data-size="14"
@@ -47,8 +47,6 @@
                 <div class="panel panel-primary">
                   <div class="panel-heading">
                     <h3 class="panel-title">
-                      <i class="livicon" data-name="user-add" data-size="18" data-c="#fff" data-hc="#fff" data-loop="true">
-                      </i>
                       Add New Rider
                     </h3>
                     <span class="pull-right clickable">
@@ -65,13 +63,13 @@
                       <div id="rootwizard">
                         <h2 class="hidden">&nbsp;</h2>
 
-                        <div class="form-group {{ $errors->first('id_number', 'has-error') }}">
-                            <label for="id_number" class="col-sm-2 control-label">Id Number *
+                        <div class="form-group {{ $errors->first('rider_number', 'has-error') }}">
+                            <label for="rider_number" class="col-sm-2 control-label">Rider Number *
                             </label>
                             <div class="col-sm-10">
-                              <input id="id_number" name="id_number" placeholder="Id Number" type="text"
-                                      class="form-control required" value="{!! old('id_number') !!}"/>
-                              {!! $errors->first('id_number', '
+                              <input id="rider_number" name="rider_number" placeholder="Ex. Rd_01" type="text"
+                                      class="form-control required" value="{!! old('rider_number') !!}"/>
+                              {!! $errors->first('rider_number', '
                               <span class="help-block">:message
                               </span>') !!}
                             </div>
@@ -139,7 +137,7 @@
                           <label for="ph_number" class="col-sm-2 control-label">Phone Number *
                           </label>
                           <div class="col-sm-10">
-                            <input id="ph_number" name="ph_number" placeholder="phone number" type="text"
+                            <input id="ph_number" name="ph_number" placeholder="Ex. 063---" type="text"
                                     class="form-control required" value="{!! old('ph_number') !!}"/>
                             {!! $errors->first('ph_number', '
                             <span class="help-block">:message
@@ -147,21 +145,9 @@
                           </div>
                         </div>
 
-                        <div class="form-group {{ $errors->first('user_id', 'has-error') }}">
-                            <label for="user_id" class="col-sm-2 control-label">User Id *
-                            </label>
-                            <div class="col-sm-10">
-                              <input id="user_id" name="user_id" placeholder="User Id" type="text"
-                                     class="form-control required " value="{!! old('user_id') !!}"/>
-                              {!! $errors->first('user_id', '
-                              <span class="help-block">:message
-                              </span>') !!}
-                            </div>
-                        </div>
-
                         <div class="form-group">
                                 <div class="col-sm-offset-2 col-sm-4 btn_rtl">
-                                    <a class="btn btn-danger" href="{{ route('admin.bus.index') }}">
+                                    <a class="btn btn-danger" href="{{ route('admin.rider.index') }}">
                                         @lang('button.cancel')
                                     </a>
                                     <button type="submit" class="btn btn-success">

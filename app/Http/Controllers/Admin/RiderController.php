@@ -10,6 +10,9 @@ use Intervention\Image\Facades\Image;
 use Response;
 use Sentinel;
 use Yajra\DataTables\DataTables;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Redirect;
 
 class RiderController extends Controller
 {
@@ -36,9 +39,13 @@ class RiderController extends Controller
 
     public function data()
     {
-        $rider = Rider::get(['id', 'id_number', 'first_name', 'gender', 'ph_number', 'created_at']);
+        $rider = Rider::get(['id', 'id_number', 'first_name', 'last_name', 'third_name', 'gender', 'ph_number', 'created_at']);
 
         return DataTables::of($rider)
+            ->editColumn('Full_Name', function (Rider $rider){
+                return $rider->first_name.'  '.$rider->last_name.'  '.$rider->third_name;
+            })
+
             ->editColumn('created_at', function (Rider $createtime) {
                 return $createtime->created_at->diffForHumans();
             })
@@ -64,23 +71,22 @@ class RiderController extends Controller
     public function store(Request $request)
     {
         $this->validate($request,[
-            'id_number' => 'required | unique:riders',
+            'rider_number' => array('required', 'regex:/(Rd_)[0-9]{2,4}$/', 'unique:riders,id_number'),
             'first_name' => 'required | max:50',
             'second_name' => 'required | max:50',
             'third_name' => 'required | max:50',
-            'ph_number' => 'required | numeric | unique:riders',
+            'ph_number' => array('required', 'numeric', 'regex:/^[0-9]{7}$/', 'unique:riders,ph_number'),
             'gender' => 'required',
-            'user_id' => 'required | numeric',
         ]);
 
         $rider = new Rider();
-        $rider->id_number = $request->input('id_number');
+        $rider->id_number = $request->input('rider_number');
         $rider->first_name = $request->input('first_name');
         $rider->last_name = $request->input('second_name');
         $rider->third_name = $request->input('third_name');
         $rider->gender = $request->input('gender');
         $rider->ph_number = $request->input('ph_number');
-        $rider->user_id = $request->input('user_id');
+        $rider->user_id = Sentinel::getUser()->id;
         $rider->save();
 
         return redirect('admin/rider')->with('success', 'Rider Created');
@@ -121,27 +127,28 @@ class RiderController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $rider = Rider::find($id);
+        $check = $rider->ph_number;
+        $yo =  $request->input('ph_number');
         $this->validate($request,[
-            'id_number' => 'required',
             'first_name' => 'required | max:50',
             'second_name' => 'required | max:50',
             'third_name' => 'required | max:50',
-            'ph_number' => 'required | numeric',
+            'ph_number' => "required | regex:/^[0-9]{7}$/ | unique:riders,ph_number,$id",
+            // 'ph_number' => array('required', 'numeric', 'regex:/^[0-9]{7}$/', 'unique:riders,ph_number'),
             'gender' => 'required',
-            'user_id' => 'required | numeric',
         ]);
 
-        $rider = Rider::find($id);
-        $rider->id_number = $request->input('id_number');
+
+        
         $rider->first_name = $request->input('first_name');
         $rider->last_name = $request->input('second_name');
         $rider->third_name = $request->input('third_name');
         $rider->gender = $request->input('gender');
         $rider->ph_number = $request->input('ph_number');
-        $rider->user_id = $request->input('user_id');
         $rider->save();
 
-        return redirect('admin/rider')->with('success', 'Rider Updated');
+        return redirect('admin/rider')->with('success', 'Rider Updated');    
     }
 
     /**
