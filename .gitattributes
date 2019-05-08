@@ -2,7 +2,7 @@
 * linguist-language=PHP
 * linguist-language=HTML
 * linguist-language=CSS
-* linguist-language=JavaScript
+# * linguist-language=JavaScript
 *.css linguist-vendored
 *.scss linguist-vendored
 *.js linguist-vendored
