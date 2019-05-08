@@ -1,5 +1,5 @@
 * text=auto
-* linguist-language=PHP
+* linguist-language=Laravel
 
 # * linguist-language=JavaScript
 *.css linguist-vendored
