@@ -47,7 +47,7 @@ Rider Lists
                             <thead>
                                 <tr class="filters">
                                     <th>ID</th>
-                                    <th>ID_Number</th>
+                                    <th>Rider Number</th>
                                     <th>Full name</th>
                                     <th>Ph_number</th>
                                     <th>Gender</th>
