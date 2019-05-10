@@ -2,7 +2,6 @@
 {{-- Page title --}}
 @section('title')
     Rereved Lists
-    @parent
 @stop
 
 {{-- page level styles --}}
@@ -32,8 +31,8 @@
         <div class="row">
             <div class="panel panel-primary ">
                 <div class="panel-heading clearfix">
-                    <h4 class="panel-title pull-left"><i class="livicon" data-name="users" data-size="16"
-                        data-loop="true" data-c="#fff" data-hc="white"></i>
+                    <h4 class="panel-title pull-left">
+                        <img style="margin-top: -4%;"  src="https://img.icons8.com/color/25/000000/ticket-purchase.png">
                         Reserved lists
                     </h4>
                     <div class="pull-right">
@@ -48,12 +47,10 @@
                             <thead>
                                 <tr class="filters">
                                     <th>ID</th>
-                                    <th>ID_Number</th>
-                                    <th>First Name</th>
-                                    <th>Ph_number</th>
-                                    <th>bus_id</th>
-                                    <th>station_id</th>
-                                    <th>user_id</th>
+                                    <th>Full Name</th>
+                                    <th>Bus</th>
+                                    <th>Station</th>
+                                    <th>user</th>
                                     <th>Created_at</th>
                                     <th>Actions</th>
                                 </tr>
@@ -82,12 +79,10 @@
                 ajax: '{!! route('admin.reserve.data') !!}',
                 columns: [
                     { data: 'id', name: 'id' },
-                    { data: 'id_number', name: 'id_number' },
-                    { data: 'first_name', name: 'first_name' },
-                    { data: 'ph_number', name: 'ph_number'},               
-                    { data: 'bus_id', name: 'bus_id' },
-                    { data: 'station_id', name: 'station_id' },
-                    { data: 'user_id', name: 'user_id' },  
+                    { data: 'Rider', name: 'Rider' },
+                    { data: 'Bus', name: 'Bus'}, 
+                    { data: 'Station', name: 'Station' },
+                    { data: 'User', name: 'User' },  
                     { data: 'created_at', name:'created_at'},
                     { data: 'actions', name: 'actions', orderable: false, searchable: false }
                 ]

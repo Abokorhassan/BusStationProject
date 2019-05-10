@@ -10,4 +10,8 @@ class Station extends Model
 	{
 		return $this->hasMany(Bus::class);
 	}
+	public function reserve()
+	{
+		return $this->hasMany(Reserve::class);
+	}
 }

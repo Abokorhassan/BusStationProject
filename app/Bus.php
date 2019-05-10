@@ -20,5 +20,10 @@ class Bus extends Model
     {
         return $this->belongsTo(Driver::class, 'Driver_id');
     }
+
+    public function reserve()
+	{
+		return $this->hasMany(Reserve::class);
+	}
     
 }

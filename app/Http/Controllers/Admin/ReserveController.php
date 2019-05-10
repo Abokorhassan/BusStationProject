@@ -5,6 +5,9 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Reserve;
+use App\Rider;
+use App\Bus;
+use App\Station;
 use DOMDocument;
 use Intervention\Image\Facades\Image;
 use Response;
@@ -26,9 +29,33 @@ class ReserveController extends Controller
 
     public function data()
     {
-        $reserve = Reserve::get(['id', 'id_number', 'first_name', 'ph_number', 'bus_id', 'station_id', 'user_id', 'created_at']);
+        // $reserve = Reserve::get(['id', 'id_number', 'first_name', 'ph_number', 'bus_id', 'station_id', 'user_id', 'created_at']);
+        return DataTables::of(Reserve::query())
+            ->addColumn('Rider', function(Reserve $reserve){
+                $riderName = null;
+                if(isset($reserve->rider_id) && $reserve->rider && $reserve->rider->first_name)
+                    $riderName = $reserve->rider->first_name.' '.$reserve->rider->last_name.' '.$reserve->rider->third_name;
+                return $riderName;
+            })
 
-        return DataTables::of($reserve)
+            ->addColumn('Bus', function(Reserve $reserve){
+                $busName = null;
+                if(isset($reserve->bus_id) && $reserve->bus && $reserve->bus->bus_number)
+                    $busName = $reserve->bus->bus_number;
+                return $busName;
+            })
+
+            ->addColumn('Station', function(Reserve $reserve){
+                $stationName = null;
+                if(isset($reserve->station) && $reserve->station && $reserve->station->name)
+                    $stationName = $reserve->station->name;
+                return $stationName;
+            })
+
+            ->addColumn('User', function(Reserve $reserve){
+                return $reserve->user->first_name.' '.$reserve->user->last_name;
+            })
+
             ->editColumn('created_at', function (Reserve $createtime) {
                 return $createtime->created_at->diffForHumans();
             })
@@ -52,7 +79,10 @@ class ReserveController extends Controller
      */
     public function create()
     {
-        return view('admin.reserve.create'); 
+        $riders = Rider::select('id','id_number')->get();
+        $stations = Station::select('id','name')->get();
+        $buses = Bus::select('id','bus_number')->get();
+        return view('admin.reserve.create', compact('riders', 'stations', 'buses')); 
     }
 
     /**
@@ -64,25 +94,16 @@ class ReserveController extends Controller
     public function store(Request $request)
     {
         $this->validate($request,[
-            'id_number' => 'required',
-            'first_name' => 'required | max:50',
-            'second_name' => 'required | max:50',
-            'third_name' => 'required | max:50',
-            'ph_number' => 'required',
-            'user_id' => 'required | numeric',
-            'station_id' => 'required | numeric',
-            'bus_id' => 'required | numeric'
+            'rider' => 'required',
+            'station' => 'required | numeric',
+            'bus_number' => 'required | numeric'
         ]);
 
         $reserve = new Reserve();
-        $reserve->id_number = $request->input('id_number');
-        $reserve->first_name = $request->input('first_name');
-        $reserve->last_name = $request->input('second_name');
-        $reserve->third_name = $request->input('third_name');
-        $reserve->ph_number = $request->input('ph_number');
-        $reserve->user_id = $request->input('user_id');
-        $reserve->bus_id = $request->input('bus_id');
-        $reserve->station_id = $request->input('station_id');
+        $reserve->rider_id = $request->input('rider');
+        $reserve->bus_id = $request->input('bus_number');
+        $reserve->station_id = $request->input('station'); 
+        $reserve->user_id = Sentinel::getUser()->id;
         $reserve->save();
 
         return redirect('admin/reserve')->with('success', 'Seat Reserved');
@@ -108,7 +129,15 @@ class ReserveController extends Controller
     public function edit($id)
     {
         $reserve = Reserve::find($id);
-        return view('admin.reserve.edit', compact('reserve'));   
+        $stations = Station::select('id','name')->get();
+        $opStations = $stations->pluck('name', 'id')->toArray();
+
+        $buses = Bus::select('id','bus_number')->get();
+        $opBuses = $buses->pluck('bus_number', 'id')->toArray();
+
+        $riders = Rider::select('id','id_number')->get();
+        $opRiders = $riders->pluck('id_number', 'id')->toArray(); 
+        return view('admin.reserve.edit', compact('reserve', 'stations', 'opStations', 'riders', 'opRiders', 'buses', 'opBuses'));   
     }
 
     /**
@@ -121,23 +150,13 @@ class ReserveController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request,[
-            'id_number' => 'required',
-            'first_name' => 'required | max:50',
-            'second_name' => 'required | max:50',
-            'third_name' => 'required | max:50',
-            'ph_number' => 'required',
-            'user_id' => 'required | numeric',
+            'rider_id' => 'required',
             'station_id' => 'required | numeric',
             'bus_id' => 'required | numeric'
         ]);
 
         $reserve = Reserve::find($id);
-        $reserve->id_number = $request->input('id_number');
-        $reserve->first_name = $request->input('first_name');
-        $reserve->last_name = $request->input('second_name');
-        $reserve->third_name = $request->input('third_name');
-        $reserve->ph_number = $request->input('ph_number');
-        $reserve->user_id = $request->input('user_id');
+        $reserve->rider_id = $request->input('rider_id');
         $reserve->bus_id = $request->input('bus_id');
         $reserve->station_id = $request->input('station_id');
         $reserve->save();

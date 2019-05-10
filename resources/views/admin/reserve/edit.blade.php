@@ -3,7 +3,6 @@
 {{-- Page title --}}
 @section('title')
     Edit Reserved Seat
-    @parent
 @stop
 
 {{-- page level styles --}}
@@ -19,7 +18,7 @@
 @section('content')
     <section class="content-header">
         <!--section starts-->
-        <h1>@lang('news/title.edit')</h1>
+        <h1>Bus Reservation)</h1>
         <ol class="breadcrumb">
             <li>
                 <a href="{{ route('admin.dashboard') }}"> <i class="livicon" data-name="home" data-size="14"
@@ -40,8 +39,6 @@
             <div class="panel panel-primary">
               <div class="panel-heading">
                 <h3 class="panel-title">
-                  <i class="livicon" data-name="user-add" data-size="18" data-c="#fff" data-hc="#fff" data-loop="true">
-                  </i>
                   Edit Reserved Seat
                 </h3>
                 <span class="pull-right clickable">
@@ -52,74 +49,27 @@
               <div class="panel-body">
                 <!--main content-->
                 {!! Form::model($reserve, ['url' => URL::to('admin/reserve/' . $reserve->id), 'method' => 'put', 'class' => 'form-horizontal', 'files'=> true]) !!}
-                {{-- <form id="commentForm" action="{{ route('admin.bus.store') }}"
-                      method="POST" class="form-horizontal"> --}}
-
                     <!-- CSRF Token -->
                     <input type="hidden" name="_token" value="{{ csrf_token() }}" />
                         <div id="rootwizard">
                                 <h2 class="hidden">&nbsp;</h2>
 
-                                <div class="form-group {{ $errors->first('id_number', 'has-error') }}">
-                                    <label for="id_number" class="col-sm-2 control-label">Id Number *
-                                    </label>
-                                    <div class="col-sm-10">
-                                          {!! Form::text('id_number', null, array('class' => 'form-control required', 'placeholder'=>'Id number')) !!}
-                                      {!! $errors->first('id_number', '
-                                      <span class="help-block">:message
-                                      </span>') !!}
-                                    </div>
-                                  </div>
-  
-                                  <div class="form-group {{ $errors->first('first_name', 'has-error') }}">
-                                  <label for="first_name" class="col-sm-2 control-label">First Name *
+                                <div class="form-group {{ $errors->first('rider_id', 'has-error') }}">
+                                  <label for="rider_id" class="col-sm-2 control-label">Rider ID No. *
                                   </label>
                                   <div class="col-sm-10">
-                                    {!! Form::text('first_name', null, array('class' => 'form-control required', 'placeholder'=>'first name')) !!}
-                                    {!! $errors->first('first_name', '
-                                    <span class="help-block">:message
-                                    </span>') !!}
-                                  </div>
-                                </div>
-
-                                <div class="form-group {{ $errors->first('second_name', 'has-error') }}">
-                                  <label for="second_name" class="col-sm-2 control-label">Second Name *
-                                  </label>
-                                  <div class="col-sm-10">
-                                        {!! Form::text('second_name', $reserve->last_name, array('class' => 'form-control required', 'placeholder'=>'Second Name')) !!}
-                                    {!! $errors->first('second_name', '
-                                    <span class="help-block">:message
-                                    </span>') !!}
-                                  </div>
-                                </div>
-
-                                <div class="form-group {{ $errors->first('third_name', 'has-error') }}">
-                                  <label for="third_name" class="col-sm-2 control-label">Third Name *
-                                  </label>
-                                  <div class="col-sm-10">
-                                        {!! Form::text('third_name', null, array('class' => 'form-control required', 'placeholder'=>'Third Name')) !!}
-                                    {!! $errors->first('third_name', '
-                                    <span class="help-block">:message
-                                    </span>') !!}
-                                  </div>
-                                </div>
-
-                                <div class="form-group {{ $errors->first('ph_number', 'has-error') }}">
-                                  <label for="ph_number" class="col-sm-2 control-label">Phone Number *
-                                  </label>
-                                  <div class="col-sm-10">
-                                        {!! Form::text('ph_number', null, array('class' => 'form-control required', 'placeholder'=>'phone number')) !!}
-                                    {!! $errors->first('ph_number', '
+                                        {!! Form::select('rider_id', $opRiders, null, ['placeholder' => 'Select Rider', 'class' => 'form-control required']) !!}
+                                    {!! $errors->first('rider_id', '
                                     <span class="help-block">:message
                                     </span>') !!}
                                   </div>
                                 </div>
 
                                 <div class="form-group {{ $errors->first('bus_id', 'has-error') }}">
-                                  <label for="bus_id" class="col-sm-2 control-label">Bus Id *
+                                  <label for="bus_id" class="col-sm-2 control-label">Bus Number *
                                   </label>
                                   <div class="col-sm-10">
-                                        {!! Form::text('bus_id', null, array('class' => 'form-control required', 'placeholder'=>'Bus Id')) !!}
+                                        {!! Form::select('bus_id', $opBuses, null, ['placeholder' => 'Select Bus', 'class' => 'form-control required']) !!}
                                     {!! $errors->first('bus_id', '
                                     <span class="help-block">:message
                                     </span>') !!}
@@ -127,27 +77,17 @@
                                 </div>
 
                                 <div class="form-group {{ $errors->first('station_id', 'has-error') }}">
-                                  <label for="station_id" class="col-sm-2 control-label">Station Id *
+                                  <label for="station_id" class="col-sm-2 control-label">Station *
                                   </label>
                                   <div class="col-sm-10">
-                                        {!! Form::text('station_id', null, array('class' => 'form-control required', 'placeholder'=>'Station Id')) !!}
+                                        {!! Form::select('station_id', $opStations, null, ['placeholder' => 'Select Station', 'class' => 'form-control required']) !!}
                                     {!! $errors->first('station_id', '
                                     <span class="help-block">:message
                                     </span>') !!}
                                   </div>
                                 </div>
 
-                                <div class="form-group {{ $errors->first('user_id', 'has-error') }}">
-                                  <label for="user_id" class="col-sm-2 control-label">User Id *
-                                  </label>
-                                  <div class="col-sm-10">
-                                        {!! Form::text('user_id', null, array('class' => 'form-control required', 'placeholder'=>'User Id')) !!}
-                                    {!! $errors->first('user_id', '
-                                    <span class="help-block">:message
-                                    </span>') !!}
-                                  </div>
-                                </div>
-
+                                
                                 <div class="form-group">
                                         <div class="col-sm-offset-2 col-sm-4 btn_rtl">
                                             <a class="btn btn-danger" href="{{ route('admin.reserve.index') }}">

@@ -56,4 +56,9 @@ class User extends EloquentUser {
 	{
 		return $this->hasMany(Bus::class);
 	}
+
+	public function reserve()
+	{
+		return $this->hasMany(Reserve::class);
+	}
 }
