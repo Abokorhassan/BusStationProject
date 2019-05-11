@@ -52,6 +52,8 @@
                                     <th>Email</th>
                                     <th>Ph_number</th>
                                     <th>License Number</th>
+                                    <th>Station</th>
+                                    <th>User</th>
                                     <th>Created_at</th>
                                     <th>Actions</th>
                                 </tr>
@@ -83,6 +85,8 @@
                     { data: 'email', name: 'email' },		
                     { data: 'ph_number', name: 'ph_number' },
                     { data: 'license_number', name: 'license_number' },
+                    { data: 'Station', name: 'Station' },	
+                    { data: 'User', name: 'User' },
                     { data: 'created_at', name:'created_at'},
                     { data: 'actions', name: 'actions', orderable: false, searchable: false }
                 ]

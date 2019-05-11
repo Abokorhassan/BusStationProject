@@ -5,10 +5,11 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Driver;
-
+use App\Station;
 use DOMDocument;
 use Intervention\Image\Facades\Image;
 use Response;
+use File;
 use Sentinel;
 use Yajra\DataTables\DataTables;
 use Illuminate\Support\Facades\Storage;
@@ -31,7 +32,22 @@ class DriverController extends Controller
     {
         $driver = Driver::get(['id', 'first_name', 'last_name', 'email', 'ph_number', 'license_number', 'created_at']);
 
-        return DataTables::of($driver)
+        return DataTables::of(Driver::query())
+
+            ->addColumn('Station', function(Driver $driver){
+                $stationName = null;
+                if(isset($driver->station) && $driver->station && $driver->station->name)
+                    $stationName = $driver->station->name;
+                return $stationName;
+            })
+
+            ->addColumn('User', function(Driver $driver){
+                $userName = null;
+                if(isset($driver->user_id) && $driver->user && $driver->user->first_name)
+                    $userName = $driver->user->first_name.' '. $driver->user->last_name;
+                return $userName;
+            })
+
             ->editColumn('created_at', function (Driver $createtime) {
                 return $createtime->created_at->diffForHumans();
             })
@@ -56,7 +72,8 @@ class DriverController extends Controller
     public function create()
     {
         $driver = Driver::all();
-        return view('admin.driver.create', compact('driver')); 
+        $stations = Station::select('id','name')->get();
+        return view('admin.driver.create', compact('driver', 'stations')); 
     }
 
     /**
@@ -74,11 +91,10 @@ class DriverController extends Controller
             'email' => 'required | email | unique:drivers',
             'genders' => 'required',
             'license_number' => 'required',
-            'ph_number' => 'required | numeric | unique:drivers',
-            'picture' => 'nullable | image'
+            'ph_number' => array('required', 'numeric', 'regex:/^[0-9]{7}$/', 'unique:riders,ph_number'),
+            'picture' => 'nullable | image',
+            'station' => 'required | numeric'
         ]);
-
-
 
         $driver = new Driver();
         $driver->first_name = $request->input('firstname');
@@ -86,6 +102,8 @@ class DriverController extends Controller
         $driver->third_name = $request->input('third_name');
         $driver->email = $request->input('email');
         $driver->gender = $request->input('genders');
+        $driver->station_id = $request->input('station'); 
+        $driver->user_id = Sentinel::getUser()->id;
 
         // Handle File Upload
         if($request->hasFile('picture')){
@@ -103,8 +121,9 @@ class DriverController extends Controller
 
             // Upload Image
             $path = $request->file('picture')->storeAs('public/driver', $fileNameToStore);
+            $driver->pic = $fileNameToStore;
         }
-
+        $driver->pic = null;
         $driver->license_number = $request->input('license_number');
         $driver->ph_number = $request->input('ph_number');
         $driver->dob = $request->input('dob');
@@ -137,7 +156,10 @@ class DriverController extends Controller
         // if(auth()->user()->id !== $bus->user_id){
         //     return redirect('bus')->with('error', 'You\'\re not allowed to edit this');
         // }
-        return view('admin.driver.edit', compact('driver'));
+
+        $stations = Station::select('id','name')->get();
+        $opStations = $stations->pluck('name', 'id')->toArray();
+        return view('admin.driver.edit', compact('driver', 'stations', 'opStations'));
     }
 
     /**
@@ -154,16 +176,50 @@ class DriverController extends Controller
             'first_name' => 'required | max:50',
             'last_name' => 'required | max:50',
             'third_name' => 'required | max:50',
-            'email' => 'required | email',
+            'email' => 'required | email | unique:drivers,email,'.$id,
             'gender' => 'required',
             'license_number' => 'required',
-            'ph_number' => 'required | numeric',
+            'ph_number' => "required | regex:/^[0-9]{7}$/ | unique:drivers,ph_number,$id",
             'pic' => 'nullable | image'
+            
         ]);
 
-        // Handle File Upload
+        // // Handle File Upload
+        // if($request->hasFile('pic')){
+            //     // Get filename with extension
+            //     $filenameWithExt= $request->file('pic')->getClientOriginalName();
+
+            //     // Get just filename
+            //     $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+
+            //     //Get just ext
+            //     $extension = $request->file('pic')->getClientOriginalExtension();
+
+            //     // File to store
+            //     $fileNameToStore = $filename.'_'.time().'.'.$extension;
+
+            //     // Upload Image
+            //     $path = $request->file('pic')->storeAs('public/driver', $fileNameToStore);
+
+            //     $oldFileName = $driver->pic;
+
+        // }
+
+        $driver->first_name = $request->input('first_name');
+        $driver->last_name = $request->input('last_name');
+        $driver->third_name = $request->input('third_name');
+        $driver->email = $request->input('email');
+        $driver->gender = $request->input('gender');
+        $driver->license_number = $request->input('license_number');
+        $driver->ph_number = $request->input('ph_number');
+
         if($request->hasFile('pic')){
-            // Get filename with extension
+            $dir = 'public/driver/';
+            if($driver->pic != '' && File::exists($dir . $driver->pic))
+                // File::delete($dir . $driver->pic);
+                Storage::disk('local')->delete('public/driver/'. $driver->pic); 
+
+            //  Get filename with extension
             $filenameWithExt= $request->file('pic')->getClientOriginalName();
 
             // Get just filename
@@ -178,25 +234,16 @@ class DriverController extends Controller
             // Upload Image
             $path = $request->file('pic')->storeAs('public/driver', $fileNameToStore);
 
-            $oldFileName = $driver->pic;
-
-        }
-
-        
-        $driver->first_name = $request->input('first_name');
-        $driver->last_name = $request->input('last_name');
-        $driver->third_name = $request->input('third_name');
-        $driver->email = $request->input('email');
-        $driver->gender = $request->input('gender');
-        $driver->license_number = $request->input('license_number');
-        $driver->ph_number = $request->input('ph_number');
-        if($request->hasFile('pic') && Input::has($oldFileName)){
             $driver->pic = $fileNameToStore;
-            Storage::disk('local')->delete('public/driver/'. $oldFileName); 
-        }       
+        } elseif ($request->remove == 1 && File::exists('public/driver/' . $driver->pic)) {
+            Storage::disk('local')->delete('public/driver/'. $driver->pic); 
+            $driver->pic = null;
+        }
 
         $driver->dob = $request->input('dob');
         $driver->address = $request->input('address');
+        $driver->station_id = $request->input('station_id');
+        
         $driver->save();
 
         return redirect('admin/driver')->with('success', 'Driver Updated');

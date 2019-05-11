@@ -10,4 +10,12 @@ class Driver extends Model
 	{
 		return $this->hasOne(Bus::class);
 	}
+	public function user()
+    {
+        return $this->belongsTo(User::class);
+	}
+	public function station()
+    {
+        return $this->belongsTo(Station::class);
+    }
 }

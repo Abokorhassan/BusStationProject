@@ -61,4 +61,8 @@ class User extends EloquentUser {
 	{
 		return $this->hasMany(Reserve::class);
 	}
+	public function driver()
+	{
+		return $this->hasMany(Rider::class);
+	}
 }

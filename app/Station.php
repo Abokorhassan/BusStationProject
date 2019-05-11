@@ -18,4 +18,8 @@ class Station extends Model
 	{
 		return $this->hasMany(Rider::class);
 	}
+	public function driver()
+	{
+		return $this->hasMany(Rider::class);
+	}
 }

@@ -136,6 +136,17 @@
                           </div>
                         </div>
 
+                        <div class="form-group {{ $errors->first('station_id', 'has-error') }}">
+                          <label for="station_id" class="col-sm-2 control-label">Station *
+                          </label>
+                          <div class="col-sm-10">
+                                {!! Form::select('station_id', $opStations, null, ['placeholder' => 'Select Station', 'class' => 'form-control required']) !!}
+                            {!! $errors->first('station_id', '
+                            <span class="help-block">:message
+                            </span>') !!}
+                          </div>
+                        </div>
+
                         <div class="form-group">
                                 <div class="col-sm-offset-2 col-sm-4 btn_rtl">
                                     <a class="btn btn-danger" href="{{ route('admin.driver.index') }}">
@@ -200,6 +211,7 @@
                             <span class="help-block">{{ $errors->first('content', ':message') }}</span>
                         </div>
 
+                        
                       </div>
                     </div>
                   </div>
