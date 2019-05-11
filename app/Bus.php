@@ -24,6 +24,11 @@ class Bus extends Model
     public function reserve()
 	{
 		return $this->hasMany(Reserve::class);
+    }
+    
+    public function rider()
+	{
+		return $this->hasMany(Rider::class);
 	}
     
 }

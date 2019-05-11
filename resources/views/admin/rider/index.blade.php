@@ -81,7 +81,7 @@ Rider Lists
                     { data: 'id', name: 'id' },
                     { data: 'id_number', name: 'id_number' },
                     { data: 'Full_Name', name: 'Full_Name' },
-                    { data: 'gender', name: 'gender' },
+                    { data: 'gender', name: 'gender' },               
                     { data: 'ph_number', name: 'ph_number'},
                     { data: 'created_at', name:'created_at'},
                     { data: 'actions', name: 'actions', orderable: false, searchable: false }

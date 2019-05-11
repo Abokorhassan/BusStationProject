@@ -50,80 +50,66 @@
               <div class="panel-body">
                 <!--main content-->
                 {!! Form::model($rider, ['url' => URL::to('admin/rider/' . $rider->id), 'method' => 'put', 'class' => 'form-horizontal', 'files'=> true]) !!}
-                {{-- <form id="commentForm" action="{{ route('admin.bus.store') }}"
-                      method="POST" class="form-horizontal"> --}}
-
                     <!-- CSRF Token -->
                     <input type="hidden" name="_token" value="{{ csrf_token() }}" />
-                        <div id="rootwizard">
-                                <h2 class="hidden">&nbsp;</h2>
-  
-                                <div class="form-group {{ $errors->first('first_name', 'has-error') }}">
-                                  <label for="first_name" class="col-sm-2 control-label">First Name *
-                                  </label>
-                                  <div class="col-sm-10">
-                                    {!! Form::text('first_name', null, array('class' => 'form-control required', 'placeholder'=>'first name')) !!}
-                                    {!! $errors->first('first_name', '
-                                    <span class="help-block">:message
-                                    </span>') !!}
-                                  </div>
-                                </div>
+                      <div id="rootwizard">             
+                        <h2 class="hidden">&nbsp;</h2>
+                          <div class="form-group {{ $errors->first('first_name', 'has-error') }}">
+                            <label style="margin-top: -1%" for="first_name" class="col-sm-2 control-label">First Name*
+                            </label>
+                            <div class="col-sm-10">
+                              {!! Form::text('first_name', null, array('class' => 'form-control required', 'placeholder'=>'first name')) !!}
+                              {!! $errors->first('first_name', '
+                              <span class="help-block">:message
+                              </span>') !!}
+                            </div>
+                          </div>
 
-                                <div class="form-group {{ $errors->first('second_name', 'has-error') }}">
-                                  <label for="second_name" class="col-sm-2 control-label">Second Name *
-                                  </label>
-                                  <div class="col-sm-10">
-                                        {!! Form::text('second_name', $rider->last_name, array('class' => 'form-control required', 'placeholder'=>'Second Name')) !!}
-                                    {!! $errors->first('second_name', '
-                                    <span class="help-block">:message
-                                    </span>') !!}
-                                  </div>
-                                </div>
+                          <div class="form-group {{ $errors->first('second_name', 'has-error') }}">
+                            <label style="margin-top: -1%"  for="second_name" class="col-sm-2 control-label">Second Name *
+                            </label>
+                            <div class="col-sm-10">
+                                  {!! Form::text('second_name', $rider->last_name, array('class' => 'form-control required', 'placeholder'=>'Second Name')) !!}
+                              {!! $errors->first('second_name', '
+                              <span class="help-block">:message
+                              </span>') !!}
+                            </div>
+                          </div>
 
-                                <div class="form-group {{ $errors->first('third_name', 'has-error') }}">
-                                  <label for="third_name" class="col-sm-2 control-label">Third Name *
-                                  </label>
-                                  <div class="col-sm-10">
-                                        {!! Form::text('third_name', null, array('class' => 'form-control required', 'placeholder'=>'Third Name')) !!}
-                                    {!! $errors->first('third_name', '
-                                    <span class="help-block">:message
-                                    </span>') !!}
-                                  </div>
-                                </div>
+                          <div style="margin-top: -1%"  class="form-group {{ $errors->first('third_name', 'has-error') }}">
+                            <label for="third_name" class="col-sm-2 control-label">Third Name *
+                            </label>
+                            <div class="col-sm-10">
+                                  {!! Form::text('third_name', null, array('class' => 'form-control required', 'placeholder'=>'Third Name')) !!}
+                              {!! $errors->first('third_name', '
+                              <span class="help-block">:message
+                              </span>') !!}
+                            </div>
+                          </div>
+                                    
+                          <div class="form-group {{ $errors->first('ph_number', 'has-error') }}">
+                            <label style="margin-top: -1%" for="ph_number" class="col-sm-2 control-label">Phone No*
+                            </label>
+                            <div class="col-sm-10">
+                                  {!! Form::text('ph_number', null, array('class' => 'form-control required', 'placeholder'=>'phone number')) !!}
+                              {!! $errors->first('ph_number', '
+                              <span class="help-block">:message
+                              </span>') !!}
+                            </div>
+                          </div>
 
-                                <div class="form-group {{ $errors->first('gender', 'has-error') }}">
-                                  <label for="gender" class="col-sm-2 control-label">Gender *
-                                  </label>
-                                  <div class="col-sm-10">
-                                        {!! Form::text('gender', null, array('class' => 'form-control required', 'placeholder'=>'gender')) !!}
-                                    {!! $errors->first('gender', '
-                                    <span class="help-block">:message
-                                    </span>') !!}
-                                  </div>
-                                </div>
-
-                                <div class="form-group {{ $errors->first('ph_number', 'has-error') }}">
-                                  <label for="ph_number" class="col-sm-2 control-label">Phone Number *
-                                  </label>
-                                  <div class="col-sm-10">
-                                        {!! Form::text('ph_number', null, array('class' => 'form-control required', 'placeholder'=>'phone number')) !!}
-                                    {!! $errors->first('ph_number', '
-                                    <span class="help-block">:message
-                                    </span>') !!}
-                                  </div>
-                                </div>
-
-                                <div class="form-group">
-                                        <div class="col-sm-offset-2 col-sm-4 btn_rtl">
-                                            <a class="btn btn-danger" href="{{ route('admin.rider.index') }}">
-                                                @lang('button.cancel')
-                                            </a>
-                                            <button type="submit" class="btn btn-success">
-                                                @lang('button.save')
-                                            </button>
-                                        </div>
-                                </div>
+                          <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-4 btn_rtl">
+                                <a class="btn btn-danger" href="{{ route('admin.rider.index') }}">
+                                    @lang('button.cancel')
+                                </a>
+                                <button type="submit" class="btn btn-success">
+                                    @lang('button.save')
+                                </button>
+                            </div>
+                          </div>                      
                         </div>
+                      </div>
                 </form>
               </div>
             </div>

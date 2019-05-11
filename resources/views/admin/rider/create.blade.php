@@ -63,97 +63,146 @@
                       <div id="rootwizard">
                         <h2 class="hidden">&nbsp;</h2>
 
-                        <div class="form-group {{ $errors->first('rider_number', 'has-error') }}">
-                            <label for="rider_number" class="col-sm-2 control-label">Rider Number *
-                            </label>
-                            <div class="col-sm-10">
-                              <input id="rider_number" name="rider_number" placeholder="Ex. Rd_01" type="text"
-                                      class="form-control required" value="{!! old('rider_number') !!}"/>
-                              {!! $errors->first('rider_number', '
-                              <span class="help-block">:message
-                              </span>') !!}
-                            </div>
-                        </div>
-
-                        <div class="form-group {{ $errors->first('first_name', 'has-error') }}">
-                          <label for="first_name" class="col-sm-2 control-label">First Name *
-                          </label>
-                          <div class="col-sm-10">
-                            <input id="first_name" name="first_name" type="text"
-                                    placeholder="First name" class="form-control required"
-                                    value="{!! old('first_name') !!}"/>
-                            {!! $errors->first('first_name', '
-                            <span class="help-block">:message
-                            </span>') !!}
-                          </div>
-                        </div>
-                        
-                        <div class="form-group {{ $errors->first('second_name', 'has-error') }}">
-                          <label for="second_name" class="col-sm-2 control-label">Second Name *
-                          </label>
-                          <div class="col-sm-10">
-                            <input id="second_name" name="second_name" type="text" placeholder="Second Name"
-                                    class="form-control required" value="{!! old('second_name') !!}"/>
-                            {!! $errors->first('second_name', '
-                            <span class="help-block">:message
-                            </span>') !!}
-                          </div>
-                        </div>
-
-                        <div class="form-group {{ $errors->first('third_name', 'has-error') }}">
-                          <label for="third_name" class="col-sm-2 control-label">Third Name *
-                          </label>
-                          <div class="col-sm-10">
-                            <input id="third_name" name="third_name" placeholder="third name" type="text"
-                                    class="form-control required " value="{!! old('third_name') !!}"/>
-                            {!! $errors->first('third_name', '
-                            <span class="help-block">:message
-                            </span>') !!}
-                          </div>
-                        </div>
-
-                        <div class="form-group {{ $errors->first('gender', 'has-error') }}">
-                          <label for="gender" class="col-sm-2 control-label">Gender *
-                          </label>
-                          <div class="col-sm-10">
-                            <select class="form-control" title="Select Gender..." name="gender">
-                              <option value="">Select
-                              </option>
-                              <option value="male"
-                                      @if(old('gender') === 'male') selected="selected" @endif >Male
-                              </option>
-                              <option value="female"
-                                      @if(old('gender') === 'female') selected="selected" @endif >
-                                Female
-                              </option>
-                            </select>
-                            {!! $errors->first('gender', '
+                        <div class="row">
+                          <div class="col-sm-8 animate_rt">
+                            <div class="form-group {{ $errors->first('rider_number', 'has-error') }}">
+                                <label style="margin-top: -1%" for="rider_number" class="col-sm-2 control-label">Rider Number *
+                                </label>
+                                <div class="col-sm-10">
+                                  <input id="rider_number" name="rider_number" placeholder="Ex. Rd_01" type="text"
+                                          class="form-control required" value="{!! old('rider_number') !!}"/>
+                                  {!! $errors->first('rider_number', '
                                   <span class="help-block">:message
                                   </span>') !!}
-                          </div>
-                        </div>               
-
-                        <div class="form-group {{ $errors->first('ph_number', 'has-error') }}">
-                          <label for="ph_number" class="col-sm-2 control-label">Phone Number *
-                          </label>
-                          <div class="col-sm-10">
-                            <input id="ph_number" name="ph_number" placeholder="Ex. 063---" type="text"
-                                    class="form-control required" value="{!! old('ph_number') !!}"/>
-                            {!! $errors->first('ph_number', '
-                            <span class="help-block">:message
-                            </span>') !!}
-                          </div>
-                        </div>
-
-                        <div class="form-group">
-                                <div class="col-sm-offset-2 col-sm-4 btn_rtl">
-                                    <a class="btn btn-danger" href="{{ route('admin.rider.index') }}">
-                                        @lang('button.cancel')
-                                    </a>
-                                    <button type="submit" class="btn btn-success">
-                                        @lang('button.save')
-                                    </button>
                                 </div>
+                            </div>
+
+                            <div class="form-group {{ $errors->first('first_name', 'has-error') }}">
+                              <label style="margin-top: -1%" for="first_name" class="col-sm-2 control-label">First Name*
+                              </label>
+                              <div class="col-sm-10">
+                                <input id="first_name" name="first_name" type="text"
+                                        placeholder="First name" class="form-control required"
+                                        value="{!! old('first_name') !!}"/>
+                                {!! $errors->first('first_name', '
+                                <span class="help-block">:message
+                                </span>') !!}
+                              </div>
+                            </div>
+                            
+                            <div class="form-group {{ $errors->first('second_name', 'has-error') }}">
+                              <label style="margin-top: -2%" for="second_name" class="col-sm-2 control-label">Second Name *
+                              </label>
+                              <div class="col-sm-10">
+                                <input id="second_name" name="second_name" type="text" placeholder="Second Name"
+                                        class="form-control required" value="{!! old('second_name') !!}"/>
+                                {!! $errors->first('second_name', '
+                                <span class="help-block">:message
+                                </span>') !!}
+                              </div>
+                            </div>
+
+                            <div class="form-group {{ $errors->first('third_name', 'has-error') }}">
+                              <label style="margin-top: -1%" for="third_name" class="col-sm-2 control-label">Third Name *
+                              </label>
+                              <div class="col-sm-10">
+                                <input  id="third_name" name="third_name" placeholder="third name" type="text"
+                                        class="form-control required " value="{!! old('third_name') !!}"/>
+                                {!! $errors->first('third_name', '
+                                <span class="help-block">:message
+                                </span>') !!}
+                              </div>
+                            </div>
+             
+
+                            <div class="form-group">
+                              <div class="col-sm-offset-2 col-sm-4 btn_rtl">
+                                  <a class="btn btn-danger" href="{{ route('admin.rider.index') }}">
+                                      @lang('button.cancel')
+                                  </a>
+                                  <button type="submit" class="btn btn-success">
+                                      @lang('button.save')
+                                  </button>
+                              </div>
+                            </div>
+
+                          </div>
+                          <div class="col-sm-4 animate_rt">                           
+                            <div class="form-group {{ $errors->first('gender', 'has-error') }}">
+                              <label for="gender" class="col-sm-2 control-label">Gender *
+                              </label>
+                              <div class="col-sm-10">
+                                <select class="form-control" title="Select Gender..." name="gender">
+                                  <option value="">Select
+                                  </option>
+                                  <option value="male"
+                                          @if(old('gender') === 'male') selected="selected" @endif >Male
+                                  </option>
+                                  <option value="female"
+                                          @if(old('gender') === 'female') selected="selected" @endif >
+                                    Female
+                                  </option>
+                                </select>
+                                {!! $errors->first('gender', '
+                                      <span class="help-block">:message
+                                      </span>') !!}
+                              </div>
+                            </div>  
+
+                            <div class="form-group {{ $errors->first('ph_number', 'has-error') }}">
+                              <label style="margin-top: -2%" for="ph_number" class="col-sm-2 control-label">Phone No.*
+                              </label>
+                              <div class="col-sm-10">
+                                <input id="ph_number" name="ph_number" placeholder="Ex. 063---" type="text"
+                                        class="form-control required" value="{!! old('ph_number') !!}"/>
+                                {!! $errors->first('ph_number', '
+                                <span class="help-block">:message
+                                </span>') !!}
+                              </div>
+                            </div>                      
+
+                            {{-- <div class="form-group {{ $errors->first('bus_number', 'has-error') }}">
+                              <label style="margin-top: -2%" for="bus_number" class="col-sm-2 control-label">Bus No.*
+                              </label>
+                              <div class="col-sm-10">
+                                <select class="form-control" title="Select Pas..." name="bus_number">                                         
+                                  <option value="">Select bus_number
+                                  </option>
+                                  @foreach ($buses as $bus)
+                                  <option value="{{ $bus->id}}" 
+                                    @if (old('bus_number')=== "{{$bus->id}}") selected="selected"@endif
+                                    >{{ $bus->bus_number}}
+                                  </option>
+                                  @endforeach
+                                </select>
+                                {!! $errors->first('bus_number', '
+                                <span class="help-block">:message
+                                </span>') !!}
+                              </div>   
+                            </div>
+
+                            <div class="form-group {{ $errors->first('station', 'has-error') }}">
+                              <label for="station" class="col-sm-2 control-label">Station*
+                              </label>
+                              <div class="col-sm-10">
+                                <select class="form-control" title="Select Station..." name="station">                                         
+                                  <option value="">Select Station
+                                  </option>
+        
+                                  @foreach ($stations as $station)
+                                  <option value="{{ $station->id}}" 
+                                    @if (old('station')=== "{{$station->id}}") selected="selected"@endif
+                                    >{{ $station->name}}
+                                  </option>
+                                  @endforeach
+                                </select>
+                                {!! $errors->first('station', '
+                                <span class="help-block">:message
+                                </span>') !!}
+                              </div>   
+                            </div> --}}
+
+                          </div>    
                         </div>
                       </div>
                     </form>

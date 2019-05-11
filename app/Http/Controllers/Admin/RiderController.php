@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Rider;
+use App\Station;
+use App\Bus;
 use DOMDocument;
 use Intervention\Image\Facades\Image;
 use Response;
@@ -34,17 +36,33 @@ class RiderController extends Controller
      */
     public function create()
     {
-        return view('admin.rider.create'); 
+        $stations = Station::select('id','name')->get();
+        $buses = Bus::select('id','bus_number')->get();
+        return view('admin.rider.create', compact('stations', 'buses')); 
     }
 
     public function data()
     {
-        $rider = Rider::get(['id', 'id_number', 'first_name', 'last_name', 'third_name', 'gender', 'ph_number', 'created_at']);
+        // $rider = Rider::get(['id', 'id_number', 'first_name', 'last_name', 'third_name', 'gender', 'ph_number', 'created_at']);
 
-        return DataTables::of($rider)
+        return DataTables::of(Rider::query())
             ->editColumn('Full_Name', function (Rider $rider){
                 return $rider->first_name.'  '.$rider->last_name.'  '.$rider->third_name;
             })
+
+            // ->addColumn('Bus', function(Rider $rider){
+            //     $busName = null;
+            //     if(isset($rider->bus_id) && $rider->bus && $rider->bus->bus_number)
+            //         $busName = $rider->bus->bus_number;
+            //     return $busName;
+            // })
+
+            // ->addColumn('Station', function(Rider $rider){
+            //     $stationName = null;
+            //     if(isset($rider->station) && $rider->station && $rider->station->name)
+            //         $stationName = $rider->station->name;
+            //     return $stationName;
+            // })
 
             ->editColumn('created_at', function (Rider $createtime) {
                 return $createtime->created_at->diffForHumans();
@@ -77,6 +95,8 @@ class RiderController extends Controller
             'third_name' => 'required | max:50',
             'ph_number' => array('required', 'numeric', 'regex:/^[0-9]{7}$/', 'unique:riders,ph_number'),
             'gender' => 'required',
+            // 'station' => 'required | numeric',
+            // 'bus_number' => 'required | numeric'
         ]);
 
         $rider = new Rider();
@@ -87,6 +107,8 @@ class RiderController extends Controller
         $rider->gender = $request->input('gender');
         $rider->ph_number = $request->input('ph_number');
         $rider->user_id = Sentinel::getUser()->id;
+        // $rider->bus_id = $request->input('bus_number');
+        // $rider->station_id = $request->input('station'); 
         $rider->save();
 
         return redirect('admin/rider')->with('success', 'Rider Created');
@@ -115,7 +137,14 @@ class RiderController extends Controller
         // if(auth()->user()->id !== $bus->user_id){
         //     return redirect('bus')->with('error', 'You\'\re not allowed to edit this');
         // }
-        return view('admin.rider.edit', compact('rider'));
+
+        $stations = Station::select('id','name')->get();
+        $opStations = $stations->pluck('name', 'id')->toArray();
+
+        $buses = Bus::select('id','bus_number')->get();
+        $opBuses = $buses->pluck('bus_number', 'id')->toArray();
+
+        return view('admin.rider.edit', compact('rider', 'stations', 'opStations', 'buses', 'opBuses'));
     }
 
     /**
@@ -128,24 +157,20 @@ class RiderController extends Controller
     public function update(Request $request, $id)
     {
         $rider = Rider::find($id);
-        $check = $rider->ph_number;
-        $yo =  $request->input('ph_number');
         $this->validate($request,[
             'first_name' => 'required | max:50',
             'second_name' => 'required | max:50',
             'third_name' => 'required | max:50',
             'ph_number' => "required | regex:/^[0-9]{7}$/ | unique:riders,ph_number,$id",
             // 'ph_number' => array('required', 'numeric', 'regex:/^[0-9]{7}$/', 'unique:riders,ph_number'),
-            'gender' => 'required',
+            'bus_id' => 'required | numeric'
         ]);
 
-
-        
         $rider->first_name = $request->input('first_name');
         $rider->last_name = $request->input('second_name');
         $rider->third_name = $request->input('third_name');
-        $rider->gender = $request->input('gender');
         $rider->ph_number = $request->input('ph_number');
+        $rider->bus_id = $request->input('bus_id');
         $rider->save();
 
         return redirect('admin/rider')->with('success', 'Rider Updated');    

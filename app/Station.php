@@ -14,4 +14,8 @@ class Station extends Model
 	{
 		return $this->hasMany(Reserve::class);
 	}
+	public function rider()
+	{
+		return $this->hasMany(Rider::class);
+	}
 }
