@@ -49,9 +49,9 @@
                             <thead>
                                 <tr class="filters">
                                     <th>ID</th>
+                                    <th>Driver</th>
                                     <th>Model Type</th>
                                     <th>Bus_Number</th>
-                                    <th>Driver</th>
                                     <th>Station</th>
                                     <th>User</th>
                                     <th>Created_at</th>
@@ -82,9 +82,9 @@
                 ajax: '{!! route('admin.bus.data') !!}',
                 columns: [
                     { data: 'id', name: 'id' },
+                    { data: 'Driver', name: 'Driver' },		
                     { data: 'model_type', name: 'model_type' },
-                    { data: 'bus_number', name: 'bus_number' },		
-                    { data: 'Driver', name: 'Driver' },
+                    { data: 'bus_number', name: 'bus_number' },
                     { data: 'Station', name: 'Station' },
                     { data: 'User', name: 'User'},
                     { data: 'created_at', name:'created_at'},

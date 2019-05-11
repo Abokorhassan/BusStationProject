@@ -86,17 +86,27 @@
                                     </span>') !!}
                                   </div>
                                 </div>
-                                <div class="form-group {{ $errors->first('Driver_id', 'has-error') }}">
-                                  <label for="Driver_id" class="col-sm-2 control-label">Driver_id *
+
+                                <div class="form-group {{ $errors->first('driver_number', 'has-error') }}">
+                                  <label for="driver_number" class="col-sm-2 control-label">Driver Number*
                                   </label>
                                   <div class="col-sm-10">
-                                    <input id="Driver_id" name="Driver_id" placeholder="Driver_id" type="text"
-                                            class="form-control required email" value="{!! old('Driver_id') !!}"/>
-                                    {!! $errors->first('Driver_id', '
+                                    <select class="form-control" title="Select Pas..." name="driver_number">                                         
+                                      <option value="">Select Driver number
+                                      </option>
+                                      @foreach ($drivers as $driver)
+                                      <option value="{{ $driver->id}}" 
+                                        @if (old('driver_number')=== "{{$driver->id}}") selected="selected"@endif
+                                        >{{ $driver->driver_number}}
+                                      </option>
+                                      @endforeach
+                                    </select>
+                                    {!! $errors->first('driver_number', '
                                     <span class="help-block">:message
                                     </span>') !!}
-                                  </div>
+                                  </div>   
                                 </div>
+
                                 <div class="form-group {{ $errors->first('station', 'has-error') }}">
                                   <label for="station" class="col-sm-2 control-label">Station *
                                   </label>

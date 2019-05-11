@@ -68,14 +68,14 @@
                         </div>
 
                         <div class="form-group {{ $errors->first('Driver_id', 'has-error') }}">
-                          <label for="Driver_id" class="col-sm-2 control-label">Driver_id *
-                          </label>
-                          <div class="col-sm-10">
-                                {!! Form::text('Driver_id', null, array('class' => 'form-control required', 'placeholder'=>'Driver_id')) !!}
-                            {!! $errors->first('Driver_id', '
-                            <span class="help-block">:message
-                            </span>') !!}
-                          </div>
+                            <label for="Driver_id" class="col-sm-2 control-label">Driver *
+                            </label>
+                            <div class="col-sm-10">
+                                  {!! Form::select('Driver_id', $opDrivers, null, ['placeholder' => 'Select Station', 'class' => 'form-control required']) !!}
+                              {!! $errors->first('Driver_id', '
+                              <span class="help-block">:message
+                              </span>') !!}
+                            </div>
                         </div>
 
                         <div class="form-group {{ $errors->first('station_id', 'has-error') }}">
