@@ -159,7 +159,7 @@ class RiderController extends Controller
         $rider = Rider::find($id);
         $this->validate($request,[
             'first_name' => 'required | max:50',
-            'second_name' => 'required | max:50',
+            'last_name' => 'required | max:50',
             'third_name' => 'required | max:50',
             'ph_number' => "required | regex:/^[0-9]{7}$/ | unique:riders,ph_number,$id",
             // 'ph_number' => array('required', 'numeric', 'regex:/^[0-9]{7}$/', 'unique:riders,ph_number'),
@@ -167,7 +167,7 @@ class RiderController extends Controller
         ]);
 
         $rider->first_name = $request->input('first_name');
-        $rider->last_name = $request->input('second_name');
+        $rider->last_name = $request->input('last_name');
         $rider->third_name = $request->input('third_name');
         $rider->ph_number = $request->input('ph_number');
         $rider->bus_id = $request->input('bus_id');

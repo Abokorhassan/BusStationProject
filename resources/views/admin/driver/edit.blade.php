@@ -113,17 +113,6 @@
                             </span>') !!}
                           </div>
                         </div>
-
-                        <div class="form-group {{ $errors->first('ph_number', 'has-error') }}">
-                          <label for="ph_number" class="col-sm-2 control-label">Phone Number *
-                          </label>
-                          <div class="col-sm-10">
-                                {!! Form::text('ph_number', null, array('class' => 'form-control required', 'placeholder'=>'phone number')) !!}
-                            {!! $errors->first('ph_number', '
-                            <span class="help-block">:message
-                            </span>') !!}
-                          </div>
-                        </div>
                         
                         <div class="form-group {{ $errors->first('gender', 'has-error') }}">
                           <label for="gender" class="col-sm-2 control-label">Gender *
@@ -158,7 +147,19 @@
                                 </div>
                         </div>
                       </div>
-                      <div class="col-sm-4 animate_rt">
+                      <div class="col-sm-4 animate_rt">            
+
+                        <div class="form-group {{ $errors->first('ph_number', 'has-error') }}">
+                          <label style="margin-top: -3%" for="ph_number" class="col-sm-2 control-label">Phone No.*
+                          </label>
+                          <div class="col-sm-10">
+                                {!! Form::text('ph_number', null, array('class' => 'form-control required', 'placeholder'=>'phone number')) !!}
+                            {!! $errors->first('ph_number', '
+                            <span class="help-block">:message
+                            </span>') !!}
+                          </div>
+                        </div>
+
                         <div class="form-group {{ $errors->first('address', 'has-error') }}">
                           <label style="margin-left: -3" for="address" class="col-sm-2 control-label">ADRSS
                           </label>

@@ -65,12 +65,12 @@
                             </div>
                           </div>
 
-                          <div class="form-group {{ $errors->first('second_name', 'has-error') }}">
-                            <label style="margin-top: -1%"  for="second_name" class="col-sm-2 control-label">Second Name *
+                          <div class="form-group {{ $errors->first('last_name', 'has-error') }}">
+                            <label style="margin-top: -1%"  for="last_name" class="col-sm-2 control-label">Second Name *
                             </label>
                             <div class="col-sm-10">
-                                  {!! Form::text('second_name', $rider->last_name, array('class' => 'form-control required', 'placeholder'=>'Second Name')) !!}
-                              {!! $errors->first('second_name', '
+                                  {!! Form::text('last_name', null, array('class' => 'form-control required', 'placeholder'=>'Second Name')) !!}
+                              {!! $errors->first('last_name', '
                               <span class="help-block">:message
                               </span>') !!}
                             </div>

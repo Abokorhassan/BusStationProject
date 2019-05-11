@@ -66,6 +66,19 @@
                         <div class="row">
 
                           <div class="col-sm-8 animate_rt">
+
+                            <div  class="form-group {{ $errors->first('driver_number', 'has-error') }}">
+                              <label  style="margin-top: -2%"  for="driver_number" class="col-sm-2 control-label">Driver Number*
+                              </label>
+                              <div class="col-sm-10">
+                                <input id="driver_number" name="driver_number" type="text" placeholder="Ex. Dr_01"
+                                        class="form-control required" value="{!! old('driver_number') !!}"/>
+                                {!! $errors->first('driver_number', '
+                                <span class="help-block">:message
+                                </span>') !!}
+                              </div>
+                            </div>
+
                             <div class="form-group {{ $errors->first('firstname', 'has-error') }}">
                               <label style="margin-top: -2%" for="first_name" class="col-sm-2 control-label">First Name*
                               </label>
@@ -136,18 +149,6 @@
                                 <input id="email" name="email" placeholder="Email" type="text"
                                         class="form-control required email" value="{!! old('email') !!}"/>
                                 {!! $errors->first('email', '
-                                <span class="help-block">:message
-                                </span>') !!}
-                              </div>
-                            </div>
-
-                            <div class="form-group {{ $errors->first('ph_number', 'has-error') }}">
-                              <label for="ph_number" class="col-sm-2 control-label">Phone Number *
-                              </label>
-                              <div class="col-sm-10">
-                                <input id="ph_number" name="ph_number" placeholder="phone number" type="text"
-                                        class="form-control required email" value="{!! old('ph_number') !!}"/>
-                                {!! $errors->first('ph_number', '
                                 <span class="help-block">:message
                                 </span>') !!}
                               </div>
@@ -239,6 +240,20 @@
                                       </span>') !!}
                               </div>
                             </div> --}}
+
+                            
+                            <div class="form-group {{ $errors->first('ph_number', 'has-error') }}">
+                              <label style="margin-top: -3%" for="ph_number" class="col-sm-2 control-label">Phone No.*
+                              </label>
+                              <div class="col-sm-10">
+                                <input id="ph_number" name="ph_number" placeholder="phone number" type="text"
+                                        class="form-control required email" value="{!! old('ph_number') !!}"/>
+                                {!! $errors->first('ph_number', '
+                                <span class="help-block">:message
+                                </span>') !!}
+                              </div>
+                            </div>
+
                             <div class="form-group">
                                 <label style="margin-left: -3%" for="address" class="col-sm-2 control-label">Address
                                 </label>

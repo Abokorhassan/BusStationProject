@@ -34,6 +34,13 @@ class DriverController extends Controller
 
         return DataTables::of(Driver::query())
 
+            ->addColumn('Rider_Number', function(Driver $driver){
+                $driverName = null;
+                if(isset($driver->driver_number))
+                    $driverName = $driver->driver_number;
+                return $driverName;
+            })
+
             ->addColumn('Station', function(Driver $driver){
                 $stationName = null;
                 if(isset($driver->station) && $driver->station && $driver->station->name)
@@ -85,6 +92,7 @@ class DriverController extends Controller
     public function store(Request $request)
     {
         $this->validate($request,[
+            'driver_number' => array('required', 'regex:/(Dr_)[0-9]{2,4}$/'),
             'firstname' => 'required | max:50',
             'second_name' => 'required | max:50',
             'third_name' => 'required | max:50',
@@ -97,6 +105,7 @@ class DriverController extends Controller
         ]);
 
         $driver = new Driver();
+        $driver->driver_number = $request->input('driver_number');
         $driver->first_name = $request->input('firstname');
         $driver->last_name = $request->input('second_name');
         $driver->third_name = $request->input('third_name');

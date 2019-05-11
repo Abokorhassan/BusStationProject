@@ -53,7 +53,11 @@ class ReserveController extends Controller
             })
 
             ->addColumn('User', function(Reserve $reserve){
-                return $reserve->user->first_name.' '.$reserve->user->last_name;
+                $UserName = null;
+                if(isset($reserve->user) && $reserve->user && $reserve->user->first_name)
+                    $UserName = $reserve->user->first_name.' '.$reserve->user->last_name;
+                return $UserName;
+
             })
 
             ->editColumn('created_at', function (Reserve $createtime) {
