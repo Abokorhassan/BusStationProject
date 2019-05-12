@@ -18,4 +18,8 @@ class Driver extends Model
     {
         return $this->belongsTo(Station::class);
     }
+    public function accident()
+	{
+		return $this->hasMany(Accident::class);
+	}
 }

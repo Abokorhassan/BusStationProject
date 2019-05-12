@@ -5,6 +5,9 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Accident;
+use App\Driver;
+use App\Station;
+use App\Bus;
 use DOMDocument;
 use Intervention\Image\Facades\Image;
 use Response;
@@ -28,7 +31,37 @@ class AccidentController extends Controller
     {
         $accident = Accident::get(['id','acc_lat', 'acc_long', 'bus_id', 'driver_id', 'user_id', 'route_id', 'station_id', 'created_at']);
 
-        return DataTables::of($accident)
+        return DataTables::of(Accident::query())
+
+            ->addColumn('Driver', function(Accident $accident){
+
+                $driverName = null;
+                if(isset($accident->driver_id) && $accident->driver && $accident->driver->driver_number) 
+                    $driverName = $accident->driver->driver_number;
+                return $driverName;
+            })
+
+            ->addColumn('Bus', function(Accident $accident){
+                $busName = null;
+                if(isset($accident->bus_id) && $accident->bus && $accident->bus->bus_number)
+                    $busName = $accident->bus->bus_number;
+                return $busName;
+            })
+
+            ->addColumn('Station', function(Accident $accident){
+                $stationName = null;
+                if(isset($accident->station) && $accident->station && $accident->station->name)
+                    $stationName = $accident->station->name;
+                return $stationName;
+            })
+
+            ->addColumn('User', function(Accident $accident){
+                $UserName = null;
+                if(isset($accident->user) && $accident->user && $accident->user->first_name)
+                    $UserName = $accident->user->first_name.' '.$accident->user->last_name;
+                return $UserName;
+            })
+
             ->editColumn('created_at', function (Accident $createtime) {
                 return $createtime->created_at->diffForHumans();
             })
@@ -52,7 +85,10 @@ class AccidentController extends Controller
      */
     public function create()
     {
-        return view('admin.accident.create');
+        $drivers = Driver::select('id','driver_number')->get();
+        $stations = Station::select('id','name')->get();
+        $buses = Bus::select('id','bus_number')->get();
+        return view('admin.accident.create', compact('drivers', 'stations', 'buses'));
     }
 
     /**
@@ -64,23 +100,20 @@ class AccidentController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'driver_id' => 'required | numeric',
-            'bus_id' => 'required | numeric',
+            'driver_number' => 'required | numeric',
+            'bus_number' => 'required | numeric',
             'accident_latitude' => 'required | numeric',
             'accident_longitude' => 'required | numeric',
-            'user_id' => 'required | numeric',
-            'route_id' => 'required | numeric',
-            'station_id' => 'required | numeric',
+            'station' => 'required | numeric',
         ]);
 
         $accident = new Accident();
-        $accident->driver_id = $request->input('driver_id');
-        $accident->bus_id = $request->input('bus_id');
+        $accident->driver_id = $request->input('driver_number');
+        $accident->bus_id = $request->input('bus_number');
         $accident->acc_lat = $request->input('accident_latitude');
         $accident->acc_long = $request->input('accident_longitude');
-        $accident->user_id = $request->input('user_id');
-        $accident->route_id = $request->input('route_id');
-        $accident->station_id = $request->input('station_id'); 
+        $accident->user_id = Sentinel::getUser()->id;
+        $accident->station_id = $request->input('station'); 
         $accident->save();
 
         return redirect('admin/accident')->with('success', 'Accident Created');
@@ -106,7 +139,17 @@ class AccidentController extends Controller
     public function edit($id)
     {
         $accident = Accident::find($id);
-        return view('admin.accident.edit', compact('accident'));
+
+        $stations = Station::select('id','name')->get();
+        $opStations = $stations->pluck('name', 'id')->toArray();
+
+        $buses = Bus::select('id','bus_number')->get();
+        $opBuses = $buses->pluck('bus_number', 'id')->toArray();
+
+        $drivers = Driver::select('id','driver_number')->get();
+        $opDrivers = $drivers->pluck('driver_number', 'id')->toArray(); 
+
+        return view('admin.accident.edit', compact('accident', 'stations', 'opStations', 'drivers', 'opDrivers', 'buses', 'opBuses'));
     }
 
     /**
@@ -123,8 +166,6 @@ class AccidentController extends Controller
             'bus_id' => 'required | numeric',
             'accident_latitude' => 'required | numeric',
             'accident_longitude' => 'required | numeric',
-            'user_id' => 'required | numeric',
-            'route_id' => 'required | numeric',
             'station_id' => 'required | numeric',
         ]);
 
@@ -133,8 +174,6 @@ class AccidentController extends Controller
         $accident->bus_id = $request->input('bus_id');
         $accident->acc_lat = $request->input('accident_latitude');
         $accident->acc_long = $request->input('accident_longitude');
-        $accident->user_id = $request->input('user_id');
-        $accident->route_id = $request->input('route_id');
         $accident->station_id = $request->input('station_id'); 
         $accident->save();
 

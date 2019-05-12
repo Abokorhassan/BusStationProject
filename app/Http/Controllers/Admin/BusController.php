@@ -33,9 +33,6 @@ class BusController extends Controller
         // $bus = Bus::get(['id', 'model_type', 'bus_number', 'station_id', 'Driver_id', 'created_at']);
         return DataTables::of(Bus::query())
 
-            ->addColumn('User', function(Bus $bus){
-                return $bus->user->first_name;
-            })
 
             ->addColumn('User', function(Bus $bus){
                 $userName = null;

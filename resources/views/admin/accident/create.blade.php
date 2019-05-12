@@ -2,7 +2,6 @@
 
 {{-- Page title --}}
 @section('title')
-    {{-- @lang('news/title.add-news') :: @parent --}}
     Accident Stop
 @stop
 
@@ -27,7 +26,7 @@
 @section('content')
     <section class="content-header">
       <!--section starts-->
-      <h1>Add New Accident</h1>
+      <h1>Accident</h1>
       <ol class="breadcrumb">
         <li>
             <a href="{{ route('admin.dashboard') }}"> <i class="livicon" data-name="home" data-size="14"
@@ -38,7 +37,7 @@
         <li>
             <a href="#">Accident</a>
         </li>
-        <li class="active">Add New Accident</li>
+        <li class="active">Add Accident</li>
       </ol>
     </section>
     <!--section ends-->
@@ -49,9 +48,7 @@
             <div class="panel panel-primary">
               <div class="panel-heading">
                 <h3 class="panel-title">
-                  <i class="livicon" data-name="user-add" data-size="18" data-c="#fff" data-hc="#fff" data-loop="true">
-                  </i>
-                  Add New Accident
+                  Add Accident
                 </h3>
                 <span class="pull-right clickable">
                   <i class="glyphicon glyphicon-chevron-up">
@@ -66,34 +63,50 @@
                     <input type="hidden" name="_token" value="{{ csrf_token() }}" />
                       <div id="rootwizard">
                         <h2 class="hidden">&nbsp;</h2>
-
-                        <div class="form-group {{ $errors->first('driver_id', 'has-error') }}">
-                            <label for="driver_id" class="col-sm-2 control-label">Driver *
-                            </label>
-                            <div class="col-sm-10">
-                              <input id="driver_id" name="driver_id" placeholder="Driver" type="text"
-                                      class="form-control required " value="{!! old('driver_id') !!}"/>
-                              {!! $errors->first('driver_id', '
-                              <span class="help-block">:message
-                              </span>') !!}
-                            </div>
-                          </div>                       
-                          
-                        <div class="form-group {{ $errors->first('bus_id', 'has-error') }}">
-                            <label for="bus_id" class="col-sm-2 control-label">Bus *
-                            </label>
-                            <div class="col-sm-10">
-                              <input id="bus_id" name="bus_id" type="text"
-                                      placeholder="Bus" class="form-control required"
-                                      value="{!! old('bus_id') !!}"/>
-                              {!! $errors->first('bus_id', '
-                              <span class="help-block">:message
-                              </span>') !!}
-                            </div>
-                          </div>
+                        
+                        <div class="form-group {{ $errors->first('driver_number', 'has-error') }}">
+                          <label for="driver_number" class="col-sm-2 control-label">Driver Number*
+                          </label>
+                          <div class="col-sm-10">
+                            <select class="form-control" title="Select Pas..." name="driver_number">                                         
+                              <option value="">Select Driver number
+                              </option>
+                              @foreach ($drivers as $driver)
+                              <option value="{{ $driver->id}}" 
+                                @if (old('driver_number')=== "{{$driver->id}}") selected="selected"@endif
+                                >{{ $driver->driver_number}}
+                              </option>
+                              @endforeach
+                            </select>
+                            {!! $errors->first('driver_number', '
+                            <span class="help-block">:message
+                            </span>') !!}
+                          </div>   
+                        </div>   
+                        
+                        <div class="form-group {{ $errors->first('bus_number', 'has-error') }}">
+                          <label for="bus_number" class="col-sm-2 control-label">Bus Number *
+                          </label>
+                          <div class="col-sm-10">
+                            <select class="form-control" title="Select Pas..." name="bus_number">                                         
+                              <option value="">Select bus_number
+                              </option>
+                              @foreach ($buses as $bus)
+                              <option value="{{ $bus->id}}" 
+                                @if (old('bus_number')=== "{{$bus->id}}") selected="selected"@endif
+                                >{{ $bus->bus_number}}
+                              </option>
+                              @endforeach
+                            </select>
+                            {!! $errors->first('bus_number', '
+                            <span class="help-block">:message
+                            </span>') !!}
+                          </div>   
+                        </div>                  
+                        
 
                         <div class="form-group {{ $errors->first('accident_latitude', 'has-error') }}">
-                          <label for="accident_latitude" class="col-sm-2 control-label">Accident Latitude *
+                          <label for="accident_latitude" class="col-sm-2 control-label">Latitude *
                           </label>
                           <div class="col-sm-10">
                             <input id="accident_latitude" name="accident_latitude" type="text" placeholder="Latitude"
@@ -105,7 +118,7 @@
                         </div>
 
                         <div class="form-group {{ $errors->first('accident_longitude', 'has-error') }}">
-                          <label for="accident_longitude" class="col-sm-2 control-label">Accident Longitude *
+                          <label for="accident_longitude" class="col-sm-2 control-label">Longitude *
                           </label>
                           <div class="col-sm-10">
                             <input id="accident_longitude" name="accident_longitude" placeholder="Longitude" type="text"
@@ -116,19 +129,7 @@
                           </div>
                         </div>
 
-                        <div class="form-group {{ $errors->first('user_id', 'has-error') }}">
-                          <label for="user_id" class="col-sm-2 control-label">User Id *
-                          </label>
-                          <div class="col-sm-10">
-                            <input id="user_id" name="user_id" placeholder="User Id" type="text"
-                                    class="form-control required " value="{!! old('user_id') !!}"/>
-                            {!! $errors->first('user_id', '
-                            <span class="help-block">:message
-                            </span>') !!}
-                          </div>
-                        </div>
-
-                        <div class="form-group {{ $errors->first('route_id', 'has-error') }}">
+                        {{-- <div class="form-group {{ $errors->first('route_id', 'has-error') }}">
                           <label for="route_id" class="col-sm-2 control-label">Route Id *
                           </label>
                           <div class="col-sm-10">
@@ -138,23 +139,32 @@
                             <span class="help-block">:message
                             </span>') !!}
                           </div>
-                        </div>
-
-                        <div class="form-group {{ $errors->first('station_id', 'has-error') }}">
-                          <label for="station_id" class="col-sm-2 control-label">Station Id *
+                        </div> --}}
+    
+                        <div class="form-group {{ $errors->first('station', 'has-error') }}">
+                          <label for="station" class="col-sm-2 control-label">Station *
                           </label>
                           <div class="col-sm-10">
-                            <input id="station_id" name="station_id" placeholder="Station Id" type="text"
-                                    class="form-control required " value="{!! old('station_id') !!}"/>
-                            {!! $errors->first('station_id', '
+                            <select class="form-control" title="Select Station..." name="station">                                         
+                              <option value="">Select Station
+                              </option>
+    
+                              @foreach ($stations as $station)
+                              <option value="{{ $station->id}}" 
+                                @if (old('station')=== "{{$station->id}}") selected="selected"@endif
+                                >{{ $station->name}}
+                              </option>
+                              @endforeach
+                            </select>
+                            {!! $errors->first('station', '
                             <span class="help-block">:message
                             </span>') !!}
-                          </div>
+                          </div>   
                         </div>
 
                         <div class="form-group">
                                 <div class="col-sm-offset-2 col-sm-4 btn_rtl">
-                                    <a class="btn btn-danger" href="{{ route('admin.busstop.index') }}">
+                                    <a class="btn btn-danger" href="{{ route('admin.accident.index') }}">
                                         @lang('button.cancel')
                                     </a>
                                     <button type="submit" class="btn btn-success">

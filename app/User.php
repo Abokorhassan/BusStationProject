@@ -69,4 +69,8 @@ class User extends EloquentUser {
 	{
 		return $this->hasMany(Busstop::class);
 	}
+	public function accident()
+	{
+		return $this->hasMany(Accident::class);
+	}
 }
