@@ -3,7 +3,6 @@
 {{-- Page title --}}
 @section('title')
     Bus Stop Lists
-    @parent
 @stop
 
 {{-- page level styles --}}
@@ -33,9 +32,9 @@
         <div class="row">
             <div class="panel panel-primary ">
                 <div class="panel-heading clearfix">
-                    <h4 class="panel-title pull-left"><i class="livicon" data-name="users" data-size="16"
-                        data-loop="true" data-c="#fff" data-hc="white"></i>
-                    Bus Stop list
+                    <h4 class="panel-title pull-left">
+                        <img style="margin-top: -3%;" width="15%" src="{{ asset('assets/img/bus-stop.png') }}" alt="">
+                        Bus Stop list
                     </h4>
                     <div class="pull-right">
                         <a href="{{ URL::to('admin/busstop/create') }}" class="btn btn-sm btn-default"><span
@@ -86,9 +85,9 @@
                     { data: 'name', name: 'name' },
                     { data: 'lat', name: 'lat' },
                     { data: 'long', name: 'long' },
-                    { data: 'user_id', name: 'user_id' },
+                    { data: 'User', name: 'User' },
                     { data: 'route_id', name: 'route_id' },
-                    { data: 'station_id', name: 'station_id' },
+                    { data: 'Station', name: 'Station' },
                     { data: 'created_at', name:'created_at'},
                     { data: 'actions', name: 'actions', orderable: false, searchable: false }
                 ]

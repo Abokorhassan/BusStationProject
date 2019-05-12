@@ -2,7 +2,6 @@
 
 {{-- Page title --}}
 @section('title')
-    {{-- @lang('news/title.add-news') :: @parent --}}
     Add Bus Stop
 @stop
 
@@ -27,7 +26,7 @@
 @section('content')
     <section class="content-header">
       <!--section starts-->
-      <h1>Add New Bus Stop</h1>
+      <h1>Bus Stop</h1>
       <ol class="breadcrumb">
         <li>
             <a href="{{ route('admin.dashboard') }}"> <i class="livicon" data-name="home" data-size="14"
@@ -49,8 +48,6 @@
                 <div class="panel panel-primary">
                   <div class="panel-heading">
                     <h3 class="panel-title">
-                      <i class="livicon" data-name="user-add" data-size="18" data-c="#fff" data-hc="#fff" data-loop="true">
-                      </i>
                       Add New Bus Stop
                     </h3>
                     <span class="pull-right clickable">
@@ -68,10 +65,10 @@
                             <h2 class="hidden">&nbsp;</h2>
 
                             <div class="form-group {{ $errors->first('bstop_num', 'has-error') }}">
-                              <label for="bstop_num" class="col-sm-2 control-label">Bus Stop Number *
+                              <label for="bstop_num" class="col-sm-2 control-label">Bus Stop No.*
                               </label>
                               <div class="col-sm-10">
-                                <input id="bstop_num" name="bstop_num" placeholder="Bus Stop Number" type="text"
+                                <input id="bstop_num" name="bstop_num" placeholder="Ex. Bsp_01" type="text"
                                         class="form-control required " value="{!! old('bstop_num') !!}"/>
                                 {!! $errors->first('bstop_num', '
                                 <span class="help-block">:message
@@ -116,19 +113,7 @@
                               </div>
                             </div>
 
-                            <div class="form-group {{ $errors->first('user_id', 'has-error') }}">
-                              <label for="user_id" class="col-sm-2 control-label">User Id *
-                              </label>
-                              <div class="col-sm-10">
-                                <input id="user_id" name="user_id" placeholder="User Id" type="text"
-                                        class="form-control required " value="{!! old('user_id') !!}"/>
-                                {!! $errors->first('user_id', '
-                                <span class="help-block">:message
-                                </span>') !!}
-                              </div>
-                            </div>
-
-                            <div class="form-group {{ $errors->first('route_id', 'has-error') }}">
+                            {{-- <div class="form-group {{ $errors->first('route_id', 'has-error') }}">
                               <label for="route_id" class="col-sm-2 control-label">Route Id *
                               </label>
                               <div class="col-sm-10">
@@ -138,19 +123,28 @@
                                 <span class="help-block">:message
                                 </span>') !!}
                               </div>
-                            </div>
+                            </div> --}}
 
-                            <div class="form-group {{ $errors->first('station_id', 'has-error') }}">
-                              <label for="station_id" class="col-sm-2 control-label">Station Id *
+                            <div class="form-group {{ $errors->first('station', 'has-error') }}">
+                              <label for="station" class="col-sm-2 control-label">Station *
                               </label>
                               <div class="col-sm-10">
-                                <input id="station_id" name="station_id" placeholder="Station Id" type="text"
-                                        class="form-control required " value="{!! old('station_id') !!}"/>
-                                {!! $errors->first('station_id', '
+                                <select class="form-control" title="Select Station..." name="station">                                         
+                                  <option value="">Select Station
+                                  </option>
+        
+                                  @foreach ($stations as $station)
+                                  <option value="{{ $station->id}}" 
+                                    @if (old('station')=== "{{$station->id}}") selected="selected"@endif
+                                    >{{ $station->name}}
+                                  </option>
+                                  @endforeach
+                                </select>
+                                {!! $errors->first('station', '
                                 <span class="help-block">:message
                                 </span>') !!}
-                              </div>
-                            </div>
+                              </div>   
+                            </div>  
 
                             <div class="form-group">
                                     <div class="col-sm-offset-2 col-sm-4 btn_rtl">

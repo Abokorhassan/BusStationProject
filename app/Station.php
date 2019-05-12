@@ -20,6 +20,10 @@ class Station extends Model
 	}
 	public function driver()
 	{
-		return $this->hasMany(Rider::class);
+		return $this->hasMany(Driver::class);
+	}
+	public function busstop()
+	{
+		return $this->hasMany(Busstop::class);
 	}
 }
