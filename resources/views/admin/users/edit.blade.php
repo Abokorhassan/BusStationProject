@@ -214,7 +214,18 @@
                                                     </div
                                                             {!! $errors->first('group', '<span class="help-block">:message</span>') !!}>
                                                 </div>
-
+                                                @if ((Sentinel::getUser()->id != $user->id) && ($user->id != 1))
+                                                    <div class="form-group {{ $errors->first('station_id', 'has-error') }}">
+                                                        <label for="station_id" class="col-sm-2 control-label">Station *
+                                                        </label>
+                                                        <div class="col-sm-10">
+                                                            {!! Form::select('station_id', $opStations, null, ['placeholder' => 'Select Station', 'class' => 'form-control required']) !!}
+                                                            {!! $errors->first('station_id', '
+                                                            <span class="help-block">:message
+                                                            </span>') !!}
+                                                        </div>
+                                                    </div>
+                                                @endif
                                                 <div class="form-group">
                                                     <label for="activate" class="col-sm-2 control-label tab4_label"> Activate User</label>
                                                     <div class="col-sm-10">

@@ -3,6 +3,7 @@
 use App\Http\Controllers\JoshController;
 use App\Http\Requests\UserRequest;
 use App\User;
+use App\Station;
 use Cartalyst\Sentinel\Laravel\Facades\Activation;
 use File;
 use Hash;
@@ -45,7 +46,14 @@ class UsersController extends JoshController
     {
         $users = User::get(['id', 'first_name', 'last_name', 'email','created_at']);
 
-        return DataTables::of($users)
+        return DataTables::of(User::query())
+
+            ->addColumn('Station', function(User $user){
+                $stationName = null;
+                if(isset($user->station) && $user->station && $user->station->name)
+                    $stationName = $user->station->name;
+                return $stationName;
+            })
             ->editColumn('created_at',function(User $user) {
                 return $user->created_at->diffForHumans();
             })
@@ -163,8 +171,11 @@ class UsersController extends JoshController
 
         $countries = $this->countries;
 
+        $stations = Station::select('id','name')->get();
+        $opStations = $stations->pluck('name', 'id')->toArray();
+
         // Show the page
-        return view('admin.users.edit', compact('user', 'roles', 'userRoles', 'countries', 'status'));
+        return view('admin.users.edit', compact('user', 'roles', 'userRoles', 'countries', 'status', 'stations', 'opStations'));
     }
 
     /**
@@ -198,6 +209,8 @@ class UsersController extends JoshController
                 //save new file path into db
                 $user->pic = $safeName;
             }
+            // Save the station the user from
+            $user->station_id = $request->input('station_id');
 
             //save record
             $user->save();
