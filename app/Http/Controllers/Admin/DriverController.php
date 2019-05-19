@@ -34,7 +34,7 @@ class DriverController extends Controller
 
         return DataTables::of(Driver::query())
 
-            ->addColumn('Rider_Number', function(Driver $driver){
+            ->addColumn('Driver_Number', function(Driver $driver){
                 $driverName = null;
                 if(isset($driver->driver_number))
                     $driverName = $driver->driver_number;
