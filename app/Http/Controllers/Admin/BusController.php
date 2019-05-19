@@ -150,7 +150,7 @@ class BusController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request,[
-            'bus_number' => 'required | max:50|',
+            'bus_number' => 'required | max:50|  unique:buses,bus_number,'. $id,
             'Driver_id' => 'required | numeric | unique:buses,Driver_id,'. $id,
             'station_id' => 'required | numeric',
         ]);    
