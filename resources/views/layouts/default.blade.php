@@ -85,13 +85,28 @@
                     </li>
 
                     {{-- test --}}
-                    @if(Sentinel::guest())
-                        
+                    {{-- @if(Sentinel::guest()) 
                     @else
-                        <li {!! (Request::is('test') || Request::is('test/*') ? 'class="active frontend_navbar"' : 'class="frontend_navbar"') !!} class="frontend_navbar"> 
-                            <a href="{{ URL::to('test') }}"> test </a>
-                        </li>
-                    @endif
+                            <li {!! (Request::is('test') || Request::is('test/*') ? 'class="active frontend_navbar"' : 'class="frontend_navbar"') !!} class="frontend_navbar"> 
+                                <a href="{{ URL::to('test') }}"> test </a>
+                            </li>
+                    @endif --}}
+
+                    <li class="frontend_navbar dropdown {!! (Request::is('bus') || Request::is('bus/*') || Request::is('bus/show') || Request::is('bus/edit')  ? 'active' : '') !!}">
+                        <a href="{{ URL::to('bus') }}"> Bus </a>
+                        {{-- <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false"> Bus</a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="{{ URL::to('bus') }}">Bus</a>
+                            </li>
+                            <li><a href="{{ URL::to('bus/create') }}">Create Bus</a>
+                            </li>
+                            <li><a href="{{ URL::to('bus/show') }}">show Bus</a>
+                            </li>
+                            <li><a href="{{ URL::to('bus/edit') }}">edit Bus</a>
+                            </li>
+                        </ul> --}}
+                    </li>
+                    
 
                         {{-- Features --}}
                     <li class="frontend_navbar dropdown {!! (Request::is('typography') || Request::is('advancedfeatures') || Request::is('grid') ? 'active' : '') !!}">
@@ -149,8 +164,8 @@
                     </li>
 
                     {{-- News --}}
-                    <li {!! (Request::is('news') || Request::is('news/*') ? 'class="active frontend_navbar"' : 'class="frontend_navbar"') !!} class="frontend_navbar"><a
-                                href="{{ URL::to('news') }}">News</a>
+                    <li {!! (Request::is('news') || Request::is('news/*') ? 'class="active frontend_navbar"' : 'class="frontend_navbar"') !!} class="frontend_navbar">
+                        <a href="{{ URL::to('news') }}">News</a>
                     </li>
 
                     {{-- I didn't commented this --}}
@@ -200,12 +215,41 @@
     <footer>
         <div class="container footer-text">
             <!-- About Us Section Start -->
-            <div class="col-sm-4 right_float">
+            <div class="col-sm-6 right_float">
                 <h4>About Us</h4>
                 <p>
                     Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.
                 </p>
-                <hr id="hr_border2">
+                
+            </div>
+            <!-- //About us Section End -->
+            <!-- Contact Section Start -->
+            <div class="col-sm-6 right_float">
+                <h4>Contact Us</h4>
+                <ul class="list-unstyled" id="footer_part">
+                    <li>35,Lorem Lis Street, Park Ave</li>
+                    <li>Lis Street, India.</li>
+                    <li><i class="livicon icon4 icon3" data-name="cellphone" data-size="18" data-loop="true" data-c="#ccc" data-hc="#ccc"></i>Phone:9140 123 4588</li>
+                    <li><i class="livicon icon4 icon3" data-name="printer" data-size="18" data-loop="true" data-c="#ccc" data-hc="#ccc"></i> Fax:400 423 1456</li>
+                    <li><i class="livicon icon3" data-name="mail-alt" data-size="20" data-loop="true" data-c="#ccc" data-hc="#ccc"></i> Email:<span class="text-success" style="cursor: pointer;">
+                        info@joshadmin.com</span>
+                    </li>
+                    <li><i class="livicon icon4 icon3" data-name="skype" data-size="18" data-loop="true" data-c="#ccc" data-hc="#ccc"></i> Skype:
+                        <span class="text-success"  style="cursor: pointer;">Joshadmin</span>
+                    </li>
+                </ul>
+                {{-- <hr id="hr_border">
+                <div class="news menu">
+                    <h4>News letter</h4>
+                    <p>subscribe to our newsletter and stay up to date with the latest news and deals</p>
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="yourmail@mail.com" aria-describedby="basic-addon2">
+                        <a href="#" class="btn btn-primary text-white" role="button">Subscribe</a>
+                    </div>
+                </div> --}}
+            </div>
+            <div style="align-content: center">
+                <hr id="hr_border">
                 <h4 class="menu">Follow Us</h4>
                 <ul class="list-inline"  id="footer_part">
                     <li>
@@ -230,34 +274,10 @@
                     </li>
                 </ul>
             </div>
-            <!-- //About us Section End -->
-            <!-- Contact Section Start -->
-            <div class="col-sm-4 right_float">
-                <h4>Contact Us</h4>
-                <ul class="list-unstyled" id="footer_part">
-                    <li>35,Lorem Lis Street, Park Ave</li>
-                    <li>Lis Street, India.</li>
-                    <li><i class="livicon icon4 icon3" data-name="cellphone" data-size="18" data-loop="true" data-c="#ccc" data-hc="#ccc"></i>Phone:9140 123 4588</li>
-                    <li><i class="livicon icon4 icon3" data-name="printer" data-size="18" data-loop="true" data-c="#ccc" data-hc="#ccc"></i> Fax:400 423 1456</li>
-                    <li><i class="livicon icon3" data-name="mail-alt" data-size="20" data-loop="true" data-c="#ccc" data-hc="#ccc"></i> Email:<span class="text-success" style="cursor: pointer;">
-                        info@joshadmin.com</span>
-                    </li>
-                    <li><i class="livicon icon4 icon3" data-name="skype" data-size="18" data-loop="true" data-c="#ccc" data-hc="#ccc"></i> Skype:
-                        <span class="text-success"  style="cursor: pointer;">Joshadmin</span>
-                    </li>
-                </ul>
-                <hr id="hr_border">
-                <div class="news menu">
-                    <h4>News letter</h4>
-                    <p>subscribe to our newsletter and stay up to date with the latest news and deals</p>
-                    <div class="form-group">
-                        <input type="text" class="form-control" placeholder="yourmail@mail.com" aria-describedby="basic-addon2">
-                        <a href="#" class="btn btn-primary text-white" role="button">Subscribe</a>
-                    </div>
-                </div>
-            </div>
+
             <!-- //Contact Section End -->
-            <!-- Recent post Section Start -->
+
+            {{-- <!-- Recent post Section Start -->
             <div class="col-sm-4 right_float">
                 <h4>Recent Posts</h4>
                 <div class="media">
@@ -309,13 +329,13 @@
                     </div>
                 </div>
             </div>
-            <!-- //Recent Post Section End -->
+            <!-- //Recent Post Section End --> --}}
         </div>
     </footer>
     <!-- //Footer Section End -->
     <div class="copyright">
         <div class="container">
-        <p>Copyright &copy; Josh Admin Template, 2017</p>
+        <p>Copyright &copy; Abokor & Ahmed, 2019</p>
         </div>
     </div>
     {{--@if()--}}

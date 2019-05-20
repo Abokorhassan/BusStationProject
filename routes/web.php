@@ -290,7 +290,25 @@ Route::post('forgot-password', 'FrontEndController@postForgotPassword');
 Route::post('forgot-password/{userId}/{passwordResetCode}', 'FrontEndController@postForgotPasswordConfirm');
 Route::get('forgot-password/{userId}/{passwordResetCode}', 'FrontEndController@getForgotPasswordConfirm')->name('forgot-password-confirm');
 
+Route::group(['namespace'=>'User', 'middleware' => 'user', 'as' => 'user.'], function () {
+    Route::resource('test', 'TestController');
+    Route::resource('Ubus', 'UBusController');
 
+    // User  Buses Management
+    //  Route::resource('bus', 'BusController');
+
+
+    Route::group(['prefix' => 'bus'], function () {
+        Route::get('action', 'BusController@action');
+        Route::get('search', 'BusController@search');
+        Route::get('data', 'BusController@data')->name('bus.data');
+        Route::get('{bus}/delete', 'BusController@destroy')->name('bus.delete');
+        Route::get('{bus}/confirm-delete', 'BusController@getModalDelete')->name('bus.confirm-delete');
+    });
+    
+    Route::resource('bus', 'BusController');
+
+});
 
 # My account display and update details
 Route::group(['middleware' => 'user'], function () {
@@ -325,13 +343,9 @@ Route::group(['middleware' => 'user'], function () {
 
     Route::get('{name?}', 'FrontEndController@showFrontEndView');
 
-    
-# contact form
 });
 
-Route::group(['namespace'=>'User', 'middleware' => 'user', 'as' => 'user.'], function () {
-    Route::resource('test', 'TestController');
-});
+
 
 
 
