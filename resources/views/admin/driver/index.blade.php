@@ -48,7 +48,7 @@
                             <thead>
                                 <tr class="filters">
                                     <th>ID</th>
-                                    <th>Rider_Number</th>
+                                    <th>Driver_Number</th>
                                     <th>Full name</th>
                                     <th>Email</th>
                                     <th>Ph_number</th>
@@ -82,7 +82,7 @@
                 ajax: '{!! route('admin.driver.data') !!}',
                 columns: [
                     { data: 'id', name: 'id' },
-                    { data: 'Rider_Number', name: 'Rider_Number' },
+                    { data: 'Driver_Number', name: 'Rider_Number' },
                     { data: 'first_name', name: 'first_name' },
                     { data: 'email', name: 'email' },		
                     { data: 'ph_number', name: 'ph_number' },
