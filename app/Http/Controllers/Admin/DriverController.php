@@ -92,7 +92,7 @@ class DriverController extends Controller
     public function store(Request $request)
     {
         $this->validate($request,[
-            'driver_number' => array('required', 'regex:/(Dr_)[0-9]{2,4}$/'),
+            'driver_number' => array('required', 'regex:/(Dr_)[0-9]{2,4}$/', 'unique:drivers,driver_number'),
             'firstname' => 'required | max:50',
             'second_name' => 'required | max:50',
             'third_name' => 'required | max:50',

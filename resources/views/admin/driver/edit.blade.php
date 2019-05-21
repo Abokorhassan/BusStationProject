@@ -239,7 +239,6 @@
     <script src="{{ asset('assets/vendors/datetimepicker/js/bootstrap-datetimepicker.min.js') }}" type="text/javascript"></script>
     <script src="{{ asset('assets/vendors/summernote/summernote.min.js') }}" type="text/javascript"></script>
     <script src="{{ asset('assets/vendors/select2/js/select2.js') }}" type="text/javascript"></script>
-    {{--<script src="{{ asset('assets/vendors/bootstrap-tagsinput/bootstrap-tagsinput.js') }}" type="text/javascript"></script>--}}
     <script type="text/javascript" src="{{ asset('assets/vendors/jasny-bootstrap/js/jasny-bootstrap.js') }}"></script>
     <script src="{{ asset('assets/js/pages/add_newblog.js') }}" type="text/javascript"></script>
     <script src="{{ asset('assets/js/parsley.min.js') }}" type="text/javascript"></script>
@@ -249,8 +248,6 @@
     <script src="{{ asset('assets/vendors/jasny-bootstrap/js/jasny-bootstrap.js') }}"  type="text/javascript"></script>
     <script src="{{ asset('assets/vendors/select2/js/select2.js') }}" type="text/javascript"></script>
     <script src="{{ asset('assets/vendors/bootstrapwizard/jquery.bootstrap.wizard.js') }}" type="text/javascript"></script>
-    {{-- <script src="{{ asset('assets/vendors/bootstrapvalidator/js/bootstrapValidator.min.js') }}" type="text/javascript"></script> --}}
-    <script src="{{ asset('assets/vendors/datetimepicker/js/bootstrap-datetimepicker.min.js') }}" type="text/javascript"></script>
     <script src="{{ asset('assets/js/pages/adduser.js') }}"></script>    
 @stop
 
