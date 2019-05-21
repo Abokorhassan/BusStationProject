@@ -92,6 +92,7 @@
                             </li>
                     @endif --}}
 
+                        {{-- Bus --}}
                     <li class="frontend_navbar dropdown {!! (Request::is('bus') || Request::is('bus/*') || Request::is('bus/show') || Request::is('bus/edit')  ? 'active' : '') !!}">
                         <a href="{{ URL::to('bus') }}"> Bus </a>
                         {{-- <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false"> Bus</a>
@@ -105,6 +106,11 @@
                             <li><a href="{{ URL::to('bus/edit') }}">edit Bus</a>
                             </li>
                         </ul> --}}
+                    </li>
+
+                    {{-- Driver --}}
+                    <li class="frontend_navbar dropdown {!! (Request::is('driver') || Request::is('driver/*')   ? 'active' : '') !!}">
+                        <a href="{{ URL::to('driver') }}"> Driver </a>
                     </li>
                     
 
@@ -164,9 +170,9 @@
                     </li>
 
                     {{-- News --}}
-                    <li {!! (Request::is('news') || Request::is('news/*') ? 'class="active frontend_navbar"' : 'class="frontend_navbar"') !!} class="frontend_navbar">
+                    {{-- <li {!! (Request::is('news') || Request::is('news/*') ? 'class="active frontend_navbar"' : 'class="frontend_navbar"') !!} class="frontend_navbar">
                         <a href="{{ URL::to('news') }}">News</a>
-                    </li>
+                    </li> --}}
 
                     {{-- I didn't commented this --}}
                     {{--<li class="dropdown {!! (Request::is('news') || Request::is('news_item') ? 'active' : '') !!}"><a href="#" class="dropdown-toggle" data-toggle="dropdown"> News</a>--}}

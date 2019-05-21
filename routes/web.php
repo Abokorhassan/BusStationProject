@@ -297,7 +297,7 @@ Route::group(['namespace'=>'User', 'middleware' => 'user', 'as' => 'user.'], fun
     // User  Buses Management
     //  Route::resource('bus', 'BusController');
 
-
+    // Bus
     Route::group(['prefix' => 'bus'], function () {
         Route::get('action', 'BusController@action');
         Route::get('search', 'BusController@search');
@@ -305,8 +305,14 @@ Route::group(['namespace'=>'User', 'middleware' => 'user', 'as' => 'user.'], fun
         Route::get('{bus}/delete', 'BusController@destroy')->name('bus.delete');
         Route::get('{bus}/confirm-delete', 'BusController@getModalDelete')->name('bus.confirm-delete');
     });
-    
     Route::resource('bus', 'BusController');
+
+    //Driver
+    Route::group(['prefix' => 'driver'], function () {
+        Route::get('data', 'DriverController@data')->name('driver.data');
+        Route::get('{driver}/delete', 'DriverController@destroy')->name('driver.delete');
+    });
+    Route::resource('driver', 'DriverController');
 
 });
 
