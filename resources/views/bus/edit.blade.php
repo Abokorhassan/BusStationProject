@@ -71,9 +71,6 @@
             <div class="col-md-12">
               <!--main content-->
               <div class="position-center">
-                <div id="notific">
-                  @include('notifications')
-                </div>
                 <div class="row">
                   <div class="col-sm-8">
                     {!! Form::model($bus, ['url' => URL::to('bus/' . $bus->id), 'method' => 'put',
@@ -122,9 +119,11 @@
 
                       <div class="form-group">
                         <div class="col-lg-offset-2 col-lg-10">
-                          <a class="btn btn-danger" href="{{ route('user.bus.index') }}">
-                            @lang('button.cancel')
-                          </a>
+                            <a href="{{ route('user.bus.index') }}">
+                                <button type="button" class="btn btn-danger">
+                                  Cancel 
+                                </button>
+                            </a>
                           <button class="btn btn-primary" type="submit">Save
                           </button>
                         </div>

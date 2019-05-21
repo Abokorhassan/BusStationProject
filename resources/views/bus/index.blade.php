@@ -305,12 +305,19 @@
             </button>
             <button type="button" class="btn btn-outline-secondary btn-lg">Web Hosting
             </button> --}}
-            <a style="margin-left: 43%;" href="{{ URL::to('bus/create') }}">
-            <button style=" border-color: #09bd8f; width: 12%;" type="button" class="btn btn-default bt-lg">Add New Bus
-            </button>
-            </a>
+            @if($buses != null)
+                <a style="margin-left: 40%;" href="{{ URL::to('bus/create') }}">
+                    <button style=" border-color: #09bd8f; width: 12%;" type="button" class="btn btn-default bt-lg">Add New Bus
+                    </button>
+                </a>                
+            @else
+                
+            @endif
         </h2>
         <hr>
+        <div id="notific">
+            @include('notifications')
+        </div>
         {{-- 
         <div class="table-responsive">
             <h3 > Total Data : 
@@ -366,15 +373,10 @@
                                                 <button  type="button" class="btn btn-success btn-sm">Edit
                                                 </button>
                                             </a>
-                                            
 
                                             <button style="margin-top: 3%" type="button" class="btn btn-danger" data-toggle="modal" data-target="#delete_confirm">
                                                 Delete
                                             </button>
-
-                                            <!-- The Modal -->
-                            
-                                        
                                         </div>
                                         <p style="text-align: center" class="additional-post-wrap">
                                             <span style="margin-left: -15%" class="additional-post">
@@ -394,6 +396,8 @@
                                 </div>
                                 <!-- /.featured-text -->
                             </div>
+
+                            {{-- Delete Modal --}}
                             <form method="POST" action="bus/{{$bus->id}}">
                                 {{ csrf_field() }}
                                 {{ method_field('DELETE') }}
@@ -403,18 +407,20 @@
                                     
                                         <!-- Modal Header -->
                                         <div class="modal-header">
-                                            <h4 class="modal-title">Modal Heading</h4>
-                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                            <h4 class="modal-title">
+                                                <strong>Delete Bus</strong>
+                                            </h4>
+                                            <button  type="button"  class="close" style="color: red" data-dismiss="modal">&times;</button>
                                         </div>
                                         
                                         <!-- Modal body -->
                                         <div class="modal-body">
-                                                <h4>You Want You Sure Delete This Bus?</h4>
+                                            <h5>You sure, you want to DELETE This Bus?</h5>
                                         </div>
                                         
                                         <!-- Modal footer -->
                                         <div class="modal-footer">
-                                            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                                            <button style=" border-color: #09bd8f;" type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
                                         
                                             <button style="color: white;"  type="submit" class="btn btn-danger" >Confirm</button>
                                         </div>
@@ -437,7 +443,7 @@
                 </div>
             </div>
         @else 
-            <p>No posts found
+            <p>No Bus Lists found
             </p>
         @endif
     </div> 
