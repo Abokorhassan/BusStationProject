@@ -51,6 +51,7 @@ Rider Lists
                                     <th>Full name</th>
                                     <th>Ph_number</th>
                                     <th>Gender</th>
+                                    <th>User</th>
                                     <th>Created_at</th>
                                     <th>Actions</th>
                                 </tr>
@@ -81,8 +82,9 @@ Rider Lists
                     { data: 'id', name: 'id' },
                     { data: 'id_number', name: 'id_number' },
                     { data: 'Full_Name', name: 'Full_Name' },
-                    { data: 'gender', name: 'gender' },               
                     { data: 'ph_number', name: 'ph_number'},
+                    { data: 'gender', name: 'gender' }, 
+                    { data: 'User', name: 'User' },        
                     { data: 'created_at', name:'created_at'},
                     { data: 'actions', name: 'actions', orderable: false, searchable: false }
                 ]
