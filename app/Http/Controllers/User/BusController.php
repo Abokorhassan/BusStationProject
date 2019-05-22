@@ -196,7 +196,8 @@ class BusController extends Controller
 
         $bus->save();
 
-        return Redirect::route('user.bus.index')->with('success', 'Bus Created');
+        return redirect('bus')->with('success', 'Bus Created');
+        // return Redirect::route('user.bus.index')->with('success', 'Bus Created');
     }
 
     /**

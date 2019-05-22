@@ -358,7 +358,10 @@
                                                     <p>
                                                         <strong>Driver Number: &nbsp; 
                                                         </strong>
-                                                        {!! $bus->driver->driver_number !!}
+                                                       
+                                                        @if(isset($bus->Driver_id) && $bus->driver && $bus->driver->driver_number) 
+                                                           {!! $bus->driver->driver_number !!}
+                                                        @endif
                                                     </p>
                                                     <p>
                                                         <strong>Route: &nbsp; 
@@ -374,15 +377,21 @@
                                                 </button>
                                             </a>
 
-                                            <button style="margin-top: 3%" type="button" class="btn btn-danger" data-toggle="modal" data-target="#delete_confirm">
+                                            <a style="margin-top: 3%; color: white" href="javascript:;" data-toggle="modal" onclick="deleteData({{$bus->id}})" 
+                                                    data-target="#delete_confirm" class="btn btn-danger">
+                                                {{-- <i class="fa fa-trash"></i>  --}}
                                                 Delete
-                                            </button>
+                                            </a>
                                         </div>
                                         <p style="text-align: center" class="additional-post-wrap">
                                             <span style="margin-left: -15%" class="additional-post">
                                             <i class="livicon" data-name="user" data-size="13" data-loop="true" data-c="#5bc0de" data-hc="#5bc0de">
                                             </i>
-                                            <a href="#">&nbsp;{{$bus->user->first_name.' '.$bus->user->last_name }} 
+                                            <a href="#">&nbsp;
+                                                @if (isset($bus->user_id) && $bus->user && $bus->user->first_name)
+                                                    {{$bus->user->first_name.' '.$bus->user->last_name }}
+                                                @endif
+                                                 
                                             </a>
                                             </span>
                                             <span style="margin-right: -15%" class="additional-post">
@@ -398,7 +407,7 @@
                             </div>
 
                             {{-- Delete Modal --}}
-                            <form method="POST" action="bus/{{$bus->id}}">
+                            <form method="POST" id="deleteForm">
                                 {{ csrf_field() }}
                                 {{ method_field('DELETE') }}
                                 <div  class="modal fade" id="delete_confirm" tabindex="-1" role="dialog" aria-labelledby="user_delete_confirm_title" aria-hidden="true">
@@ -420,9 +429,8 @@
                                         
                                         <!-- Modal footer -->
                                         <div class="modal-footer">
-                                            <button style=" border-color: #09bd8f;" type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                                        
-                                            <button style="color: white;"  type="submit" class="btn btn-danger" >Confirm</button>
+                                                <button style=" border-color: #09bd8f;" type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                                            <button style="color: white;" type="submit" name="" class="btn btn-danger" data-dismiss="modal" onclick="formSubmit()">Delete</button>
                                         </div>
                                         
                                     </div>
@@ -454,4 +462,16 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script> 
+    <script type="text/javascript">
+        function deleteData(id){
+            var id = id;
+            var url = '{{ route("user.bus.destroy", ":id") }}';
+            url = url.replace(':id', id);
+            $("#deleteForm").attr('action', url);
+        }
+   
+        function formSubmit(){
+            $("#deleteForm").submit();
+        }
+    </script>
 @stop
