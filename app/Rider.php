@@ -20,4 +20,9 @@ class Rider extends Model
     {
         return $this->belongsTo(Bus::class);
     }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+	}
 }

@@ -50,6 +50,13 @@ class RiderController extends Controller
                 return $rider->first_name.'  '.$rider->last_name.'  '.$rider->third_name;
             })
 
+            ->addColumn('User', function(Rider $rider){
+                $userName = null;
+                if(isset($rider->user_id) && $rider->user && $rider->user->first_name)
+                    $userName = $rider->user->first_name.' '.$rider->user->last_name;
+                return $userName;
+            })
+
             // ->addColumn('Bus', function(Rider $rider){
             //     $busName = null;
             //     if(isset($rider->bus_id) && $rider->bus && $rider->bus->bus_number)

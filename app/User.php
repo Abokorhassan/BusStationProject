@@ -63,7 +63,7 @@ class User extends EloquentUser {
 	}
 	public function driver()
 	{
-		return $this->hasMany(Rider::class);
+		return $this->hasMany(Driver::class);
 	}
 	public function busstop()
 	{
@@ -76,5 +76,9 @@ class User extends EloquentUser {
 	public function station()
     {
         return $this->belongsTo(Station::class);
-    }
+	}
+	public function rider()
+	{
+		return $this->hasMany(Rider::class);
+	}
 }
