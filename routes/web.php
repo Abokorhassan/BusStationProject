@@ -314,6 +314,13 @@ Route::group(['namespace'=>'User', 'middleware' => 'user', 'as' => 'user.'], fun
     });
     Route::resource('driver', 'DriverController');
 
+    //Rider
+    Route::group(['prefix' => 'rider'], function () {
+        Route::get('data', 'RiderController@data')->name('rider.data');
+        Route::get('{rider}/delete', 'RiderController@destroy')->name('rider.delete');
+    });
+    Route::resource('rider', 'RiderController');
+
 });
 
 # My account display and update details

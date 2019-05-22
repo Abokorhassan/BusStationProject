@@ -112,6 +112,11 @@
                     <li class="frontend_navbar dropdown {!! (Request::is('driver') || Request::is('driver/*')   ? 'active' : '') !!}">
                         <a href="{{ URL::to('driver') }}"> Driver </a>
                     </li>
+
+                    {{-- Rider --}}
+                    <li class="frontend_navbar dropdown {!! (Request::is('rider') || Request::is('rider/*')   ? 'active' : '') !!}">
+                        <a href="{{ URL::to('rider') }}"> Rider </a>
+                    </li>
                     
 
                         {{-- Features --}}
@@ -128,7 +133,7 @@
                     </li>
 
                     {{-- pages --}}
-                    <li class="frontend_navbar dropdown {!! (Request::is('aboutus') || Request::is('timeline') || Request::is('faq') || Request::is('blank_page')  ? 'active' : '') !!}"><a href="#" class="dropdown-toggle" data-toggle="dropdown" class="frontend_navbar"> Pages</a>
+                    {{-- <li class="frontend_navbar dropdown {!! (Request::is('aboutus') || Request::is('timeline') || Request::is('faq') || Request::is('blank_page')  ? 'active' : '') !!}"><a href="#" class="dropdown-toggle" data-toggle="dropdown" class="frontend_navbar"> Pages</a>
                         <ul class="dropdown-menu" role="menu">
                             <li><a href="{{ URL::to('aboutus') }}">About Us</a>
                             </li>
@@ -144,10 +149,10 @@
                             <li><a href="{{ URL::to('blank_page') }}">Blank</a>
                             </li>
                         </ul>
-                    </li>
+                    </li> --}}
 
                     {{-- shop --}}
-                    <li class="frontend_navbar dropdown {!! (Request::is('products') || Request::is('single_product') || Request::is('compareproducts') || Request::is('category')  ? 'active' : '') !!}"><a href="#" class="dropdown-toggle" data-toggle="dropdown"> Shop</a>
+                    {{-- <li class="frontend_navbar dropdown {!! (Request::is('products') || Request::is('single_product') || Request::is('compareproducts') || Request::is('category')  ? 'active' : '') !!}"><a href="#" class="dropdown-toggle" data-toggle="dropdown"> Shop</a>
                         <ul class="dropdown-menu" role="menu">
                             <li><a href="{{ URL::to('products') }}">Products</a>
                             </li>
@@ -157,17 +162,17 @@
                             </li>
                             <li><a href="{{ URL::to('category') }}">Categories</a></li>
                         </ul>
-                    </li>
+                    </li> --}}
 
                     {{-- Portofolio --}}
-                    <li class="frontend_navbar dropdown {!! (Request::is('portfolio') || Request::is('portfolioitem') ? 'active' : '') !!}"><a href="#" class="dropdown-toggle" data-toggle="dropdown"> Portfolio</a>
+                    {{-- <li class="frontend_navbar dropdown {!! (Request::is('portfolio') || Request::is('portfolioitem') ? 'active' : '') !!}"><a href="#" class="dropdown-toggle" data-toggle="dropdown"> Portfolio</a>
                         <ul class="dropdown-menu" role="menu">
                             <li><a href="{{ URL::to('portfolio') }}">Portfolio</a>
                             </li>
                             <li><a href="{{ URL::to('portfolioitem') }}">Portfolio Item</a>
                             </li>
                         </ul>
-                    </li>
+                    </li> --}}
 
                     {{-- News --}}
                     {{-- <li {!! (Request::is('news') || Request::is('news/*') ? 'class="active frontend_navbar"' : 'class="frontend_navbar"') !!} class="frontend_navbar">
@@ -175,14 +180,14 @@
                     </li> --}}
 
                     {{-- I didn't commented this --}}
-                    {{--<li class="dropdown {!! (Request::is('news') || Request::is('news_item') ? 'active' : '') !!}"><a href="#" class="dropdown-toggle" data-toggle="dropdown"> News</a>--}}
-                        {{--<ul class="dropdown-menu" role="menu">--}}
-                            {{--<li><a href="{{ URL::to('news') }}">News</a>--}}
-                            {{--</li>--}}
-                            {{--<li><a href="{{ URL::to('news_item') }}">News Item</a>--}}
-                            {{--</li>--}}
-                        {{--</ul>--}}
-                    {{--</li>--}}
+                    {{-- <li class="dropdown {!! (Request::is('news') || Request::is('news_item') ? 'active' : '') !!}"><a href="#" class="dropdown-toggle" data-toggle="dropdown"> News</a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="{{ URL::to('news') }}">News</a>
+                            </li>
+                            <li><a href="{{ URL::to('news_item') }}">News Item</a>
+                            </li>
+                        </ul>
+                    </li> --}}
 
                     {{-- Blog --}}
                     <li {!! (Request::is('blog') || Request::is('blogitem/*') ? 'class="active frontend_navbar"' : 'class="frontend_navbar"') !!} class="frontend_navbar"><a href="{{ URL::to('blog') }}"> Blog</a>
