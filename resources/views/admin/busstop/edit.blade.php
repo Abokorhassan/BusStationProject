@@ -114,7 +114,7 @@
 
                         <div class="form-group">
                                 <div class="col-sm-offset-2 col-sm-4 btn_rtl">
-                                    <a class="btn btn-danger" href="{{ route('admin.bus.index') }}">
+                                    <a class="btn btn-danger" href="{{ route('admin.busstop.index') }}">
                                         @lang('button.cancel')
                                     </a>
                                     <button type="submit" class="btn btn-success">
