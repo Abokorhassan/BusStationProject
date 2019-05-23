@@ -321,6 +321,13 @@ Route::group(['namespace'=>'User', 'middleware' => 'user', 'as' => 'user.'], fun
     });
     Route::resource('rider', 'RiderController');
 
+    //Busstop
+    Route::group(['prefix' => 'busstop'], function () {
+        Route::get('data', 'BusstopController@data')->name('busstop.data');
+        Route::get('{busstop}/delete', 'BusstopController@destroy')->name('busstop.delete');
+    });
+    Route::resource('busstop', 'BusstopController');
+
 });
 
 # My account display and update details
