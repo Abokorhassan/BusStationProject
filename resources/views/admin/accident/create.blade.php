@@ -63,6 +63,19 @@
                     <input type="hidden" name="_token" value="{{ csrf_token() }}" />
                       <div id="rootwizard">
                         <h2 class="hidden">&nbsp;</h2>
+
+                        <div class="form-group {{ $errors->first('accident_number', 'has-error') }}">
+                          <label for="accident_number" class="col-sm-2 control-label">
+                            Accident Number*
+                          </label>
+                          <div class="col-sm-10">
+                            <input id="accident_number" name="accident_number" type="text" placeholder="Ex. Acc_01"
+                                    class="form-control required" value="{!! old('accident_number') !!}"/>
+                            {!! $errors->first('accident_number', '
+                            <span class="help-block">:message
+                            </span>') !!}
+                          </div>
+                        </div>
                         
                         <div class="form-group {{ $errors->first('driver_number', 'has-error') }}">
                           <label for="driver_number" class="col-sm-2 control-label">Driver Number*

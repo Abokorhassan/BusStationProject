@@ -57,6 +57,17 @@
                     <div id="rootwizard">
                       <h2 class="hidden">&nbsp;</h2>
 
+                      <div class="form-group {{ $errors->first('acc_num', 'has-error') }}">
+                        <label style="margin-top: -1%" for="acc_num" class="col-sm-2 control-label">Accident Number*
+                        </label>
+                        <div class="col-sm-10">
+                          {!! Form::text('acc_num', $accident->acc_num, array('class' => 'form-control required', 'placeholder'=>'Name')) !!}
+                          {!! $errors->first('acc_num', '
+                          <span class="help-block">:message
+                          </span>') !!}
+                        </div>
+                      </div>
+
                       <div class="form-group {{ $errors->first('driver_id', 'has-error') }}">
                         <label for="driver_id" class="col-sm-2 control-label">Driver *
                         </label>

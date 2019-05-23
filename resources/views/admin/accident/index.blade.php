@@ -48,6 +48,7 @@
                             <thead>
                                 <tr class="filters">
                                     <th>ID</th>
+                                    <th>Accident Number</th>
                                     <th>Driver</th>
                                     <th>Bus</th>
                                     <th>Latitude</th>
@@ -83,6 +84,7 @@
                 ajax: '{!! route('admin.accident.data') !!}',
                 columns: [
                     { data: 'id', name: 'id' },
+                    { data: 'acc_num', name: 'acc_num' },
                     { data: 'Driver', name: 'Driver' },
                     { data: 'Bus', name: 'Bus' },
                     { data: 'acc_lat', name: 'acc_lat' },

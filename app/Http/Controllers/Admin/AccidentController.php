@@ -29,7 +29,7 @@ class AccidentController extends Controller
 
     public function data()
     {
-        $accident = Accident::get(['id','acc_lat', 'acc_long', 'bus_id', 'driver_id', 'user_id', 'route_id', 'station_id', 'created_at']);
+        $accident = Accident::get(['id','acc_num','acc_lat', 'acc_long', 'bus_id', 'driver_id', 'user_id', 'route_id', 'station_id', 'created_at']);
 
         return DataTables::of(Accident::query())
 
@@ -100,6 +100,7 @@ class AccidentController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
+            'accident_number' => array('required', 'regex:/(Acc_)[0-9]{2,4}$/','unique:accidents,acc_num'),
             'driver_number' => 'required | numeric',
             'bus_number' => 'required | numeric',
             'accident_latitude' => 'required | numeric',
@@ -108,6 +109,7 @@ class AccidentController extends Controller
         ]);
 
         $accident = new Accident();
+        $accident->acc_num = $request->input('accident_number');
         $accident->driver_id = $request->input('driver_number');
         $accident->bus_id = $request->input('bus_number');
         $accident->acc_lat = $request->input('accident_latitude');
@@ -162,6 +164,7 @@ class AccidentController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
+            'acc_num' => array('required', 'regex:/(Acc_)[0-9]{2,4}$/','unique:accidents,acc_num,'.$id),
             'driver_id' => 'required | numeric',
             'bus_id' => 'required | numeric',
             'accident_latitude' => 'required | numeric',
@@ -170,6 +173,7 @@ class AccidentController extends Controller
         ]);
 
         $accident = Accident::find($id);
+        $accident->acc_num = $request->input('acc_num');
         $accident->driver_id = $request->input('driver_id');
         $accident->bus_id = $request->input('bus_id');
         $accident->acc_lat = $request->input('accident_latitude');
