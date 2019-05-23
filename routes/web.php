@@ -328,6 +328,13 @@ Route::group(['namespace'=>'User', 'middleware' => 'user', 'as' => 'user.'], fun
     });
     Route::resource('busstop', 'BusstopController');
 
+    //Accident
+    Route::group(['prefix' => 'accident'], function () {
+        Route::get('data', 'AccidentController@data')->name('accident.data');
+        Route::get('{accident}/delete', 'AccidentController@destroy')->name('accident.delete');
+    });
+    Route::resource('accident', 'AccidentController');
+
 });
 
 # My account display and update details

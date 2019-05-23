@@ -122,6 +122,11 @@
                     <li class="frontend_navbar dropdown {!! (Request::is('busstop') || Request::is('busstop/*')   ? 'active' : '') !!}">
                         <a href="{{ URL::to('busstop') }}"> Bus Stop </a>
                     </li>
+
+                    {{-- Accident --}}
+                    <li class="frontend_navbar dropdown {!! (Request::is('accident') || Request::is('accident/*')   ? 'active' : '') !!}">
+                        <a href="{{ URL::to('accident') }}"> Accident </a>
+                    </li>
                     
 
                         {{-- Features --}}

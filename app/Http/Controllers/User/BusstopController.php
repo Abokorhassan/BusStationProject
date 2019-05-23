@@ -24,7 +24,7 @@ class BusstopController extends Controller
         $station = Station::find($s_id);
         if(!$station == ''){
             $stations_id = $station->id;
-            $stationBusstop = Station::find($stations_id)->busstoprel()->paginate(3);
+            $stationBusstop = Station::find($stations_id)->busstop()->paginate(3);
             return view('busstop.index')->with('busstops',$stationBusstop);
         }
         $busstops = null;  
