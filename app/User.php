@@ -81,4 +81,8 @@ class User extends EloquentUser {
 	{
 		return $this->hasMany(Rider::class);
 	}
+	public function schedule()
+	{
+		return $this->hasMany(Schedule::class);
+	}
 }

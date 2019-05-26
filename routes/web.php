@@ -172,6 +172,15 @@ Route::group(['prefix' => 'admin','namespace'=>'Admin', 'middleware' => 'admin',
 
     Route::resource('accident', 'AccidentController');
 
+    // Schedule Management
+    Route::group(['prefix' => 'schedule'], function () {
+        Route::get('data', 'ScheduleController@data')->name('schedule.data');
+        Route::get('{schedule}/delete', 'ScheduleController@destroy')->name('schedule.delete');
+        Route::get('{schedule}/confirm-delete', 'ScheduleController@getModalDelete')->name('schedule.confirm-delete');
+    });
+
+    Route::resource('schedule', 'ScheduleController');
+
 
     // news Managment
     Route::group(['prefix' => 'news'], function () {

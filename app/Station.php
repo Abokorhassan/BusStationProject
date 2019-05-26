@@ -34,4 +34,8 @@ class Station extends Model
 	{
 		return $this->hasMany(User::class);
 	}
+	public function schedule()
+	{
+		return $this->hasMany(Schedule::class);
+	}
 }

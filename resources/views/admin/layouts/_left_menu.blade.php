@@ -178,6 +178,55 @@
         </ul>
     </li>
     
+    {{-- Schedule --}}
+    <li {!! (Request::is('admin/schedule') || Request::is('admin/schedule/create') || Request::is('admin/schedule/*')   ? 'class="active"' : '') !!}>
+        <a style="margin-left: 0%;" href="#">
+            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABYAAAAWCAYAAADEtGw7AAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAABlgAAAZYBofSv5QAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAAH6SURBVDiN7ZM9axVhEIWf8+5NQoqAXlJZRJs0FhoLA371RqKCCIKFEC1EC3+CWPiBiCAoWEVQm6CCIgoWNqJpjGnERgKiCAnpVCKYkDvHIuZm7+7mGhurDGwxw5lzzsy8C+vxJzR9cM8lWWfaYBqgt42O+RPZr65E5rvATiBbrcHy7VoKui02ttf3gdpC1+nInARDf3Obgu5aoXbHwcNMLAI4aYvtK0AvRG8yWFoe9inyfKs+g8BmgDzxl0jpViLGoln3Y+SrWNdKM+BXBHP5mhJ9uEhsj3bSmA1rKNcNiBDni8SCc4hGLq/bbFjOV4iTXyw63ZDoNwwsoX1TZlzW+zKxToX9LVc4C5wsETtSSHw1zCGmABQsBkxLhFxaxcvmuisitSbxCPORYJJgkqTPm56Pv65qzFKjf8HU8x/mQcmxEhcjUh9ia9OViZnhvQOIbZh3eeJGZFOdbRznjsd+ysAEjOBSHUtHs/D3ppAYERwvO7YPC32oUg9pjAK77OuRexUJ6nnEyvGk+2YFWPDXA7xpZdY9wj+biCW1Y6AdLcSYy8Cnll7osRit1mI7icKfp3rJMeKI4UehvaN6AgAfqtp9mRgG2xz5n6NGyp4RMbsaQCgLoikqeII1YbzKPYCUTazZwezw7l0zw/sG19yw1vAFkql46f87fgP9/cB2LacxiQAAAABJRU5ErkJggg==">
+            
+            <span style="margin-left: 3%" class="title">Schedule</span>
+            <span class="fa arrow"></span>
+        </a>
+        <ul class="sub-menu">
+            <li {!! (Request::is('admin/schedule') ? 'class="active" id="active"' : '') !!}>
+                <a href="{{ URL::to('admin/schedule') }}">
+                    <i class="fa fa-angle-double-right"></i>
+                    Schedule Lists
+                </a>
+            </li>
+
+            <li {!! (Request::is('admin/schedule/create') ? 'class="active" id="active"' : '') !!}>
+                <a href="{{ URL::to('admin/schedule/create') }}">
+                    <i class="fa fa-angle-double-right"></i>
+                    Add New Schedule
+                </a>
+            </li>
+        </ul>
+    </li>
+
+    {{-- Schedule --}}
+    <li {!! (Request::is('admin/schedule') || Request::is('admin/schedule/create') || Request::is('admin/schedule/*')   ? 'class="active"' : '') !!}>
+        <a style="margin-left: -2%;" href="#">
+            <img style="margin-top: -2%;" src="https://img.icons8.com/color/26/000000/overtime.png">
+            <span style="margin-left: 3%" class="title">Bus Queue</span>
+            <span class="fa arrow"></span>
+        </a>
+        <ul class="sub-menu">
+            <li {!! (Request::is('admin/schedule') ? 'class="active" id="active"' : '') !!}>
+                <a href="{{ URL::to('admin/schedule') }}">
+                    <i class="fa fa-angle-double-right"></i>
+                    Schedule Lists
+                </a>
+            </li>
+
+            <li {!! (Request::is('admin/schedule/create') ? 'class="active" id="active"' : '') !!}>
+                <a href="{{ URL::to('admin/schedule/create') }}">
+                    <i class="fa fa-angle-double-right"></i>
+                    Add New Schedule
+                </a>
+            </li>
+        </ul>
+    </li>
+    
     {{-- Dashboard 2 --}}
     {{-- <li {!! (Request::is('admin/index1') ? 'class="active"' : '') !!}>
         <a href="{{  URL::to('admin/index1') }}">
@@ -884,7 +933,7 @@
     </li> --}}
 
     {{-- blog --}}
-    {{-- <li {!! ((Request::is('admin/blogcategory') || Request::is('admin/blogcategory/create') || Request::is('admin/blog') ||  Request::is('admin/blog/create')) || Request::is('admin/blog/*') || Request::is('admin/blogcategory/*') ? 'class="active"' : '') !!}>
+    <li {!! ((Request::is('admin/blogcategory') || Request::is('admin/blogcategory/create') || Request::is('admin/blog') ||  Request::is('admin/blog/create')) || Request::is('admin/blog/*') || Request::is('admin/blogcategory/*') ? 'class="active"' : '') !!}>
         <a href="#">
             <i class="livicon" data-name="comment" data-c="#F89A14" data-hc="#F89A14" data-size="18"
                data-loop="true"></i>
@@ -911,7 +960,7 @@
                 </a>
             </li>
         </ul>
-    </li> --}}
+    </li>
 
     {{-- news --}}
     <li {!! (Request::is('admin/news') || Request::is('admin/news/*')  ? 'class="active"' : '') !!}>
