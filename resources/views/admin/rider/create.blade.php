@@ -117,12 +117,14 @@
 
                             <div class="form-group">
                               <div class="col-sm-offset-2 col-sm-4 btn_rtl">
-                                  <a class="btn btn-danger" href="{{ route('admin.rider.index') }}">
-                                      @lang('button.cancel')
-                                  </a>
-                                  <button type="submit" class="btn btn-success">
-                                      @lang('button.save')
+                                <a href="{{ route('admin.rider.index') }}">
+                                  <button type="button" class="btn btn-danger">
+                                    Cancel 
                                   </button>
+                                </a>
+                                <button type="submit" class="btn btn-success">
+                                    @lang('button.save')
+                                </button>
                               </div>
                             </div>
 
