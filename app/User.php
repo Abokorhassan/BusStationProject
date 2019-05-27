@@ -85,4 +85,8 @@ class User extends EloquentUser {
 	{
 		return $this->hasMany(Schedule::class);
 	}
+	public function queue()
+	{
+		return $this->hasMany(Queue::class);
+	}
 }

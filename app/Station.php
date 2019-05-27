@@ -38,4 +38,8 @@ class Station extends Model
 	{
 		return $this->hasMany(Schedule::class);
 	}
+	public function queue()
+	{
+		return $this->hasMany(Queue::class);
+	}
 }

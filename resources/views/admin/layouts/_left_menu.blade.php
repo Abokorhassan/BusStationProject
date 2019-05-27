@@ -203,25 +203,25 @@
         </ul>
     </li>
 
-    {{-- Schedule --}}
-    <li {!! (Request::is('admin/schedule') || Request::is('admin/schedule/create') || Request::is('admin/schedule/*')   ? 'class="active"' : '') !!}>
+    {{-- Queue --}}
+    <li {!! (Request::is('admin/queue') || Request::is('admin/queue/create') || Request::is('admin/queue/*')   ? 'class="active"' : '') !!}>
         <a style="margin-left: -2%;" href="#">
             <img style="margin-top: -2%;" src="https://img.icons8.com/color/26/000000/overtime.png">
             <span style="margin-left: 3%" class="title">Bus Queue</span>
             <span class="fa arrow"></span>
         </a>
         <ul class="sub-menu">
-            <li {!! (Request::is('admin/schedule') ? 'class="active" id="active"' : '') !!}>
-                <a href="{{ URL::to('admin/schedule') }}">
+            <li {!! (Request::is('admin/queue') ? 'class="active" id="active"' : '') !!}>
+                <a href="{{ URL::to('admin/queue') }}">
                     <i class="fa fa-angle-double-right"></i>
-                    Schedule Lists
+                    Queue Lists
                 </a>
             </li>
 
-            <li {!! (Request::is('admin/schedule/create') ? 'class="active" id="active"' : '') !!}>
-                <a href="{{ URL::to('admin/schedule/create') }}">
+            <li {!! (Request::is('admin/queue/create') ? 'class="active" id="active"' : '') !!}>
+                <a href="{{ URL::to('admin/queue/create') }}">
                     <i class="fa fa-angle-double-right"></i>
-                    Add New Schedule
+                    Add Bus to the Queue
                 </a>
             </li>
         </ul>

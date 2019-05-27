@@ -181,6 +181,15 @@ Route::group(['prefix' => 'admin','namespace'=>'Admin', 'middleware' => 'admin',
 
     Route::resource('schedule', 'ScheduleController');
 
+    // Bus Queue Management
+    Route::group(['prefix' => 'queue'], function () {
+        Route::get('data', 'QueueController@data')->name('queue.data');
+        Route::get('{queue}/delete', 'QueueController@destroy')->name('queue.delete');
+        Route::get('{queue}/confirm-delete', 'QueueController@getModalDelete')->name('queue.confirm-delete');
+    });
+
+    Route::resource('queue', 'QueueController');
+
 
     // news Managment
     Route::group(['prefix' => 'news'], function () {
