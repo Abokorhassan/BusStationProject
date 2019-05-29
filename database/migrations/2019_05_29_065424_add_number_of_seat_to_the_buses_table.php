@@ -13,7 +13,9 @@ class AddNumberOfSeatToTheBusesTable extends Migration
      */
     public function up()
     {
-        //
+        Schema::table('buses', function($table) {
+            $table->integer('number_buses');
+         }); 
     }
 
     /**
@@ -23,6 +25,8 @@ class AddNumberOfSeatToTheBusesTable extends Migration
      */
     public function down()
     {
-        //
+        Schema::table('buses', function($table) {
+            $table->dropColumn('number_buses');
+        });
     }
 }

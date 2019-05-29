@@ -51,6 +51,7 @@
                                     <th>ID</th>
                                     <th>Driver</th>
                                     <th>Model Type</th>
+                                    <th>Number of seats</th>
                                     <th>Bus_Number</th>
                                     <th>Station</th>
                                     <th>User</th>
@@ -84,6 +85,7 @@
                     { data: 'id', name: 'id' },
                     { data: 'Driver', name: 'Driver' },		
                     { data: 'model_type', name: 'model_type' },
+                    { data: 'number_seats', name: 'number_seats' },	
                     { data: 'bus_number', name: 'bus_number' },
                     { data: 'Station', name: 'Station' },
                     { data: 'User', name: 'User'},

@@ -70,20 +70,33 @@ class SeatController extends Controller
 
         $seat = new Seat();
         $seat->bus_id =$request->input('bus_number');
+        $bus_id = $seat->bus_id;
+
         $seat->seat_number =$request->input('seat_number');
 
-        //getting bus_id and extractinng the matched bus_number and save it to the database
+        //getting bus_id from bus_number which is a bus_id in the input
         $bus_id = $request->input('bus_number');
         $bus = Bus::find($bus_id);
+
+        // extractinng the matched bus_number and save it to the database with the help of bus id
         $bus_number = $bus->bus_number;
         $seat->bus_number = $bus_number;
         $seat->bus_id =$request->input('bus_number');
-        $seat->seat_number =$request->input('seat_number');
 
-        // $seat->user_id = Sentinel::getUser()->id;
+        //saving seat number
+        $seat->seat_number =$request->input('seat_number');
 
         $seat->save();
 
+        // getting the number of seat in specific id
+        $numberSeat = Bus::find($bus_id)->seat;
+        $count = count($numberSeat);
+        
+        // saving the number of seat in bus
+        $b = Bus::find($bus_id);
+        $b->number_seats = $count;
+        $b->save();
+        
         return redirect('admin/seat')->with('success', 'Seat Created');   
     }
 
@@ -152,8 +165,27 @@ class SeatController extends Controller
      */
     public function destroy($id)
     {
+       //getting the bus id from the seat
+        $seat = Seat::find($id);
+        $bus_id = $seat->bus_id;
+        
+        // getting the number of seat in specific id
+        $numberSeat = Bus::find($bus_id)->seat;
+        $count = count($numberSeat);
+        
+        //deleting one seat also means delete number seat from bus
+        $counts = $count-1;
+
+        // saving the remaining number of seat in bus
+        $b = Bus::find($bus_id);
+        $b->number_seats = $counts;
+        $b->save();
+        // return $counts;
+
         $seat = Seat::find($id);
         $seat->delete();
+
+        
         return redirect('admin/seat')->with('success', 'Seat Deleted');
     }
 

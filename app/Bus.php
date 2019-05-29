@@ -33,6 +33,10 @@ class Bus extends Model
     public function queue()
 	{
 		return $this->hasOne(Queue::class);
-	}
+    }
+    public function seat()
+	{
+		return $this->hasMany(Seat::class);
+    }
     
 }
