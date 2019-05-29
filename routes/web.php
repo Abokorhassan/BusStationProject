@@ -190,6 +190,15 @@ Route::group(['prefix' => 'admin','namespace'=>'Admin', 'middleware' => 'admin',
 
     Route::resource('queue', 'QueueController');
 
+    // Seat Management
+    Route::group(['prefix' => 'seat'], function () {
+        Route::get('data', 'SeatController@data')->name('seat.data');
+        Route::get('{seat}/delete', 'SeatController@destroy')->name('seat.delete');
+        Route::get('{seat}/confirm-delete', 'SeatController@getModalDelete')->name('seat.confirm-delete');
+    });
+
+    Route::resource('seat', 'SeatController');
+
 
     // news Managment
     Route::group(['prefix' => 'news'], function () {

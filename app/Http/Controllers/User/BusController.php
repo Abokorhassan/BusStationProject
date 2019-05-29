@@ -84,68 +84,68 @@ class BusController extends Controller
         return $searchResult;
     }
 
-    public function action(Request $request)
-    {
-        if($request->ajax()){
-            $query = $request->get('query');
-            if($query != ''){
-                $data = DB::table('buses')
-                        ->where('id', 'like', '%'.$query.'%')
-                        ->orwhere('model_type', 'like', '%'.$query.'%')
-                        ->orwhere('bus_number', 'like', '%'.$query.'%')
-                        ->orwhere('Driver_id', 'like', '%'.$query.'%')
-                        ->orderBy('id', 'desc')
-                        ->get();
-            }else {
-                $data = DB::table('buses')
-                        ->orderBy('id', 'desc')
-                        ->get();
-            }
-            $total_row = $data>count();
-            if($total_row >0){
-                foreach($data as $row){
-                    $output = '      
-                    <div class="featured-text relative-left">
-                        <h3 class="primary"><a href="">'.$row->bus_number.'</a></h3>
-                        <p><strong>Driver Number:  </strong>
+    // public function action(Request $request)
+        // {
+        //     if($request->ajax()){
+        //         $query = $request->get('query');
+        //         if($query != ''){
+        //             $data = DB::table('buses')
+        //                     ->where('id', 'like', '%'.$query.'%')
+        //                     ->orwhere('model_type', 'like', '%'.$query.'%')
+        //                     ->orwhere('bus_number', 'like', '%'.$query.'%')
+        //                     ->orwhere('Driver_id', 'like', '%'.$query.'%')
+        //                     ->orderBy('id', 'desc')
+        //                     ->get();
+        //         }else {
+        //             $data = DB::table('buses')
+        //                     ->orderBy('id', 'desc')
+        //                     ->get();
+        //         }
+        //         $total_row = $data>count();
+        //         if($total_row >0){
+        //             foreach($data as $row){
+        //                 $output = '      
+        //                 <div class="featured-text relative-left">
+        //                     <h3 class="primary"><a href="">'.$row->bus_number.'</a></h3>
+        //                     <p><strong>Driver Number:  </strong>
 
-                            '.$row->driver_id.'
-                        </p>
-                        <p>
-                            <strong>Model:  </strong>
-                            '.$row->model_type.'
-                        </p>
-                        <p class="additional-post-wrap">
-                            <span class="additional-post">
-                                <i class="livicon" data-name="user" data-size="13" data-loop="true" data-c="#5bc0de" data-hc="#5bc0de"></i><a href="#">&nbsp;'.$row->bus_id.'</a>
-                            </span>
-                            <span class="additional-post">
-                                <i class="livicon" data-name="clock" data-size="13" data-loop="true" data-c="#5bc0de" data-hc="#5bc0de"></i><a href="#"> '.$row->created_at->diffForHumans().' </a>
-                            </span>
-                        </p>
-                    </div>                 
-                    ';
-                }
+        //                         '.$row->driver_id.'
+        //                     </p>
+        //                     <p>
+        //                         <strong>Model:  </strong>
+        //                         '.$row->model_type.'
+        //                     </p>
+        //                     <p class="additional-post-wrap">
+        //                         <span class="additional-post">
+        //                             <i class="livicon" data-name="user" data-size="13" data-loop="true" data-c="#5bc0de" data-hc="#5bc0de"></i><a href="#">&nbsp;'.$row->bus_id.'</a>
+        //                         </span>
+        //                         <span class="additional-post">
+        //                             <i class="livicon" data-name="clock" data-size="13" data-loop="true" data-c="#5bc0de" data-hc="#5bc0de"></i><a href="#"> '.$row->created_at->diffForHumans().' </a>
+        //                         </span>
+        //                     </p>
+        //                 </div>                 
+        //                 ';
+        //             }
 
-            }else {
-                $output = '
-                <div id="reocrds" class="featured-post-wide thumbnail polaroid ">
-                    <div class="featured-text relative-left">
-                        Not Data found
-                    </div>
-                <!-- /.featured-text -->
-                </div>
-                        
-                ';
-            }
-            $data = array(
-                'reocrds'  => $output,
-                'total_records' => $output
-            );
-            echo json_encode($data);
-        }   
+        //         }else {
+        //             $output = '
+        //             <div id="reocrds" class="featured-post-wide thumbnail polaroid ">
+        //                 <div class="featured-text relative-left">
+        //                     Not Data found
+        //                 </div>
+        //             <!-- /.featured-text -->
+        //             </div>
+                            
+        //             ';
+        //         }
+        //         $data = array(
+        //             'reocrds'  => $output,
+        //             'total_records' => $output
+        //         );
+        //         echo json_encode($data);
+        //     }   
 
-    }
+    // }
 
     /**
      * Show the form for creating a new resource.
