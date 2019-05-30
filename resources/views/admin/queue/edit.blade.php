@@ -19,7 +19,7 @@
 @section('content')
     <section class="content-header">
         <!--section starts-->
-        <h1>Bus</h1>
+        <h1>Queue</h1>
         <ol class="breadcrumb">
             <li>
                 <a href="{{ route('admin.dashboard') }}"> <i class="livicon" data-name="home" data-size="14"
@@ -40,7 +40,7 @@
             <div class="panel panel-primary">
               <div class="panel-heading">
                 <h3 class="panel-title">
-                  Edit Bus
+                  Edit Queue
                 </h3>
                 <span class="pull-right clickable">
                   <i class="glyphicon glyphicon-chevron-up">

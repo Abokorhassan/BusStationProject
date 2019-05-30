@@ -62,8 +62,8 @@ class QueueController extends Controller
                 return $createtime->created_at->diffForHumans();
             })
             ->addColumn('actions', function ($user) {
-                $actions = '<a href=' . route('admin.queue.edit', $user->id) . '><i class="livicon" data-name="edit" data-size="18" data-loop="true" data-c="#428BCA" data-hc="#428BCA" title="update queue"></i></a>';
-                $actions .= '<a href=' . route('admin.queue.confirm-delete', $user->id) . ' data-toggle="modal" data-target="#delete_confirm"><i class="livicon" data-name="remove-alt"
+                // $actions = '<a href=' . route('admin.queue.edit', $user->id) . '><i class="livicon" data-name="edit" data-size="18" data-loop="true" data-c="#428BCA" data-hc="#428BCA" title="update queue"></i></a>';
+                $actions = '<a href=' . route('admin.queue.confirm-delete', $user->id) . ' data-toggle="modal" data-target="#delete_confirm"><i class="livicon" data-name="remove-alt"
                 data-size="18" data-loop="true" data-c="#f56954"
                 data-hc="#f56954"
                 title="Delete queue"></i></a>';
@@ -97,14 +97,21 @@ class QueueController extends Controller
     {
         $this->validate($request,[
             'schedule_number' => 'required | numeric',
-            'station' => 'required | numeric',
             'bus_number' => 'required | numeric | unique:queues,bus_id'
         ]);
 
         $queue = new Queue();
         $queue->Schedule_id = $request->input('schedule_number');
         $queue->bus_id = $request->input('bus_number');
-        $queue->station_id = $request->input('station'); 
+        // return $queue->bus_id; 
+
+        //saving bus_number and staion
+        $bus =Bus::find($queue->bus_id);
+
+        $queue->bus_number = $bus->bus_number;
+        $queue->station_id = $bus->station_id; 
+        $queue->station_id;
+
         $queue->user_id = Sentinel::getUser()->id;
         $queue->save();
 
@@ -163,7 +170,7 @@ class QueueController extends Controller
         $queue->Schedule_id = $request->input('schedule_id');
         $queue->bus_id = $request->input('bus_id');
         $queue->station_id = $request->input('station_id'); 
-        $queue->save();
+        // $queue->save();
 
         return redirect('admin/queue')->with('success', 'Bus in The Queue Has Been Updated');
         
