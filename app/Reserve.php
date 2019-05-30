@@ -23,4 +23,12 @@ class Reserve extends Model
     {
         return $this->belongsTo(Bus::class);
     }
+    public function queue()
+    {
+        return $this->belongsTo(Queue::class);
+    }
+    public function schedulue()
+    {
+        return $this->belongsTo(Schedule::class);
+    }
 }

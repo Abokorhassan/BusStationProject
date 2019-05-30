@@ -84,16 +84,16 @@
                     </div>
 
                     <div class="form-group {{ $errors->first('bus_number', 'has-error') }}">
-                      <label for="bus_number" class="col-sm-2 control-label">Bus Number *
+                      <label for="bus_number" class="col-sm-2 control-label">Bus *
                       </label>
                       <div class="col-sm-10">
                         <select class="form-control" title="Select Pas..." name="bus_number">                                         
                           <option value="">Select bus_number
                           </option>
-                          @foreach ($buses as $bus)
-                          <option value="{{ $bus->id}}" 
-                            @if (old('bus_number')=== "{{$bus->id}}") selected="selected"@endif
-                            >{{ $bus->bus_number}}
+                          @foreach ($queues as $queue)
+                          <option value="{{ $queue->id}}" 
+                            @if (old('bus_number')=== "{{$queue->id}}") selected="selected"@endif
+                            >{{ $queue->bus_number}}
                           </option>
                           @endforeach
                         </select>
@@ -101,28 +101,7 @@
                         <span class="help-block">:message
                         </span>') !!}
                       </div>   
-                    </div>
-
-                    <div class="form-group {{ $errors->first('station', 'has-error') }}">
-                      <label for="station" class="col-sm-2 control-label">Station *
-                      </label>
-                      <div class="col-sm-10">
-                        <select class="form-control" title="Select Station..." name="station">                                         
-                          <option value="">Select Station
-                          </option>
-
-                          @foreach ($stations as $station)
-                          <option value="{{ $station->id}}" 
-                            @if (old('station')=== "{{$station->id}}") selected="selected"@endif
-                            >{{ $station->name}}
-                          </option>
-                          @endforeach
-                        </select>
-                        {!! $errors->first('station', '
-                        <span class="help-block">:message
-                        </span>') !!}
-                      </div>   
-                    </div>                 
+                    </div>                
 
                     <div class="form-group">
                       <div class="col-sm-offset-2 col-sm-4 btn_rtl">

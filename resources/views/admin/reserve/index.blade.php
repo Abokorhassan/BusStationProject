@@ -1,7 +1,7 @@
 @extends('admin/layouts/default')
 {{-- Page title --}}
 @section('title')
-    Rereved Lists
+    Reserved Lists
 @stop
 
 {{-- page level styles --}}

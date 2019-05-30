@@ -18,5 +18,9 @@ class Schedule extends Model
     public function queue()
 	{
 		return $this->hasMany(Queue::class);
+    }
+    public function reserve()
+	{
+		return $this->hasMany(Reserve::class);
 	}
 }

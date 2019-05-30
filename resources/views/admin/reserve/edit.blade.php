@@ -64,29 +64,6 @@
                                     </span>') !!}
                                   </div>
                                 </div>
-
-                                <div class="form-group {{ $errors->first('bus_id', 'has-error') }}">
-                                  <label for="bus_id" class="col-sm-2 control-label">Bus Number *
-                                  </label>
-                                  <div class="col-sm-10">
-                                        {!! Form::select('bus_id', $opBuses, null, ['placeholder' => 'Select Bus', 'class' => 'form-control required']) !!}
-                                    {!! $errors->first('bus_id', '
-                                    <span class="help-block">:message
-                                    </span>') !!}
-                                  </div>
-                                </div>
-
-                                <div class="form-group {{ $errors->first('station_id', 'has-error') }}">
-                                  <label for="station_id" class="col-sm-2 control-label">Station *
-                                  </label>
-                                  <div class="col-sm-10">
-                                        {!! Form::select('station_id', $opStations, null, ['placeholder' => 'Select Station', 'class' => 'form-control required']) !!}
-                                    {!! $errors->first('station_id', '
-                                    <span class="help-block">:message
-                                    </span>') !!}
-                                  </div>
-                                </div>
-
                                 
                                 <div class="form-group">
                                   <div class="col-sm-offset-2 col-sm-4 btn_rtl">

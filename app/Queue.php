@@ -23,4 +23,9 @@ class Queue extends Model
     {
         return $this->belongsTo(Schedule::class);
     }
+    public function reserve()
+	{
+		return $this->hasMany(Reserve::class);
+	}
+
 }
