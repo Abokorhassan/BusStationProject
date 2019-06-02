@@ -7,6 +7,7 @@
 
 {{-- page level styles --}}
 @section('header_styles')
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
   <link href="{{ asset('assets/vendors/summernote/summernote.css') }}" rel="stylesheet"/>
   <link href="{{ asset('assets/vendors/select2/css/select2.min.css') }}" rel="stylesheet" type="text/css"/>
   <link href="{{ asset('assets/vendors/bootstrap-tagsinput/css/bootstrap-tagsinput.css') }}" rel="stylesheet"/>
@@ -67,7 +68,7 @@
                       <label for="ridriderer_id" class="col-sm-2 control-label">Rider ID No. *
                       </label>
                       <div class="col-sm-10">
-                        <select class="form-control" title="Select Pas..." name="rider">                                         
+                        <select class="form-control ridercatogry" title="Select Pas..." name="rider">                                         
                           <option value="">Select Rider
                           </option>
                           @foreach ($riders as $rider)
@@ -83,19 +84,34 @@
                       </div>   
                     </div>
 
+                    <div class="form-group {{ $errors->first('schedule', 'has-error') }}">
+                      <label for="schedule" class="col-sm-2 control-label">Schedule *
+                      </label>
+                      <div class="col-sm-10">
+                        <select class="form-control schedule" title="Select Pas..." name="schedule">                                         
+                          <option value="">Select Schedule
+                          </option>
+                          @foreach ($schedules as $schedule)
+                          <option value="{{ $schedule->id}}" 
+                            @if (old('schedule')=== "{{$schedule->id}}") selected="selected"@endif
+                            >{{ $schedule->schedule_number}} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  {{$schedule->station->name}}
+                          </option>
+                          @endforeach
+                        </select>
+                        {!! $errors->first('schedule', '
+                        <span class="help-block">:message
+                        </span>') !!}
+                      </div>   
+                    </div>
+
                     <div class="form-group {{ $errors->first('bus_number', 'has-error') }}">
                       <label for="bus_number" class="col-sm-2 control-label">Bus *
                       </label>
                       <div class="col-sm-10">
-                        <select class="form-control" title="Select Pas..." name="bus_number">                                         
-                          <option value="">Select bus_number
+                        <select class="form-control " id="busnumber"  name="bus_number">                                         
+                          <option value="0" disabled="true" selected = "true"> Select Bus
+
                           </option>
-                          @foreach ($queues as $queue)
-                          <option value="{{ $queue->id}}" 
-                            @if (old('bus_number')=== "{{$queue->id}}") selected="selected"@endif
-                            >{{ $queue->bus_number}}
-                          </option>
-                          @endforeach
                         </select>
                         {!! $errors->first('bus_number', '
                         <span class="help-block">:message
@@ -128,13 +144,65 @@
 
 {{-- page level scripts --}}
 @section('footer_scripts')
-  <!-- begining of page level js -->
-  <!--edit blog-->
   <script src="{{ asset('assets/vendors/summernote/summernote.min.js') }}" type="text/javascript"></script>
   <script src="{{ asset('assets/vendors/select2/js/select2.js') }}" type="text/javascript"></script>
   {{--<script src="{{ asset('assets/vendors/bootstrap-tagsinput/bootstrap-tagsinput.js') }}" type="text/javascript"></script>--}}
   <script type="text/javascript" src="{{ asset('assets/vendors/jasny-bootstrap/js/jasny-bootstrap.js') }}"></script>
   <script src="{{ asset('assets/js/pages/add_newblog.js') }}" type="text/javascript"></script>
   <script src="{{ asset('assets/js/parsley.min.js') }}" type="text/javascript"></script>
+
+  <script>
+    $(function () {
+        $('body').on('hidden.bs.modal', '.modal', function () {
+            $(this).removeData('bs.modal');
+        });
+    });
+  </script>
+
+  <script>
+    $(document).ready(function(){
+      $(document).on('change','.schedule',function(){
+        var id=$(this).val();
+
+        if(id) {
+                $.ajax({
+                    url: "{{ route('admin.reserve.getBusStation') }}",
+                    type: "GET",
+                    data:{'id':id},
+                    dataType: "json",
+                    success:function(data) {
+                        // var bus = data[2].bus_number;
+                        console.log(data);
+
+                           // This is mine
+                        // $('select[name="bus_number"]').empty();
+                        // $.each(data, function(id,bus_number ){
+                        //     $('select[name="bus_number"]').append('<option value="'+ id +'">'+ bus_number +'</option>');
+                        // });
+
+                          // This is from Stack overflow
+                        // data.forEach(({id, bus_number}) => {
+                        //   $('select[name="bus_number"]').append(`<option value="${id}">${bus_number}</option>`);
+                        // });
+
+                          //also This is from stackoverflow
+                        $('select[name="bus_number"]').empty();
+                        $('select[name="bus_number"]').html('<option value=""  selected = "true">Chose Bus</option>');
+                        $.each( data, function( index, object ) {
+                          $('select[name="bus_number"]').append('<option value="'+ object['id'] +'" >'+ object['bus_number'] +'</option>');
+                        });
+
+
+                    }
+                });
+            }else{
+                $('select[name="bus_number"]').empty();
+            }
+      });
+	  });
+  </script>
+
+
+
 
 @stop

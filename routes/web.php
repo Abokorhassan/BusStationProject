@@ -149,7 +149,8 @@ Route::group(['prefix' => 'admin','namespace'=>'Admin', 'middleware' => 'admin',
     Route::group(['prefix' => 'reserve'], function () {
         Route::get('data', 'ReserveController@data')->name('reserve.data');
         Route::get('{reserve}/delete', 'ReserveController@destroy')->name('reserve.delete');
-        Route::get('{reserve}/confirm-delete', 'ReserveController@getModalDelete')->name('reserve.confirm-delete');
+        Route::get('{reserve}/confirm-delete', 'ReserveController@getModalDelete')->name('reserve.confirm-delete');      
+        Route::get('getBusStation', 'ReserveController@getBusStation')->name('reserve.getBusStation');
     });
 
     Route::resource('reserve', 'ReserveController');
