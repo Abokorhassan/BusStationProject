@@ -50,6 +50,7 @@
                                     <th>ID</th>
                                     <th>Driver_Number</th>
                                     <th>Full name</th>
+                                    <th>Bus</th>
                                     <th>Email</th>
                                     <th>Ph_number</th>
                                     <th>License Number</th>
@@ -84,6 +85,7 @@
                     { data: 'id', name: 'id' },
                     { data: 'Driver_Number', name: 'Rider_Number' },
                     { data: 'first_name', name: 'first_name' },
+                    { data: 'Bus', name: 'Bus' },	
                     { data: 'email', name: 'email' },		
                     { data: 'ph_number', name: 'ph_number' },
                     { data: 'license_number', name: 'license_number' },

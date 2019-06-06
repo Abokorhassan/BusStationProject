@@ -36,10 +36,17 @@ class ReserveController extends Controller
     {
         // $reserve = Reserve::get(['id', 'id_number', 'first_name', 'ph_number', 'bus_id', 'station_id', 'user_id', 'created_at']);
         return DataTables::of(Reserve::query())
-            ->addColumn('Rider', function(Reserve $reserve){
+            ->addColumn('Rider_Number', function(Reserve $reserve){
                 $riderName = null;
                 if(isset($reserve->rider_id) && $reserve->rider && $reserve->rider->id_number)
                     $riderName = $reserve->rider->id_number;
+                return $riderName;
+            })
+
+            ->addColumn('Rider_Name', function(Reserve $reserve){
+                $riderName = null;
+                if(isset($reserve->rider_id) && $reserve->rider && $reserve->rider->first_name)
+                    $riderName = $reserve->rider->first_name.' '.$reserve->rider->last_name.' '.$reserve->rider->third_name;
                 return $riderName;
             })
 

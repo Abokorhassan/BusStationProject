@@ -53,9 +53,9 @@
                                     <th>Bus</th>
                                     <th>Latitude</th>
                                     <th>Longitude</th>
-                                    <th>User</th>
                                     <th>Route</th>
                                     <th>Station</th>
+                                    <th>User</th>
                                     <th>Created At</th>
                                     <th>Actions</th>
                                 </tr>
@@ -89,9 +89,9 @@
                     { data: 'Bus', name: 'Bus' },
                     { data: 'acc_lat', name: 'acc_lat' },
                     { data: 'acc_long', name: 'acc_long' },
-                    { data: 'User', name: 'User' },
                     { data: 'route_id', name: 'route_id' },
                     { data: 'Station', name: 'Station' },
+                    { data: 'User', name: 'User' },
                     { data: 'created_at', name:'created_at'},
                     { data: 'actions', name: 'actions', orderable: false, searchable: false }
                 ]

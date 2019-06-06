@@ -47,7 +47,8 @@
                             <thead>
                                 <tr class="filters">
                                     <th>ID</th>
-                                    <th>Full Name</th>
+                                    <th>Rider Number</th>
+                                    <th>Rider Name</th>
                                     <th>Bus</th>
                                     <th>Seat Number</th>
                                     <th>Station</th>
@@ -80,7 +81,8 @@
                 ajax: '{!! route('admin.reserve.data') !!}',
                 columns: [
                     { data: 'id', name: 'id' },
-                    { data: 'Rider', name: 'Rider' },
+                    { data: 'Rider_Number', name: 'Rider_Number' },
+                    { data: 'Rider_Name', name: 'Rider_Name' },
                     { data: 'Bus', name: 'Bus'}, 
                     { data: 'seat_number', name: 'seat_number'}, 
                     { data: 'Station', name: 'Station' },

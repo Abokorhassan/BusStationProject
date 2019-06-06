@@ -47,6 +47,7 @@
                         <table class="table table-bordered" id="table">
                             <thead>
                                 <tr class="filters">
+                                    <th>Name</th>
                                     <th>Bstop Number</th>
                                     <th>Name</th>
                                     <th>Latitude</th>
@@ -81,6 +82,7 @@
                 serverSide: true,
                 ajax: '{!! route('admin.busstop.data') !!}',
                 columns: [
+                    { data: 'id', name: 'id' },
                     { data: 'bstop_num', name: 'bstop_num' },
                     { data: 'name', name: 'name' },
                     { data: 'lat', name: 'lat' },

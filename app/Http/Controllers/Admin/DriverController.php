@@ -30,9 +30,16 @@ class DriverController extends Controller
 
     public function data()
     {
-        $driver = Driver::get(['id', 'first_name', 'last_name', 'email', 'ph_number', 'license_number', 'created_at']);
+        // $driver = Driver::get(['id', 'first_name', 'last_name', 'email', 'ph_number', 'license_number', 'created_at']);
 
         return DataTables::of(Driver::query())
+
+            ->addColumn('Bus', function(Driver $driver){
+                // $busName = null;
+                // if(isset($driver->bus_id) && $driver->bus && $driver->bus->bus_number) 
+                $busName = $driver->bus->bus_number;
+                return $busName;
+            })
 
             ->addColumn('Driver_Number', function(Driver $driver){
                 $driverName = null;
