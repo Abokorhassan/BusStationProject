@@ -1,0 +1,2074 @@
+html[dir=rtl] {
+  /* x-editables*/
+  /* log viewer*/
+  /* laravel charts */
+  /* charts */
+  /* ui features*/
+  /* editors*/
+  /* charts */
+  /* calendar*/
+  /*pickers*/
+  /*dash board2*/
+  /* multiple file uploads */
+  /* dash board */
+  /* dash board2*/
+  /*login form */
+  /* register */
+  /* activity log */
+  /* buttons*/
+  /* editors */
+  /* star ratings */
+  /*radio and check boxes*/
+  /* form wizard*/
+  /* form elements */
+  /* tabs and accordions*/
+  /* icons */
+  /* general components*/
+  /* x-editables */
+  /*sliders */
+  /* image cropping */
+  /* mail*/
+  /* credit card section*/
+  /* log viewers*/
+  /* data tables */
+}
+
+html[dir=rtl] body {
+  direction: rtl;
+}
+
+html[dir=rtl] body > .header .navbar {
+  margin-right: 250px;
+  margin-left: 0;
+}
+
+html[dir=rtl] body > .header .logo {
+  float: right;
+}
+
+html[dir=rtl] .right-side > .content-header > .breadcrumb {
+  float: left;
+  left: 10px;
+  right: inherit;
+}
+
+html[dir=rtl] .page-sidebar-menu .livicon {
+  float: right;
+  margin-left: 10px;
+}
+
+html[dir=rtl] .page-sidebar .page-sidebar-menu li > a > .badge,
+html[dir=rtl] .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu li > a > .badge {
+  float: left;
+}
+
+html[dir=rtl] .page-sidebar-menu .livicon {
+  float: right;
+  margin-top: -2px;
+  margin-right: 10px;
+}
+
+html[dir=rtl] .navbar-right {
+  float: left !important;
+}
+
+html[dir=rtl] .arrow {
+  float: left;
+}
+
+html[dir=rtl] .sidebar_threeicons,
+html[dir=rtl] .panel .pull-left,
+html[dir=rtl] body > .header .navbar .sidebar-toggle {
+  float: right;
+}
+
+html[dir=rtl] .skin-josh .navbar .navbar-right > .nav {
+  margin-left: 20px;
+  margin-right: 0;
+}
+
+html[dir=rtl] .media-left,
+html[dir=rtl] .media > .pull-left {
+  padding-left: 10px;
+  padding-right: 0;
+}
+
+html[dir=rtl] .panel .pull-right {
+  float: left !important;
+}
+
+html[dir=rtl] .pull-right > .dropdown-menu {
+  right: auto;
+  left: 0;
+}
+
+html[dir=rtl] .navbar-right .dropdown-menu {
+  left: 0;
+  right: auto;
+}
+
+html[dir=rtl] .nav .dropdown-menu .menu i {
+  padding: 10px 10px 30px 30px;
+}
+
+html[dir=rtl] .back-to-top {
+  left: 30px;
+  right: auto;
+}
+
+html[dir=rtl] .display {
+  display: block !important;
+}
+
+html[dir=rtl] .tooltip.right .tooltip-arrow {
+  top: 50% !important;
+}
+
+html[dir=rtl] .todoitembtns,
+html[dir=rtl] .x-edit,
+html[dir=rtl] .dataTables_length,
+html[dir=rtl] .div_gnr_rst {
+  text-align: left;
+}
+
+html[dir=rtl] .jvectormap-zoomin,
+html[dir=rtl] .jvectormap-zoomout {
+  padding: 5px 5px 13px 13px;
+}
+
+html[dir=rtl] table.table-bordered.dataTable th,
+html[dir=rtl] table.table-bordered.dataTable td {
+  border-right-width: 0;
+  border-left-width: 1px;
+}
+
+html[dir=rtl] .margin_right15 {
+  margin-left: 40px;
+}
+
+html[dir=rtl] .margin_left15 {
+  margin-right: 15px;
+}
+
+html[dir=rtl] .radio-inline input[type=radio],
+html[dir=rtl] #sn-checkbox-open-in-new-window {
+  margin-right: -20px;
+  margin-left: inherit;
+}
+
+html[dir=rtl] .checkbox input[type=checkbox],
+html[dir=rtl] .checkbox-inline input[type=checkbox],
+html[dir=rtl] .radio input[type=radio],
+html[dir=rtl] .radio-inline input[type=radio] {
+  margin-right: -20px;
+  margin-left: inherit;
+}
+
+html[dir=rtl] .button_float_right {
+  float: right;
+  padding-right: 7px;
+}
+
+html[dir=rtl] .rm_padding_right {
+  padding-right: 0;
+  margin-left: 22px;
+}
+
+html[dir=rtl] .select2-container--default .select2-selection--single .select2-selection__arrow {
+  right: unset;
+}
+
+html[dir=rtl] .image_pull-right,
+html[dir=rtl] .todoitemcheck {
+  float: right;
+}
+
+html[dir=rtl] .select2-selection > .select2-selection__rendered {
+  float: right;
+  text-align: right;
+}
+
+html[dir=rtl] #singleCheckbox1 .checkbox label::after {
+  margin-left: -22px;
+}
+
+html[dir=rtl] .select2-results > .select2-results__options {
+  text-align: right;
+}
+
+html[dir=rtl] .select2-dropdown.select2-dropdown--above[dir="ltr"] {
+  direction: rtl;
+}
+
+html[dir=rtl] .info-box-content .info-box-number {
+  direction: ltr;
+  text-align: right;
+}
+
+html[dir=rtl] .highcharts-label.highcharts-data-label.highcharts-data-label-color-2 text[x='5'] {
+  -webkit-transform: translateX(110px);
+          transform: translateX(110px);
+}
+
+html[dir=rtl] .bar_chart {
+  padding-left: 30px;
+}
+
+html[dir=rtl] .charts-chart text[x='392.78125'] {
+  -webkit-transform: translateX(60px);
+          transform: translateX(60px);
+}
+
+html[dir=rtl] .bar_chart text {
+  -webkit-transform: translateX(63px);
+          transform: translateX(63px);
+}
+
+html[dir=rtl] .bar_chart text[x='946.453125'] {
+  -webkit-transform: translateX(65px);
+          transform: translateX(65px);
+}
+
+html[dir=rtl] .bar_chart text[x='0'] {
+  -webkit-transform: translateX(115px);
+          transform: translateX(115px);
+}
+
+html[dir=rtl] .bar_chart text[x='16.5'] {
+  -webkit-transform: translateX(11px);
+          transform: translateX(11px);
+}
+
+html[dir=rtl] .bar_chart text[x='22.5'] {
+  -webkit-transform: translateX(15px);
+          transform: translateX(15px);
+}
+
+html[dir=rtl] .line_chart rect {
+  -webkit-transform: translateX(-55px);
+          transform: translateX(-55px);
+}
+
+html[dir=rtl] .line_chart text[x='9.5'] {
+  -webkit-transform: translateX(10px);
+          transform: translateX(10px);
+}
+
+html[dir=rtl] #p1_labelGroup2-outer {
+  -webkit-transform: translate(45px, 177px);
+          transform: translate(45px, 177px);
+}
+
+html[dir=rtl] #p2_labelGroup8-outer {
+  -webkit-transform: translate(45px, 310px);
+          transform: translate(45px, 310px);
+}
+
+html[dir=rtl] #p2_labelGroup9-outer {
+  -webkit-transform: translate(68px, 230px);
+          transform: translate(68px, 230px);
+}
+
+html[dir=rtl] #p2_labelGroup11-outer {
+  -webkit-transform: translate(100px, 20px);
+          transform: translate(100px, 20px);
+}
+
+html[dir=rtl] #p2_labelGroup10-outer {
+  -webkit-transform: translate(70px, 120px);
+          transform: translate(70px, 120px);
+}
+
+html[dir=rtl] #p3_labelGroup3-outer {
+  -webkit-transform: translate(65px, 270px);
+          transform: translate(65px, 270px);
+}
+
+html[dir=rtl] .c3-legend-item text {
+  -webkit-transform: translate(-20px);
+          transform: translate(-20px);
+}
+
+html[dir=rtl] .tooltip.fade.bottom.in .tooltip-inner {
+  direction: ltr;
+}
+
+html[dir=rtl] .fileinput-new .input-group-addon,
+html[dir=rtl] .input-group .form-control:last-child,
+html[dir=rtl] .input-group-addon:not(:first-child),
+html[dir=rtl] .search_btn,
+html[dir=rtl] .input-group .form-control:first-child,
+html[dir=rtl] .input-group > .select2-hidden-accessible:first-child + .select2-container--bootstrap > .selection > .select2-selection,
+html[dir=rtl] .input-group > .select2-hidden-accessible:not(:first-child):not(:last-child) + .select2-container--bootstrap:last-child > .selection > .select2-selection {
+  border-top-left-radius: 5px !important;
+  border-bottom-left-radius: 5px !important;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+html[dir=rtl] .input-group-addon.btn.btn-default.btn-file,
+html[dir=rtl] #hidepanel5 .input-group-addon,
+html[dir=rtl] .form-horizontal .input-group-addon,
+html[dir=rtl] .right_form .input-group-addon,
+html[dir=rtl] .left_form .input-group-addon,
+html[dir=rtl] .sizing .input-group-addon,
+html[dir=rtl] .date1 .input-group-addon,
+html[dir=rtl] .advanced_picker .input-group-addon,
+html[dir=rtl] .spinners .input-group-addon {
+  border-left: 1px solid #ccc;
+  border-right: 1px solid #ccc;
+}
+
+html[dir=rtl] .email_field {
+  border-right: 1px solid #00bc8c !important;
+}
+
+html[dir=rtl] .pwd_field {
+  border-right: 1px solid #EF6F6C !important;
+}
+
+html[dir=rtl] .action_btn,
+html[dir=rtl] .bootstrap-touchspin-up,
+html[dir=rtl] #clockface2,
+html[dir=rtl] #color-chooser-btn,
+html[dir=rtl] .multiselect-container .multiselect-clear-filter {
+  border-top-left-radius: 5px !important;
+  border-bottom-left-radius: 5px !important;
+  border-top-right-radius: 0 !important;
+  border-bottom-right-radius: 0 !important;
+}
+
+html[dir=rtl] .multiselect-container .multiselect-clear-filter {
+  margin-right: -2px;
+}
+
+html[dir=rtl] .fileinput-new .form-control,
+html[dir=rtl] .input-group-addon:first-child,
+html[dir=rtl] .input-group .form-control:first-child,
+html[dir=rtl] .input-group > .select2-hidden-accessible:first-child + .select2-container--bootstrap > .selection > .select2-selection,
+html[dir=rtl] .rtl_search {
+  border-top-left-radius: 0 !important;
+  border-bottom-left-radius: 0 !important;
+  border-top-right-radius: 5px !important;
+  border-bottom-right-radius: 5px !important;
+}
+
+html[dir=rtl] #basic_form {
+  margin-top: 15px;
+}
+
+html[dir=rtl] .popover form {
+  width: auto;
+}
+
+html[dir=rtl] .cke_toolbar,
+html[dir=rtl] .wysihtml5-toolbar,
+html[dir=rtl] .trumbowyg-editor,
+html[dir=rtl] .wysihtml5-sandbox,
+html[dir=rtl] div.layout-demo,
+html[dir=rtl] .basic_form label {
+  float: right;
+}
+
+html[dir=rtl] .wysihtml5-toolbar .dropdown-menu {
+  right: 0;
+}
+
+html[dir=rtl] .trumbowyg-dropdown-backColor.trumbowyg-dropdown {
+  left: 56px !important;
+}
+
+html[dir=rtl] .trumbowyg-dropdown-foreColor.trumbowyg-dropdown {
+  left: 90px !important;
+}
+
+html[dir=rtl] .trumbowyg-dropdown-image.trumbowyg-dropdown {
+  left: 445px !important;
+}
+
+html[dir=rtl] .trumbowyg-dropdown-link {
+  left: 480px !important;
+}
+
+html[dir=rtl] .trumbowyg-dropdown-image svg,
+html[dir=rtl] .trumbowyg-dropdown-link,
+html[dir=rtl] .trumbowyg-dropdown button svg {
+  float: right;
+  margin-left: 10px;
+}
+
+html[dir=rtl] .trumbowyg-dropdown-formatting {
+  left: 690px !important;
+}
+
+html[dir=rtl] .select2-bootstrap-append .select2-container--bootstrap .select2-selection__clear {
+  margin-right: 370px;
+}
+
+html[dir=rtl] .select2-selection--single .select2-selection__rendered {
+  padding-left: 20px !important;
+}
+
+html[dir=rtl] .select2-bootstrap-prepend .select2-container--bootstrap .select2-selection__clear {
+  margin-right: 390px;
+}
+
+html[dir=rtl] .trumbowyg-dropdown button {
+  text-align: right;
+}
+
+html[dir=rtl] .dropdown-menu.dropdown-style {
+  right: 0;
+  left: unset;
+}
+
+html[dir=rtl] .note-toolbar.panel-heading {
+  position: relative !important;
+}
+
+html[dir=rtl] .wiz_padng {
+  padding-top: 40px;
+}
+
+html[dir=rtl] .f {
+  position: unset;
+}
+
+html[dir=rtl] .list-group-item-text {
+  margin-bottom: auto;
+}
+
+html[dir=rtl] .list-group-item-heading {
+  margin-top: 10px;
+}
+
+html[dir=rtl] #formPassword,
+html[dir=rtl] #formEmail {
+  margin-bottom: 10px;
+}
+
+html[dir=rtl] .animate_icon .col-lg-2.text-center {
+  float: right;
+}
+
+html[dir=rtl] #wraper1 .input-group-addon.pointer {
+  margin-left: 1px solid #ccc;
+}
+
+html[dir=rtl] .alert-message.alert-message-default {
+  border-right: 3px solid #b4b4b4;
+  border-left: none;
+}
+
+html[dir=rtl] .alert-message.alert-message-success {
+  border-right: 3px solid #3C763D;
+  border-left: none;
+}
+
+html[dir=rtl] .flatbuttons .text-left,
+html[dir=rtl] .right_btn .text-left,
+html[dir=rtl] #handle ul li {
+  text-align: right;
+}
+
+html[dir=rtl] #handle ul li {
+  padding-right: 15px;
+}
+
+html[dir=rtl] #handle-1 .drag-handle {
+  margin-left: 10px;
+}
+
+html[dir=rtl] .flatbuttons_size ul li,
+html[dir=rtl] .flatbuttons ul li,
+html[dir=rtl] .right_btn .dorpdown-buttons ul li,
+html[dir=rtl] .social-class ul li,
+html[dir=rtl] ul.faq-cat-tabs li,
+html[dir=rtl] .nav-tabs-custom ul li {
+  float: right;
+}
+
+html[dir=rtl] .tooltip-examples.list-inline,
+html[dir=rtl] .social-class.list-unstyled {
+  padding-right: 0px;
+}
+
+html[dir=rtl] .right_tabs ul li {
+  float: right;
+}
+
+html[dir=rtl] .right_tabs ul li.active {
+  margin-left: 3px;
+}
+
+html[dir=rtl] .dropdown-menu.colorpicker-with-alpha,
+html[dir=rtl] .dropdown-menu.colorpicker-right {
+  left: 20px !important;
+}
+
+html[dir=rtl] #sortable1,
+html[dir=rtl] #editable {
+  padding-right: 0;
+}
+
+html[dir=rtl] #treeview-checkable .glyphicon-unchecked,
+html[dir=rtl] .icon.check-icon.glyphicon.glyphicon-check {
+  margin-left: 10px;
+}
+
+html[dir=rtl] .check,
+html[dir=rtl] .checkall {
+  float: right;
+  padding-right: 0;
+}
+
+html[dir=rtl] .list-group .node-icon {
+  margin-left: 5px;
+}
+
+html[dir=rtl] #sortable_portlets .actions {
+  float: left;
+}
+
+html[dir=rtl] .simple_table .caption,
+html[dir=rtl] .rtl_list,
+html[dir=rtl] .sidebar_threeicons li {
+  float: right;
+}
+
+html[dir=rtl] .table-advance div.success {
+  margin-right: 0 !important;
+}
+
+html[dir=rtl] .btn-icon-right span,
+html[dir=rtl] .tab1_atv,
+html[dir=rtl] .icon-buttons .btn-label {
+  left: 13px;
+}
+
+html[dir=rtl] .table-advance div.success,
+html[dir=rtl] .table-advance div.info,
+html[dir=rtl] .table-advance div.important,
+html[dir=rtl] .table-advance div.warning,
+html[dir=rtl] .table-advance div.danger {
+  margin-right: 0 !important;
+}
+
+html[dir=rtl] .highlight a {
+  margin-right: 5px;
+}
+
+html[dir=rtl] .filterable .pull-left {
+  float: right !important;
+}
+
+html[dir=rtl] .select2-container--bootstrap[dir="rtl"] .select2-selection--single .select2-selection__arrow {
+  right: 7px;
+}
+
+html[dir=rtl] #table1 th .select2-container {
+  float: right !important;
+  width: auto !important;
+}
+
+html[dir=rtl] .portlet > .portlet-title > .caption {
+  float: right;
+}
+
+html[dir=rtl] .p1_tooltips .p1_tooltip text {
+  -webkit-transform: translateX(90px);
+          transform: translateX(90px);
+}
+
+html[dir=rtl] .p1_tooltips .p1_tooltip rect {
+  width: 100px !important;
+}
+
+html[dir=rtl] .p2_tooltips .p2_tooltip text {
+  -webkit-transform: translateX(100px);
+          transform: translateX(100px);
+}
+
+html[dir=rtl] .p2_tooltips .p2_tooltip rect {
+  width: 150px !important;
+}
+
+html[dir=rtl] .p2_tooltips #p2_tooltip6 text {
+  -webkit-transform: translateX(130px) !important;
+          transform: translateX(130px) !important;
+}
+
+html[dir=rtl] .p2_tooltips #p2_tooltip6 rect {
+  width: 250px !important;
+}
+
+html[dir=rtl] .p3_tooltips #p3_tooltip3 text {
+  -webkit-transform: translateX(100px) !important;
+          transform: translateX(100px) !important;
+}
+
+html[dir=rtl] .p3_tooltips #p3_tooltip3 rect {
+  width: 140px !important;
+}
+
+html[dir=rtl] .p3_tooltips .p3_tooltip text {
+  -webkit-transform: translateX(75px);
+          transform: translateX(75px);
+}
+
+html[dir=rtl] .p3_tooltips .p3_tooltip rect {
+  width: 100px;
+}
+
+html[dir=rtl] .circliful {
+  position: unset;
+}
+
+html[dir=rtl] .circle-info-half {
+  padding-left: 75px;
+}
+
+html[dir=rtl] #myStathalf2 .circle-info-half {
+  padding-left: 65px;
+}
+
+html[dir=rtl] .circle-text,
+html[dir=rtl] .circle-text-half {
+  text-align: right;
+  padding-right: 55px;
+}
+
+html[dir=rtl] .animate_rtl,
+html[dir=rtl] .spark-chart,
+html[dir=rtl] .gallery-border,
+html[dir=rtl] .prof_pic {
+  float: right !important;
+}
+
+html[dir=rtl] .btn.btn-success.animate_rtl .livicon {
+  margin-left: 5px;
+}
+
+html[dir=rtl] .btn.btn-primary.animate_rtl,
+html[dir=rtl] .btn.btn-success.animate_rtl {
+  padding-left: 15px !important;
+}
+
+html[dir=rtl] .btn.btn-success.btn-xs {
+  padding-right: 10px;
+}
+
+html[dir=rtl] .input-group-btn.open .dropdown-menu.pull-right {
+  right: auto !important;
+  left: 0 !important;
+}
+
+html[dir=rtl] #calendar {
+  direction: rtl;
+}
+
+html[dir=rtl] #preview-pane {
+  right: 660px !important;
+}
+
+html[dir=rtl] #rootwizard ul li {
+  float: right;
+  margin-left: 3px;
+}
+
+html[dir=rtl] .pd-top label {
+  float: right;
+  text-align: left;
+}
+
+html[dir=rtl] .label.animate_rtl,
+html[dir=rtl] #tab1 label,
+html[dir=rtl] #tab2 .control-label.animate_rtl,
+html[dir=rtl] #tab3 .control-label,
+html[dir=rtl] #tab4 .control-label,
+html[dir=rtl] .left_side {
+  text-align: left;
+}
+
+html[dir=rtl] .knob {
+  margin-right: -107px !important;
+}
+
+html[dir=rtl] #tab1 label,
+html[dir=rtl] #tab2 label,
+html[dir=rtl] #tab3 label,
+html[dir=rtl] .last_tab label {
+  float: right;
+}
+
+html[dir=rtl] .touch_spin label {
+  direction: ltr;
+}
+
+html[dir=rtl] .pager .next {
+  float: left !important;
+}
+
+html[dir=rtl] .col-md-offset-3 {
+  margin-left: 0;
+}
+
+html[dir=rtl] .ul-edit li,
+html[dir=rtl] #tab1 input,
+html[dir=rtl] #tab2 input,
+html[dir=rtl] #tab3 input,
+html[dir=rtl] #tab4 input {
+  float: right;
+}
+
+html[dir=rtl] #tab4 .icheckbox_minimal-blue {
+  margin-left: 10px;
+}
+
+html[dir=rtl] .nav.nav-tabs.ul-edit.responsive {
+  padding-right: 0;
+  margin-right: -3px;
+}
+
+html[dir=rtl] .btn_rtl {
+  float: right;
+  margin-right: 175px;
+}
+
+html[dir=rtl] .panel-title.pull-left {
+  float: right !important;
+}
+
+html[dir=rtl] .tabbable-custom ul li,
+html[dir=rtl] #sortable1 li {
+  float: right;
+}
+
+html[dir=rtl] .input-group-addon.bootstrap-touchspin-postfix,
+html[dir=rtl] .input-group-addon.bootstrap-touchspin-prefix {
+  border-top-left-radius: 0 !important;
+  border-bottom-left-radius: 0 !important;
+  border-left: 0;
+}
+
+html[dir=rtl] .btn.btn-default.bootstrap-touchspin-down {
+  border-top-left-radius: 0 !important;
+  border-bottom-left-radius: 0 !important;
+  border-top-right-radius: 5px !important;
+  border-bottom-right-radius: 5px !important;
+}
+
+html[dir=rtl] .input-group-btn:first-child > .btn {
+  margin-left: -1px;
+}
+
+html[dir=rtl] #demo_vertical,
+html[dir=rtl] #demo_vertical2,
+html[dir=rtl] #date_picker {
+  border-top-left-radius: 0 !important;
+  border-bottom-left-radius: 0 !important;
+}
+
+html[dir=rtl] .input-group-btn-vertical .btn.btn-default.bootstrap-touchspin-down {
+  border-top-left-radius: 0 !important;
+  border-bottom-left-radius: 5px !important;
+  border-top-right-radius: 0 !important;
+  border-bottom-right-radius: 0 !important;
+}
+
+html[dir=rtl] .compose.row label.pull-left,
+html[dir=rtl] .todolist_list.showactions .nopadmar.pull-left,
+html[dir=rtl] #card label {
+  float: right !important;
+}
+
+html[dir=rtl] .note-btn-group.btn-group.open blockquote {
+  border-right: 5px solid #eee;
+  border-left: 0;
+}
+
+html[dir=rtl] .note-editable blockquote {
+  border-right: 5px solid #eee;
+  border-left: none;
+}
+
+html[dir=rtl] blockquote.multiple_file {
+  border-right: 5px solid #eee;
+  border-left: none;
+}
+
+html[dir=rtl] .margin_btm {
+  margin-bottom: 15px;
+}
+
+html[dir=rtl] .form_layout li {
+  float: right;
+}
+
+html[dir=rtl] .animate_lts {
+  float: left;
+}
+
+html[dir=rtl] .form-bordered .form-group > div {
+  border-right: 1px solid #efefef !important;
+  border-left: 0 !important;
+}
+
+html[dir=rtl] .support_form,
+html[dir=rtl] .disabled_inputs {
+  margin-left: 0 !important;
+}
+
+html[dir=rtl] .date1 .bootstrap-datetimepicker-widget.dropdown-menu.bottom,
+html[dir=rtl] .date1 .bootstrap-datetimepicker-widget.dropdown-menu.top,
+html[dir=rtl] .date1 .bootstrap-datetimepicker-widget.dropdown-menu.usetwentyfour.top {
+  left: auto !important;
+  right: 45px !important;
+}
+
+html[dir=rtl] .daterangepicker.dropdown-menu.opensright {
+  left: auto !important;
+  right: 320px !important;
+}
+
+html[dir=rtl] .daterangepicker .ranges li.active {
+  margin-top: 3px !important;
+}
+
+html[dir=rtl] .calendar.left,
+html[dir=rtl] .calendar.right,
+html[dir=rtl] .text_right {
+  float: right !important;
+}
+
+html[dir=rtl] .calendar.right .calendar-table,
+html[dir=rtl] .calendar.left .calendar-table {
+  border: 1px solid #ccc;
+}
+
+html[dir=rtl] .daterangepicker.opensright:before {
+  left: unset !important;
+  right: 9px !important;
+}
+
+html[dir=rtl] .clockface.dropdown-menu {
+  right: 320px !important;
+}
+
+html[dir=rtl] .flatpickr-calendar {
+  left: 0;
+}
+
+html[dir=rtl] .flatpickr-calendar:after,
+html[dir=rtl] .flatpickr-calendar:before {
+  right: 40px !important;
+  left: 0px !important;
+}
+
+html[dir=rtl] .col-sm-5.pad-0-res.mt-5 {
+  float: right;
+  padding-right: 0;
+}
+
+html[dir=rtl] .datepicker.-bottom-left-.-from-bottom-.active {
+  left: 770px !important;
+}
+
+html[dir=rtl] .-bottom-left- .datepicker--pointer,
+html[dir=rtl] .-top-left- .datepicker--pointer {
+  right: 10px;
+}
+
+html[dir=rtl] .radio_checkbox label {
+  margin-bottom: -6px;
+}
+
+html[dir=rtl] #modalLabelslide,
+html[dir=rtl] #modalLabelslidebottom {
+  direction: ltr;
+  text-align: right;
+}
+
+html[dir=rtl] .ajax_modal {
+  padding-right: 0;
+}
+
+html[dir=rtl] .square_box .number,
+html[dir=rtl] .square_box span {
+  float: right;
+}
+
+html[dir=rtl] #editConfirmModal .close,
+html[dir=rtl] .modal-footer .btn-default,
+html[dir=rtl] .alert .close,
+html[dir=rtl] .modal-header .close {
+  float: left;
+}
+
+html[dir=rtl] #login_form label,
+html[dir=rtl] .dashboard1,
+html[dir=rtl] #register_here label,
+html[dir=rtl] #reset_pw label {
+  float: right !important;
+}
+
+html[dir=rtl] #livicon-2 {
+  left: 30px;
+}
+
+html[dir=rtl] #wrapper input:not([type="checkbox"]) {
+  width: 77%;
+}
+
+html[dir=rtl] #login_form input:not([type="checkbox"]),
+html[dir=rtl] #register_here #password,
+html[dir=rtl] #register_here #email {
+  width: 77%;
+}
+
+html[dir=rtl] #register_here .has-error .input-group-addon {
+  border-right: 1px solid #a94442;
+}
+
+html[dir=rtl] #register_here .has-success .input-group-addon {
+  border-right: 1px solid #3c763d;
+}
+
+html[dir=rtl] #email,
+html[dir=rtl] #password {
+  padding-right: 33px;
+}
+
+html[dir=rtl] .login {
+  width: 93% !important;
+}
+
+html[dir=rtl] .change_link .btn-warning {
+  float: right;
+}
+
+html[dir=rtl] .change_link #signup {
+  float: left !important;
+}
+
+html[dir=rtl] #livicon-3,
+html[dir=rtl] #livicon-4,
+html[dir=rtl] #livicon-9 {
+  left: 40px !important;
+}
+
+html[dir=rtl] #livicon-5 {
+  left: 10px;
+}
+
+html[dir=rtl] #livicon-6 {
+  left: 65px;
+}
+
+html[dir=rtl] #livicon-7 {
+  left: 30px;
+}
+
+html[dir=rtl] #livicon-8 {
+  left: 85px !important;
+}
+
+html[dir=rtl] #register_here input {
+  padding-right: 30px;
+}
+
+html[dir=rtl] #delete-log-form .modal-footer .btn-default {
+  float: right !important;
+}
+
+html[dir=rtl] #delete-log-form .modal-footer .btn-danger,
+html[dir=rtl] .noty_bar .noty_buttons {
+  float: left !important;
+}
+
+html[dir=rtl] .noty_bar .noty_buttons {
+  border-top: none !important;
+}
+
+html[dir=rtl] .noty_buttons .btn.btn-primary {
+  margin-left: 5px !important;
+}
+
+html[dir=rtl] .noty_message {
+  text-align: right !important;
+}
+
+html[dir=rtl] .table th {
+  text-align: right;
+}
+
+html[dir=rtl] .table-responsive div:nth-child(3) .col-sm-5,
+html[dir=rtl] .table-responsive div:nth-child(3) .col-sm-7 {
+  float: right !important;
+}
+
+html[dir=rtl] .table-responsive div:nth-child(3) .col-sm-7 .dataTables_paginate {
+  text-align: left;
+}
+
+html[dir=rtl] .table-responsive div:nth-child(1) .col-sm-6 {
+  float: right;
+}
+
+html[dir=rtl] .table-responsive div:nth-child(1) .dataTables_filter {
+  text-align: left !important;
+}
+
+html[dir=rtl] .table-responsive div:nth-child(1) .dataTables_length {
+  text-align: right !important;
+}
+
+html[dir=rtl] #editConfirmModal .modal-footer .close,
+html[dir=rtl] .logout {
+  float: left !important;
+}
+
+html[dir=rtl] .space {
+  margin: 0 5px !important;
+}
+
+html[dir=rtl] .right_form .btn.btn-default {
+  float: left !important;
+}
+
+html[dir=rtl] .right_form label,
+html[dir=rtl] .left_form label {
+  float: unset !important;
+}
+
+html[dir=rtl] .left_form .btn.btn-default {
+  float: unset !important;
+}
+
+html[dir=rtl] .select2-selection__arrow {
+  right: auto !important;
+}
+
+html[dir=rtl] .selectize-control.demo-default.multi.plugin-remove_button.rtl {
+  float: none;
+}
+
+html[dir=rtl] .icheckbox_line-red,
+html[dir=rtl] .iradio_line-red {
+  padding-right: 25px;
+}
+
+html[dir=rtl] .icheckbox_line-red .icheck_line-icon,
+html[dir=rtl] .iradio_line-red .icheck_line-icon {
+  right: 5px;
+  left: 0;
+}
+
+html[dir=rtl] .text_left {
+  text-align: left;
+}
+
+html[dir=rtl] #rootwizard .pager.wizard.wiz_padng,
+html[dir=rtl] .list-group {
+  padding-right: 0;
+}
+
+html[dir=rtl] #confirm-delete #btnModalReset {
+  float: left;
+}
+
+html[dir=rtl] .padng_4 {
+  padding-top: 5px;
+}
+
+html[dir=rtl] .padng_8 {
+  padding-top: 9px;
+}
+
+html[dir=rtl] .margin_top {
+  margin-top: 55px;
+}
+
+html[dir=rtl] .trumbowyg-button-group.trumbowyg-right {
+  margin-right: auto;
+  margin-left: 0;
+}
+
+html[dir=rtl] .trumbowyg-editor {
+  direction: rtl;
+}
+
+html[dir=rtl] .wysihtml5-toolbar li {
+  float: right;
+}
+
+html[dir=rtl] .wysihtml5-sandbox body {
+  direction: rtl;
+}
+
+html[dir=rtl] .mce-container-body.mce-flow-layout {
+  text-align: right;
+  direction: rtl;
+}
+
+html[dir=rtl] .clear-rating.clear-rating-active {
+  float: right;
+  padding-top: 10px;
+}
+
+html[dir=rtl] .rating {
+  float: right;
+  direction: ltr;
+}
+
+html[dir=rtl] .checkbox label::before {
+  left: 1px;
+}
+
+html[dir=rtl] #singleCheckbox1,
+html[dir=rtl] #singleCheckbox2,
+html[dir=rtl] #indeterminateCheckbox {
+  margin-right: 10px;
+}
+
+html[dir=rtl] #tab2 #change-password {
+  float: right;
+  margin-left: 5px;
+}
+
+html[dir=rtl] .form1_basic #email,
+html[dir=rtl] .form1_basic #password {
+  padding-right: 12px !important;
+}
+
+html[dir=rtl] .jp-card .jp-card-front .jp-card-lower .jp-card-expiry {
+  float: left;
+}
+
+html[dir=rtl] .slimScrollBar {
+  left: 1px !important;
+  right: auto !important;
+}
+
+html[dir=rtl] .tab1_margin {
+  left: -12px;
+}
+
+html[dir=rtl] .popover.top > .arrow,
+html[dir=rtl] .popover.top > .arrow:after,
+html[dir=rtl] .popover.bottom > .arrow,
+html[dir=rtl] .popover.bottom > .arrow:after {
+  left: 0;
+}
+
+html[dir=rtl] .simplelineicons-demo .item span {
+  float: right;
+}
+
+html[dir=rtl] .dd-item > button {
+  float: right;
+}
+
+html[dir=rtl] .sublist .dd3-item,
+html[dir=rtl] .sublist .dd-item {
+  right: 30px;
+}
+
+html[dir=rtl] .right_padng {
+  padding-right: 1px;
+}
+
+html[dir=rtl] #carousel3,
+html[dir=rtl] #carousel1,
+html[dir=rtl] #carousel4,
+html[dir=rtl] #input-3 {
+  direction: ltr;
+}
+
+html[dir=rtl] .padding-right10 {
+  padding: 0 !important;
+}
+
+html[dir=rtl] .visible-md {
+  display: block !important;
+}
+
+html[dir=rtl] #slim1 .visible-md {
+  display: none !important;
+}
+
+html[dir=rtl] #slim1 .control-label,
+html[dir=rtl] .basic_form .control-label {
+  text-align: left;
+}
+
+html[dir=rtl] .tooltip-main .tooltip-inner {
+  direction: ltr;
+}
+
+html[dir=rtl] .margin_right15 {
+  float: left;
+}
+
+html[dir=rtl] .margin_left15 {
+  float: right;
+}
+
+html[dir=rtl] .noty_text,
+html[dir=rtl] .editable-checklist,
+html[dir=rtl] .editable-address label {
+  text-align: right;
+}
+
+html[dir=rtl] #sessionTimeout-dialog #sessionTimeout-dialog-keepalive {
+  float: left;
+}
+
+html[dir=rtl] #sessionTimeout-dialog-logout {
+  float: unset;
+  margin-right: 360px;
+}
+
+html[dir=rtl] #sortable_portlets .caption {
+  float: unset !important;
+}
+
+html[dir=rtl] .dl-horizontal dt {
+  text-align: left;
+  float: right;
+  margin-top: 5px;
+}
+
+html[dir=rtl] .dl-horizontal dd {
+  margin-left: 0 !important;
+  margin-right: 180px;
+  margin-top: 5px;
+}
+
+html[dir=rtl] .noty_bar.noty_type_confirm .noty_message {
+  border-bottom: 1px solid #ccc;
+}
+
+html[dir=rtl] #editable li {
+  padding-right: 20px !important;
+}
+
+html[dir=rtl] #editable .addable_list,
+html[dir=rtl] .todolist_list.showactions.list1 .todotext.todoitemjs {
+  word-wrap: break-word;
+  display: block;
+  text-align: right;
+  padding-left: 20px;
+  float: none !important;
+}
+
+html[dir=rtl] .irs-min,
+html[dir=rtl] .irs-max,
+html[dir=rtl] .irs-from,
+html[dir=rtl] .irs-to,
+html[dir=rtl] .irs-single {
+  direction: ltr;
+}
+
+html[dir=rtl] .form_slider .col-md-10 b:nth-child(1) {
+  float: left;
+  padding-left: 525px;
+}
+
+html[dir=rtl] .form_slider #ex2 {
+  float: left;
+}
+
+html[dir=rtl] .table-advance .col-md-5.col-lg-3.col-xs-12 .pull-right {
+  float: left !important;
+}
+
+html[dir=rtl] .btn.btn-primary.btn-sm.editable-submit {
+  margin: 0 8px;
+}
+
+html[dir=rtl] .editable-buttons.editable-buttons-bottom .editable-submit,
+html[dir=rtl] .editable-buttons.editable-buttons-bottom .editable-cancel {
+  float: right;
+}
+
+html[dir=rtl] table.dataTable thead .sorting:after,
+html[dir=rtl] table.dataTable thead .sorting_asc:after,
+html[dir=rtl] table.dataTable thead .sorting_desc:after,
+html[dir=rtl] table.dataTable thead .sorting_asc_disabled:after,
+html[dir=rtl] table.dataTable thead .sorting_desc_disabled:after {
+  right: unset;
+  left: 0;
+}
+
+html[dir=rtl] #table2 thead th:first-child {
+  width: 20px !important;
+}
+
+html[dir=rtl] .slider-handle.min-slider-handle.triangle {
+  border-top: 10px solid transparent;
+  border-bottom: 10px solid transparent;
+  border-left: 10px solid #0480be;
+}
+
+html[dir=rtl] .slider.slider-horizontal .slider-handle.triangle {
+  position: absolute;
+  margin-left: -5px !important;
+}
+
+html[dir=rtl] #BC .slider-handle {
+  border-bottom-color: transparent !important;
+}
+
+html[dir=rtl] .compose.row label {
+  text-align: right !important;
+}
+
+html[dir=rtl] .margin_left {
+  margin-right: 10px;
+}
+
+html[dir=rtl] #anim_buttons .btn.btn-small,
+html[dir=rtl] #bgo_buttons .btn.btn-small,
+html[dir=rtl] #bgc_buttons .btn.btn-small {
+  float: right;
+}
+
+html[dir=rtl] #anim_buttons button:nth-child(1),
+html[dir=rtl] #bgo_buttons button:nth-child(1),
+html[dir=rtl] #bgc_buttons button:nth-child(1) {
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+html[dir=rtl] #anim_buttons button:nth-child(6),
+html[dir=rtl] #bgo_buttons button:nth-child(4),
+html[dir=rtl] #bgc_buttons button:nth-child(6) {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+}
+
+html[dir=rtl] #interface .checkbox {
+  direction: ltr;
+  text-align: right;
+}
+
+html[dir=rtl] .icheckbox_minimal-blue {
+  float: right;
+}
+
+html[dir=rtl] .heading {
+  float: right;
+}
+
+html[dir=rtl] .pagination.no-padding a {
+  direction: ltr;
+}
+
+html[dir=rtl] #inbox-check .col-md-4.col-lg-3.col-xs-12 .pull-right,
+html[dir=rtl] #inbox-check .pull-right {
+  float: left !important;
+}
+
+html[dir=rtl] #inbox-check .dropdown-menu.ul li,
+html[dir=rtl] .dropdown-menu.dropdown-style li,
+html[dir=rtl] .dropdown-menu.note-check li {
+  text-align: right;
+}
+
+html[dir=rtl] .draft {
+  float: right;
+  direction: ltr;
+  padding-right: 10px;
+}
+
+html[dir=rtl] .draft_icon {
+  float: right;
+}
+
+html[dir=rtl] .note-palette {
+  margin-left: 5px !important;
+}
+
+html[dir=rtl] .note-palette .note-color-reset.btn.btn-light {
+  background-color: #eee;
+  color: #333;
+}
+
+html[dir=rtl] .note-dimension-display {
+  direction: ltr;
+  text-align: right;
+}
+
+html[dir=rtl] .dropdown-menu.note-table {
+  direction: ltr;
+  padding-right: 10px;
+  padding-left: 10px;
+  padding-bottom: 20px;
+}
+
+html[dir=rtl] .checkbox {
+  padding-right: 20px;
+}
+
+html[dir=rtl] .row.list_of_items .col-md-8.col-sm-8.col-xs-8.nopadmar.custom_textbox1,
+html[dir=rtl] .row.list_of_items .col-md-4.col-sm-4.col-xs-4.pull-right.showbtns.todoitembtns {
+  float: right;
+}
+
+html[dir=rtl] .row.list_of_items input[type=checkbox] {
+  margin: 10px !important;
+}
+
+html[dir=rtl] .todoitemcheck {
+  margin-right: -15px;
+}
+
+html[dir=rtl] .todolist_list.showactions.list1 .todoitemcheck {
+  margin-left: 10px !important;
+}
+
+html[dir=rtl] .bio {
+  float: right;
+  text-align: left;
+  direction: ltr;
+}
+
+html[dir=rtl] .jqvmap-zoomout,
+html[dir=rtl] .jqvmap-zoomin {
+  padding: 4px 7px 15px 15px;
+}
+
+html[dir=rtl] .left-hidden .right-side {
+  margin-right: 0 !important;
+}
+
+html[dir=rtl] .bv-form .help-block,
+html[dir=rtl] .profile li a {
+  text-align: right;
+}
+
+html[dir=rtl] .profile li {
+  float: right;
+}
+
+html[dir=rtl] .profile1 li a {
+  text-align: right;
+}
+
+html[dir=rtl] .profile1 .user-header.bg-light-blue.rtl_list {
+  margin-top: -8px;
+}
+
+html[dir=rtl] .profile {
+  padding-right: 0;
+}
+
+html[dir=rtl] .drop_notify .dropdown-title,
+html[dir=rtl] .dropdown-messages .dropdown-title {
+  text-align: right;
+}
+
+html[dir=rtl] .timezone,
+html[dir=rtl] .dropdown-messages .message i {
+  float: left !important;
+  padding-left: 10px;
+}
+
+html[dir=rtl] .menu li {
+  border-bottom: 1px solid #eee;
+}
+
+html[dir=rtl] .image img {
+  margin-right: 0;
+  margin-left: 15px;
+}
+
+html[dir=rtl] .message-text {
+  float: right;
+  text-align: right;
+}
+
+html[dir=rtl] #color-chooser-btn {
+  border-color: #a9b6bc;
+}
+
+html[dir=rtl] .highcharts-legend-item text[x='21'] {
+  -webkit-transform: translateX(55px);
+          transform: translateX(55px);
+}
+
+html[dir=rtl] .highcharts-legend-item.highcharts-series-2 {
+  -webkit-transform: translateX(250px);
+          transform: translateX(250px);
+}
+
+html[dir=rtl] .basic1 label,
+html[dir=rtl] .basic2 label,
+html[dir=rtl] .tab2_label,
+html[dir=rtl] .tab4_label {
+  float: right;
+  text-align: left;
+}
+
+html[dir=rtl] .basic2 .checkbox {
+  margin-right: 130px;
+}
+
+html[dir=rtl] .trumbowyg-dropdown-backColor button,
+html[dir=rtl] .trumbowyg-dropdown-foreColor button {
+  text-indent: 9999px;
+}
+
+html[dir=rtl] .jp-card .jp-card-front .jp-card-lower .jp-card-name {
+  color: #333 !important;
+}
+
+html[dir=rtl] .auto_block textarea:focus {
+  border-color: #66afe9 !important;
+  outline: 0 !important;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6) !important;
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6) !important;
+}
+
+html[dir=rtl] .jp-card-expiry.jp-card-display {
+  color: #333;
+}
+
+html[dir=rtl] .jp-card .jp-card-front .jp-card-lower .jp-card-expiry:before,
+html[dir=rtl] .jp-card .jp-card-front .jp-card-lower .jp-card-expiry:after {
+  font-size: 10px;
+}
+
+html[dir=rtl] .jp-card .jp-card-front .jp-card-logo {
+  right: 78%;
+}
+
+html[dir=rtl] .jp-card .jp-card-front .jp-card-logo {
+  float: right;
+}
+
+html[dir=rtl] .jp-card .jp-card-back .jp-card-shiny:after {
+  right: 120%;
+  left: 0;
+}
+
+html[dir=rtl] .jp-card .jp-card-back .jp-card-shiny {
+  left: 0;
+  right: 2%;
+}
+
+html[dir=rtl] .jp-card .jp-card-back:after {
+  right: 2%;
+}
+
+html[dir=rtl] .jp-card .jp-card-back .jp-card-cvc {
+  left: 8%;
+}
+
+html[dir=rtl] .multiselect-container.dropdown-menu li label {
+  text-align: right;
+}
+
+html[dir=rtl] .multiselect-container.dropdown-menu li a {
+  padding-right: 15px;
+}
+
+html[dir=rtl] .btn-social :first-child {
+  right: 0;
+  border-left: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+html[dir=rtl] .btn.btn-raised.btn-primary,
+html[dir=rtl] .dir_text {
+  direction: ltr;
+}
+
+html[dir=rtl] .modal-footer .btn-success,
+html[dir=rtl] .modal-footer .btn-danger,
+html[dir=rtl] .modal-footer .btn-warning,
+html[dir=rtl] .modal-footer .btn-primary,
+html[dir=rtl] .modal-footer .btn-info {
+  float: left !important;
+}
+
+html[dir=rtl] .tag.label.label-primary,
+html[dir=rtl] .tag.label.label-danger,
+html[dir=rtl] .tag.label.label-success,
+html[dir=rtl] .tag.label.label-warning,
+html[dir=rtl] .tag.label.label-default {
+  float: right;
+}
+
+html[dir=rtl] .bootstrap-tagsinput .tag [data-role="remove"]:after {
+  float: left;
+}
+
+html[dir=rtl] .tag.label.label-info {
+  float: right;
+  margin-top: 8px;
+}
+
+html[dir=rtl] #advanced-3 li,
+html[dir=rtl] #advanced-2 li,
+html[dir=rtl] #advanced-1 li {
+  text-align: right;
+  padding-right: 20px;
+}
+
+html[dir=rtl] #foo li {
+  text-align: right;
+}
+
+html[dir=rtl] #toast-container > .toast-success,
+html[dir=rtl] #toast-container > .toast-info,
+html[dir=rtl] #toast-container > .toast-warning,
+html[dir=rtl] #toast-container > .toast-error {
+  background-position: 270px;
+}
+
+html[dir=rtl] .toast-bottom-full-width .toast-success,
+html[dir=rtl] .toast-bottom-full-width .toast-info,
+html[dir=rtl] .toast-bottom-full-width .toast-warning,
+html[dir=rtl] .toast-bottom-full-width .toast-error {
+  background-position: right !important;
+}
+
+html[dir=rtl] .toast-top-full-width .toast-success,
+html[dir=rtl] .toast-top-full-width .toast-info,
+html[dir=rtl] .toast-top-full-width .toast-warning,
+html[dir=rtl] .toast-top-full-width .toast-error {
+  background-position: right !important;
+}
+
+html[dir=rtl] .toast-close-button {
+  float: left !important;
+  padding-right: 10px !important;
+  margin-left: -10px !important;
+}
+
+html[dir=rtl] .toast-title,
+html[dir=rtl] .toast-message {
+  text-align: right !important;
+  margin-right: 30px !important;
+}
+
+html[dir=rtl] .values {
+  direction: rtl !important;
+}
+
+html[dir=rtl] .editable-clear-x {
+  left: 6px !important;
+  right: unset !important;
+}
+
+html[dir=rtl] .editable-input .form-control.input-sm.tt-query {
+  text-align: right !important;
+}
+
+html[dir=rtl] .note-palette-title {
+  color: #333;
+}
+
+html[dir=rtl] #gallery-header-center-left-title {
+  float: right !important;
+}
+
+html[dir=rtl] #gallery .pull-right {
+  float: left !important;
+}
+
+html[dir=rtl] .imgs-profile .pull-left {
+  float: right !important;
+  padding-left: 20px !important;
+}
+
+html[dir=rtl] .news-block-img.pull-right {
+  float: left !important;
+  padding-right: 5px !important;
+}
+
+html[dir=rtl] .tabbable.tabbable-custom ul,
+html[dir=rtl] .the-box.no-border ul {
+  padding-right: 0;
+}
+
+html[dir=rtl] .the-box.no-border.blog-detail-content blockquote {
+  border-right: 5px solid #eee;
+  border-left: none;
+}
+
+html[dir=rtl] .profile_user img {
+  float: right !important;
+  display: inline-block;
+}
+
+html[dir=rtl] .user_name_max,
+html[dir=rtl] .riot {
+  display: inline-block;
+}
+
+html[dir=rtl] .modal-dialog .btn.btn-success.pull-left {
+  float: right !important;
+}
+
+html[dir=rtl] #autogrow_area {
+  border-top-right-radius: 0px !important;
+  border-bottom-right-radius: 0px !important;
+}
+
+html[dir=rtl] .selectize-control.plugin-remove_button [data-value] .remove {
+  position: relative;
+}
+
+html[dir=rtl] .adv_rate .rating,
+html[dir=rtl] .adv_rate .caption {
+  float: left;
+}
+
+html[dir=rtl] .rating-animate .caption,
+html[dir=rtl] .rating-animate .rating {
+  float: left;
+}
+
+html[dir=rtl] .rating-rtl .caption {
+  margin-top: 8px;
+}
+
+html[dir=rtl] .float_left {
+  float: unset !important;
+}
+
+html[dir=rtl] .float_right {
+  float: right;
+}
+
+html[dir=rtl] .wizards #tab1 label,
+html[dir=rtl] .wizards #tab2 label,
+html[dir=rtl] .wizards #tab3 label {
+  float: unset !important;
+  margin-top: 10px;
+}
+
+html[dir=rtl] #commentForm #email,
+html[dir=rtl] #commentForm #password {
+  padding-right: 15px !important;
+}
+
+html[dir=rtl] ol.acc-wizard-sidebar li:before {
+  right: -2em;
+  left: unset;
+}
+
+html[dir=rtl] .borders {
+  border-bottom-left-radius: 5px !important;
+  border-top-left-radius: 5px !important;
+}
+
+html[dir=rtl] .timeline > li > .right_panel:before,
+html[dir=rtl] .timeline > li > .right_panel:after {
+  border-left-width: 0;
+  border-right-width: 15px;
+  left: -15px;
+  right: auto;
+}
+
+html[dir=rtl] .values,
+html[dir=rtl] .right_panel {
+  float: right !important;
+}
+
+html[dir=rtl] .left_panel {
+  float: left !important;
+}
+
+html[dir=rtl] .timeline > li.timeline-inverted > .left_panel:before,
+html[dir=rtl] .timeline > li.timeline-inverted > .left_panel:after {
+  border-left-width: 15px;
+  border-right-width: 0;
+  right: -15px;
+  left: auto;
+}
+
+html[dir=rtl] .timeline2 .right_panel > .timeline2-panel:before,
+html[dir=rtl] .timeline2 .right_panel > .timeline2-panel:after {
+  border-left-width: 0;
+  border-right-width: 15px;
+  left: -15px;
+  right: auto;
+}
+
+html[dir=rtl] .timeline2 .left_panel > .timeline2-panel:before,
+html[dir=rtl] .timeline2 .left_panel > .timeline2-panel:after {
+  border-left-width: 15px;
+  border-right-width: 0;
+  right: -15px;
+  left: auto;
+}
+
+html[dir=rtl] .timeline2 .right_panel > .timeline2-badge {
+  left: -12px;
+  right: unset !important;
+}
+
+html[dir=rtl] .timeline2 > .right_panel > .timeline2-panel {
+  float: unset !important;
+}
+
+html[dir=rtl] .timeline2 > .left_panel > .timeline2-panel {
+  float: left !important;
+}
+
+html[dir=rtl] .editable-input .form-control.input-sm {
+  padding-left: 24px;
+  padding-right: 0;
+}
+
+html[dir=rtl] .right_panel .timeline2-heading img,
+html[dir=rtl] .left_panel .timeline2-heading img {
+  width: 100% !important;
+}
+
+html[dir=rtl] .legendLabel {
+  padding-right: 7px;
+  direction: ltr;
+}
+
+html[dir=rtl] .panel-heading.note-toolbar .note-color .dropdown-toggle {
+  padding-left: 10px !important;
+  width: auto;
+}
+
+html[dir=rtl] #recent_news_margl {
+  margin-right: 15px;
+}
+
+html[dir=rtl] #news_option_margl {
+  margin-right: 30px;
+}
+
+html[dir=rtl] .pagination .paginate_button {
+  float: right;
+}
+
+html[dir=rtl] .pagination .previous a {
+  border-top-left-radius: 0 !important;
+  border-bottom-left-radius: 0 !important;
+  border-top-right-radius: 5px !important;
+  border-bottom-right-radius: 5px !important;
+}
+
+html[dir=rtl] .pagination .next a {
+  border-top-left-radius: 5px !important;
+  border-bottom-left-radius: 5px !important;
+  border-top-right-radius: 0 !important;
+  border-bottom-right-radius: 0 !important;
+}
+
+html[dir=rtl] .highcharts-data-labels text {
+  direction: ltr;
+}
+
+html[dir=rtl] .highcharts-tooltip text {
+  direction: ltr;
+}
+
+html[dir=rtl] #text_auto {
+  border-top-left-radius: 5px !important;
+  border-bottom-left-radius: 5px !important;
+}
+
+html[dir=rtl] .multiselect.dropdown-toggle.btn.btn-default {
+  direction: ltr;
+}
+
+html[dir=rtl] #btn_grpl .button-group .button:last-child {
+  border-top-left-radius: 20px;
+  border-bottom-left-radius: 20px;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+html[dir=rtl] #btn_grpl .button-group .button:first-child {
+  border-top-right-radius: 20px;
+  border-bottom-right-radius: 20px;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+html[dir=rtl] .nav-tabs-custom ul,
+html[dir=rtl] .nav.nav-tabs.faq-cat-tabs,
+html[dir=rtl] .right_tabs ul {
+  padding-right: 0;
+}
+
+html[dir=rtl] #bar li,
+html[dir=rtl] .dir_text .icheckbox_minimal-blue {
+  float: right;
+}
+
+html[dir=rtl] #editable .addable_list {
+  text-align: right;
+  float: right;
+}
+
+html[dir=rtl] #editable i {
+  left: 20px;
+}
+
+html[dir=rtl] .timeline_menu {
+  left: unset;
+}
+
+html[dir=rtl] .c3-tooltip td > span {
+  margin-left: 6px;
+}
+
+html[dir=rtl] .note-btn-group.btn-group.note-color .dropdown-menu {
+  right: 0;
+}
+
+html[dir=rtl] .right_label {
+  float: right;
+  text-align: left;
+}
+
+html[dir=rtl] .modal-footer .btn.btn-primary.prim_btn {
+  float: left !important;
+}
+
+html[dir=rtl] .footer_div {
+  float: left;
+}
+
+html[dir=rtl] .btn.btn-default.def_btn {
+  float: unset;
+  margin-left: 5px;
+}
+
+html[dir=rtl] .info-box.level .progress {
+  margin: 5px 50px 5px -83px;
+}
+
+html[dir=rtl] .info-box.level .info-box-content {
+  margin-left: 10px;
+}
+
+html[dir=rtl] .info-box.level .info-box-icon {
+  margin-left: 10px;
+}
+
+html[dir=rtl] .rtl_align td {
+  text-align: right;
+}
+
+html[dir=rtl] .table th.sorting,
+html[dir=rtl] .table th.sorting_desc,
+html[dir=rtl] .table th.sorting_asc {
+  padding-right: 10px;
+}
+
+html[dir=rtl] .starability-growRotate {
+  direction: rtl;
+}
+
+html[dir=rtl] .starability-basic label {
+  float: right;
+}
+
+html[dir=rtl] .row.fontawesome-icon-list .col-md-3.col-sm-4.pad-10 {
+  float: right;
+}
+
+html[dir=rtl] #treeview6 .badge {
+  float: left;
+}
+
+html[dir=rtl] .bs-component blockquote {
+  border-right: 5px solid #eee;
+  border-left: none;
+}
+
+html[dir=rtl] .bs-component.animate_rtl .pull-right {
+  border-left: 5px solid #eee;
+  border-right: none;
+}
+
+html[dir=rtl] .progress.progress-striped.vertical.bottom,
+html[dir=rtl] .progress.vertical.bottom {
+  float: right;
+}
+
+html[dir=rtl] .panel-body.c1 {
+  padding-right: 128px;
+}
+
+html[dir=rtl] #user .popover-title {
+  text-align: right;
+}
+
+html[dir=rtl] .checkbox.col-md-12.txt-align {
+  text-align: left;
+}
+
+html[dir=rtl] .m-t-10 .buttons-html5,
+html[dir=rtl] .toggle-vis.btn.btn-default {
+  float: right;
+}
+
+html[dir=rtl] #DataTables_Table_0_wrapper .col-sm-6 {
+  float: right;
+}
+
+html[dir=rtl] #DataTables_Table_0_filter,
+html[dir=rtl] #DataTables_Table_4_info,
+html[dir=rtl] #DataTables_Table_0_paginate,
+html[dir=rtl] #DataTables_Table_4_paginate {
+  text-align: left;
+}
+
+html[dir=rtl] #DataTables_Table_0_length,
+html[dir=rtl] #DataTables_Table_4_info {
+  text-align: right;
+}
+
+html[dir=rtl] #DataTables_Table_0_wrapper .col-sm-5,
+html[dir=rtl] #DataTables_Table_0_wrapper .col-sm-7,
+html[dir=rtl] #DataTables_Table_4_wrapper .col-sm-5,
+html[dir=rtl] #DataTables_Table_4_wrapper .col-sm-7 {
+  float: right;
+}
+
+html[dir=rtl] #table2 tr:nth-child(3) td:nth-child(2) {
+  direction: ltr;
+  text-align: right;
+}
+
+html[dir=rtl] #picker2 .input-group-addon,
+html[dir=rtl] #picker3 .input-group-addon {
+  border-left: 1px solid #ccc;
+}
+
+html[dir=rtl] #picker3 input,
+html[dir=rtl] #picker2 input {
+  direction: ltr;
+  text-align: right;
+}
+
+html[dir=rtl] .imgs-profile .uploadphoto-list li {
+  float: right;
+}
+
+html[dir=rtl] .left_label {
+  text-align: left;
+}
+
+html[dir=rtl] #invoice {
+  border-bottom-right-radius: 6px;
+  border-top-right-radius: 6px;
+}
+

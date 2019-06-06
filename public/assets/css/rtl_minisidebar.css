@@ -1,0 +1,40 @@
+html[dir=rtl] {
+  /*rtl mini_sidebar css*/
+  /* fixed-menu css*/
+}
+
+html[dir=rtl] .rtl {
+  float: right;
+}
+
+html[dir=rtl] body.mini #menu .menu-dropdown > ul,
+html[dir=rtl] body.mini #menu .menu-dropdown-open-ul {
+  right: 80px;
+}
+
+html[dir=rtl] body.mini #menu .menu-dropdown:hover > a:after {
+  position: absolute;
+  top: 17px;
+  right: 70px;
+  width: 0;
+  height: 0;
+  content: "";
+  border-top: 10px solid transparent;
+  border-right: 0;
+  border-bottom: 10px solid transparent;
+  border-left: 10px solid #2E576B;
+}
+
+html[dir=rtl] .fixed_menu .left-side {
+  right: 0;
+}
+
+html[dir=rtl] .fixed_menu .right-side {
+  margin-right: 250px;
+  margin-left: 0;
+}
+
+html[dir=rtl] .forgot_pwd {
+  padding-right: 20px;
+}
+

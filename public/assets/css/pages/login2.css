@@ -1,0 +1,71 @@
+@import url(https://fonts.googleapis.com/css?family=Lato);
+
+body {
+    background: url(../../img/parallax/back.png);
+    background-color: #444;
+    background: url(../../img/parallax/pinlayer2.png), url(../../img/parallax/pinlayer1.png), url(../../img/parallax/back.png);
+    font-family: 'lato';
+}
+
+.vertical-offset-100 {
+    padding-top: 100px;
+}
+
+label{
+    color:#999999 !important;
+    font-weight: 100;
+}
+
+h3 {
+    font-size: 22px ! important;
+}
+
+.btn-primary {
+    background: #428BCA;
+}
+.alert-success {
+    color: #fff;
+    background-color: #22ddad !important;
+    border-color: #acf6ac !important;
+}
+.alert-danger {
+    color: #fff;
+    background-color: #ff908d !important;
+    border-color: #EF6F6C !important;
+}
+.alert-info {
+    color: #fff;
+    background-color: #67C5DF !important;
+    border-color: #67C5DF !important;
+}
+.alert-warning {
+    color: #fff;
+    background-color: #F89A14 !important;
+    border-color: #F89A14 !important;
+}
+/*login2 page css*/
+.icheckbox_minimal-blue, .remember_key{
+    float: right;
+}
+.icheckbox_minimal-blue{
+   margin-left: 2px !important;
+}
+.rtl_field{
+    direction: rtl;
+}
+/*register2 css */
+.input-group .form-control:last-child{
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    border-top-right-radius:0;
+    border-bottom-right-radius:0;
+    border-right: 0;
+
+}
+.input-group-addon:first-child{
+    border-top-left-radius:0;
+    border-bottom-left-radius:0;
+    border-top-right-radius:5px;
+    border-bottom-right-radius:5px;
+    border-right:1px solid #ccc;
+}

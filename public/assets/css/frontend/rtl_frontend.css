@@ -1,0 +1,210 @@
+html[dir=rtl] {
+  /* navbar section*/
+  /* login page */
+  /* register page */
+  /*forgot password*/
+  /* typography*/
+}
+
+html[dir=rtl] .icon-section .list-inline .pull-right {
+  float: left !important;
+}
+
+html[dir=rtl] .navbar.navbar-default.container .navbar-header {
+  float: right;
+  padding-right: 40px;
+}
+
+html[dir=rtl] .tooltip.fade.bottom.in .tooltip-inner {
+  direction: ltr;
+}
+
+html[dir=rtl] .navbar-nav .dropdown-menu:before {
+  right: 115px;
+}
+
+html[dir=rtl] .navbar-nav .dropdown-menu a:hover {
+  border-right: 2px solid #ef6f6c;
+  border-left: none;
+}
+
+html[dir=rtl] .bg-light.animation.flipInX .forgot_pwd {
+  padding-right: 20px;
+}
+
+html[dir=rtl] .omb_loginForm.bv-form .checkbox {
+  margin-top: 25px;
+}
+
+html[dir=rtl] #reg_form .form-group.has-error .help-block {
+  text-align: right;
+  float: right !important;
+}
+
+html[dir=rtl] .omb_loginForm .form-group.has-error .help-block,
+html[dir=rtl] .direction_right {
+  float: right;
+}
+
+html[dir=rtl] .owl-wrapper-outer {
+  direction: ltr;
+}
+
+html[dir=rtl] .frontend_navbar {
+  float: right;
+}
+
+html[dir=rtl] .right_float {
+  float: right;
+}
+
+html[dir=rtl] .left_float .btn.btn-primary.purchase-styl.pull-right {
+  float: left !important;
+  margin-left: 15px;
+}
+
+html[dir=rtl] .list-unstyled.pull-right.text-right.layout-styl li {
+  text-align: right;
+}
+
+html[dir=rtl] #tab_content ul {
+  padding-right: 0;
+}
+
+html[dir=rtl] #tab_content ul li {
+  float: right;
+}
+
+html[dir=rtl] .col-md-6.col-sm-6.wow.zoomInRight .text-left,
+html[dir=rtl] .col-md-6.col-sm-6.wow.zoomInLeft.right_float .text-left {
+  text-align: right;
+}
+
+html[dir=rtl] .row.features a.right_float {
+  float: right;
+}
+
+html[dir=rtl] footer .col-sm-4.right_float .pull-right,
+html[dir=rtl] .left_float {
+  float: left !important;
+}
+
+html[dir=rtl] #footer_part {
+  padding-right: 0;
+}
+
+html[dir=rtl] .frontend_navbar.dropdown .dropdown-menu li {
+  text-align: right;
+}
+
+html[dir=rtl] .tabs_content li,
+html[dir=rtl] .col-md-8.right_float .col-sm-6.news-body {
+  float: right;
+}
+
+html[dir=rtl] .tabs_content {
+  padding-right: 0;
+}
+
+html[dir=rtl] .col-md-8.right_float .border-warning,
+html[dir=rtl] .col-sm-12.mt-20 .border-danger {
+  text-align: right;
+}
+
+html[dir=rtl] #livicon-9 {
+  left: 5px !important;
+}
+
+html[dir=rtl] .news_padng ul,
+html[dir=rtl] .the-box.recent ul {
+  padding-right: 0;
+}
+
+html[dir=rtl] .blog_tabs .tab-pane .text-right.primary {
+  text-align: left;
+}
+
+html[dir=rtl] .media-list.media-xs.media-dotted .media .pull-left {
+  float: right !important;
+}
+
+html[dir=rtl] .media-top .box-icon > i {
+  left: -7px;
+}
+
+html[dir=rtl] #address_margt address,
+html[dir=rtl] .media.padleft10 .media-body.padbtm2 {
+  direction: ltr;
+  text-align: right;
+}
+
+html[dir=rtl] .box .text-right.primary,
+html[dir=rtl] .box_read .text-right.primary {
+  text-align: left !important;
+}
+
+html[dir=rtl] .right_align {
+  text-align: right;
+}
+
+html[dir=rtl] .left_align {
+  text-align: left;
+}
+
+html[dir=rtl] .admn_feat blockquote {
+  border-left: none;
+  border-right: 2px solid #ef6f6c;
+}
+
+html[dir=rtl] .panel_heading {
+  margin-right: 15px;
+}
+
+html[dir=rtl] .prod_tabs {
+  padding-right: 25px;
+  padding-left: 0;
+}
+
+html[dir=rtl] .text-big3 {
+  margin-left: 10px;
+  margin-right: 0;
+  float: right !important;
+}
+
+html[dir=rtl] .prod_tabs1 {
+  text-align: right;
+  padding-right: 20px;
+}
+
+html[dir=rtl] .prod_tabs1 li {
+  direction: ltr;
+}
+
+html[dir=rtl] .left_paginate {
+  float: left !important;
+  padding-left: 20px;
+}
+
+html[dir=rtl] .more_items {
+  text-align: left;
+}
+
+html[dir=rtl] #single_portfolio_title {
+  padding-right: 25px;
+}
+
+html[dir=rtl] #gallery .fa.fa-link {
+  right: -95%;
+  padding: 7px 6px 0 8px;
+}
+
+html[dir=rtl] #gallery .fa.fa-search-plus {
+  right: -175%;
+  padding: 7px 6px 0 8px;
+}
+
+html[dir=rtl] .more_items {
+  float: left;
+  padding-left: 20px;
+}
+
