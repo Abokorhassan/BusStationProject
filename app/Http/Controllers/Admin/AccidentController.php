@@ -114,7 +114,6 @@ class AccidentController extends Controller
         $accident->bus_id = $request->input('bus_number');
         $accident->acc_lat = $request->input('accident_latitude');
         $accident->acc_long = $request->input('accident_longitude');
-        $accident->user_id = Sentinel::getUser()->id;
         $accident->station_id = $request->input('station'); 
         $accident->save();
 

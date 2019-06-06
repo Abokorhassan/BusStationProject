@@ -83,7 +83,6 @@ class ScheduleController extends Controller
         $schedule = new Schedule();
         $schedule->schedule_number =$request->input('schedule_number');
         $schedule->station_id =$request->input('station');
-        $schedule->user_id = Sentinel::getUser()->id;
 
         $schedule->save();
 

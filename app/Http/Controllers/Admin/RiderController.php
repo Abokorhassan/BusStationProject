@@ -113,7 +113,6 @@ class RiderController extends Controller
         $rider->third_name = $request->input('third_name');
         $rider->gender = $request->input('gender');
         $rider->ph_number = $request->input('ph_number');
-        $rider->user_id = Sentinel::getUser()->id;
         // $rider->bus_id = $request->input('bus_number');
         // $rider->station_id = $request->input('station'); 
         $rider->save();

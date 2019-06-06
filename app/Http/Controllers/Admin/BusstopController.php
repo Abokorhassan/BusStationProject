@@ -93,7 +93,6 @@ class BusstopController extends Controller
         $busstop->name = $request->input('name');
         $busstop->lat = $request->input('latitude');
         $busstop->long = $request->input('longitude');
-        $busstop->user_id = Sentinel::getUser()->id;
         // $busstop->route_id = $request->input('route_id');
         $busstop->station_id = $request->input('station');
         $busstop->save();

@@ -104,7 +104,6 @@ class BusController extends Controller
         $bus->Driver_id =$request->input('driver_number');
         $bus->station_id =$request->input('station');
         //$bus->user_id = auth()->user()->id;
-        $bus->user_id = Sentinel::getUser()->id;
 
         $bus->save();
 

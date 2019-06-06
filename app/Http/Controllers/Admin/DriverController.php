@@ -112,7 +112,6 @@ class DriverController extends Controller
         $driver->email = $request->input('email');
         $driver->gender = $request->input('genders');
         $driver->station_id = $request->input('station'); 
-        $driver->user_id = Sentinel::getUser()->id;
 
         // Handle File Upload
         if($request->hasFile('picture')){
