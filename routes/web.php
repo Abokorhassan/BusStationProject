@@ -151,6 +151,7 @@ Route::group(['prefix' => 'admin','namespace'=>'Admin', 'middleware' => 'admin',
         Route::get('{reserve}/delete', 'ReserveController@destroy')->name('reserve.delete');
         Route::get('{reserve}/confirm-delete', 'ReserveController@getModalDelete')->name('reserve.confirm-delete');      
         Route::get('getBusStation', 'ReserveController@getBusStation')->name('reserve.getBusStation');
+        Route::get('getSeatNumber', 'ReserveController@getSeatNumber')->name('reserve.getSeatNumber');
     });
 
     Route::resource('reserve', 'ReserveController');

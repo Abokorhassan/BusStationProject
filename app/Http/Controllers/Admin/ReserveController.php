@@ -10,11 +10,14 @@ use App\Bus;
 use App\Station;
 use App\Queue;
 use App\Schedule;
+use App\Seat;
 use DOMDocument;
 use Intervention\Image\Facades\Image;
 use Response;
 use Sentinel;
 use Yajra\DataTables\DataTables;
+use function GuzzleHttp\Promise\queue;
+use Illuminate\Support\Facades\DB;
 
 class ReserveController extends Controller
 {
@@ -66,8 +69,8 @@ class ReserveController extends Controller
                 return $createtime->created_at->diffForHumans();
             })
             ->addColumn('actions', function ($user) {
-                $actions = '<a href=' . route('admin.reserve.edit', $user->id) . '><i class="livicon" data-name="edit" data-size="18" data-loop="true" data-c="#428BCA" data-hc="#428BCA" title="update Reserved Seat"></i></a>';
-                $actions .= '<a href=' . route('admin.reserve.confirm-delete', $user->id) . ' data-toggle="modal" data-target="#delete_confirm"><i class="livicon" data-name="remove-alt"
+                // $actions = '<a href=' . route('admin.reserve.edit', $user->id) . '><i class="livicon" data-name="edit" data-size="18" data-loop="true" data-c="#428BCA" data-hc="#428BCA" title="update Reserved Seat"></i></a>';
+                $actions = '<a href=' . route('admin.reserve.confirm-delete', $user->id) . ' data-toggle="modal" data-target="#delete_confirm"><i class="livicon" data-name="remove-alt"
                 data-size="18" data-loop="true" data-c="#f56954"
                 data-hc="#f56954"
                 title="Delete Reserves Seat"></i></a>';
@@ -90,6 +93,7 @@ class ReserveController extends Controller
                     ->orderBy('created_at', 'asc')
                     ->get();
         $schedules = Schedule::select('id','schedule_number', 'station_id')->get();
+        $seats = Seat::select('id','seat_number')->get();
         return view('admin.reserve.create', compact('riders', 'queues', 'schedules')); 
     }
 
@@ -99,6 +103,25 @@ class ReserveController extends Controller
         $queue = Schedule::find($id)->queue;
 
         $data = $queue;  
+        return Response()->json($data);
+    }
+
+    public function getSeatNumber(Request $request)
+    {
+        $queue_id = $request->id;
+        //getting the bus id
+        $queue = Queue::find($queue_id);
+        $bus_id = $queue->bus_id;
+
+        //   getting the seat number
+        // $seat = DB::table('seats')->where('bus_id', $bus_id)->get()
+        $seat = DB::table("seats")->select('*')->whereNotIn('seat_number',function($query) {
+                        $query->select('seat_number')->from('reserves');
+                    })
+                    ->where('bus_id', $bus_id)
+                    ->get();
+
+        $data = $seat;
         return Response()->json($data);
     }
 
@@ -151,41 +174,41 @@ class ReserveController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
-    {
-        $reserve = Reserve::find($id);
-        $stations = Station::select('id','name')->get();
-        $opStations = $stations->pluck('name', 'id')->toArray();
+    // public function edit($id)
+    // {
+    //     $reserve = Reserve::find($id);
+    //     $stations = Station::select('id','name')->get();
+    //     $opStations = $stations->pluck('name', 'id')->toArray();
 
-        $buses = Bus::select('id','bus_number')->get();
-        $opBuses = $buses->pluck('bus_number', 'id')->toArray();
+    //     $buses = Bus::select('id','bus_number')->get();
+    //     $opBuses = $buses->pluck('bus_number', 'id')->toArray();
 
-        $riders = Rider::select('id','id_number')->get();
-        $opRiders = $riders->pluck('id_number', 'id')->toArray(); 
-        return view('admin.reserve.edit', compact('reserve', 'stations', 'opStations', 'riders', 'opRiders', 'buses', 'opBuses'));   
-    }
+    //     $riders = Rider::select('id','id_number')->get();
+    //     $opRiders = $riders->pluck('id_number', 'id')->toArray(); 
+    //     return view('admin.reserve.edit', compact('reserve', 'stations', 'opStations', 'riders', 'opRiders', 'buses', 'opBuses'));   
+    // }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        $this->validate($request,[
-            'rider_id' => 'required',
-            // 'station_id' => 'required | numeric',
-            // 'bus_id' => 'required | numeric'
-        ]);
+    // /**
+    //  * Update the specified resource in storage.
+    //  *
+    //  * @param  \Illuminate\Http\Request  $request
+    //  * @param  int  $id
+    //  * @return \Illuminate\Http\Response
+    //  */
+    // public function update(Request $request, $id)
+    // {
+    //     $this->validate($request,[
+    //         'rider_id' => 'required',
+    //         // 'station_id' => 'required | numeric',
+    //         // 'bus_id' => 'required | numeric'
+    //     ]);
 
-        $reserve = Reserve::find($id);
-        $reserve->rider_id = $request->input('rider_id');
-        $reserve->save();
+    //     $reserve = Reserve::find($id);
+    //     $reserve->rider_id = $request->input('rider_id');
+    //     $reserve->save();
 
-        return redirect('admin/reserve')->with('success', 'Reserved Seat Updated');
-    }
+    //     return redirect('admin/reserve')->with('success', 'Reserved Seat Updated');
+    // }
 
     public function getModalDelete(Reserve $reserve)
     {

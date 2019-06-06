@@ -117,7 +117,22 @@
                         <span class="help-block">:message
                         </span>') !!}
                       </div>   
-                    </div>                
+                    </div>     
+                    
+                    <div class="form-group {{ $errors->first('seat_number', 'has-error') }}">
+                      <label for="seat_number" class="col-sm-2 control-label">Seat Number *
+                      </label>
+                      <div class="col-sm-10">
+                        <select class="form-control " id="seat_number"  name="seat_number">                                         
+                          <option value="0" disabled="true" selected = "true"> Select Se
+
+                          </option>
+                        </select>
+                        {!! $errors->first('seat_number', '
+                        <span class="help-block">:message
+                        </span>') !!}
+                      </div>   
+                    </div>  
 
                     <div class="form-group">
                       <div class="col-sm-offset-2 col-sm-4 btn_rtl">
@@ -172,7 +187,7 @@
                     dataType: "json",
                     success:function(data) {
                         // var bus = data[2].bus_number;
-                        console.log(data);
+                        // console.log(data);
 
                            // This is mine
                         // $('select[name="bus_number"]').empty();
@@ -199,6 +214,34 @@
                 $('select[name="bus_number"]').empty();
             }
       });
+
+      $(document).on('change','#busnumber',function(){
+        var id=$(this).val();
+        console.log(id);
+
+        if(id) {
+                $.ajax({
+                    url: "{{ route('admin.reserve.getSeatNumber') }}",
+                    type: "GET",
+                    data:{'id':id},
+                    dataType: "json",
+                    success:function(data) {
+                        // var bus = data[2].bus_number;
+                        // console.log(data);
+
+                        //   //also This is from stackoverflow
+                        $('select[name="seat_number"]').empty();
+                        $('select[name="seat_number"]').html('<option value=""  selected = "true">Chose seat number</option>');
+                        $.each( data, function( index, object ) {
+                          $('select[name="seat_number"]').append('<option value="'+ object['seat_number'] +'" >'+ object['seat_number'] +'</option>');
+                        });
+                    }
+                });
+            }else{
+                $('select[name="seat_number"]').empty();
+            }
+      });
+
 	  });
   </script>
 
