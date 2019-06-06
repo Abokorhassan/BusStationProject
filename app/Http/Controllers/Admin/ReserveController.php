@@ -134,9 +134,10 @@ class ReserveController extends Controller
     public function store(Request $request)
     {
         $this->validate($request,[
-            'rider' => 'required',
+            'rider' => 'required | unique:reserves,rider_id',
             'schedule' => 'required | numeric',
-            'bus_number' => 'required | numeric'
+            'bus_number' => 'required | numeric',
+            'seat_number' => 'required'
         ]);
 
         $reserve = new Reserve();
@@ -149,6 +150,9 @@ class ReserveController extends Controller
         // return $queue;
         $reserve->bus_number = $queue->bus_number;
         $reserve->station_id = $queue->station_id;
+
+        $reserve->seat_number = $request->input('seat_number');
+
         
 
         // $reserve->user_id = Sentinel::getUser()->id;

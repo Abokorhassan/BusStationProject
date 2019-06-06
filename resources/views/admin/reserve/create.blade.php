@@ -124,7 +124,7 @@
                       </label>
                       <div class="col-sm-10">
                         <select class="form-control " id="seat_number"  name="seat_number">                                         
-                          <option value="0" disabled="true" selected = "true"> Select Se
+                          <option value="0" disabled="true" selected = "true"> Select Seat
 
                           </option>
                         </select>

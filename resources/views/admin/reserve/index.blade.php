@@ -49,6 +49,7 @@
                                     <th>ID</th>
                                     <th>Full Name</th>
                                     <th>Bus</th>
+                                    <th>Seat Number</th>
                                     <th>Station</th>
                                     <th>user</th>
                                     <th>Created_at</th>
@@ -81,6 +82,7 @@
                     { data: 'id', name: 'id' },
                     { data: 'Rider', name: 'Rider' },
                     { data: 'Bus', name: 'Bus'}, 
+                    { data: 'seat_number', name: 'seat_number'}, 
                     { data: 'Station', name: 'Station' },
                     { data: 'User', name: 'User' },  
                     { data: 'created_at', name:'created_at'},
@@ -108,25 +110,4 @@
         });
     </script>
 @stop
-
-{{-- page level scripts
-@section('footer_scripts')
-    <script type="text/javascript" src="{{ asset('assets/vendors/datatables/js/jquery.dataTables.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('assets/vendors/datatables/js/dataTables.bootstrap.js') }}"></script>
-
-    <script>
-        $(document).ready(function() {
-            $('#table').DataTable();
-        });
-    </script>
-
-    
-    <script>
-        $(function () {
-            $('body').on('hidden.bs.modal', '.modal', function () {
-                $(this).removeData('bs.modal');
-            });
-        });
-    </script>
-@stop --}}
 
