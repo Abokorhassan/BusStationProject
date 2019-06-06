@@ -27,12 +27,20 @@ class StationController extends Controller
 
     public function data()
     {
-        $station = Station::get(['id', 'name', 'lat', 'long', 'created_at']);
+        // $station = Station::get(['id', 'name', 'lat', 'long', 'created_at']);
 
-        return DataTables::of($station)
+        return DataTables::of(Station::query())
+
+            ->addColumn('User', function(Station $station){
+                $userName = null;
+                if(isset($station->user_id) && $station->user && $station->user->first_name)
+                    $userName = $station->user->first_name.' '. $station->user->last_name;
+                return $userName;
+            })
             ->editColumn('created_at', function (Station $createtime) {
                 return $createtime->created_at->diffForHumans();
             })
+
             ->addColumn('actions', function ($user) {
                 $actions = '<a href=' . route('admin.station.edit', $user->id) . '><i class="livicon" data-name="edit" data-size="18" data-loop="true" data-c="#428BCA" data-hc="#428BCA" title="update station"></i></a>';
                 $actions .= '<a href=' . route('admin.station.confirm-delete', $user->id) . ' data-toggle="modal" data-target="#delete_confirm"><i class="livicon" data-name="remove-alt"
@@ -74,6 +82,7 @@ class StationController extends Controller
         $station->name = $request->input('name');
         $station->lat = $request->input('latitude');
         $station->long = $request->input('longitude');
+        $station->user_id = Sentinel::getUser()->id;
         $station->save();
 
         return redirect('admin/station')->with('success', 'station Created');

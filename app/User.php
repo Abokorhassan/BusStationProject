@@ -75,7 +75,7 @@ class User extends EloquentUser {
 	}
 	public function station()
     {
-        return $this->belongsTo(Station::class);
+        return $this->hasMany(Station::class);
 	}
 	public function rider()
 	{

@@ -52,6 +52,7 @@
                                     <th>Name</th>
                                     <th>Latitude</th>
                                     <th>Longitude</th>
+                                    <th>User</th>
                                     <th>Created At</th>
                                     <th>Actions</th>
                                 </tr>
@@ -83,6 +84,7 @@
                     { data: 'name', name: 'name' },
                     { data: 'lat', name: 'lat' },
                     { data: 'long', name: 'long' },
+                    { data: 'User', name: 'User' },
                     { data: 'created_at', name:'created_at'},
                     { data: 'actions', name: 'actions', orderable: false, searchable: false }
                 ]
