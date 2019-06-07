@@ -42,4 +42,8 @@ class Station extends Model
 	{
 		return $this->hasMany(Queue::class);
 	}
+	public function seat()
+	{
+		return $this->hasMany(Seat::class);
+	}
 }

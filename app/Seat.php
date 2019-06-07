@@ -10,4 +10,8 @@ class Seat extends Model
     {
         return $this->belongsTo(Bus::class);
     }
+    public function station()
+    {
+        return $this->belongsTo(Station::class);
+    }
 }

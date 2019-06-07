@@ -28,6 +28,14 @@ class SeatController extends Controller
         $seat = Seat::get(['id', 'bus_number', 'seat_number','created_at']);
 
         return DataTables::of(Seat::query())
+
+            ->addColumn('Station', function(Seat $seat){
+                $stationName = null;
+                if(isset($seat->station_id) && $seat->station && $seat->station->name)
+                    $stationName = $seat->station->name;
+                return $stationName;
+            })
+
             ->editColumn('created_at', function (Seat $createtime) {
                 return $createtime->created_at->diffForHumans();
             })
@@ -81,6 +89,8 @@ class SeatController extends Controller
         // extractinng the matched bus_number and save it to the database with the help of bus id
         $bus_number = $bus->bus_number;
         $seat->bus_number = $bus_number;
+
+        $seat->station_id = $bus->station_id;
         $seat->bus_id =$request->input('bus_number');
 
         //saving seat number
