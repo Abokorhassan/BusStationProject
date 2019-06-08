@@ -50,6 +50,8 @@
                                     <th>ID</th>
                                     <th>Bus_Number</th>
                                     <th>Seat Number</th>
+                                    <th>Station</th>
+                                    <th>User</th>
                                     <th>Created_at</th>
                                     <th>Actions</th>
                                 </tr>
@@ -80,6 +82,8 @@
                     { data: 'id', name: 'id' },
                     { data: 'bus_number', name: 'bus_number' },
                     { data: 'seat_number', name: 'seat_number' },
+                    { data: 'Station', name: 'Station' },
+                    { data: 'User', name: 'User' },
                     { data: 'created_at', name:'created_at'},
                     { data: 'actions', name: 'actions', orderable: false, searchable: false }
                 ]

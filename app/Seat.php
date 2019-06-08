@@ -14,4 +14,8 @@ class Seat extends Model
     {
         return $this->belongsTo(Station::class);
     }
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

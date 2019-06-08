@@ -29,6 +29,13 @@ class SeatController extends Controller
 
         return DataTables::of(Seat::query())
 
+            ->addColumn('User', function(Seat $seat){
+                $userName = null;
+                if(isset($seat->user_id) && $seat->user && $seat->user->first_name)
+                    $userName = $seat->user->first_name.' '. $seat->user->last_name;
+                return $userName;
+            })
+
             ->addColumn('Station', function(Seat $seat){
                 $stationName = null;
                 if(isset($seat->station_id) && $seat->station && $seat->station->name)
@@ -92,9 +99,6 @@ class SeatController extends Controller
 
         $seat->station_id = $bus->station_id;
         $seat->bus_id =$request->input('bus_number');
-
-        //saving seat number
-        $seat->seat_number =$request->input('seat_number');
 
         $seat->save();
 

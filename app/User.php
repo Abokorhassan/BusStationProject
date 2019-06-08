@@ -89,4 +89,8 @@ class User extends EloquentUser {
 	{
 		return $this->hasMany(Queue::class);
 	}
+	public function seat()
+	{
+		return $this->hasMany(Seat::class);
+	}
 }
