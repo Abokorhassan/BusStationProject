@@ -371,6 +371,13 @@ Route::group(['namespace'=>'User', 'middleware' => 'user', 'as' => 'user.'], fun
     });
     Route::resource('seat', 'SeatController');
 
+    //Schedule
+    Route::group(['prefix' => 'schedule'], function () {
+        Route::get('data', 'ScheduleController@data')->name('schedule.data');
+        Route::get('{schedule}/delete', 'ScheduleController@destroy')->name('schedule.delete');
+    });
+    Route::resource('schedule', 'ScheduleController');
+
 });
 
 # My account display and update details

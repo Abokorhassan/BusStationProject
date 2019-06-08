@@ -132,10 +132,15 @@
                     <li class="frontend_navbar dropdown {!! (Request::is('seat') || Request::is('seat/*')   ? 'active' : '') !!}">
                         <a href="{{ URL::to('seat') }}"> Seat </a>
                     </li>
+
+                    {{-- Schedule --}}
+                    <li class="frontend_navbar dropdown {!! (Request::is('schedule') || Request::is('seat/*')   ? 'active' : '') !!}">
+                        <a href="{{ URL::to('schedule') }}"> Schedule </a>
+                    </li>
                     
 
                         {{-- Features --}}
-                    <li class="frontend_navbar dropdown {!! (Request::is('typography') || Request::is('advancedfeatures') || Request::is('grid') ? 'active' : '') !!}">
+                    {{-- <li class="frontend_navbar dropdown {!! (Request::is('typography') || Request::is('advancedfeatures') || Request::is('grid') ? 'active' : '') !!}">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false"> Features</a>
                         <ul class="dropdown-menu" role="menu">
                             <li><a href="{{ URL::to('typography') }}">Typography</a>
@@ -145,7 +150,7 @@
                             <li><a href="{{ URL::to('grid') }}">Grid System</a>
                             </li>
                         </ul>
-                    </li>
+                    </li> --}}
 
                     {{-- pages --}}
                     {{-- <li class="frontend_navbar dropdown {!! (Request::is('aboutus') || Request::is('timeline') || Request::is('faq') || Request::is('blank_page')  ? 'active' : '') !!}"><a href="#" class="dropdown-toggle" data-toggle="dropdown" class="frontend_navbar"> Pages</a>
@@ -205,12 +210,12 @@
                     </li> --}}
 
                     {{-- Blog --}}
-                    <li {!! (Request::is('blog') || Request::is('blogitem/*') ? 'class="active frontend_navbar"' : 'class="frontend_navbar"') !!} class="frontend_navbar"><a href="{{ URL::to('blog') }}"> Blog</a>
-                    </li>
+                    {{-- <li {!! (Request::is('blog') || Request::is('blogitem/*') ? 'class="active frontend_navbar"' : 'class="frontend_navbar"') !!} class="frontend_navbar"><a href="{{ URL::to('blog') }}"> Blog</a>
+                    </li> --}}
 
                     {{-- Contact --}}
-                    <li {!! (Request::is('contact') ? 'class="active frontend_navbar"' : 'class="frontend_navbar"') !!} class="frontend_navbar"><a href="{{ URL::to('contact') }}">Contact</a>
-                    </li>
+                    {{-- <li {!! (Request::is('contact') ? 'class="active frontend_navbar"' : 'class="frontend_navbar"') !!} class="frontend_navbar"><a href="{{ URL::to('contact') }}">Contact</a>
+                    </li> --}}
 
                     {{--based on anyone login or not display menu items--}}
                     @if(Sentinel::guest())
