@@ -364,6 +364,13 @@ Route::group(['namespace'=>'User', 'middleware' => 'user', 'as' => 'user.'], fun
     });
     Route::resource('accident', 'AccidentController');
 
+    //Seat
+    Route::group(['prefix' => 'seat'], function () {
+        Route::get('data', 'SeatController@data')->name('seat.data');
+        Route::get('{seat}/delete', 'SeatController@destroy')->name('seat.delete');
+    });
+    Route::resource('seat', 'SeatController');
+
 });
 
 # My account display and update details
