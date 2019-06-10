@@ -378,6 +378,14 @@ Route::group(['namespace'=>'User', 'middleware' => 'user', 'as' => 'user.'], fun
     });
     Route::resource('schedule', 'ScheduleController');
 
+    //Queue
+    Route::group(['prefix' => 'queue'], function () {
+        Route::get('data', 'QueueController@data')->name('queue.data');
+        Route::get('{queue}/delete', 'QueueController@destroy')->name('queue.delete');
+        Route::get('getBusQueue', 'QueueController@getBusQueue')->name('queue.getBusQueue');
+    });
+    Route::resource('queue', 'QueueController');
+
 });
 
 # My account display and update details
