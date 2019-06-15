@@ -2,7 +2,7 @@
 
 {{-- Page title --}}
 @section('title')
-    Add Queue
+    Add Reserve
 @stop
 
 {{-- page level styles --}}
@@ -59,13 +59,13 @@
             <li class="hidden-xs">
               <i class="livicon icon3" data-name="angle-double-right" data-size="18" data-loop="true" data-c="#01bc8c" data-hc="#01bc8c">
               </i>
-              <a href="#">Queue
+              <a href="#">Reserve
               </a>
             </li>
             <li class="hidden-xs">
               <i class="livicon icon3" data-name="angle-double-right" data-size="18" data-loop="true" data-c="#01bc8c" data-hc="#01bc8c">
               </i>
-              <a href="#">Add Queue
+              <a href="#">Add Reserve
               </a>
             </li>
           </ol>
@@ -77,7 +77,7 @@
 @section('content')
     <!-- Container Section Strat -->
     <div class="container">
-        <h2> Add Bus to the Queue
+        <h2> Reserve Seat
         </h2>
         <hr>
         <div class="row margin_right_left">
@@ -87,49 +87,69 @@
               <div class="position-center">
                 <div class="row">
                   <div class="col-sm-8">
-                    <form id="commentForm" action="{{ route('user.queue.store') }}"
+                    <form id="commentForm" action="{{ route('user.reserve.store') }}"
                           method="POST" enctype="multipart/form-data" class="form-horizontal">
                       <!-- CSRF Token -->
                       <input type="hidden" name="_token" value="{{ csrf_token() }}" />
 
-                      <div class="form-group {{ $errors->first('schedule', 'has-error') }}">
-                        <label for="schedule" class="col-sm-2 control-label">Schedule *
+                      <div class="form-group {{ $errors->first('rider', 'has-error') }}">
+                        <label for="ridriderer_id" class="col-sm-2 control-label">Rider ID No. *
                         </label>
                         <div class="col-sm-10">
-                          <select class="form-control schedule" title="Select Pas..." name="schedule">                                         
-                            <option value="">Select Schedule
+                          <select class="form-control ridercatogry" title="Select Pas..." name="rider">                                         
+                            <option value="">Select Rider
                             </option>
-                            <option value="{{ $schedules->id}}" 
-                              @if (old('schedule')=== "{{$schedules->id}}") selected="selected"@endif
-                              >{{ $schedules->schedule_number}}
+                            @foreach ($riders as $rider)
+                            <option value="{{ $rider->id}}" 
+                              @if (old('rider')=== "{{$rider->id}}") selected="selected"@endif
+                              >{{ $rider->id_number}}
                             </option>
+                            @endforeach
                           </select>
-                          {!! $errors->first('schedule', '
+                          {!! $errors->first('rider', '
                           <span class="help-block">:message
                           </span>') !!}
                         </div>   
                       </div>
-                      
+  
 
                       <div class="form-group {{ $errors->first('bus_number', 'has-error') }}">
                         <label for="bus_number" class="col-sm-2 control-label">Bus *
                         </label>
                         <div class="col-sm-10">
                           <select class="form-control " id="busnumber"  name="bus_number">                                         
-                            <option value="0" disabled="true" selected = "true"> Select Bus
-  
+                            <option value="">Select Bus
+                            </option>
+                            
+                            <option value="{{ $queues->id}}" 
+                              @if (old('schedule')=== "{{$queues->id}}") selected="selected"@endif
+                              >{{ $queues->bus_number}} 
                             </option>
                           </select>
                           {!! $errors->first('bus_number', '
                           <span class="help-block">:message
                           </span>') !!}
                         </div>   
-                      </div>  
-
+                      </div>     
+                      
+                      <div class="form-group {{ $errors->first('seat_number', 'has-error') }}">
+                        <label for="seat_number" class="col-sm-2 control-label">Seat Number *
+                        </label>
+                        <div class="col-sm-10">
+                          <select class="form-control " id="seat_number"  name="seat_number">                                         
+                            <option value="0" disabled="true" selected = "true"> Select Seat
+  
+                            </option>
+                          </select>
+                          {!! $errors->first('seat_number', '
+                          <span class="help-block">:message
+                          </span>') !!}
+                        </div>   
+                      </div>
 
                       <div class="form-group">
                         <div class="col-sm-offset-2 col-sm-4 btn_rtl">
-                            <a href="{{ route('user.queue.index') }}">
+                            <a href="{{ route('user.reserve.index') }}">
                               <button type="button" class="btn btn-danger">
                                 Cancel 
                               </button>
@@ -176,32 +196,31 @@
 
   <script>
     $(document).ready(function(){
-      $(document).on('change','.schedule',function(){
+      $(document).on('change','#busnumber',function(){
         var id=$(this).val();
         console.log(id);
 
         if(id) {
-            $.ajax({
-                url: "{{ route('user.queue.getBusQueue') }}",
-                type: "GET",
-                data:{'id':id},
-                dataType: "json",
-                success:function(data) {
-                    console.log(data);
+                $.ajax({
+                    url: "{{ route('user.reserve.getBusSeat') }}",
+                    type: "GET",
+                    data:{'id':id},
+                    dataType: "json",
+                    success:function(data) {
+                        // var bus = data[2].bus_number;
+                        // console.log(data);
 
-                      //also This is from stackoverflow
-                    $('select[name="bus_number"]').empty();
-                    $('select[name="bus_number"]').html('<option value=""  selected = "true">Chose Bus</option>');
-                    $.each( data, function( index, object ) {
-                      $('select[name="bus_number"]').append('<option value="'+ object['id'] +'" >'+ object['bus_number'] +'</option>');
-                    });
-
-
-                }
-            });
-        }else{
-            $('select[name="bus_number"]').empty();
-        }
+                        //   //also This is from stackoverflow
+                        $('select[name="seat_number"]').empty();
+                        $('select[name="seat_number"]').html('<option value=""  selected = "true">Chose seat number</option>');
+                        $.each( data, function( index, object ) {
+                          $('select[name="seat_number"]').append('<option value="'+ object['seat_number'] +'" >'+ object['seat_number'] +'</option>');
+                        });
+                    }
+                });
+            }else{
+                $('select[name="seat_number"]').empty();
+            }
       });
     });
   </script>

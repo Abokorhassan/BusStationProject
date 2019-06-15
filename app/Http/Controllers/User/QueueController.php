@@ -25,9 +25,24 @@ class QueueController extends Controller
         $user = User::find($id);
         $s_id = $user->station_id; 
         $station = Station::find($s_id);
+
         if(!$station == ''){
             $stations_id = $station->id;
-            $stationqueue = Station::find($stations_id)->queue()->paginate(4);
+
+            // getting the latest schedule saved 
+            $schedules = Schedule::select('*')
+                            ->where('station_id', $stations_id)
+                            ->latest()
+                            ->first();
+
+            $schedule_id = $schedules->id;
+
+            // $stationqueue = Station::find($stations_id)->queue()->paginate(4);
+            $stationqueue = Queue::withTrashed()
+                                ->latest()
+                                ->where('schedule_id', $schedule_id)
+                                ->paginate(4);
+           
             return view('queue.index')->with('queues',$stationqueue);
         }
         $queues = null;  
@@ -47,9 +62,12 @@ class QueueController extends Controller
         $s_id = $user->station_id; 
         $station = Station::find($s_id);
         $stations_id = $station->id;
-        $schedules = Schedule::select('id','schedule_number')
+
+       // getting the latest schedule saved 
+        $schedules = Schedule::select('*')
                         ->where('station_id', $stations_id)
-                        ->get();
+                        ->latest()
+                        ->first();
         
         return view('queue.create', compact('schedules')); 
     }
@@ -153,8 +171,34 @@ class QueueController extends Controller
      */
     public function destroy($id)
     {
-        $queue = Queue::find($id);
-        $queue->delete();
+        $user_id= Sentinel::getUser()->id;
+        $user = User::find($user_id);
+        $s_id = $user->station_id; 
+        $station = Station::find($s_id);
+        $stations_id = $station->id;
+
+        // getting the latest schedule saved 
+        $schedules = Schedule::select('*')
+                        ->where('station_id', $stations_id)
+                        ->latest()
+                        ->first();
+
+        $schedule_id = $schedules->id;
+
+        $stationqueue = Queue::withTrashed()
+                            ->where('schedule_id', $schedule_id)
+                            ->where('id', $id)
+                            ->first();
+                            
+        // return $stationqueue.' '.$id;
+        $schedule_id = $stationqueue->schedule_id;
+        $queue_id = $stationqueue->id;
+        $bus_number = $stationqueue->bus_number;
+        // return  $queue_id.'  '.$schedule_id.'  '.$bus_number;
+
+        // return $queue;
+        $stationqueue->forceDelete();
+        $stationqueue->reserve()->forceDelete();
         return redirect('queue')->with('success', 'Bus Deleted from the Queue');
     }
 }

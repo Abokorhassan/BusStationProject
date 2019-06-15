@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Station;
 use App\User;
 use App\Schedule;
+use App\Queue;
 use Sentinel;
 class ScheduleController extends Controller
 {
@@ -23,7 +24,11 @@ class ScheduleController extends Controller
         $station = Station::find($s_id);
         if(!$station == ''){
             $stations_id = $station->id;
-            $stationschedule = Station::find($stations_id)->schedule()->paginate(4);
+
+            $stationschedule = Schedule::latest()
+                                ->where('station_id', $stations_id)
+                                ->paginate(4);
+            // $stationschedule = Station::find($stations_id)->schedule()->paginate(4);
             return view('schedule.index')->with('schedules',$stationschedule);
         }
         $schedules = null;  
@@ -54,13 +59,35 @@ class ScheduleController extends Controller
         $schedule = new Schedule();
         $schedule->schedule_number =$request->input('schedule_number');
 
-        $id= Sentinel::getUser()->id;
-        $schedule->user_id = $id;
-        $user = User::find($id);
-        $s_id = $user->station_id; 
-        $station = Station::find($s_id);
-        $stations_id = $station->id;
-        $schedule->station_id = $stations_id;
+            $id= Sentinel::getUser()->id;
+            $schedule->user_id = $id;
+            $user = User::find($id);
+            $s_id = $user->station_id; 
+            $station = Station::find($s_id);
+            $stations_id = $station->id;
+            $schedule->station_id = $stations_id;
+
+            // ReStoring the all bus from the softDelete
+
+            //getting the Station of the user
+            $id= Sentinel::getUser()->id;
+            $user = User::find($id);
+            $s_id = $user->station_id; 
+            $station = Station::find($s_id);
+            $stations_id = $station->id;
+
+            // getting the latest schedule saved 
+            $schedules = Schedule::select('*')
+                            ->where('station_id', $stations_id)
+                            ->latest()
+                            ->first();
+            $schedule_id = $schedules->id;
+                      
+            if($schedules != null ){
+                Queue::withTrashed()
+                ->where('schedule_id',  $schedule_id)
+                ->restore();
+            }          
 
         $schedule->save();
 

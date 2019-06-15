@@ -134,13 +134,18 @@
                     </li>
 
                     {{-- Schedule --}}
-                    <li class="frontend_navbar dropdown {!! (Request::is('schedule') || Request::is('seat/*')   ? 'active' : '') !!}">
+                    <li class="frontend_navbar dropdown {!! (Request::is('schedule') || Request::is('schedule/*')   ? 'active' : '') !!}">
                         <a href="{{ URL::to('schedule') }}"> Schedule </a>
                     </li>
 
                     {{-- Queue --}}
                     <li class="frontend_navbar dropdown {!! (Request::is('queue') || Request::is('queue/*')   ? 'active' : '') !!}">
                         <a href="{{ URL::to('queue') }}"> Queue </a>
+                    </li>
+
+                    {{-- Reserve --}}
+                    <li class="frontend_navbar dropdown {!! (Request::is('reserve') || Request::is('reserve/*')   ? 'active' : '') !!}">
+                        <a href="{{ URL::to('reserve') }}"> Reserve </a>
                     </li>
                     
 
