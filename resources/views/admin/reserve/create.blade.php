@@ -65,7 +65,7 @@
                     <h2 class="hidden">&nbsp;</h2>
 
                     <div class="form-group {{ $errors->first('rider', 'has-error') }}">
-                      <label for="ridriderer_id" class="col-sm-2 control-label">Rider ID No. *
+                      <label for="rider" class="col-sm-2 control-label">Rider ID No. *
                       </label>
                       <div class="col-sm-10">
                         <select class="form-control ridercatogry" title="Select Pas..." name="rider">                                         

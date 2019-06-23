@@ -13,6 +13,7 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js">
   </script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />
   <!--end of page level css-->
   <style>
     div.polaroid {
@@ -96,7 +97,7 @@
                         <label for="ridriderer_id" class="col-sm-2 control-label">Rider ID No. *
                         </label>
                         <div class="col-sm-10">
-                          <select class="form-control ridercatogry" title="Select Pas..." name="rider">                                         
+                          <select class="form-control ridercatogry" id="riderNumber" title="Select Pas..." name="rider">                                         
                             <option value="">Select Rider
                             </option>
                             @foreach ($riders as $rider)
@@ -137,9 +138,8 @@
                         </label>
                         <div class="col-sm-10">
                           <select class="form-control " id="seat_number"  name="seat_number">                                         
-                            <option value="0" disabled="true" selected = "true"> Select Seat
-  
-                            </option>
+                            {{-- <option value="0" disabled="true" selected = "true"> Select Seat
+                            </option> --}}
                           </select>
                           {!! $errors->first('seat_number', '
                           <span class="help-block">:message
@@ -178,6 +178,10 @@
   {{-- <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script> --}}
   {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script> --}}
 
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
+
+
   {{-- PIC AND DATA SCRIPT --}}
   <script src="{{ asset('assets/vendors/summernote/summernote.min.js') }}" type="text/javascript"></script>
   <script src="{{ asset('assets/vendors/select2/js/select2.js') }}" type="text/javascript"></script>
@@ -212,7 +216,7 @@
 
                         //   //also This is from stackoverflow
                         $('select[name="seat_number"]').empty();
-                        $('select[name="seat_number"]').html('<option value=""  selected = "true">Chose seat number</option>');
+                        // $('select[name="seat_number"]').html('<option value=""  selected = "true">Chose seat number</option>');
                         $.each( data, function( index, object ) {
                           $('select[name="seat_number"]').append('<option value="'+ object['seat_number'] +'" >'+ object['seat_number'] +'</option>');
                         });
@@ -222,6 +226,20 @@
                 $('select[name="seat_number"]').empty();
             }
       });
+    });
+  </script>
+
+  <script type="text/javascript">
+    $("#riderNumber").select2({
+      placeholder:'select Rdier', allowClear:true
+    });
+
+    $("#busnumber").select2({
+      placeholder:'select Bus', allowClear:true
+    });
+
+    $("#seat_number").select2({
+      placeholder:'select Seat Number', allowClear:true
     });
   </script>
 

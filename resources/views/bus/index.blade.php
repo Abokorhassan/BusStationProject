@@ -306,10 +306,15 @@
             <button type="button" class="btn btn-outline-secondary btn-lg">Web Hosting
             </button> --}}
             @if($buses != null)
-                <a style="margin-left: 40%;" href="{{ URL::to('bus/create') }}">
+                <a style="margin-left: 30%;" href="{{ URL::to('bus/create') }}">
                     <button style=" border-color: #09bd8f; width: 12%;" type="button" class="btn btn-default bt-lg">Add New Bus
                     </button>
-                </a>                
+                </a>  
+
+                <a style="margin-left: 0%;"href="{{ URL::to('seat/create') }}">
+                    <button style=" border-color: blue; width: 12%;" type="button" class="btn btn-default bt-lg">Add Seat Bus
+                    </button>
+                </a>             
             @else
                 
             @endif
@@ -439,10 +444,10 @@
                             </form>
                             <!-- /.featured-post-wide -->
                             <!-- END FEATURED POST -->
-                            @empty
+                        @empty
                             <h3>No Bus On your collections!
                             </h3>
-                            @endforelse
+                        @endforelse
                         <ul class="pager">
                         {{ $buses->links() }}
                         {{-- {!! $apps->render() !!} --}}
