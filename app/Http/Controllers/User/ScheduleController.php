@@ -81,9 +81,9 @@ class ScheduleController extends Controller
                             ->where('station_id', $stations_id)
                             ->latest()
                             ->first();
-            $schedule_id = $schedules->id;
                       
             if($schedules != null ){
+                $schedule_id = $schedules->id;
                 Queue::withTrashed()
                 ->where('schedule_id',  $schedule_id)
                 ->restore();
