@@ -34,6 +34,9 @@ class QueueController extends Controller
                             ->where('station_id', $stations_id)
                             ->latest()
                             ->first();
+            if($schedules == null){
+                return redirect('schedule')->with('error', 'You need to create a Schedule');
+            }
 
             $schedule_id = $schedules->id;
 
