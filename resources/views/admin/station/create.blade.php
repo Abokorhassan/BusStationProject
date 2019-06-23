@@ -101,9 +101,11 @@
                             </div>
                             <div class="form-group">
                               <div class="col-sm-offset-2 col-sm-4 btn_rtl">
-                                <a class="btn btn-danger" href="{{ route('admin.station.index') }}">
-                                    @lang('button.cancel')
-                                </a>
+                                  <a href="{{ route('admin.station.index') }}">
+                                      <button type="button" class="btn btn-danger">
+                                        Cancel 
+                                      </button>
+                                    </a>
                                 <button type="submit" class="btn btn-success">
                                     @lang('button.save')
                                 </button>

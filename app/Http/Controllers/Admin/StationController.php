@@ -10,6 +10,7 @@ use DOMDocument;
 use Intervention\Image\Facades\Image;
 use Response;
 use Sentinel;
+use App\User;
 use Yajra\DataTables\DataTables;
 
 class StationController extends Controller
@@ -32,9 +33,8 @@ class StationController extends Controller
         return DataTables::of(Station::query())
 
             ->addColumn('User', function(Station $station){
-                $userName = null;
-                if(isset($station->user_id) && $station->user && $station->user->first_name)
-                    $userName = $station->user->first_name.' '. $station->user->last_name;
+                
+                $userName = $station->user_first.' '. $station->user_last;
                 return $userName;
             })
             ->editColumn('created_at', function (Station $createtime) {
@@ -83,6 +83,13 @@ class StationController extends Controller
         $station->lat = $request->input('latitude');
         $station->long = $request->input('longitude');
         $station->user_id = Sentinel::getUser()->id;
+
+        $user = User::find($station->user_id);
+
+        $station->user_first = $user->first_name;
+        $station->user_last = $user->last_name;
+        // return $station->user_first;
+
         $station->save();
 
         return redirect('admin/station')->with('success', 'station Created');

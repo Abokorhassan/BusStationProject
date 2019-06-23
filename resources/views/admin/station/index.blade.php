@@ -84,7 +84,7 @@
                     { data: 'name', name: 'name' },
                     { data: 'lat', name: 'lat' },
                     { data: 'long', name: 'long' },
-                    { data: 'User', name: 'User' },
+                    { data: 'user_first', name: 'user_first' },
                     { data: 'created_at', name:'created_at'},
                     { data: 'actions', name: 'actions', orderable: false, searchable: false }
                 ]
