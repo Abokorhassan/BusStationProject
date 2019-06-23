@@ -9,6 +9,8 @@ use App\Station;
 use App\User;
 use App\Bus;
 use Sentinel;
+use Illuminate\Validation\Rule;
+use ValidatesRequests;
 
 class SeatController extends Controller
 {
@@ -59,9 +61,18 @@ class SeatController extends Controller
      */
     public function store(Request $request)
     {
+        $bus =$request->input('bus_number');
         $this->validate($request,[
             'bus_number' => 'required | numeric ',
-            'seat_number' => 'required | max:15 | unique:seats',
+            'seat_number' => [
+                'required',
+                'max:15',
+                Rule::unique('seats')->where(function ($query) use($bus) {
+                    return $query->where('bus_id', $bus);
+                })
+            ]
+
+            
         ]);  
 
         $seat = new Seat();
