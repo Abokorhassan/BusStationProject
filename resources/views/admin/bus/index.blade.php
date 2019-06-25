@@ -49,9 +49,9 @@
                             <thead>
                                 <tr class="filters">
                                     <th>ID</th>
-                                    <th>Bus_Number</th>
-                                    <th>Model Type</th>
-                                    <th>Number of seats</th>
+                                    <th>Bus No.</th>
+                                    <th>Model</th>
+                                    <th>No. of seats</th>
                                     <th>Driver</th>
                                     <th>Station</th>
                                     <th>User</th>
@@ -86,9 +86,9 @@
                     { data: 'bus_number', name: 'bus_number' },
                     { data: 'model_type', name: 'model_type' },
                     { data: 'number_seats', name: 'number_seats' },	
-                    { data: 'Driver', name: 'Driver' },		
-                    { data: 'Station', name: 'Station' },
-                    { data: 'User', name: 'User'},
+                    { data: 'driver_first', name: 'driver_first' },		
+                    { data: 'station_name', name: 'station_name' },
+                    { data: 'user_first', name: 'user_first'},
                     { data: 'created_at', name:'created_at'},
                     { data: 'actions', name: 'actions', orderable: false, searchable: false }
                 ]
