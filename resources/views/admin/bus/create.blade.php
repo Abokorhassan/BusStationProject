@@ -68,7 +68,7 @@
                           <label for="name" class="col-sm-2 control-label">Model Type *
                           </label>
                           <div class="col-sm-10">
-                            <input id="model_type" name="model_type" type="text"
+                            <input id="model_type"  autocomplete="off" name="model_type" type="text"
                                     placeholder="Model Type" class="form-control required"
                                     value="{!! old('model_type') !!}"/>
                             {!! $errors->first('model_type', '
@@ -81,7 +81,7 @@
                           <label for="bus_number" class="col-sm-2 control-label">Bus Number *
                           </label>
                           <div class="col-sm-10">
-                            <input id="bus_number" name="bus_number" type="text" placeholder="Bus Number"
+                            <input id="bus_number"  autocomplete="off" name="bus_number" type="text" placeholder="Bus Number"
                                     class="form-control required" value="{!! old('bus_number') !!}"/>
                             {!! $errors->first('bus_number', '
                             <span class="help-block">:message
@@ -175,7 +175,6 @@
 
   <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
-
   <script>
     $(document).ready(function(){
       $(document).on('change','#station',function(){

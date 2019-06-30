@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Bus;
 use App\Station;
 use App\Driver;
+use App\Seat;
 use DB;
 
 use DOMDocument;
@@ -78,8 +79,7 @@ class BusController extends Controller
     public function create()
     {
         $stations = Station::select('id','name')->get();
-        $drivers = Driver::select('id','driver_number')->get();
-        return view('admin.bus.create', compact('stations', 'drivers'));   
+        return view('admin.bus.create', compact('stations'));   
     }
 
     public function getDriverStation(Request $request)
@@ -89,6 +89,7 @@ class BusController extends Controller
         $drivers = DB::table('drivers')->select('id','driver_number')
                     ->whereNotIn('id',function($query) use($stations_id) {
                         $query->select('Driver_id')
+                        ->where('station_id', $stations_id)
                         ->from('buses');
                     })
 
@@ -110,27 +111,26 @@ class BusController extends Controller
         $this->validate($request,[
             'model_type' => 'required | max:50',
             'bus_number' => 'required | max:50|unique:buses',
-            'driver_number' => 'required | numeric | unique:buses,Driver_id',
+            'driver_number' => 'unique:buses,Driver_id',
             'station' => 'required | numeric',
         ]); 
 
         $bus = new Bus();
         $bus->model_type =$request->input('model_type');
         $bus->bus_number =$request->input('bus_number');
-        $bus->Driver_id =$request->input('driver_number');
 
-        $driver = Driver::find($bus->Driver_id);
-        $bus->driver_first = $driver->first_name;
-        $bus->driver_second= $driver->last_name;
-        $bus->driver_third = $driver->third_name;
-
-
+        $driver_id =$request->input('driver_number');
+        
+        if($driver_id){
+            $bus->Driver_id = $driver_id;
+            $driver = Driver::find($bus->Driver_id);
+            $bus->driver_number = $driver->driver_number;
+        }
 
         $bus->station_id =$request->input('station');
 
         $station = Station::find($bus->station_id);
         $bus->station_name = $station->name;
-
 
         //$bus->user_id = auth()->user()->id;
 
@@ -159,15 +159,57 @@ class BusController extends Controller
     public function edit($id)
     {
         $bus = Bus::find($id);
+
         $stations = Station::select('id','name')->get();
         $station = $bus->station_id;
+        $driver_number = $bus->driver_number;
         $options = $stations->pluck('name', 'id')->toArray();
 
-        $drivers = Driver::select('id','driver_number')
+        $driver = Driver::select('id','driver_number')
                     ->where('station_id', $station)
                     ->get();
+
+        // $drivers = Driver::select('drivers.*')
+        //                 ->leftJoin('buses', 'drivers.id', '=', 'buses.Driver_id')
+        //                 ->whereNull('buses.id')
+        //                 ->where('drivers.id', '!=', $bus->Driver_id)
+        //                 ->where('drivers.station_id', $station)
+        //                 ->get();
+
+        // $drivers = DB::table('drivers')->select('id','driver_number')
+        //             ->whereNotIn('driver_number',function($query) use($station) {
+        //                 $query->select('driver_number')
+        //                 ->from('buses')
+        //                 ->where('station_id', $station);
+        //             })
+        //             ->where('driver_number', $bus->driver_number)
+        //             ->where('station_id', $station)
+        //             ->get();
+
+        // $drivers = Driver::whereRaw('id not in (select Driver_id from buses) OR id = ?', [$bus->Driver_id])->get();
+
+        $drivers = Driver::whereRaw('driver_number not in (select driver_number from buses) OR driver_number = ?', [$bus->driver_number])
+                        ->get();
+
+        // $drivers = Driver::whereRaw('driver_number not in (select driver_number from buses) AND station_id = ?', [$station],' OR driver_number  = ? ', [$bus->driver_number])
+        //                 ->get();
+
+        // $drivers = \DB::select(\DB::raw("SELECT * FROM drivers where driver_number NOT IN (SELECT driver_number FROM buses) OR driver_number = '.$bus->driver_number.'"));                    
+       
+        // $drivers = DB::table('drivers d')
+        //             ->where(function($query1) {
+        //                 return $query1
+        //                     ->whereNotExists(function ($query2) {
+        //                         $query2->select(DB::raw(1))
+        //                             ->from('buses b')
+        //                             ->whereRaw('d.driver_number = b.driver_number');
+        //                     })
+        //                     ->where('station_id', '=', '2');
+        //             })
+        //             ->orWhere('driver_number', '=', 'Dr_02')
+        //         ->get();
+
         $opDrivers = $drivers->pluck('driver_number', 'id')->toArray();
-        // $selected = $stations->id;
         return view('admin.bus.edit', compact('bus', 'stations', 'options', 'drivers', 'opDrivers'));
     }
 
@@ -196,7 +238,7 @@ class BusController extends Controller
     {
         $this->validate($request,[
             'bus_number' => 'required | max:50|  unique:buses,bus_number,'. $id,
-            'Driver_id' => 'required | numeric | unique:buses,Driver_id,'. $id,
+            'Driver_id' => 'unique:buses,Driver_id,'. $id,
             'station_id' => 'required | numeric',
         ]);    
         
@@ -209,25 +251,26 @@ class BusController extends Controller
         
 
         $driver_id =$request->input('Driver_id');
-        // $bus->Driver_id =$request->input('Driver_id');
 
-        $driver = Driver::find($driver_id);
+        if($driver_id){
+            $driver = Driver::find($driver_id);
 
-        $station_id = $driver->station_id;
-        if($station_id != $bus->station_id)
-        {
-            $driver->station_id = $bus->station_id ;
-            $driver->station_name = $bus->station_name;
-            $driver->save();
-            // return $driver->station_id.' '.$driver->station_name;
+            $station_id = $driver->station_id;
+            if($station_id != $bus->station_id)
+            {
+                $driver->station_id = $bus->station_id ;
+                $driver->station_name = $bus->station_name;
+                $driver->save();
+                // return $driver->station_id.' '.$driver->station_name;
+            }
+            $bus->Driver_id = $driver_id;
+            $driver = Driver::find($bus->Driver_id);
+            $bus->driver_number = $driver->driver_number;
+        }else{
+            $bus->Driver_id = null;
+            $bus->driver_number = null;
         }
-
-        $bus->Driver_id = $driver_id;
-        // return $station_id.'  '.$bus->station_id;
-
         $bus->save();
-
-        #redirect
         return redirect('admin/bus')->with('success', 'Bus Updated');
         
     }
@@ -241,6 +284,14 @@ class BusController extends Controller
     public function destroy($id)
     {
         $bus = Bus::find($id);
+        $seats = Bus::find($id)->seat->first();
+        
+        if($seats){
+            $bus_id = $seats->bus_id;
+            Seat::where('bus_id', $bus_id)->delete();
+        }else{
+            
+        }
         $bus->delete();
         return redirect('admin/bus')->with('success', 'Bus Deleted');
     }

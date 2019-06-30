@@ -86,7 +86,7 @@
                     { data: 'bus_number', name: 'bus_number' },
                     { data: 'model_type', name: 'model_type' },
                     { data: 'number_seats', name: 'number_seats' },	
-                    { data: 'driver_first', name: 'driver_first' },		
+                    { data: 'driver_number', name: 'driver_number' },		
                     { data: 'station_name', name: 'station_name' },
                     { data: 'user_first', name: 'user_first'},
                     { data: 'created_at', name:'created_at'},

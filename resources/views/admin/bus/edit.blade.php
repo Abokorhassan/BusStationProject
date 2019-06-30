@@ -82,7 +82,7 @@
                         <label for="Driver_id" class="col-sm-2 control-label">Driver *
                         </label>
                         <div class="col-sm-10">
-                            {!! Form::select('Driver_id', $opDrivers, null, ['placeholder' => 'Select Station', 'name' => 'Driver_id', 'id' => 'driver', 'class' => 'form-control required']) !!}
+                            {!! Form::select('Driver_id', $opDrivers, null, ['placeholder' => 'Select Station', 'name' => 'Driver_id', 'id' => 'driver', 'class' => 'form-control']) !!}
                             {{-- {!! Form::select('Driver_id',[''=>'Select Driver'],null,['class'=>'form-control']) !!} --}}
                           {!! $errors->first('Driver_id', '
                           <span class="help-block">:message
