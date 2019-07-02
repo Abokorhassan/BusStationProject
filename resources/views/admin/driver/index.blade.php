@@ -83,14 +83,14 @@
                 ajax: '{!! route('admin.driver.data') !!}',
                 columns: [
                     { data: 'id', name: 'id' },
-                    { data: 'Driver_Number', name: 'Rider_Number' },
+                    { data: 'driver_number', name: 'driver_number' },
                     { data: 'first_name', name: 'first_name' },
                     { data: 'Bus', name: 'Bus' },	
                     { data: 'email', name: 'email' },		
                     { data: 'ph_number', name: 'ph_number' },
                     { data: 'license_number', name: 'license_number' },
-                    { data: 'Station', name: 'Station' },	
-                    { data: 'User', name: 'User' },
+                    { data: 'station_name', name: 'station_name' },	
+                    { data: 'user_first', name: 'user_first' },
                     { data: 'created_at', name:'created_at'},
                     { data: 'actions', name: 'actions', orderable: false, searchable: false }
                 ]

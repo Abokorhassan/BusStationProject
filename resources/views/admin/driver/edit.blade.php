@@ -7,31 +7,30 @@
 
 {{-- page level styles --}}
 @section('header_styles')
-    <link href="{{ asset('assets/vendors/summernote/summernote.css') }}" rel="stylesheet"/>
-    <link href="{{ asset('assets/vendors/select2/css/select2.min.css') }}" rel="stylesheet" type="text/css"/>
-    <link href="{{ asset('assets/vendors/bootstrap-tagsinput/css/bootstrap-tagsinput.css') }}" rel="stylesheet"/>
-    <link rel="stylesheet" type="text/css" href="{{ asset('assets/vendors/jasny-bootstrap/css/jasny-bootstrap.css') }}">
-    <link href="{{ asset('assets/css/pages/blog.css') }}" rel="stylesheet" type="text/css">
-
-    <!--end of page level css-->
+  <link href="{{ asset('assets/vendors/summernote/summernote.css') }}" rel="stylesheet"/>
+  <link href="{{ asset('assets/vendors/select2/css/select2.min.css') }}" rel="stylesheet" type="text/css"/>
+  <link href="{{ asset('assets/vendors/bootstrap-tagsinput/css/bootstrap-tagsinput.css') }}" rel="stylesheet"/>
+  <link rel="stylesheet" type="text/css" href="{{ asset('assets/vendors/jasny-bootstrap/css/jasny-bootstrap.css') }}">
+ 
+  <!--end of page level css-->
 @stop
 
 @section('content')
     <section class="content-header">
-        <!--section starts-->
-        <h1>Driver</h1>
-        <ol class="breadcrumb">
-            <li>
-                <a href="{{ route('admin.dashboard') }}"> <i class="livicon" data-name="home" data-size="14"
-                                                             data-c="#000" data-loop="true"></i>
-                    Dashboard
-                </a>
-            </li>
-            <li>
-                <a href="#">Driver</a>
-            </li>
-            <li class="active">Edit Driver</li>
-        </ol>
+      <!--section starts-->
+      <h1>Driver</h1>
+      <ol class="breadcrumb">
+        <li>
+            <a href="{{ route('admin.dashboard') }}"> <i class="livicon" data-name="home" data-size="14"
+                data-c="#000" data-loop="true"></i>
+              Dashboard
+            </a>
+        </li>
+        <li>
+            <a href="#">Driver</a>
+        </li>
+        <li class="active">Edit Driver</li>
+      </ol>
     </section>
     <!--section ends-->
     <section class="content">
@@ -60,7 +59,7 @@
                     <div class="row"> 
                       <div class="col-sm-8 animate_rt"> 
                         <div class="form-group {{ $errors->first('first_name', 'has-error') }}">
-                          <label style="margin-top: -1%" for="first_name" class="col-sm-2 control-label">First Name*
+                          <label style="margin-top: 0%" for="first_name" class="col-sm-2 control-label">F.Name *
                           </label>
                           <div class="col-sm-10">
                             {!! Form::text('first_name', null, array('class' => 'form-control required', 'placeholder'=>'first name')) !!}
@@ -71,7 +70,7 @@
                         </div>
 
                         <div class="form-group {{ $errors->first('last_name', 'has-error') }}">
-                          <label style="margin-top: -1%" for="last_name" class="col-sm-2 control-label">Second Name *
+                          <label style="margin-top: 0%" for="last_name" class="col-sm-2 control-label">S.Name *
                           </label>
                           <div class="col-sm-10">
                                 {!! Form::text('last_name', null, array('class' => 'form-control required', 'placeholder'=>'Second Name')) !!}
@@ -82,7 +81,7 @@
                         </div>
 
                         <div class="form-group {{ $errors->first('third_name', 'has-error') }}">
-                          <label style="margin-top: -1%" for="third_name" class="col-sm-2 control-label">Third Name *
+                          <label style="margin-top: 0%" for="third_name" class="col-sm-2 control-label">Th.Name *
                           </label>
                           <div class="col-sm-10">
                                 {!! Form::text('third_name', null, array('class' => 'form-control required', 'placeholder'=>'Third Name')) !!}
@@ -104,22 +103,11 @@
                         </div>
 
                         <div class="form-group {{ $errors->first('license_number', 'has-error') }}">
-                          <label for="license_number" class="col-sm-2 control-label">License Number *
+                          <label style="margin-top: -1.9%" for="license_number" class="col-sm-2 control-label">License <p> No. *</p> 
                           </label>
                           <div class="col-sm-10">
                                 {!! Form::text('license_number', null, array('class' => 'form-control required', 'placeholder'=>'license number')) !!}
                             {!! $errors->first('license_number', '
-                            <span class="help-block">:message
-                            </span>') !!}
-                          </div>
-                        </div>
-                        
-                        <div class="form-group {{ $errors->first('gender', 'has-error') }}">
-                          <label for="gender" class="col-sm-2 control-label">Gender *
-                          </label>
-                          <div class="col-sm-10">
-                                {!! Form::text('gender', null, array('class' => 'form-control required', 'placeholder'=>'gender')) !!}
-                            {!! $errors->first('gender', '
                             <span class="help-block">:message
                             </span>') !!}
                           </div>
@@ -131,6 +119,17 @@
                           <div class="col-sm-10">
                                 {!! Form::select('station_id', $opStations, null, ['placeholder' => 'Select Station', 'class' => 'form-control required']) !!}
                             {!! $errors->first('station_id', '
+                            <span class="help-block">:message
+                            </span>') !!}
+                          </div>
+                        </div>
+
+                        <div class="form-group {{ $errors->first('ph_number', 'has-error') }}">
+                          <label style="margin-top: -0%" for="ph_number" class="col-sm-2 control-label">Phone No.*
+                          </label>
+                          <div class="col-sm-10">
+                                {!! Form::text('ph_number', null, array('class' => 'form-control required', 'placeholder'=>'phone number')) !!}
+                            {!! $errors->first('ph_number', '
                             <span class="help-block">:message
                             </span>') !!}
                           </div>
@@ -148,22 +147,14 @@
                             </button>
                           </div>
                         </div>
+
                       </div>
+
                       <div class="col-sm-4 animate_rt">            
 
-                        <div class="form-group {{ $errors->first('ph_number', 'has-error') }}">
-                          <label style="margin-top: -3%" for="ph_number" class="col-sm-2 control-label">Phone No.*
-                          </label>
-                          <div class="col-sm-10">
-                                {!! Form::text('ph_number', null, array('class' => 'form-control required', 'placeholder'=>'phone number')) !!}
-                            {!! $errors->first('ph_number', '
-                            <span class="help-block">:message
-                            </span>') !!}
-                          </div>
-                        </div>
-
+                        
                         <div class="form-group {{ $errors->first('address', 'has-error') }}">
-                          <label style="margin-left: -3" for="address" class="col-sm-2 control-label">ADRSS
+                          <label  style="margin-left: -2;" for="address" class="col-sm-2 control-label">Addres
                           </label>
                           <div style="margin-left: 0%" class="col-sm-10">
                                 {!! Form::text('address', null, array('class' => 'form-control required', 'placeholder'=>'address')) !!}
@@ -184,16 +175,16 @@
                           </div>
                         </div>
 
-                        <div class="form-group {{ $errors->first('pic', 'has-error') }}">
+                        {{-- <div class="form-group {{ $errors->first('pic', 'has-error') }}">
                             <label class="control-label col-xs-12"></label>
                             <div class="fileinput fileinput-new" data-provides="fileinput">
                                 <div class="fileinput-new thumbnail" style="max-width: 200px; max-height: 200px;">
-                                    @if(!empty($driver->pic))
+                                    @if(!empty($driver->pic)) --}}
 
                                         {{-- <img src="{{URL::to('storage/driver/'.$driver->pic)}}" class="img-responsive"
                                               alt="Image"> --}}
                                         
-                                        <img src="{{ asset('storage/driver/'.$driver->pic) }}" alt="picture"
+                                        {{-- <img src="{{ asset('storage/driver/'.$driver->pic) }}" alt="picture"
                                               class="img-responsive"/>
                                     @else
                                         <img src="{{ asset('assets/images/authors/no_avatar.jpg') }}" alt="..."
@@ -212,9 +203,39 @@
                                 </div>
                             </div>
                             <span class="help-block">{{ $errors->first('content', ':message') }}</span>
+                        </div> --}}
+
+                        <div class="form-group {{ $errors->first('pic', 'has-error') }}">
+                          <label for="pic" class="col-sm-2 control-label tab2_label">Driver picture</label>
+                          <div class="col-sm-10">
+                              <div class="fileinput fileinput-new" data-provides="fileinput">
+                                  <div class="fileinput-new thumbnail" style="width: 200px; height: 200px;">
+                                      @if(!empty($driver->pic))
+                                          {{-- <img src="{!! url('/').'/uploads/drivers/'.$driver->pic !!}" alt="img"
+                                               class="img-responsive"/> --}}
+                                          <img src="{{ asset('uploads/drivers/'.$driver->pic) }}" alt="driver image"
+                                              class="img-responsive"/> 
+                                      @else
+                                          <img src="{{ asset('assets/images/authors/no_avatar.jpg') }}" alt="..."
+                                               class="img-responsive"/>
+                                      @endif
+                                  </div>
+                                <div class="fileinput-preview fileinput-exists thumbnail" style="max-width: 200px; max-height: 200px;"></div>
+                                <div>
+                                <span class="btn btn-default btn-file">
+                                  <span class="fileinput-new">Select image</span>
+                                  <span class="fileinput-exists">Change</span>
+                                    {{-- <input id="pic" name="pic" type="file"
+                                          class="form-control"/> --}}
+                                    {!! Form::file('pic', array('name'=> 'pic', 'class' => 'btn btn-primary form-control', 'type' => 'file',  'id' => 'pic')) !!}
+                                </span>
+                                      <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput" style="color: black !important;">Remove</a>
+                                  </div>
+                              </div>
+                              {!! $errors->first('pic', '<span class="help-block">:message</span>') !!}
+                          </div>
                         </div>
 
-                        
                       </div>
                     </div>
                   </div>
@@ -233,7 +254,7 @@
 
 {{-- page level scripts --}}
 @section('footer_scripts')
-    <script src="{{ asset('assets/vendors/summernote/summernote.js') }}" type="text/javascript"></script>
+    {{-- <script src="{{ asset('assets/vendors/summernote/summernote.js') }}" type="text/javascript"></script>
     <script src="{{ asset('assets/vendors/select2/js/select2.js') }}" type="text/javascript"></script>
     <script src="{{ asset('assets/vendors/bootstrap-tagsinput/js/bootstrap-tagsinput.js') }}" type="text/javascript"></script>
     <script type="text/javascript" src="{{ asset('assets/vendors/jasny-bootstrap/js/jasny-bootstrap.js') }}"></script>
@@ -250,6 +271,15 @@
     <script src="{{ asset('assets/vendors/jasny-bootstrap/js/jasny-bootstrap.js') }}"  type="text/javascript"></script>
     <script src="{{ asset('assets/vendors/select2/js/select2.js') }}" type="text/javascript"></script>
     <script src="{{ asset('assets/vendors/bootstrapwizard/jquery.bootstrap.wizard.js') }}" type="text/javascript"></script>
-    <script src="{{ asset('assets/js/pages/adduser.js') }}"></script>    
+    <script src="{{ asset('assets/js/pages/adduser.js') }}"></script>  --}}
+
+    <script src="{{ asset('assets/vendors/moment/js/moment.min.js') }}" ></script>
+    <script src="{{ asset('assets/vendors/iCheck/js/icheck.js') }}"></script>
+    <script src="{{ asset('assets/vendors/jasny-bootstrap/js/jasny-bootstrap.js') }}"  type="text/javascript"></script>
+    <script src="{{ asset('assets/vendors/select2/js/select2.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('assets/vendors/bootstrapwizard/jquery.bootstrap.wizard.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('assets/vendors/bootstrapvalidator/js/bootstrapValidator.min.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('assets/vendors/datetimepicker/js/bootstrap-datetimepicker.min.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('assets/js/pages/edituser.js') }}"></script>   
 @stop
 

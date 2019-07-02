@@ -14,13 +14,14 @@
     <meta name="_token" content="{{ csrf_token() }}">
     <link rel="stylesheet" href="{{ asset('assets/vendors/morrisjs/morris.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/pages/dashboard2.css') }}"/>
+    {{-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css"> --}}
 @stop
 
 {{-- Page content --}}
 @section('content')
 
     <section class="content-header">
-        <h1><span class="dashboard1">Welcome to Dashboard </span>  <span class="hidden-xs header_info">( Dynamic Dashboard )</span></h1>
+        <h1><span class="dashboard1">Welcome to Admin Dashboard </span> </h1>
 
         <ol class="breadcrumb">
             <li class="active">
@@ -33,16 +34,19 @@
     </section>
 
     <section class="content">
-        @if ($analytics_error != 0)
+        {{-- @if ($analytics_error != 0)
             <div class="alert alert-danger alert-dismissable margin5">
                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;
                 </button>
                 <strong>Error:
                 </strong> You Need to add Google Analytics file for full working of the page
             </div>
-        @endif
+        @endif  --}}
 
-        <div class="row">
+            
+
+        <div class="row" >
+
             <div class="col-lg-3 col-md-6 col-sm-6 margin_10 animated fadeInLeftBig animate_rtl">
                 <!-- Trans label pie charts strats here-->
                 <div class="widget-1">
@@ -50,15 +54,14 @@
                         <div class="col-xs-12 pull-left nopadmar">
                             <div class="row">
                                 <div class="square_box col-xs-7 text-right animate_rtl">
-                                    <span>Visitors
+                                    <span>Stations
                                     </span>
-                                    <div class="number" id="myTargetElement3">
+                                    <div class="number" id="myTargetElement2">
                                     </div>
                                 </div>
-                                <span class="widget_circle3 pull-right animate_rtl">
-                                    <i class="livicon livicon-evo-holder " data-name="eye-open" data-l="true" data-c="#01BC8C"
-                                        data-hc="#01BC8C" data-s="40">
-                                    </i>
+                                <span class="widget_circle2 pull-right animate_rtl">
+                                        <i  class="livicon" data-name="sitemap"
+                                            data-size="40" data-c="#f4425f" data-hc="#fff" data-loop="true"></i>
                                 </span>
                             </div>
                         </div>
@@ -96,15 +99,16 @@
                         <div class="col-xs-12 pull-left nopadmar">
                             <div class="row">
                                 <div class="square_box col-xs-7 text-right animate_rtl">
-                                    <span>Page Views
+                                    <span>Buses
                                     </span>
                                     <div class="number" id="myTargetElement1">
                                     </div>
                                 </div>
                                 <span class="widget_circle1 pull-right animate_rtl">
-                                    <i class="livicon livicon-evo-holder " data-name="flag" data-l="true" data-c="#e9573f"
+                                    {{-- <i class="livicon livicon-evo-holder " data-name="flag" data-l="true" data-c="#e9573f"
                                         data-hc="#e9573f" data-s="40">
-                                    </i>
+                                    </i> --}}
+                                    <img  src="https://img.icons8.com/color/44/000000/bus.png">
                                 </span>
                             </div>
                         </div>
@@ -112,22 +116,20 @@
                 </div>
             </div>
 
-            <div class="col-lg-3 col-md-6 col-sm-6 margin_10 animated fadeInRightBig animate_rtl">
+            <div class="col-lg-3 col-md-6 col-sm-6 margin_10 animated fadeInLeftBig animate_rtl">
                 <!-- Trans label pie charts strats here-->
                 <div class="widget-1">
                     <div class="panel-body squarebox square_boxs">
                         <div class="col-xs-12 pull-left nopadmar">
                             <div class="row">
                                 <div class="square_box col-xs-7 text-right animate_rtl">
-                                    <span>Articles
+                                    <span>Drivers
                                     </span>
-                                    <div class="number" id="myTargetElement2">
+                                    <div class="number" id="myTargetElement3">
                                     </div>
                                 </div>
-                                <span class="widget_circle2 pull-right animate_rtl">
-                                    <i class="livicon livicon-evo-holder " data-name="pen" data-l="true" data-c="#418BCA"
-                                        data-hc="#418BCA" data-s="40">
-                                    </i>
+                                <span class="widget_circle3 pull-right animate_rtl">
+                                        <img  src="https://img.icons8.com/color/44/000000/driver.png">
                                 </span>
                             </div>
                         </div>
@@ -136,69 +138,139 @@
             </div>
         </div>
 
+
+        {{-- @foreach ($schedules as $schedule)
+            @if ($schedule != null)
+                <div>
+                    {!! $schedule->id!!}
+                </div>   
+            @else
+                <p>its null</p>    
+
+            @endif  
+        @endforeach --}}
+
+
         <!--/row-->
-        <div class="row ">
-            <div class="col-md-8 col-sm-7 no_padding animate_rtl">
-                <div class="row">
-                    <div class="col-md-12 ">
-                    <div class="panel panel-border main_chart">
-                        <div class="panel-heading ">
-                        <h3 class="panel-title">
-                            <i class="livicon" data-name="barchart" data-size="16" data-loop="true" data-c="#EF6F6C" data-hc="#EF6F6C">
-                            </i> Users Stats
-                        </h3>
-                        </div>
-                        <div class="panel-body">
-                        {!! $db_chart->html() !!}
+        <div   class="row"  >
+            <div  class="col-md-8 col-sm-7 no_padding animate_rtl">
+                <div class="row"  >
+                    <div   class="col-md-12" >
+                        <div  class="panel panel-border main_chart">
+                            <div class="panel-heading ">
+                                <h3 class="panel-title">
+                                    <i class="livicon" data-name="barchart" data-size="16" data-loop="true" data-c="#EF6F6C" data-hc="#EF6F6C">
+                                    </i> Stations Queues
+                                </h3>
+                            </div>
+                            <div  class="panel-body">
+                                <ul  class="nav nav-tabs">
+                                    @forelse ($stations as $station)
+                                        <li >
+                                            <a data-toggle="tab" href="#tab-{{ $station->id }}"  >
+                                            {!! $station->name !!}
+                                            </a>
+                                        </li>
+                                    @empty
+                                    
+                                    @endforelse
+                                </ul>
+
+                                <div style="margin-top: 15%"  class="tab-content">
+                                    @forelse($queues as $queue)
+                                            <div id="tab-{{ $queue->station_id}}" class="tab-pane fade">
+                                                    <p>{{ $queue->bus_number }}</p>
+                                            </div>
+                                    @empty
+                            
+                                    @endforelse
+                                </div>
+
+                                {{-- <div style="margin-top: 15%"  class="tab-content">
+                                    @foreach($queues as $station_id => $item)
+                                        @if($item)
+                                            <div id="tab-{{ $station_id}}" class="tab-pane fade">
+                                                @foreach($item as $queue)
+                                                    @if ($queue)
+                                                        <p>{!! $queue['bus_number'] !!}</p>
+                                                    @else
+                                                        <div>empty</div>
+                                                    @endif
+
+                                                @endforeach
+                                            </div>
+                                        @else
+                                            <div>maya</div>
+                                        @endif
+                                        
+                                    @endforeach
+                                </div> --}}
+
+
+                                {{-- <div style="margin-top: 15%"  class="tab-content">
+                                    @foreach($schedules as $station_id => $item)
+                                        <div id="tab-{{ $station_id }}" class="tab-pane fade">
+                                                @forelse ($item as $schedule)
+                                                    <p>{!! $schedules->schedule_number !!}</p>
+                                                @empty
+                                                NOTHING
+                                                @endforelse
+                                        </div>
+                                    @endforeach
+                                </div> --}}
+                                        
+                            </div>
                         </div>
                     </div>
+
+                    <div class="col-md-6 animate_rtl">
+                        <div class="panel panel-border roles_chart">
+                            <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <i class="livicon" data-name="users" data-size="16" data-loop="true" data-c="#F89A14"
+                                    data-hc="#F89A14">
+                                </i>
+                                User Roles
+                            </h4>
+                            </div>
+                            <div class="panel-body nopadmar">
+                            {!! $user_roles->html() !!}
+                            </div>
+                        </div>
                     </div>
                     <div class="col-md-6 animate_rtl">
-                    <div class="panel panel-border roles_chart">
-                        <div class="panel-heading">
-                        <h4 class="panel-title">
-                            <i class="livicon" data-name="users" data-size="16" data-loop="true" data-c="#F89A14"
-                                data-hc="#F89A14">
-                            </i>
-                            User Roles
-                        </h4>
-                        </div>
-                        <div class="panel-body nopadmar">
-                        {!! $user_roles->html() !!}
-                        </div>
-                    </div>
-                    </div>
-                    <div class="col-md-6 animate_rtl">
-                    <div class="panel panel-border">
-                        <div class="panel-heading">
-                        <h4 class="panel-title">
-                            <i class="livicon" data-name="barchart" data-size="16" data-loop="true" data-c="#67C5DF"
-                                data-hc="#67C5DF">
-                            </i>
-                            Yearly visitors
-                        </h4>
-                        </div>
-                        <div class="panel-body nopadmar">
-                        <div id="bar_chart">
-                        </div>
+                        <div class="panel panel-border">
+                            <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <i class="livicon" data-name="barchart" data-size="16" data-loop="true" data-c="#67C5DF"
+                                    data-hc="#67C5DF">
+                                </i>
+                                Yearly visitors
+                            </h4>
+                            </div>
+                            <div class="panel-body nopadmar">
+                            <div id="bar_chart">
+                            </div>
+                            </div>
                         </div>
                     </div>
-                    </div>
+
                     <div class="col-md-12 ">
-                    <div class="panel panel-border map">
-                        <div class="panel-heading">
-                        <h3 class="panel-title">
-                            <i class="livicon" data-name="map" data-size="16" data-loop="true" data-c="#515763"
-                                data-hc="#515763">
-                            </i>
-                            Users from countries
-                        </h3>
-                        </div>
-                        <div class="panel-body nopadmar">
-                        {!! $geo->html() !!}
+                        <div class="panel panel-border map">
+                            <div class="panel-heading">
+                            <h3 class="panel-title">
+                                <i class="livicon" data-name="map" data-size="16" data-loop="true" data-c="#515763"
+                                    data-hc="#515763">
+                                </i>
+                                Users from countries
+                            </h3>
+                            </div>
+                            <div class="panel-body nopadmar">
+                            {!! $geo->html() !!}
+                            </div>
                         </div>
                     </div>
-                    </div>
+
                 </div>
             </div>
 
@@ -316,6 +388,9 @@
     {{--<script src="http://demo.lorvent.com/rare/default/vendors/raphael/js/raphael.min.js"></script>--}}
     <script src="{{ asset('assets/vendors/morrisjs/morris.min.js') }}"></script>
 
+    {{-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script> --}}
+    {{-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script> --}}
+
     <script>
         var useOnComplete = false,
             useEasing = false,
@@ -326,13 +401,22 @@
             separator: ',', // character to use as a separator
             decimal: '.' // character to use as a decimal
         };
-        var demo = new CountUp("myTargetElement1", 12.52, {{ $pageVisits }}, 0, 6, options);
-        demo.start();
-        var demo = new CountUp("myTargetElement2", 1, {{ $blog_count }}, 0, 6, options);
-        demo.start();
-        var demo = new CountUp("myTargetElement3", 24.02, {{ $visitors }}, 0, 6, options);
-        demo.start();
+        // var demo = new CountUp("myTargetElement1", 12.52, {{ $pageVisits }}, 0, 6, options);
+        // demo.start();
+        // var demo = new CountUp("myTargetElement2", 1, {{ $blog_count }}, 0, 6, options);
+        // demo.start();
+        // var demo = new CountUp("myTargetElement3", 24.02, {{ $visitors }}, 0, 6, options);
+        // demo.start();
         var demo = new CountUp("myTargetElement4", 125, {{ $user_count }}, 0, 6, options);
+        demo.start();
+
+        var demo = new CountUp("myTargetElement1", 125, {{ $bus_count }}, 0, 6, options);
+        demo.start();
+
+        var demo = new CountUp("myTargetElement2", 125, {{ $station_count }}, 0, 6, options);
+        demo.start();
+
+        var demo = new CountUp("myTargetElement3", 125, {{ $driver_count }}, 0, 6, options);
         demo.start();
 
         $('.blogs').slimScroll({
@@ -403,4 +487,14 @@
             $('[data-toggle="tooltip"]').tooltip();
         });
     </script>
+
+<script type="text/javascript">
+    $(document).ready(function(){
+        function getQueue(id){
+            var id = id;
+            console.log(id);
+            
+        }
+    });
+</script>
 @stop

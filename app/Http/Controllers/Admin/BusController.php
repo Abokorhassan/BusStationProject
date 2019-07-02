@@ -95,6 +95,8 @@ class BusController extends Controller
 
                     ->where('station_id', $stations_id)
                     ->get();
+        // $drivers = Driver::select('id','driver_number')
+        //                 ->whereRaw('driver_number not in (select driver_number from buses)  AND station_id = ?', [$station])->get();
         $data = $drivers;
         return Response()->json($data);  
     }
@@ -168,6 +170,7 @@ class BusController extends Controller
         $driver = Driver::select('id','driver_number')
                     ->where('station_id', $station)
                     ->get();
+                
 
         // $drivers = Driver::select('drivers.*')
         //                 ->leftJoin('buses', 'drivers.id', '=', 'buses.Driver_id')
@@ -188,8 +191,8 @@ class BusController extends Controller
 
         // $drivers = Driver::whereRaw('id not in (select Driver_id from buses) OR id = ?', [$bus->Driver_id])->get();
 
-        $drivers = Driver::whereRaw('driver_number not in (select driver_number from buses) OR driver_number = ?', [$bus->driver_number])
-                        ->get();
+        // $drivers = Driver::whereRaw('driver_number not in (select driver_number from buses) OR driver_number = ?', [$bus->driver_number])
+        //                 ->get();
 
         // $drivers = Driver::whereRaw('driver_number not in (select driver_number from buses) AND station_id = ?', [$station],' OR driver_number  = ? ', [$bus->driver_number])
         //                 ->get();
@@ -208,6 +211,10 @@ class BusController extends Controller
         //             })
         //             ->orWhere('driver_number', '=', 'Dr_02')
         //         ->get();
+
+        $drivers = Driver::whereNotIn('driver_number',Bus::select('driver_number'))
+                        ->where('station_id', $station)
+                        ->orWhere('driver_number', $bus->driver_number);
 
         $opDrivers = $drivers->pluck('driver_number', 'id')->toArray();
         return view('admin.bus.edit', compact('bus', 'stations', 'options', 'drivers', 'opDrivers'));
@@ -240,36 +247,52 @@ class BusController extends Controller
             'bus_number' => 'required | max:50|  unique:buses,bus_number,'. $id,
             'Driver_id' => 'unique:buses,Driver_id,'. $id,
             'station_id' => 'required | numeric',
-        ]);    
-        
-        $bus = Bus::find($id);
+        ]);  
+        $bus = Bus::find($id);  
+        $station_id = $bus->station_id;
+
         $bus->bus_number =$request->input('bus_number');
         $bus->station_id =$request->input('station_id');
 
+        // return $bus->station_id.'---'.$station_id;
         $station = Station::find($bus->station_id);
         $bus->station_name = $station->name;
-        
 
         $driver_id =$request->input('Driver_id');
 
-        if($driver_id){
+        if($station_id != $bus->station_id)
+        {
             $driver = Driver::find($driver_id);
-
-            $station_id = $driver->station_id;
-            if($station_id != $bus->station_id)
-            {
+            if($driver_id){
                 $driver->station_id = $bus->station_id ;
                 $driver->station_name = $bus->station_name;
                 $driver->save();
-                // return $driver->station_id.' '.$driver->station_name;
+            }else{
+
             }
-            $bus->Driver_id = $driver_id;
-            $driver = Driver::find($bus->Driver_id);
-            $bus->driver_number = $driver->driver_number;
+            $seats = Bus::find($id)->seat;
+            if($seats){
+                foreach ($seats as $seat) {
+                    $seat->station_id = $bus->station_id;
+                    $seat->station_name = $bus->station_name;
+                    $seat->save();
+                }
+            }else{
+                
+            }
         }else{
-            $bus->Driver_id = null;
-            $bus->driver_number = null;
+            $driver = Driver::find($driver_id);
+            if($driver_id){
+                $bus->Driver_id = $driver_id;
+                $driver = Driver::find($bus->Driver_id);
+                $bus->driver_number = $driver->driver_number;
+            }else{
+
+            }
         }
+
+        
+
         $bus->save();
         return redirect('admin/bus')->with('success', 'Bus Updated');
         
