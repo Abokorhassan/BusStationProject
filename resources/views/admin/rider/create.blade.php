@@ -66,10 +66,10 @@
                         <div class="row">
                           <div class="col-sm-8 animate_rt">
                             <div class="form-group {{ $errors->first('rider_number', 'has-error') }}">
-                                <label style="margin-top: -1%" for="rider_number" class="col-sm-2 control-label">Rider Number *
+                                <label style="margin-top: 0%" for="rider_number" class="col-sm-2 control-label">Rider No. *
                                 </label>
                                 <div class="col-sm-10">
-                                  <input id="rider_number" name="rider_number" placeholder="Ex. Rd_01" type="text"
+                                  <input id="rider_number" name="rider_number" placeholder="Ex. Rd_01" type="text" autocomplete="off" 
                                           class="form-control required" value="{!! old('rider_number') !!}"/>
                                   {!! $errors->first('rider_number', '
                                   <span class="help-block">:message
@@ -78,11 +78,11 @@
                             </div>
 
                             <div class="form-group {{ $errors->first('first_name', 'has-error') }}">
-                              <label style="margin-top: -1%" for="first_name" class="col-sm-2 control-label">First Name*
+                              <label style="margin-top: 0%" for="first_name" class="col-sm-2 control-label">First Name *
                               </label>
                               <div class="col-sm-10">
-                                <input id="first_name" name="first_name" type="text"
-                                        placeholder="First name" class="form-control required"
+                                <input id="first_name" name="first_name" type="text" autocomplete="off" 
+                                        placeholder="first name" class="form-control required"
                                         value="{!! old('first_name') !!}"/>
                                 {!! $errors->first('first_name', '
                                 <span class="help-block">:message
@@ -91,10 +91,10 @@
                             </div>
                             
                             <div class="form-group {{ $errors->first('second_name', 'has-error') }}">
-                              <label style="margin-top: -2%" for="second_name" class="col-sm-2 control-label">Second Name *
+                              <label style="margin-top: 0%" for="second_name" class="col-sm-2 control-label">Second Name *
                               </label>
                               <div class="col-sm-10">
-                                <input id="second_name" name="second_name" type="text" placeholder="Second Name"
+                                <input id="second_name" name="second_name" type="text" autocomplete="off"  placeholder="second name"
                                         class="form-control required" value="{!! old('second_name') !!}"/>
                                 {!! $errors->first('second_name', '
                                 <span class="help-block">:message
@@ -103,10 +103,10 @@
                             </div>
 
                             <div class="form-group {{ $errors->first('third_name', 'has-error') }}">
-                              <label style="margin-top: -1%" for="third_name" class="col-sm-2 control-label">Third Name *
+                              <label style="margin-top: 0%" for="third_name" class="col-sm-2 control-label">Third Name *
                               </label>
                               <div class="col-sm-10">
-                                <input  id="third_name" name="third_name" placeholder="third name" type="text"
+                                <input  id="third_name" name="third_name" placeholder="third name" type="text" autocomplete="off" 
                                         class="form-control required " value="{!! old('third_name') !!}"/>
                                 {!! $errors->first('third_name', '
                                 <span class="help-block">:message
@@ -131,7 +131,7 @@
                           </div>
                           <div class="col-sm-4 animate_rt">                           
                             <div class="form-group {{ $errors->first('gender', 'has-error') }}">
-                              <label for="gender" class="col-sm-2 control-label">Gender *
+                              <label for="gender" class="col-sm-2 control-label">Gender*
                               </label>
                               <div class="col-sm-10">
                                 <select class="form-control" title="Select Gender..." name="gender">
@@ -152,7 +152,7 @@
                             </div>  
 
                             <div class="form-group {{ $errors->first('ph_number', 'has-error') }}">
-                              <label style="margin-top: -2%" for="ph_number" class="col-sm-2 control-label">Phone No.*
+                              <label style="margin-top: -2%" for="ph_number" class="col-sm-2 control-label">Phone No. *
                               </label>
                               <div class="col-sm-10">
                                 <input id="ph_number" name="ph_number" placeholder="Ex. 063---" type="text"

@@ -36,26 +36,22 @@ class RiderController extends Controller
      */
     public function create()
     {
-        $stations = Station::select('id','name')->get();
-        $buses = Bus::select('id','bus_number')->get();
-        return view('admin.rider.create', compact('stations', 'buses')); 
+        return view('admin.rider.create'); 
     }
 
     public function data()
     {
-        // $rider = Rider::get(['id', 'id_number', 'first_name', 'last_name', 'third_name', 'gender', 'ph_number', 'created_at']);
-
         return DataTables::of(Rider::query())
-            ->editColumn('Full_Name', function (Rider $rider){
-                return $rider->first_name.'  '.$rider->last_name.'  '.$rider->third_name;
-            })
+            // ->editColumn('Full_Name', function (Rider $rider){
+            //     return $rider->first_name.'  '.$rider->last_name.'  '.$rider->third_name;
+            // })
 
-            ->addColumn('User', function(Rider $rider){
-                $userName = null;
-                if(isset($rider->user_id) && $rider->user && $rider->user->first_name)
-                    $userName = $rider->user->first_name.' '.$rider->user->last_name;
-                return $userName;
-            })
+            // ->addColumn('User', function(Rider $rider){
+            //     $userName = null;
+            //     if(isset($rider->user_id) && $rider->user && $rider->user->first_name)
+            //         $userName = $rider->user->first_name.' '.$rider->user->last_name;
+            //     return $userName;
+            // })
 
             // ->addColumn('Bus', function(Rider $rider){
             //     $busName = null;
@@ -113,8 +109,6 @@ class RiderController extends Controller
         $rider->third_name = $request->input('third_name');
         $rider->gender = $request->input('gender');
         $rider->ph_number = $request->input('ph_number');
-        // $rider->bus_id = $request->input('bus_number');
-        // $rider->station_id = $request->input('station'); 
         $rider->save();
 
         return redirect('admin/rider')->with('success', 'Rider Created');
@@ -140,17 +134,8 @@ class RiderController extends Controller
     public function edit($id)
     {
         $rider = Rider::find($id);
-        // if(auth()->user()->id !== $bus->user_id){
-        //     return redirect('bus')->with('error', 'You\'\re not allowed to edit this');
-        // }
 
-        $stations = Station::select('id','name')->get();
-        $opStations = $stations->pluck('name', 'id')->toArray();
-
-        $buses = Bus::select('id','bus_number')->get();
-        $opBuses = $buses->pluck('bus_number', 'id')->toArray();
-
-        return view('admin.rider.edit', compact('rider', 'stations', 'opStations', 'buses', 'opBuses'));
+        return view('admin.rider.edit', compact('rider'));
     }
 
     /**
@@ -168,15 +153,12 @@ class RiderController extends Controller
             'last_name' => 'required | max:50',
             'third_name' => 'required | max:50',
             'ph_number' => "required | regex:/^[0-9]{7}$/ | unique:riders,ph_number,$id",
-            // 'ph_number' => array('required', 'numeric', 'regex:/^[0-9]{7}$/', 'unique:riders,ph_number'),
-            'bus_id' => 'required | numeric'
         ]);
 
         $rider->first_name = $request->input('first_name');
         $rider->last_name = $request->input('last_name');
         $rider->third_name = $request->input('third_name');
         $rider->ph_number = $request->input('ph_number');
-        $rider->bus_id = $request->input('bus_id');
         $rider->save();
 
         return redirect('admin/rider')->with('success', 'Rider Updated');    

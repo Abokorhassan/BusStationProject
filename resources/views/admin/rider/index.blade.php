@@ -48,7 +48,7 @@ Rider Lists
                                 <tr class="filters">
                                     <th>ID</th>
                                     <th>Rider Number</th>
-                                    <th>Full name</th>
+                                    <th>Name</th>
                                     <th>Ph_number</th>
                                     <th>Gender</th>
                                     <th>User</th>
@@ -81,10 +81,10 @@ Rider Lists
                 columns: [
                     { data: 'id', name: 'id' },
                     { data: 'id_number', name: 'id_number' },
-                    { data: 'Full_Name', name: 'Full_Name' },
+                    { data: 'first_name', name: 'first_name' },
                     { data: 'ph_number', name: 'ph_number'},
                     { data: 'gender', name: 'gender' }, 
-                    { data: 'User', name: 'User' },        
+                    { data: 'user_first', name: 'user_first' },        
                     { data: 'created_at', name:'created_at'},
                     { data: 'actions', name: 'actions', orderable: false, searchable: false }
                 ]

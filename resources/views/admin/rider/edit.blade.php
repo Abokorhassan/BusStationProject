@@ -55,7 +55,7 @@
                       <div id="rootwizard">             
                         <h2 class="hidden">&nbsp;</h2>
                           <div class="form-group {{ $errors->first('first_name', 'has-error') }}">
-                            <label style="margin-top: -1%" for="first_name" class="col-sm-2 control-label">First Name*
+                            <label style="margin-top: 0%" for="first_name" class="col-sm-2 control-label">First Name *
                             </label>
                             <div class="col-sm-10">
                               {!! Form::text('first_name', null, array('class' => 'form-control required', 'placeholder'=>'first name')) !!}
@@ -66,7 +66,7 @@
                           </div>
 
                           <div class="form-group {{ $errors->first('last_name', 'has-error') }}">
-                            <label style="margin-top: -1%"  for="last_name" class="col-sm-2 control-label">Second Name *
+                            <label style="margin-top: 0%"  for="last_name" class="col-sm-2 control-label">Second Name *
                             </label>
                             <div class="col-sm-10">
                                   {!! Form::text('last_name', null, array('class' => 'form-control required', 'placeholder'=>'Second Name')) !!}
@@ -76,8 +76,8 @@
                             </div>
                           </div>
 
-                          <div style="margin-top: -1%"  class="form-group {{ $errors->first('third_name', 'has-error') }}">
-                            <label for="third_name" class="col-sm-2 control-label">Third Name *
+                          <div class="form-group {{ $errors->first('third_name', 'has-error') }}">
+                            <label style="margin-top: 0%" for="third_name" class="col-sm-2 control-label">Third Name *
                             </label>
                             <div class="col-sm-10">
                                   {!! Form::text('third_name', null, array('class' => 'form-control required', 'placeholder'=>'Third Name')) !!}
@@ -88,7 +88,7 @@
                           </div>
                                     
                           <div class="form-group {{ $errors->first('ph_number', 'has-error') }}">
-                            <label style="margin-top: -1%" for="ph_number" class="col-sm-2 control-label">Phone No*
+                            <label style="margin-top: 0%" for="ph_number" class="col-sm-2 control-label">Phone No. *
                             </label>
                             <div class="col-sm-10">
                                   {!! Form::text('ph_number', null, array('class' => 'form-control required', 'placeholder'=>'phone number')) !!}
