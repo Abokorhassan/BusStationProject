@@ -57,33 +57,23 @@
                     <div id="rootwizard">
                       <h2 class="hidden">&nbsp;</h2>
 
-                      <div class="form-group {{ $errors->first('acc_num', 'has-error') }}">
-                        <label style="margin-top: -1%" for="acc_num" class="col-sm-2 control-label">Accident Number*
+                      <div class="form-group {{ $errors->first('station_id', 'has-error') }}">
+                        <label for="station_id" class="col-sm-2 control-label">Station *
                         </label>
                         <div class="col-sm-10">
-                          {!! Form::text('acc_num', $accident->acc_num, array('class' => 'form-control required', 'placeholder'=>'Name')) !!}
-                          {!! $errors->first('acc_num', '
-                          <span class="help-block">:message
-                          </span>') !!}
-                        </div>
-                      </div>
-
-                      <div class="form-group {{ $errors->first('driver_id', 'has-error') }}">
-                        <label for="driver_id" class="col-sm-2 control-label">Driver *
-                        </label>
-                        <div class="col-sm-10">
-                              {!! Form::select('driver_id', $opDrivers, null, ['placeholder' => 'Select Station', 'class' => 'form-control required']) !!}
-                          {!! $errors->first('driver_id', '
+                              {!! Form::select('station_id', $opStations, null, ['placeholder' => 'Select Station', 'id' => 'station',  'class' => 'form-control required']) !!}
+                          {!! $errors->first('station_id', '
                           <span class="help-block">:message
                           </span>') !!}
                         </div>
                       </div>
 
                       <div class="form-group {{ $errors->first('bus_id', 'has-error') }}">
-                        <label for="bus_id" class="col-sm-2 control-label">Bus Number *
+                        <label for="bus_id" class="col-sm-2 control-label">Bus *
                         </label>
                         <div class="col-sm-10">
-                              {!! Form::select('bus_id', $opBuses, null, ['placeholder' => 'Select Bus', 'class' => 'form-control required']) !!}
+                              {!! Form::select('bus_id', $opBuses, null, ['placeholder' => 'Select Bus', 'name' => 'bus_id', 'class' => 'form-control required']) !!}
+                              {{-- {!! Form::select('bus_id',[''=>'Select Bus'],null,['class'=>'form-control']) !!} --}}
                           {!! $errors->first('bus_id', '
                           <span class="help-block">:message
                           </span>') !!}
@@ -123,16 +113,7 @@
                         </div>
                       </div> --}}
 
-                      <div class="form-group {{ $errors->first('station_id', 'has-error') }}">
-                        <label for="station_id" class="col-sm-2 control-label">Station *
-                        </label>
-                        <div class="col-sm-10">
-                              {!! Form::select('station_id', $opStations, null, ['placeholder' => 'Select Station', 'class' => 'form-control required']) !!}
-                          {!! $errors->first('station_id', '
-                          <span class="help-block">:message
-                          </span>') !!}
-                        </div>
-                      </div>
+                      
 
                       <div class="form-group">
                         <div class="col-sm-offset-2 col-sm-4 btn_rtl">
@@ -165,5 +146,32 @@
     <script src="{{ asset('assets/vendors/bootstrap-tagsinput/js/bootstrap-tagsinput.js') }}" type="text/javascript"></script>
     <script type="text/javascript" src="{{ asset('assets/vendors/jasny-bootstrap/js/jasny-bootstrap.js') }}"></script>
     <script type="text/javascript" src="{{ asset('assets/js/pages/add_newblog.js') }}"></script>
+    
+    {{-- <script>
+        // $(document).ready(function(){
+        //   $(document).on('change','#station',function(){
+        //     var id=$(this).val();
+        //     var token = $("input[name='_token']").val();
+        //     console.log(id);
+
+        //     if(id){
+        //       $.ajax({
+        //         url: "{{ route('admin.accident.getBusesStationE') }}",
+        //         method: 'GET',
+        //         data:{'id':id, _token:token},
+        //         dataType: "json",
+        //         success:function(data) {
+        //           console.log(data);
+
+        //           // $("select[name='bus_number'").html('');
+        //           // $("select[name='bus_number'").html(data.options);
+        //         }
+        //       });
+        //     }else{
+        //         $('select[name="bus_number"]').empty();
+        //     }
+        //   });
+        // });
+    </script> --}}
 @stop
 

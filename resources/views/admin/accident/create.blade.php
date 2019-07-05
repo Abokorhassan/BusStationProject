@@ -2,7 +2,7 @@
 
 {{-- Page title --}}
 @section('title')
-    Accident Stop
+    Accident
 @stop
 
 {{-- page level styles --}}
@@ -62,61 +62,48 @@
                     <!-- CSRF Token -->
                     <input type="hidden" name="_token" value="{{ csrf_token() }}" />
                       <div id="rootwizard">
-                        <h2 class="hidden">&nbsp;</h2>
-
-                        <div class="form-group {{ $errors->first('accident_number', 'has-error') }}">
-                          <label for="accident_number" class="col-sm-2 control-label">
-                            Accident Number*
+                        <h2 class="hidden">&nbsp;</h2>                 
+    
+                        <div class="form-group {{ $errors->first('station', 'has-error') }}">
+                          <label for="station" class="col-sm-2 control-label">Station *
                           </label>
                           <div class="col-sm-10">
-                            <input id="accident_number" name="accident_number" type="text" placeholder="Ex. Acc_01"
-                                    class="form-control required" value="{!! old('accident_number') !!}"/>
-                            {!! $errors->first('accident_number', '
-                            <span class="help-block">:message
-                            </span>') !!}
-                          </div>
-                        </div>
-                        
-                        <div class="form-group {{ $errors->first('driver_number', 'has-error') }}">
-                          <label for="driver_number" class="col-sm-2 control-label">Driver Number*
-                          </label>
-                          <div class="col-sm-10">
-                            <select class="form-control" title="Select Pas..." name="driver_number">                                         
-                              <option value="">Select Driver number
+                            <select class="form-control" title="Select Station..." id="station" name="station">                                         
+                              <option value="">Select Station
                               </option>
-                              @foreach ($drivers as $driver)
-                              <option value="{{ $driver->id}}" 
-                                @if (old('driver_number')=== "{{$driver->id}}") selected="selected"@endif
-                                >{{ $driver->driver_number}}
+    
+                              @foreach ($stations as $station)
+                              <option value="{{ $station->id}}" 
+                                @if (old('station')=== "{{$station->id}}") selected="selected"@endif
+                                >{{ $station->name}}
                               </option>
                               @endforeach
                             </select>
-                            {!! $errors->first('driver_number', '
+                            {!! $errors->first('station', '
                             <span class="help-block">:message
                             </span>') !!}
                           </div>   
-                        </div>   
+                        </div> 
                         
                         <div class="form-group {{ $errors->first('bus_number', 'has-error') }}">
-                          <label for="bus_number" class="col-sm-2 control-label">Bus Number *
+                          <label for="bus_number" class="col-sm-2 control-label">Bus *
                           </label>
                           <div class="col-sm-10">
-                            <select class="form-control" title="Select Pas..." name="bus_number">                                         
-                              <option value="">Select bus_number
+                            <select class="form-control" title="Select Pas..." id="bus" name="bus_number">                                         
+                              {{-- <option value="">Select bus_number
                               </option>
                               @foreach ($buses as $bus)
                               <option value="{{ $bus->id}}" 
                                 @if (old('bus_number')=== "{{$bus->id}}") selected="selected"@endif
                                 >{{ $bus->bus_number}}
                               </option>
-                              @endforeach
+                              @endforeach --}}
                             </select>
                             {!! $errors->first('bus_number', '
                             <span class="help-block">:message
                             </span>') !!}
                           </div>   
-                        </div>                  
-                        
+                        </div>
 
                         <div class="form-group {{ $errors->first('accident_latitude', 'has-error') }}">
                           <label for="accident_latitude" class="col-sm-2 control-label">Latitude *
@@ -140,8 +127,8 @@
                             <span class="help-block">:message
                             </span>') !!}
                           </div>
-                        </div>
-
+                        </div> 
+                        
                         {{-- <div class="form-group {{ $errors->first('route_id', 'has-error') }}">
                           <label for="route_id" class="col-sm-2 control-label">Route Id *
                           </label>
@@ -153,27 +140,6 @@
                             </span>') !!}
                           </div>
                         </div> --}}
-    
-                        <div class="form-group {{ $errors->first('station', 'has-error') }}">
-                          <label for="station" class="col-sm-2 control-label">Station *
-                          </label>
-                          <div class="col-sm-10">
-                            <select class="form-control" title="Select Station..." name="station">                                         
-                              <option value="">Select Station
-                              </option>
-    
-                              @foreach ($stations as $station)
-                              <option value="{{ $station->id}}" 
-                                @if (old('station')=== "{{$station->id}}") selected="selected"@endif
-                                >{{ $station->name}}
-                              </option>
-                              @endforeach
-                            </select>
-                            {!! $errors->first('station', '
-                            <span class="help-block">:message
-                            </span>') !!}
-                          </div>   
-                        </div>
 
                         <div class="form-group">
                           <div class="col-sm-offset-2 col-sm-4 btn_rtl">
@@ -217,5 +183,46 @@
     <script src="{{ asset('assets/vendors/bootstrapvalidator/js/bootstrapValidator.min.js') }}" type="text/javascript"></script>
     <script src="{{ asset('assets/vendors/datetimepicker/js/bootstrap-datetimepicker.min.js') }}" type="text/javascript"></script>
     <script src="{{ asset('assets/js/pages/adduser.js') }}"></script>
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
+    <script>
+      $(document).ready(function(){
+        $(document).on('change','#station',function(){
+          var id=$(this).val();
+          console.log(id);
+  
+          if(id) {
+                  $.ajax({
+                      url: "{{ route('admin.accident.getBusesStation') }}",
+                      type: "GET",
+                      data:{'id':id},
+                      dataType: "json",
+                      success:function(data) {
+                          // var bus = data[2].bus_number;
+                          console.log(data);
+  
+                          $('select[name="bus_number"]').empty();
+                          $.each( data, function( index, object ) {
+                            $('select[name="bus_number"]').append('<option value="'+ object['id'] +'" >'+ object['bus_number'] +'</option>');
+                          });
+                      }
+                  });
+              }else{
+                  $('select[name="bus_number"]').empty();
+              }
+        });
+      });
+    </script>
+  
+    <script>
+      $("#station").select2({
+        placeholder:'select station', allowClear:true
+      });
+  
+      $("#bus").select2({
+        placeholder:'select driver', allowClear:true
+      });
+    </script>
 
 @stop

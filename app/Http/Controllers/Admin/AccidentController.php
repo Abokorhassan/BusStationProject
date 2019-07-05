@@ -29,38 +29,37 @@ class AccidentController extends Controller
 
     public function data()
     {
-        $accident = Accident::get(['id','acc_num','acc_lat', 'acc_long', 'bus_id', 'driver_id', 'user_id', 'route_id', 'station_id', 'created_at']);
+        // $accident = Accident::get(['id','acc_num','acc_lat', 'acc_long', 'bus_id', 'driver_id', 'user_id', 'route_id', 'station_id', 'created_at']);
 
         return DataTables::of(Accident::query())
 
-            ->addColumn('Driver', function(Accident $accident){
+            // ->addColumn('Driver', function(Accident $accident){
+            //     $driverName = null;
+            //     if(isset($accident->driver_id) && $accident->driver && $accident->driver->driver_number) 
+            //         $driverName = $accident->driver->driver_number;
+            //     return $driverName;
+            // })
 
-                $driverName = null;
-                if(isset($accident->driver_id) && $accident->driver && $accident->driver->driver_number) 
-                    $driverName = $accident->driver->driver_number;
-                return $driverName;
-            })
+            // ->addColumn('Bus', function(Accident $accident){
+            //     $busName = null;
+            //     if(isset($accident->bus_id) && $accident->bus && $accident->bus->bus_number)
+            //         $busName = $accident->bus->bus_number;
+            //     return $busName;
+            // })
 
-            ->addColumn('Bus', function(Accident $accident){
-                $busName = null;
-                if(isset($accident->bus_id) && $accident->bus && $accident->bus->bus_number)
-                    $busName = $accident->bus->bus_number;
-                return $busName;
-            })
+            // ->addColumn('Station', function(Accident $accident){
+            //     $stationName = null;
+            //     if(isset($accident->station) && $accident->station && $accident->station->name)
+            //         $stationName = $accident->station->name;
+            //     return $stationName;
+            // })
 
-            ->addColumn('Station', function(Accident $accident){
-                $stationName = null;
-                if(isset($accident->station) && $accident->station && $accident->station->name)
-                    $stationName = $accident->station->name;
-                return $stationName;
-            })
-
-            ->addColumn('User', function(Accident $accident){
-                $UserName = null;
-                if(isset($accident->user) && $accident->user && $accident->user->first_name)
-                    $UserName = $accident->user->first_name.' '.$accident->user->last_name;
-                return $UserName;
-            })
+            // ->addColumn('User', function(Accident $accident){
+            //     $UserName = null;
+            //     if(isset($accident->user) && $accident->user && $accident->user->first_name)
+            //         $UserName = $accident->user->first_name.' '.$accident->user->last_name;
+            //     return $UserName;
+            // })
 
             ->editColumn('created_at', function (Accident $createtime) {
                 return $createtime->created_at->diffForHumans();
@@ -91,6 +90,17 @@ class AccidentController extends Controller
         return view('admin.accident.create', compact('drivers', 'stations', 'buses'));
     }
 
+    public function getBusesStation(Request $request)
+    {  
+        $station = Station::find($request->id); 
+        $stations_id = $station->id;
+        $buses = Bus::select('id', 'bus_number')
+                    ->where('station_id', $stations_id)
+                    ->get();
+        $data = $buses;
+        return Response()->json($data);  
+    }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -100,8 +110,6 @@ class AccidentController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'accident_number' => array('required', 'regex:/(Acc_)[0-9]{2,4}$/','unique:accidents,acc_num'),
-            'driver_number' => 'required | numeric',
             'bus_number' => 'required | numeric',
             'accident_latitude' => 'required | numeric',
             'accident_longitude' => 'required | numeric',
@@ -109,12 +117,26 @@ class AccidentController extends Controller
         ]);
 
         $accident = new Accident();
-        $accident->acc_num = $request->input('accident_number');
-        $accident->driver_id = $request->input('driver_number');
+
+        $accident->station_id = $request->input('station'); 
+        $station = Station::find($accident->station_id);
+        $accident->station_name = $station->name;
+        
         $accident->bus_id = $request->input('bus_number');
+        $bus = Bus::find($accident->bus_id);
+        $accident->bus_number = $bus->bus_number;
+        $driver_id = $bus->Driver_id;
+        if(!$driver_id){
+            $error = \Illuminate\Validation\ValidationException::withMessages([
+                'bus_number' => ['Since the bus has no driver, it can\'\t be commit a accident' ],
+            ]);
+            throw $error;
+        }
+        $accident->driver_id = $driver_id;
+        $accident->driver_number= $bus->driver_number;
+        
         $accident->acc_lat = $request->input('accident_latitude');
         $accident->acc_long = $request->input('accident_longitude');
-        $accident->station_id = $request->input('station'); 
         $accident->save();
 
         return redirect('admin/accident')->with('success', 'Accident Created');
@@ -153,6 +175,19 @@ class AccidentController extends Controller
         return view('admin.accident.edit', compact('accident', 'stations', 'opStations', 'drivers', 'opDrivers', 'buses', 'opBuses'));
     }
 
+    public function getBusesStationE(Request $request){
+        if($request->ajax()){
+            $station = Bus::find($request->id); 
+            $stations_id = $station->id;
+            $drivers = DB::table('buses')->select('id','bus_number')
+                        ->where('station_id', $stations_id)
+                        ->get();
+            $opDrivers = $drivers->pluck('bus_number', 'id')->toArray();
+            $data = view('admin.bus.bus_station',compact('opBuses'))->render();
+    		return response()->json(['options'=>$data]);
+        }
+    }
+
     /**
      * Update the specified resource in storage.
      *
@@ -163,22 +198,50 @@ class AccidentController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'acc_num' => array('required', 'regex:/(Acc_)[0-9]{2,4}$/','unique:accidents,acc_num,'.$id),
-            'driver_id' => 'required | numeric',
+            'station_id' => 'required | numeric',
             'bus_id' => 'required | numeric',
             'accident_latitude' => 'required | numeric',
             'accident_longitude' => 'required | numeric',
-            'station_id' => 'required | numeric',
         ]);
 
         $accident = Accident::find($id);
-        $accident->acc_num = $request->input('acc_num');
-        $accident->driver_id = $request->input('driver_id');
-        $accident->bus_id = $request->input('bus_id');
-        $accident->acc_lat = $request->input('accident_latitude');
-        $accident->acc_long = $request->input('accident_longitude');
         $accident->station_id = $request->input('station_id'); 
-        $accident->save();
+        $station = Station::find($accident->station_id);
+        $accident->station_name = $station->name;
+        // return $accident->station_id;
+
+        $bus_id = $request->input('bus_id');
+        
+        $bus = Bus::find($bus_id);
+        $station_id = $bus->station_id;
+        // return $accident->station_id.'----'.$station_id.'--'.$bus->bus_number;
+        
+        if($station_id == $accident->station_id){
+            $accident->bus_id = $bus_id; 
+            $accident->bus_number = $bus->bus_number;
+            $driver_id = $bus->Driver_id;
+
+            if(!$driver_id){
+                $error = \Illuminate\Validation\ValidationException::withMessages([
+                    'bus_id' => ['Since the bus has no driver, it can\'\t be commit a accident' ],
+                ]);
+                throw $error;
+            }
+                
+            $accident->driver_id = $driver_id;
+            $accident->driver_number= $bus->driver_number;
+            $accident->acc_lat = $request->input('accident_latitude');
+            $accident->acc_long = $request->input('accident_longitude');
+            $accident->save();
+            // return $bus.'--'.$bus->bus_number.'--'.$bus->Driver_id.'---'.$bus->driver_number;
+        }else{
+            $error = \Illuminate\Validation\ValidationException::withMessages([
+                'bus_id' => ['the selected bus has to be in the station'],
+             ]);
+             throw $error;
+            // return 'NOT equal';
+        }
+        
 
         return redirect('admin/accident')->with('success', 'Accident Updated');
         
