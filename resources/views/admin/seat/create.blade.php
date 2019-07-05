@@ -31,7 +31,7 @@
         <ol class="breadcrumb">
             <li>
                 <a href="{{ route('admin.dashboard') }}"> <i class="livicon" data-name="home" data-size="14"
-                                                             data-c="#000" data-loop="true"></i>
+                      data-c="#000" data-loop="true"></i>
                     Dashboard
                 </a>
             </li>
@@ -76,7 +76,7 @@
                                 </div>
 
                                 <div class="form-group {{ $errors->first('bus_number', 'has-error') }}">
-                                  <label for="bus_number" class="col-sm-2 control-label">Bus Number *
+                                  <label for="bus_number" class="col-sm-2 control-label">Bus *
                                   </label>
                                   <div class="col-sm-10">
                                     <select class="form-control" title="Select Bus Number..." name="bus_number">                                         

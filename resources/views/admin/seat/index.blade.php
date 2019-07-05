@@ -82,8 +82,8 @@
                     { data: 'id', name: 'id' },
                     { data: 'bus_number', name: 'bus_number' },
                     { data: 'seat_number', name: 'seat_number' },
-                    { data: 'Station', name: 'Station' },
-                    { data: 'User', name: 'User' },
+                    { data: 'station_name', name: 'station_name' },
+                    { data: 'user_first', name: 'user_first' },
                     { data: 'created_at', name:'created_at'},
                     { data: 'actions', name: 'actions', orderable: false, searchable: false }
                 ]

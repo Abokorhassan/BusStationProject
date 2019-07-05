@@ -25,27 +25,26 @@ class SeatController extends Controller
     public function data()
     {
        
-        $seat = Seat::get(['id', 'bus_number', 'seat_number','created_at']);
+        // $seat = Seat::get(['id', 'bus_number', 'seat_number','created_at']);
 
         return DataTables::of(Seat::query())
+            // ->addColumn('User', function(Seat $seat){
+            //     $userName = null;
+            //     if(isset($seat->user_id) && $seat->user && $seat->user->first_name)
+            //         $userName = $seat->user->first_name.' '. $seat->user->last_name;
+            //     return $userName;
+            // })
 
-            ->addColumn('User', function(Seat $seat){
-                $userName = null;
-                if(isset($seat->user_id) && $seat->user && $seat->user->first_name)
-                    $userName = $seat->user->first_name.' '. $seat->user->last_name;
-                return $userName;
-            })
+            // ->addColumn('Station', function(Seat $seat){
+            //     $stationName = null;
+            //     if(isset($seat->station_id) && $seat->station && $seat->station->name)
+            //         $stationName = $seat->station->name;
+            //     return $stationName;
+            // })
 
-            ->addColumn('Station', function(Seat $seat){
-                $stationName = null;
-                if(isset($seat->station_id) && $seat->station && $seat->station->name)
-                    $stationName = $seat->station->name;
-                return $stationName;
-            })
-
-            ->editColumn('created_at', function (Seat $createtime) {
-                return $createtime->created_at->diffForHumans();
-            })
+            // ->editColumn('created_at', function (Seat $createtime) {
+            //     return $createtime->created_at->diffForHumans();
+            // })
             ->addColumn('actions', function ($user) {
                 $actions = '<a href=' . route('admin.seat.edit', $user->id) . '><i class="livicon" data-name="edit" data-size="18" data-loop="true" data-c="#428BCA" data-hc="#428BCA" title="update seat"></i></a>';
                 $actions .= '<a href=' . route('admin.seat.confirm-delete', $user->id) . ' data-toggle="modal" data-target="#delete_confirm"><i class="livicon" data-name="remove-alt"
@@ -84,22 +83,19 @@ class SeatController extends Controller
         ]);  
 
         $seat = new Seat();
-        $seat->bus_id =$request->input('bus_number');
-        $bus_id = $seat->bus_id;
+        
 
         $seat->seat_number =$request->input('seat_number');
 
-        //getting bus_id from bus_number which is a bus_id in the input
         $bus_id = $request->input('bus_number');
+        $seat->bus_id = $bus_id;
         $bus = Bus::find($bus_id);
 
-        // extractinng the matched bus_number and save it to the database with the help of bus id
-        $bus_number = $bus->bus_number;
-        $seat->bus_number = $bus_number;
-
+        $seat->bus_number  = $bus->bus_number;
         $seat->station_id = $bus->station_id;
-        $seat->bus_id =$request->input('bus_number');
+        $seat->station_name = $bus->station_name;
 
+        // return $seat->bus_number.'--'.$seat->station_id.'--'.$seat->station_name;
         $seat->save();
 
         // getting the number of seat in specific id
