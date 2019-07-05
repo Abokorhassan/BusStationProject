@@ -37,10 +37,10 @@
                         </a>
                         Schedule lists
                     </h4>
-                    <div class="pull-right">
+                    {{-- <div class="pull-right">
                         <a href="{{ URL::to('admin/schedule/create') }}" class="btn btn-sm btn-default"><span
                                     class="glyphicon glyphicon-plus"></span> @lang('button.create')</a>
-                    </div>
+                    </div> --}}
                 </div>
                 <br />
                 <div class="panel-body">

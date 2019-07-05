@@ -43,8 +43,8 @@ class ScheduleController extends Controller
                 return $createtime->created_at->diffForHumans();
             })
             ->addColumn('actions', function ($user) {
-                $actions = '<a href=' . route('admin.schedule.edit', $user->id) . '><i class="livicon" data-name="edit" data-size="18" data-loop="true" data-c="#428BCA" data-hc="#428BCA" title="update schedule"></i></a>';
-                $actions .= '<a href=' . route('admin.schedule.confirm-delete', $user->id) . ' data-toggle="modal" data-target="#delete_confirm"><i class="livicon" data-name="remove-alt"
+                // $actions = '<a href=' . route('admin.schedule.edit', $user->id) . '><i class="livicon" data-name="edit" data-size="18" data-loop="true" data-c="#428BCA" data-hc="#428BCA" title="update schedule"></i></a>';
+                $actions = '<a href=' . route('admin.schedule.confirm-delete', $user->id) . ' data-toggle="modal" data-target="#delete_confirm"><i class="livicon" data-name="remove-alt"
                 data-size="18" data-loop="true" data-c="#f56954"
                 data-hc="#f56954"
                 title="Delete schedule"></i></a>';

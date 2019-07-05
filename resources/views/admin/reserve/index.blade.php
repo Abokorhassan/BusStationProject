@@ -35,10 +35,10 @@
                         <img style="margin-top: -4%;"  src="https://img.icons8.com/color/25/000000/ticket-purchase.png">
                         Reserved lists
                     </h4>
-                    <div class="pull-right">
+                    {{-- <div class="pull-right">
                         <a href="{{ URL::to('admin/reserve/create') }}" class="btn btn-sm btn-default"><span
                                     class="glyphicon glyphicon-plus"></span> @lang('button.create')</a>
-                    </div>
+                    </div> --}}
                 </div>
                 <br />
                 <div class="panel-body">
