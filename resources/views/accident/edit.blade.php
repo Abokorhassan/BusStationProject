@@ -73,30 +73,8 @@
                       <!-- CSRF Token -->
                       <input type="hidden" name="_token" value="{{ csrf_token() }}" />
 
-                      <div class="form-group {{ $errors->first('acc_num', 'has-error') }}">
-                        <label style="margin-top: -1%" for="acc_num" class="col-sm-2 control-label">Accident Number*
-                        </label>
-                        <div class="col-sm-10">
-                          {!! Form::text('acc_num', $accident->acc_num, array('class' => 'form-control required', 'placeholder'=>'Name')) !!}
-                          {!! $errors->first('acc_num', '
-                          <span class="help-block">:message
-                          </span>') !!}
-                        </div>
-                      </div>
-
-                      <div class="form-group {{ $errors->first('driver_id', 'has-error') }}">
-                        <label for="driver_id" class="col-sm-2 control-label">Driver *
-                        </label>
-                        <div class="col-sm-10">
-                              {!! Form::select('driver_id', $opDrivers, null, ['placeholder' => 'Select Station', 'class' => 'form-control required']) !!}
-                          {!! $errors->first('driver_id', '
-                          <span class="help-block">:message
-                          </span>') !!}
-                        </div>
-                      </div>
-
                       <div class="form-group {{ $errors->first('bus_id', 'has-error') }}">
-                        <label for="bus_id" class="col-sm-2 control-label">Bus Number *
+                        <label for="bus_id" class="col-sm-2 control-label">Bus *
                         </label>
                         <div class="col-sm-10">
                               {!! Form::select('bus_id', $opBuses, null, ['placeholder' => 'Select Bus', 'class' => 'form-control required']) !!}

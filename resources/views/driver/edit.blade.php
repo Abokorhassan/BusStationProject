@@ -20,7 +20,6 @@
     <link href="{{ asset('assets/vendors/select2/css/select2.min.css') }}" rel="stylesheet" type="text/css"/>
     <link href="{{ asset('assets/vendors/bootstrap-tagsinput/css/bootstrap-tagsinput.css') }}" rel="stylesheet"/>
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/vendors/jasny-bootstrap/css/jasny-bootstrap.css') }}">
-    <link href="{{ asset('assets/css/pages/blog.css') }}" rel="stylesheet" type="text/css">
 
 
 @stop
@@ -76,21 +75,10 @@
                         <div class="row"> 
                           <div class="col-sm-8 animate_rt"> 
 
-                            <div class="form-group {{ $errors->first('driver_number', 'has-error') }}">
-                              <label for="driver_number" class="col-sm-2 control-label">
-                                <strong>Driver Number *</strong>
-                              </label>
-                              <div class="col-sm-10">
-                                    {!! Form::text('driver_number', null, array('class' => 'form-control required', 'placeholder'=>'gender')) !!}
-                                {!! $errors->first('driver_number', '
-                                <span class="help-block">:message
-                                </span>') !!}
-                              </div>
-                            </div>
 
                             <div class="form-group {{ $errors->first('first_name', 'has-error') }}">
-                              <label style="margin-top: -1%" for="first_name" class="col-sm-2 control-label">
-                                  <strong>First Name*</strong>
+                              <label  for="first_name" class="col-sm-2 control-label">
+                                  <strong>F.Name*</strong>
                               </label>
                               <div class="col-sm-10">
                                 {!! Form::text('first_name', null, array('class' => 'form-control required', 'placeholder'=>'first name')) !!}
@@ -101,8 +89,8 @@
                             </div>
     
                             <div class="form-group {{ $errors->first('last_name', 'has-error') }}">
-                              <label style="margin-top: -1%" for="last_name" class="col-sm-2 control-label">
-                                  <strong>Second Name *</strong>
+                              <label  for="last_name" class="col-sm-2 control-label">
+                                  <strong>S.Name *</strong>
                               </label>
                               <div class="col-sm-10">
                                     {!! Form::text('last_name', null, array('class' => 'form-control required', 'placeholder'=>'Second Name')) !!}
@@ -113,8 +101,8 @@
                             </div>
     
                             <div class="form-group {{ $errors->first('third_name', 'has-error') }}">
-                              <label style="margin-top: -1%" for="third_name" class="col-sm-2 control-label">
-                                  <strong>Third Name *</strong>
+                              <label for="third_name" class="col-sm-2 control-label">
+                                  <strong>Th.Name*</strong>
                               </label>
                               <div class="col-sm-10">
                                     {!! Form::text('third_name', null, array('class' => 'form-control required', 'placeholder'=>'Third Name')) !!}
@@ -137,8 +125,8 @@
                             </div>
     
                             <div class="form-group {{ $errors->first('license_number', 'has-error') }}">
-                              <label for="license_number" class="col-sm-2 control-label">
-                                  <strong>License Number *</strong>
+                              <label style="margin-top: -2%" for="license_number" class="col-sm-2 control-label">
+                                  <strong>License No. *</strong>
                               </label>
                               <div class="col-sm-10">
                                     {!! Form::text('license_number', null, array('class' => 'form-control required', 'placeholder'=>'license number')) !!}
@@ -149,7 +137,7 @@
                             </div>
 
                             <div class="form-group {{ $errors->first('ph_number', 'has-error') }}">
-                              <label style="margin-top: -3%" for="ph_number" class="col-sm-2 control-label">
+                              <label style="margin-top: -2%" for="ph_number" class="col-sm-2 control-label">
                                   <strong>Phone No.*</strong>
                               </label>
                               <div class="col-sm-10">
@@ -176,8 +164,8 @@
                           <div class="col-sm-4 animate_rt">     
     
                             <div class="form-group {{ $errors->first('address', 'has-error') }}">
-                              <label style="margin-left: -3" for="address" class="col-sm-2 control-label">
-                                  <strong>ADRSS</strong>
+                              <label style="margin-left: -2" for="address" class="col-sm-2 control-label">
+                                  <strong>Addrss</strong>
                               </label>
                               <div style="margin-left: 0%" class="col-sm-10">
                                     {!! Form::text('address', null, array('class' => 'form-control required', 'placeholder'=>'address')) !!}
@@ -200,33 +188,34 @@
                             </div>
     
                             <div class="form-group {{ $errors->first('pic', 'has-error') }}">
-                                <label class="control-label col-xs-12"></label>
-                                <div class="fileinput fileinput-new" data-provides="fileinput">
-                                    <div class="fileinput-new thumbnail" style="max-width: 200px; max-height: 200px;">
-                                        @if(!empty($driver->pic))
-    
-                                            {{-- <img src="{{URL::to('storage/driver/'.$driver->pic)}}" class="img-responsive"
-                                                  alt="Image"> --}}
-                                            
-                                            <img src="{{ asset('storage/driver/'.$driver->pic) }}" alt="picture"
-                                                  class="img-responsive"/>
-                                        @else
-                                            <img src="{{ asset('assets/images/authors/no_avatar.jpg') }}" alt="..."
-                                                  class="img-responsive"/>
-                                        @endif
-    
-                                    </div>
-                                    <div class="fileinput-preview fileinput-exists thumbnail"
-                                          style="max-width: 200px; max-height: 150px;"></div>
-                                    <div> 
-                                      {!! Form::file('pic', array('name'=> 'pic', 'class' => 'btn btn-primary', 'id' => 'pic')) !!}
-                                      <span  style="margin-top: 3%"  class="btn btn-primary fileinput-exists"
-                                            data-dismiss="fileinput">
-                                          Remove
-                                      </span>
-                                    </div>
-                                </div>
-                                <span class="help-block">{{ $errors->first('content', ':message') }}</span>
+                              <label for="pic" class="col-sm-2 control-label tab2_label">Driver picture</label>
+                              <div class="col-sm-10">
+                                  <div class="fileinput fileinput-new" data-provides="fileinput">
+                                      <div class="fileinput-new thumbnail" style="width: 200px; height: 200px;">
+                                          @if(!empty($driver->pic))
+                                              {{-- <img src="{!! url('/').'/uploads/drivers/'.$driver->pic !!}" alt="img"
+                                                   class="img-responsive"/> --}}
+                                              <img src="{{ asset('uploads/drivers/'.$driver->pic) }}" alt="driver image"
+                                                  class="img-responsive"/> 
+                                          @else
+                                              <img src="{{ asset('assets/images/authors/no_avatar.jpg') }}" alt="..."
+                                                   class="img-responsive"/>
+                                          @endif
+                                      </div>
+                                    <div class="fileinput-preview fileinput-exists thumbnail" style="max-width: 200px; max-height: 200px;"></div>
+                                    <div>
+                                    <span class="btn btn-default btn-file">
+                                      <span class="fileinput-new">Select image</span>
+                                      <span class="fileinput-exists">Change</span>
+                                        {{-- <input id="pic" name="pic" type="file"
+                                              class="form-control"/> --}}
+                                        {!! Form::file('pic', array('name'=> 'pic', 'class' => 'btn btn-primary form-control', 'type' => 'file',  'id' => 'pic')) !!}
+                                    </span>
+                                          <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput" style="color: black !important;">Remove</a>
+                                      </div>
+                                  </div>
+                                  {!! $errors->first('pic', '<span class="help-block">:message</span>') !!}
+                              </div>
                             </div>
                                 
                           </div>

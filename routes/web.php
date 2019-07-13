@@ -118,11 +118,23 @@ Route::group(['prefix' => 'admin','namespace'=>'Admin', 'middleware' => 'admin',
 
     Route::resource('station', 'StationController');
 
+    // Route Management
+    Route::group(['prefix' => 'route'], function () {
+        Route::get('data', 'RouteController@data')->name('route.data');
+        Route::get('{route}/delete', 'RouteController@destroy')->name('route.delete');
+        Route::get('{route}/confirm-delete', 'RouteController@getModalDelete')->name('route.confirm-delete');
+    });
+
+    Route::resource('route', 'RouteController');
+
     // Buses Management
     Route::group(['prefix' => 'bus'], function () {
         Route::get('data', 'BusController@data')->name('bus.data');
         Route::get('{bus}/delete', 'BusController@destroy')->name('bus.delete');
         Route::get('{bus}/confirm-delete', 'BusController@getModalDelete')->name('bus.confirm-delete');
+        Route::get('getDriverStation', 'BusController@getDriverStation')->name('bus.getDriverStation');
+        Route::get('getDriverStationE', 'BusController@getDriverStationE')->name('bus.getDriverStationE');
+
     });
 
     Route::resource('bus', 'BusController');
@@ -170,6 +182,8 @@ Route::group(['prefix' => 'admin','namespace'=>'Admin', 'middleware' => 'admin',
         Route::get('data', 'AccidentController@data')->name('accident.data');
         Route::get('{accident}/delete', 'AccidentController@destroy')->name('accident.delete');
         Route::get('{accident}/confirm-delete', 'AccidentController@getModalDelete')->name('accident.confirm-delete');
+        Route::get('getBusesStation', 'AccidentController@getBusesStation')->name('accident.getBusesStation');
+        Route::get('getBusesStationE', 'AccidentController@getBusesStationE')->name('accident.getBusesStationE');
     });
 
     Route::resource('accident', 'AccidentController');
@@ -179,6 +193,7 @@ Route::group(['prefix' => 'admin','namespace'=>'Admin', 'middleware' => 'admin',
         Route::get('data', 'ScheduleController@data')->name('schedule.data');
         Route::get('{schedule}/delete', 'ScheduleController@destroy')->name('schedule.delete');
         Route::get('{schedule}/confirm-delete', 'ScheduleController@getModalDelete')->name('schedule.confirm-delete');
+        
     });
 
     Route::resource('schedule', 'ScheduleController');

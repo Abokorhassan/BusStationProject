@@ -116,8 +116,8 @@ class DriverController extends Controller
         $driver->third_name = $request->input('third_name');
         $driver->email = $request->input('email');
         $driver->gender = 'male';
-        $driver->station_id = $request->input('station'); 
 
+        $driver->station_id = $request->input('station'); 
         $station = Station::find($driver->station_id);
         $driver->station_name = $station->name;
 

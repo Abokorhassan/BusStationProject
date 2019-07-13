@@ -82,13 +82,13 @@ class StationController extends Controller
         $station->name = $request->input('name');
         $station->lat = $request->input('latitude');
         $station->long = $request->input('longitude');
-        $station->user_id = Sentinel::getUser()->id;
+        // $station->user_id = Sentinel::getUser()->id;
 
-        $user = User::find($station->user_id);
+        // $user = User::find($station->user_id);
 
-        $station->user_first = $user->first_name;
-        $station->user_last = $user->last_name;
-        // return $station->user_first;
+        // $station->user_first = $user->first_name;
+        // $station->user_last = $user->last_name;
+        // // return $station->user_first;
 
         $station->save();
 

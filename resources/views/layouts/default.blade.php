@@ -254,7 +254,7 @@
     @yield('content')
 
     <!-- Footer Section Start -->
-    <footer>
+    <footer style="margin-top: 7%; margin-left: 0%;margin-right: 0%;width: 100%"
         <div class="container footer-text">
 
             <div class="col-sm-4" style="align-content: center">
@@ -364,6 +364,7 @@
             <!-- //Recent Post Section End --> --}}
         </div>
     </footer>
+    
     <!-- //Footer Section End -->
     <div   class="copyright">
         <div class="container">

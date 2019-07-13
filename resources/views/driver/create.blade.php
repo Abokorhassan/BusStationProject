@@ -28,11 +28,12 @@
     }
   </style>
 
+
   {{-- Pic and Date css --}}
-  <link href="{{ asset('assets/vendors/summernote/summernote.css') }}" rel="stylesheet"/>
+    <link href="{{ asset('assets/vendors/summernote/summernote.css') }}" rel="stylesheet"/>
     <link href="{{ asset('assets/vendors/select2/css/select2.min.css') }}" rel="stylesheet" type="text/css"/>
     <link href="{{ asset('assets/vendors/bootstrap-tagsinput/css/bootstrap-tagsinput.css') }}" rel="stylesheet"/>
-    <link href="{{ asset('assets/css/pages/blog.css') }}" rel="stylesheet" type="text/css">
+    {{-- <link href="{{ asset('assets/css/pages/blog.css') }}" rel="stylesheet" type="text/css"> --}}
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/vendors/jasny-bootstrap/css/jasny-bootstrap.css') }}">
     <!--end of page level css-->
     <link href="{{ asset('assets/vendors/jasny-bootstrap/css/jasny-bootstrap.css') }}" rel="stylesheet">
@@ -98,7 +99,7 @@
 
                           <div  class="form-group {{ $errors->first('driver_number', 'has-error') }}">
                             <label  style="margin-top: -2%"  for="driver_number" class="col-sm-2 control-label">
-                              <strong>Driver Number*</strong>
+                              <strong>Driver No.*</strong>
                             </label>
                             <div class="col-sm-10">
                               <input id="driver_number" name="driver_number" type="text" placeholder="Ex. Dr_01"
@@ -110,8 +111,8 @@
                           </div>
 
                           <div class="form-group {{ $errors->first('firstname', 'has-error') }}">
-                            <label style="margin-top: -2%" for="first_name" class="col-sm-2 control-label">
-                              <strong>First Name*</strong>
+                            <label style="margin-top: 0%" for="first_name" class="col-sm-2 control-label">
+                              <strong>F.Name*</strong>
                             </label>
                             <div class="col-sm-10">
                               <input id="firstname" name="firstname" type="text"
@@ -124,8 +125,8 @@
                           </div>
                          
                           <div  class="form-group {{ $errors->first('second_name', 'has-error') }}">
-                            <label style="margin-top: -2%"   for="second_name" class="col-sm-2 control-label">
-                              <strong>Second Name*</strong> 
+                            <label style="margin-top: 0%"   for="second_name" class="col-sm-2 control-label">
+                              <strong>S.Name*</strong> 
                             </label>
                             <div class="col-sm-10">
                               <input id="second_name" name="second_name" type="text" placeholder="Second Name"
@@ -137,8 +138,8 @@
                           </div>
   
                           <div  class="form-group {{ $errors->first('third_name', 'has-error') }}">
-                            <label  style="margin-top: -2%"  for="third_name" class="col-sm-2 control-label">
-                              <strong>Third Name *</strong>
+                            <label  style="margin-top: 0%"  for="third_name" class="col-sm-2 control-label">
+                              <strong>Th.Name*</strong>
                             </label>
                             <div class="col-sm-10">
                               <input id="third_name" name="third_name" type="text" placeholder="Third Name"
@@ -163,8 +164,8 @@
                           </div>
 
                           <div class="form-group {{ $errors->first('license_number', 'has-error') }}">
-                            <label for="license_number" class="col-sm-2 control-label">
-                                <strong>License Number *</strong>
+                            <label style="margin-top: -1.8%" for="license_number" class="col-sm-2 control-label">
+                                <strong>License No.*</strong>
                             </label>
                             <div class="col-sm-10">
                               <input id="license_number" name="license_number" placeholder="license number" type="text"
@@ -175,25 +176,15 @@
                             </div>
                           </div>
 
-                          <div class="form-group {{ $errors->first('genders', 'has-error') }}">
-                            <label for="genders" class="col-sm-2 control-label">
-                                <strong>Gender</strong>*
+                          <div class="form-group {{ $errors->first('ph_number', 'has-error') }}">
+                            <label style="margin-top: -3%" for="ph_number" class="col-sm-2 control-label">Phone No.*
                             </label>
-                            <div  class="col-sm-10">
-                              <select class="form-control" title="Select Gender..." name="genders">
-                                <option value="">Select
-                                </option>
-                                <option value="male"
-                                        @if(old('genders') === 'male') selected="selected" @endif >Male
-                                </option>
-                                <option value="female"
-                                        @if(old('genders') === 'female') selected="selected" @endif >
-                                  Female
-                                </option>
-                              </select>
-                              {!! $errors->first('genders', '
-                                    <span class="help-block">:message
-                                    </span>') !!}
+                            <div class="col-sm-10">
+                              <input id="ph_number" name="ph_number" autocomplete="off" placeholder="phone number" type="text"
+                                      class="form-control required email" value="{!! old('ph_number') !!}"/>
+                              {!! $errors->first('ph_number', '
+                              <span class="help-block">:message
+                              </span>') !!}
                             </div>
                           </div>
 
@@ -212,65 +203,70 @@
                             </div>
                           </div>
 
-                        <div class="col-sm-4 animate_rt">
-
-                          <div class="form-group {{ $errors->first('ph_number', 'has-error') }}">
-                            <label style="margin-top: -3%" for="ph_number" class="col-sm-2 control-label">
-                                <strong>Phone No.*</strong>
-                            </label>
-                            <div class="col-sm-10">
-                              <input id="ph_number" name="ph_number" placeholder="phone number" type="text"
-                                      class="form-control required email" value="{!! old('ph_number') !!}"/>
-                              {!! $errors->first('ph_number', '
-                              <span class="help-block">:message
-                              </span>') !!}
-                            </div>
-                          </div>
-
-                          <div class="form-group">
-                              <label style="margin-left: -3%" for="address" class="col-sm-2 control-label">
-                                  <strong>Addrss</strong>
+                          <div class="col-sm-4 animate_rt">
+      
+                            <div class="form-group">
+                              <label style="margin-left: -2%" for="address" class="col-sm-2 control-label">
+                                <strong> Addrss</strong>   
                               </label>
-                              <div style="margin-left: 2%" class="col-sm-10">
-                                <input id="address" name="address" type="text" class="form-control"
+                              <div style="margin-left: 1%" class="col-sm-10">
+                                <input id="address" name="address" type="text" autocomplete="off" placeholder="address" class="form-control"
                                         value="{!! old('address') !!}"/>
                               </div>
                               <span class="help-block">{{ $errors->first('address', ':message') }}
                               </span>
-                          </div>
-                          <div class="form-group  {{ $errors->first('dob', 'has-error') }}">
-                              <label style="margin-left: -3%" for="dob" class="col-sm-2 control-label">
-                                  <strong>DOB</strong>
-                              </label>
-                              <div style="margin-left: 2%" class="col-sm-10">
-                                <input id="dob" name="dob" type="text" class="form-control"
-                                       data-date-format="YYYY-MM-DD"
-                                       placeholder="yyyy-mm-dd"/>
-                              </div>
-                              <span class="help-block">{{ $errors->first('dob', ':message') }}
-                              </span>
-                          </div>
-                          <div class="form-group {{ $errors->first('picture', 'has-error') }}">
-                            <label class="control-label col-xs-12"></label>                         
-                            <div class="col-xs-12 fileinput fileinput-new" data-provides="fileinput">
-                                <div class="fileinput-new thumbnail" style="max-width: 200px; max-height: 200px;">
-                                    <img src="{{ asset('assets/images/authors/no_avatar.jpg') }}" alt="..."
-                                          class="img-responsive"/>
-                                </div>
-                                <div class="fileinput-preview fileinput-exists thumbnail"
-                                      style="max-width: 200px; max-height: 150px;">
-                                </div>
-                                <div class="row">
-                                  <input type="file" name="picture" class="btn btn-primary" id="pic" accept="image/*"/>
-                                  <span style="margin-top: 3%" class="btn btn-danger fileinput-exists"
-                                        data-dismiss="fileinput">Remove
-                                  </span>
-                                </div>
-                                <span class="help-block">{{ $errors->first('picture', ':message') }}</span>
                             </div>
-                            
-                          </div> 
-                        </div>
+      
+                            <div class="form-group  {{ $errors->first('dob', 'has-error') }}">
+                                <label style="margin-left: -2%" for="dob" class="col-sm-2 control-label">
+                                  <strong>DOB</strong>   
+                                </label>
+                                <div style="margin-left: 2%" class="col-sm-10">
+                                  <input id="dob" name="dob" type="text"  autocomplete="off" class="form-control"
+                                          data-date-format="YYYY-MM-DD"
+                                          placeholder="yyyy-mm-dd"/>
+                                </div>
+                                <span class="help-block">{{ $errors->first('dob', ':message') }}
+                                </span>
+                            </div>
+      
+                            <div class="form-group {{ $errors->first('pic_file', 'has-error') }}">
+                              <label  for="pic" class="col-sm-2 control-label">
+                                <strong>Driver picture</strong> 
+                              </label>
+                              <div class="col-sm-10">
+                                <div class="fileinput fileinput-new" data-provides="fileinput">
+                                  <div class="fileinput-new thumbnail" style="width: 200px; height: 200px;">
+                                    <img src="{{ asset('assets/images/authors/no_avatar.jpg') }}" alt="profile pic">
+                                  </div>
+                                  <div class="fileinput-preview fileinput-exists thumbnail" style="max-width: 200px; max-height: 200px;">
+                                  </div>
+                                  <div>
+                                    <span class="btn btn-default btn-file">
+                                      <span class="fileinput-new">Select image
+                                      </span>
+                                      <span class="fileinput-exists">Change
+                                      </span>
+                                      <input id="pic" name="pic_file" type="file" class="form-control"/>
+                                    </span>
+                                    {{-- <a href="#" class="btn btn-danger fileinput-exists"
+                                        data-dismiss="fileinput">
+                                    </a> --}}
+                                    <span style="width: 2rem">
+                                      <a href="#" class="btn btn-danger btn-sm fileinput-exists" data-dismiss="fileinput" >
+                                        <button type="button" class="btn btn-danger">
+                                            Remove
+                                        </button>
+                                      </a>
+                                    </span>
+                                  </div>
+                                </div>
+                                <span class="help-block">{{ $errors->first('pic_file', ':message') }}
+                                </span>
+                              </div>
+                            </div>
+      
+                          </div>
                       </div>
 
                      
@@ -318,5 +314,16 @@
   {{-- <script src="{{ asset('assets/vendors/bootstrapvalidator/js/bootstrapValidator.min.js') }}" type="text/javascript"></script> --}}
   <script src="{{ asset('assets/vendors/datetimepicker/js/bootstrap-datetimepicker.min.js') }}" type="text/javascript"></script>
   <script src="{{ asset('assets/js/pages/adduser.js') }}"></script>
+
+
+  <script src="{{ asset('assets/vendors/iCheck/js/icheck.js') }}"></script>
+  <script src="{{ asset('assets/vendors/moment/js/moment.min.js') }}" ></script>
+  <script src="{{ asset('assets/vendors/jasny-bootstrap/js/jasny-bootstrap.js') }}"  type="text/javascript"></script>
+  <script src="{{ asset('assets/vendors/select2/js/select2.js') }}" type="text/javascript"></script>
+  <script src="{{ asset('assets/vendors/bootstrapwizard/jquery.bootstrap.wizard.js') }}" type="text/javascript"></script>
+  <script src="{{ asset('assets/vendors/bootstrapvalidator/js/bootstrapValidator.min.js') }}" type="text/javascript"></script>
+  <script src="{{ asset('assets/vendors/datetimepicker/js/bootstrap-datetimepicker.min.js') }}" type="text/javascript"></script>
+  <script src="{{ asset('assets/js/pages/adduser.js') }}"></script>
+  <script type="text/javascript">
 
 @stop

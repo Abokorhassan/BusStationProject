@@ -79,19 +79,6 @@
                       <!-- CSRF Token -->
                       <input type="hidden" name="_token" value="{{ csrf_token() }}" />
 
-                      <div class="form-group {{ $errors->first('model_type', 'has-error') }}">
-                        <label for="model_type" class="col-sm-2 control-label">
-                            <strong> Bus Model *
-                            </strong>
-                        </label>
-                        <div class="col-sm-10">
-                          {!! Form::text('model_type', null, array('class' => 'form-control required', 'placeholder'=>'Bus Model')) !!}
-                          {!! $errors->first('model_type', '
-                          <span class="help-block">:message
-                          </span>') !!}
-                        </div>
-                      </div>
-
                       <div class="form-group {{ $errors->first('bus_number', 'has-error') }}">
                         <label for="bus_number" class="col-sm-2 control-label">
                             <strong>Bus Number * </strong>
@@ -106,11 +93,11 @@
 
                       <div class="form-group {{ $errors->first('Driver_id', 'has-error') }}">
                           <label for="Driver_id" class="col-sm-2 control-label">
-                              <strong>Driver Number*
+                              <strong>Driver *
                               </strong>
                           </label>
                           <div class="col-sm-10">
-                            {!! Form::select('Driver_id', $opDrivers, null, ['placeholder' => 'Select Station', 'class' => 'form-control required']) !!}
+                            {!! Form::select('Driver_id', $opDrivers, null, ['placeholder' => 'Select Driver number', 'class' => 'form-control required']) !!}
                             {!! $errors->first('Driver_id', '
                             <span class="help-block">:message
                             </span>') !!}

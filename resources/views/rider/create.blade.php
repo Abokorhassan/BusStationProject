@@ -95,8 +95,8 @@
                       <div class="row">
                         <div class="col-sm-8 animate_rt">
                           <div class="form-group {{ $errors->first('rider_number', 'has-error') }}">
-                              <label style="margin-top: -3%" for="rider_number" class="col-sm-2 control-label">
-                                <strong>Rider Number*</strong> 
+                              <label style="margin-top: -2%" for="rider_number" class="col-sm-2 control-label">
+                                <strong>Rider No.*</strong> 
                               </label>
                               <div class="col-sm-10">
                                 <input id="rider_number" name="rider_number" placeholder="Ex. Rd_01" type="text"
@@ -108,8 +108,8 @@
                           </div>
 
                           <div class="form-group {{ $errors->first('first_name', 'has-error') }}">
-                            <label style="margin-top: -1%" for="first_name" class="col-sm-2 control-label">
-                                <strong>First Name*</strong>
+                            <label for="first_name" class="col-sm-2 control-label">
+                                <strong>F.Name*</strong>
                             </label>
                             <div class="col-sm-10">
                               <input id="first_name" name="first_name" type="text"
@@ -122,8 +122,8 @@
                           </div>
                           
                           <div class="form-group {{ $errors->first('second_name', 'has-error') }}">
-                            <label style="margin-top: -2%" for="second_name" class="col-sm-2 control-label">
-                                <strong>Second Name *</strong>
+                            <label  for="second_name" class="col-sm-2 control-label">
+                                <strong>S.Name *</strong>
                             </label>
                             <div class="col-sm-10">
                               <input id="second_name" name="second_name" type="text" placeholder="Second Name"
@@ -135,8 +135,8 @@
                           </div>
 
                           <div class="form-group {{ $errors->first('third_name', 'has-error') }}">
-                            <label style="margin-top: -1%" for="third_name" class="col-sm-2 control-label">
-                                <strong>Third Name *</strong>
+                            <label for="third_name" class="col-sm-2 control-label">
+                                <strong>Th.Name*</strong>
                             </label>
                             <div class="col-sm-10">
                               <input  id="third_name" name="third_name" placeholder="third name" type="text"
@@ -186,7 +186,7 @@
                           </div>  
 
                           <div class="form-group {{ $errors->first('ph_number', 'has-error') }}">
-                            <label style="margin-left: 3%" for="ph_number" class="col-sm-2 control-label">
+                            <label style="margin-left: -62%" for="ph_number" class="col-sm-12 control-label">
                                 <strong>Phone No.*</strong>
                             </label>
                             <div class="col-sm-10">

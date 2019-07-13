@@ -46,13 +46,11 @@ class AccidentController extends Controller
         $station = Station::find($s_id);
         $stations_id = $station->id;
 
-        $drivers = Driver::select('id','driver_number')
-                    ->where('station_id', $stations_id)
-                    ->get();
         $buses = Bus::select('id','bus_number')
                     ->where('station_id', $stations_id)
+                    ->whereNotNull('Driver_id')
                     ->get();        
-        return view('accident.create', compact('drivers', 'buses')); 
+        return view('accident.create', compact('buses')); 
     }
 
     /**
@@ -64,29 +62,36 @@ class AccidentController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'accident_number' => array('required', 'regex:/(Acc_)[0-9]{2,4}$/','unique:accidents,acc_num'),
-            'driver_number' => 'required | numeric',
             'bus_number' => 'required | numeric',
             'accident_latitude' => 'required | numeric',
             'accident_longitude' => 'required | numeric',
         ]);
 
         $accident = new Accident();
-        $accident->acc_num = $request->input('accident_number');
-        $accident->driver_id = $request->input('driver_number');
+
         $accident->bus_id = $request->input('bus_number');
+        $bus = Bus::find($accident->bus_id);
+        $accident->bus_number = $bus->bus_number;
+        $accident->driver_id = $bus->Driver_id;
+        $accident->driver_number= $bus->driver_number;
+
         $accident->acc_lat = $request->input('accident_latitude');
         $accident->acc_long = $request->input('accident_longitude');
-        $accident->user_id = Sentinel::getUser()->id;
 
         // get station id of the current user 
-        $stations = Station::select('id','name')->get();
         $id= Sentinel::getUser()->id;
         $user = User::find($id);
         $s_id = $user->station_id; 
         $station = Station::find($s_id);
-        $stations_id = $station->id;
-        $accident->station_id = $stations_id;
+        $accident->station_id = $station->id;
+        $station = Station::find($accident->station_id);
+        $accident->station_name = $station->name;
+
+        $accident->user_id = Sentinel::getUser()->id;
+        $user = User::find($accident->user_id);
+        $accident->user_first = $user->first_name;
+        $accident->user_last = $user->last_name;
+
         $accident->save();
 
         return redirect('accident')->with('success', 'Accident Created');
@@ -118,17 +123,13 @@ class AccidentController extends Controller
         $station = Station::find($s_id);
         $stations_id = $station->id;
 
-        $drivers = Driver::select('id','driver_number')
-                    ->where('station_id', $stations_id)
-                    ->get();
-        $opDrivers = $drivers->pluck('driver_number', 'id')->toArray();
-
         $buses = Bus::select('id','bus_number')
                     ->where('station_id', $stations_id)
-                    ->get();     
+                    ->whereNotNull('Driver_id')
+                    ->get();      
         $opBuses = $buses->pluck('bus_number', 'id')->toArray();  
 
-        return view('accident.edit', compact('drivers', 'buses', 'accident','opDrivers', 'opBuses')); 
+        return view('accident.edit', compact('buses', 'accident', 'opBuses')); 
     }
 
     /**
@@ -141,17 +142,19 @@ class AccidentController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'acc_num' => array('required', 'regex:/(Acc_)[0-9]{2,4}$/','unique:accidents,acc_num,'.$id),
-            'driver_id' => 'required | numeric',
             'bus_id' => 'required | numeric',
             'accident_latitude' => 'required | numeric',
             'accident_longitude' => 'required | numeric',
         ]);
 
         $accident = Accident::find($id);
-        $accident->acc_num = $request->input('acc_num');
-        $accident->driver_id = $request->input('driver_id');
+
         $accident->bus_id = $request->input('bus_id');
+        $bus = Bus::find($accident->bus_id);
+        $accident->bus_number = $bus->bus_number;
+        $accident->driver_id = $bus->Driver_id;
+        $accident->driver_number= $bus->driver_number;
+        
         $accident->acc_lat = $request->input('accident_latitude');
         $accident->acc_long = $request->input('accident_longitude');
         $accident->save();

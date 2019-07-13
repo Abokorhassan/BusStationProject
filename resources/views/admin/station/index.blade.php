@@ -3,7 +3,6 @@
 {{-- Page title --}}
 @section('title')
     Station Lists
-    @parent
 @stop
 
 {{-- page level styles --}}

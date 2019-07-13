@@ -8,6 +8,7 @@ use App\Bus;
 use App\Driver;
 use App\Station;
 use App\User;
+use App\Seat;
 use Sentinel;
 use DB;
 
@@ -159,9 +160,18 @@ class BusController extends Controller
         $s_id = $user->station_id; 
         $station = Station::find($s_id);
         $stations_id = $station->id;
-        $drivers = Driver::select('id','driver_number')
+
+        // $drivers = Driver::select('id','driver_number')
+        //             ->where('station_id', $stations_id)
+        //             ->get();
+        $drivers = DB::table('drivers')->select('id','driver_number')
+                    ->whereNotIn('driver_number',function($query) use($station) {
+                        $query->select('driver_number')
+                        ->from('buses');
+                    })
                     ->where('station_id', $stations_id)
                     ->get();
+
         return view('bus.create', compact('drivers')); 
     }
 
@@ -174,26 +184,36 @@ class BusController extends Controller
     public function store(Request $request)
     {
         $this->validate($request,[
-            'model_type' => 'required | max:50 |',
+            'model_type' => 'required | max:50',
             'bus_number' => 'required | max:50|unique:buses,bus_number',
-            'driver_number' => 'required | numeric | unique:buses,Driver_id',
+            'driver_number' => 'nullable | unique:buses,Driver_id',
+            
         ]);   
         $bus = new Bus();
         $bus->model_type =$request->input('model_type');
         $bus->bus_number =$request->input('bus_number');
-        $bus->Driver_id =$request->input('driver_number');
+
+        $driver_id =$request->input('driver_number');
+        if($driver_id){
+            $bus->Driver_id = $driver_id;
+            $driver = Driver::find($bus->Driver_id);
+            $bus->driver_number = $driver->driver_number;
+        }
 
         // get station id of the current user 
-        $stations = Station::select('id','name')->get();
+        // $stations = Station::select('id','name')->get();
         $id= Sentinel::getUser()->id;
         $user = User::find($id);
         $s_id = $user->station_id; 
         $station = Station::find($s_id);
         $stations_id = $station->id;
         $bus->station_id = $stations_id;
-        
-        $bus->user_id = Sentinel::getUser()->id;
+        $bus->station_name = $station->name;
 
+        $bus->user_id = Sentinel::getUser()->id;
+        $user = User::find($bus->user_id);
+        $bus->user_first = $user->first_name;
+        $bus->user_last = $user->last_name;
         $bus->save();
 
         return redirect('bus')->with('success', 'Bus Created');
@@ -225,9 +245,11 @@ class BusController extends Controller
         $s_id = $user->station_id; 
         $station = Station::find($s_id);
         $stations_id = $station->id;
-        $drivers = Driver::select('id','driver_number')
-                    ->where('station_id', $stations_id)
-                    ->get();
+
+        $drivers = Driver::whereNotIn('driver_number',Bus::select('driver_number'))
+                        ->where('station_id', $stations_id)
+                        ->orWhere('driver_number', $bus->driver_number);
+
         $opDrivers = $drivers->pluck('driver_number', 'id')->toArray();
         return view('bus.edit', compact('bus', 'drivers', 'opDrivers'));
     }
@@ -243,14 +265,34 @@ class BusController extends Controller
     {
         $this->validate($request,[
             'bus_number' => 'required | max:50| unique:buses,bus_number,'. $id,
-            'Driver_id' => 'required | numeric | unique:buses,Driver_id,'. $id,
-            'model_type' => 'required ',
+            'Driver_id' => 'nullable | unique:buses,Driver_id,'. $id,
         ]);    
         
         $bus = Bus::find($id);
+
         $bus->bus_number =$request->input('bus_number');
-        $bus->Driver_id =$request->input('Driver_id');
-        $bus->model_type =$request->input('model_type');
+        $driver_id =$request->input('Driver_id');
+
+        if($driver_id){
+            $bus->Driver_id = $driver_id;
+            $driver = Driver::find($bus->Driver_id);
+            $bus->driver_number = $driver->driver_number;
+            // return $bus->driver_number;
+        }else{
+            $bus->Driver_id = null;
+            $bus->driver_number = '';
+            // return 'empty';
+        }
+
+        // get station id of the current user 
+        // $stations = Station::select('id','name')->get();
+        $id= Sentinel::getUser()->id;
+        $user = User::find($id);
+        $s_id = $user->station_id; 
+        $station = Station::find($s_id);
+        $stations_id = $station->id;
+        $bus->station_id = $stations_id;
+        $bus->station_name = $station->name;
         $bus->save();
 
         #redirect
@@ -280,6 +322,15 @@ class BusController extends Controller
     public function destroy($id)
     {
         $bus = Bus::find($id);
+        $seats = Bus::find($id)->seat->first();
+
+        if($seats){
+            $bus_id = $seats->bus_id;
+            Seat::where('bus_id', $bus_id)->delete();
+        }else{
+            
+        }
+
         $bus->delete();
         return redirect('bus')->with('success', 'Bus Deleted');
     }

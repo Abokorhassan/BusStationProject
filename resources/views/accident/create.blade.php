@@ -77,7 +77,7 @@
 @section('content')
     <!-- Container Section Strat -->
     <div class="container">
-        <h2> Add New Accident
+        <h2> Ad Accident
         </h2>
         <hr>
         <div class="row margin_right_left">
@@ -91,44 +91,10 @@
                           method="POST" enctype="multipart/form-data" class="form-horizontal">
                       <!-- CSRF Token -->
                       <input type="hidden" name="_token" value="{{ csrf_token() }}" />
-
-                      <div class="form-group {{ $errors->first('accident_number', 'has-error') }}">
-                        <label for="accident_number" class="col-sm-2 control-label">
-                          <strong>Accident Number*</strong> 
-                        </label>
-                        <div class="col-sm-10">
-                          <input id="accident_number" name="accident_number" type="text" placeholder="Ex. Acc_01"
-                                  class="form-control required" value="{!! old('accident_number') !!}"/>
-                          {!! $errors->first('accident_number', '
-                          <span class="help-block">:message
-                          </span>') !!}
-                        </div>
-                      </div>
-
-                      <div class="form-group {{ $errors->first('driver_number', 'has-error') }}">
-                        <label for="driver_number" class="col-sm-2 control-label">
-                          <strong>Driver Number*</strong>
-                        </label>
-                        <div class="col-sm-10">
-                          <select class="form-control" title="Select Pas..." name="driver_number">                                         
-                            <option value="">Select Driver number
-                            </option>
-                            @foreach ($drivers as $driver)
-                            <option value="{{ $driver->id}}" 
-                              @if (old('driver_number')=== "{{$driver->id}}") selected="selected"@endif
-                              >{{ $driver->driver_number}}
-                            </option>
-                            @endforeach
-                          </select>
-                          {!! $errors->first('driver_number', '
-                          <span class="help-block">:message
-                          </span>') !!}
-                        </div>   
-                      </div>   
                       
                       <div class="form-group {{ $errors->first('bus_number', 'has-error') }}">
                         <label for="bus_number" class="col-sm-2 control-label">
-                          <strong>Bus Number *</strong>
+                          <strong>Bus *</strong>
                         </label>
                         <div class="col-sm-10">
                           <select class="form-control" title="Select Pas..." name="bus_number">                                         

@@ -6,6 +6,12 @@ use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\MessageBag;
 use Sentinel;
 use Analytics;
+use App\Station;
+use App\Bus;
+use App\Driver;
+use App\Queue;
+use App\Schedule;
+use Collection;
 use View;
 use Illuminate\Http\Request;
 use Spatie\Activitylog\Models\Activity;
@@ -382,6 +388,16 @@ class JoshController extends Controller {
 
         //total users
         $user_count =User::count();
+         
+        //total Station
+        $station_count = Station::count();
+
+        // total bus
+        $bus_count = Bus::count();
+
+        //total driver
+        $driver_count = Driver::count();
+        
         //total Blogs
         $blog_count =Blog::count();
         $blogs = Blog::orderBy('id','desc')->take(5)->get()->load('category','author');
@@ -423,8 +439,58 @@ class JoshController extends Controller {
             ->responsive(true)
             ->groupByMonth( 2017, true);
 
+
+        // $stations = Station::select('id', 'name')->get(); // [{"id":1,"name":"siinay"},{"id":2,"name":"jigjiga"}]
+        // return $stations;
+
+        // $station_ids = [];
+        // foreach ($stations as $station) {
+        //     $station_ids[] =  $station->id;
+        // }
+
+        // $schedules = [];
+        // foreach ($station_ids as $station) {
+        //     $schedules[] =Schedule::select('id')
+        //                     ->where('station_id', $station)
+        //                     ->latest()
+        //                     ->first();  
+        // }
+        // // return $schedules;
+           
+        // $queues = [];
+        // foreach ($schedules as $schedule) {
+        //    if($schedule)
+        //          $queues[]= Queue::
+        //                         withTrashed()
+        //                         ->where('schedule_id', $schedule->id)
+        //                         ->groupBy('station_id')
+        //                         ->latest()
+        //                         ->get(); 
+        //     else{
+        //         $queues[] = null;
+        //     }                    
+        // }
+        // return $queues;
+
+
+        // $users = DB::table('stations')
+        //         ->join('queues', 'queues.id', '=', 'queues.station_id')
+        //         ->select('queues.*', 'stations.*')
+
+        //         ->get();
+
+            // return $queues;
+
+        $stations = Station::select('id', 'name')->get();
+        // return $staions;
+        $queues = Queue::withTrashed()
+                    ->latest()
+                    ->get();
+         
+        // return $queues;
+
         if(Sentinel::check())
-            return view('admin.index',[ 'analytics_error'=>$analytics_error,'chart_data'=>$chart_data, 'blog_count'=>$blog_count,'user_count'=>$user_count,'users'=>$users,'db_chart'=>$db_chart,'geo'=>$geo,'user_roles'=>$user_roles,'blogs'=>$blogs,'visitors'=>$visitors,'pageVisits'=>$pageVisits,'line_chart'=>$line_chart,'month_visits'=>$month_visits,'year_visits'=>$year_visits] );
+            return view('admin.index',['queues'=>$queues,'stations'=>$stations,'analytics_error'=>$analytics_error,'chart_data'=>$chart_data, 'blog_count'=>$blog_count,'user_count'=>$user_count,'driver_count'=>$driver_count,'bus_count'=>$bus_count,'station_count'=>$station_count,'users'=>$users,'db_chart'=>$db_chart,'geo'=>$geo,'user_roles'=>$user_roles,'blogs'=>$blogs,'visitors'=>$visitors,'pageVisits'=>$pageVisits,'line_chart'=>$line_chart,'month_visits'=>$month_visits,'year_visits'=>$year_visits] );
         else
             return redirect('admin/signin')->with('error', 'You must be logged in!');
     }

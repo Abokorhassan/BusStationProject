@@ -77,6 +77,7 @@
                           method="POST" class="form-horizontal">
                       <!-- CSRF Token -->
                       <input type="hidden" name="_token" value="{{ csrf_token() }}" />
+
                       <div class="form-group {{ $errors->first('model_type', 'has-error') }}">
                         <label for="name" class="col-sm-2 control-label"> 
                           <strong> Model Type *
@@ -91,6 +92,7 @@
                           </span>') !!}
                         </div>
                       </div>
+
                       <div class="form-group {{ $errors->first('bus_number', 'has-error') }}">
                         <label for="bus_number" class="col-sm-2 control-label">
                           <strong>Bus Number *
@@ -104,9 +106,10 @@
                           </span>') !!}
                         </div>
                       </div>
+                      
                       <div class="form-group {{ $errors->first('driver_number', 'has-error') }}">
                         <label for="driver_number" class="col-sm-2 control-label">
-                          <strong>Driver Number*
+                          <strong>Driver *
                           </strong>
                         </label>
                         <div class="col-sm-10">

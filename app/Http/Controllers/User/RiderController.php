@@ -57,7 +57,11 @@ class RiderController extends Controller
         $rider->third_name = $request->input('third_name');
         $rider->gender = $request->input('gender');
         $rider->ph_number = $request->input('ph_number');
+
         $rider->user_id = Sentinel::getUser()->id;
+        $user = User::find($rider->user_id);
+        $rider->user_first = $user->first_name;
+        $rider->user_last = $user->last_name;
 
         // get station id of the current user 
         $stations = Station::select('id','name')->get();
@@ -65,8 +69,9 @@ class RiderController extends Controller
         $user = User::find($id);
         $s_id = $user->station_id; 
         $station = Station::find($s_id);
-        $stations_id = $station->id;
-        $rider->station_id = $stations_id;
+        $rider->station_id = $station->id;;
+        $station = Station::find($rider->station_id);
+        $rider->station_name = $station->name;
 
         $rider->save();
 
