@@ -92,17 +92,37 @@
                       <!-- CSRF Token -->
                       <input type="hidden" name="_token" value="{{ csrf_token() }}" />
 
+                      <div class="form-group {{ $errors->first('route', 'has-error') }}">
+                        <label for="route" class="col-sm-2 control-label">Route *
+                        </label>
+                        <div class="col-sm-10">
+                          <select class="form-control" id="route" name="route">                                         
+                            <option value="">Select route
+                            </option>
+                            @foreach ($routes as $route)
+                              <option value="{{ $route->id}}" 
+                                @if (old('route')=== "{{$route->id}}") selected="selected"@endif
+                                >{{ $route->name}}
+                              </option>
+                            @endforeach
+                          </select>
+                          {!! $errors->first('route', '
+                          <span class="help-block">:message
+                          </span>') !!}
+                        </div>   
+                      </div>
+
                       <div class="form-group {{ $errors->first('schedule', 'has-error') }}">
                         <label for="schedule" class="col-sm-2 control-label">Schedule *
                         </label>
                         <div class="col-sm-10">
-                          <select class="form-control schedule" title="Select Pas..." name="schedule">                                         
+                          <select class="form-control schedule"  id="schedule_number" name="schedule">                                         
                             <option value="">Select Schedule
                             </option>
-                            <option value="{{ $schedules->id}}" 
+                            {{-- <option value="{{ $schedules->id}}" 
                               @if (old('schedule')=== "{{$schedules->id}}") selected="selected"@endif
                               >{{ $schedules->schedule_number}}
-                            </option>
+                            </option> --}}
                           </select>
                           {!! $errors->first('schedule', '
                           <span class="help-block">:message
@@ -117,8 +137,14 @@
                         <div class="col-sm-10">
                           <select class="form-control " id="busnumber"  name="bus_number">                                         
                             <option value="0" disabled="true" selected = "true"> Select Bus
-  
                             </option>
+                            @foreach ($buses as $bus)
+                              <option value="{{ $bus->id}}" 
+                                @if (old('bus_number')=== "{{$bus->id}}") selected="selected"@endif
+                                >{{ $bus->bus_number}}
+                              </option>
+                            @endforeach
+                          </select>
                           </select>
                           {!! $errors->first('bus_number', '
                           <span class="help-block">:message
@@ -175,35 +201,82 @@
   <script src="{{ asset('assets/vendors/datetimepicker/js/bootstrap-datetimepicker.min.js') }}" type="text/javascript"></script>
 
   <script>
+
     $(document).ready(function(){
-      $(document).on('change','.schedule',function(){
+      $(document).on('change','#route',function(){
         var id=$(this).val();
         console.log(id);
 
         if(id) {
             $.ajax({
-                url: "{{ route('user.queue.getBusQueue') }}",
+                url: "{{ route('user.queue.getRouteSchedule') }}",
                 type: "GET",
                 data:{'id':id},
                 dataType: "json",
                 success:function(data) {
                     console.log(data);
+                    if(data){
+                        // also This is from stackoverflow
+                        $('select[name="schedule"]').empty();
+                        $('select[name="schedule"]').html('<option value=""  selected = "true">Select Schedule</option>');
+                        // $.each( data, function( index, object ) {
+                        //   $('select[name="schedule"]').append('<option value="'+ object['id'] +'" >'+ object['schedule_number'] +'</option>');
+                        // });
+                          $('select[name="schedule"]').append('<option value="'+ data['id'] +'" >'+ data['schedule_number'] +'</option>');
+                      
 
-                      //also This is from stackoverflow
-                    $('select[name="bus_number"]').empty();
-                    $('select[name="bus_number"]').html('<option value=""  selected = "true">Chose Bus</option>');
-                    $.each( data, function( index, object ) {
-                      $('select[name="bus_number"]').append('<option value="'+ object['id'] +'" >'+ object['bus_number'] +'</option>');
-                    });
+                        // schedule_number
 
+                        // This is mine
+                        // $('select[name="schedule"]').empty();
+                        // $.each(data, function(id,schedule_number ){
+                        //     $('select[name="schedule"]').append('<option value="'+ id +'">'+ schedule_number +'</option>');
+                        // });
 
+                          // This is from Stack overflow
+                        // data.forEach(({id, schedule_number}) => {
+                        //   $('select[name="schedule"]').append(`<option value="${id}">${schedule_number}</option>`);
+                        // });
+                      }else{
+                      $('select[name="schedule"]').empty(); 
+                      $('select[name="schedule"]').html('<option value=""  selected = "true"></option>');                    
+                    }  
                 }
             });
         }else{
-            $('select[name="bus_number"]').empty();
+            $('select[name="schedule"]').empty();
         }
       });
     });
+    // $(document).ready(function(){
+    //   $(document).on('change','.schedule',function(){
+    //     var id=$(this).val();
+    //     console.log(id);
+
+    //     if(id) {
+    //         $.ajax({
+    //             url: "{{ route('user.queue.getBusQueue') }}",
+    //             type: "GET",
+    //             data:{'id':id},
+    //             dataType: "json",
+    //             success:function(data) {
+    //                 console.log(data);
+
+    //                   //also This is from stackoverflow
+    //                 $('select[name="bus_number"]').empty();
+    //                 $('select[name="bus_number"]').html('<option value=""  selected = "true">Chose Bus</option>');
+    //                 $.each( data, function( index, object ) {
+    //                   $('select[name="bus_number"]').append('<option value="'+ object['id'] +'" >'+ object['bus_number'] +'</option>');
+    //                 });
+
+
+    //             }
+    //         });
+    //     }else{
+    //         $('select[name="bus_number"]').empty();
+    //     }
+    //   });
+    // });
   </script>
 
 

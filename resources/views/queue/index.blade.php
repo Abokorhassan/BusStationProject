@@ -331,7 +331,7 @@
                                             <div class="featured-text relative-left">
                                                 <h3 style="text-align: center" class="success">
                                                 <a style="margin-left: -3em" href="">
-                                                    <strong> Bus Number: &nbsp; 
+                                                    <strong> Bus: &nbsp; 
                                                     </strong>{{$queue->bus_number}}
                                                 </a>
                                                 </h3>
@@ -340,9 +340,9 @@
                                                         <div class="row">
                                                             <div class="col-sm-6">
                                                                 <p>
-                                                                    <strong>ID: &nbsp; 
+                                                                    <strong>Route: &nbsp; 
                                                                     </strong>
-                                                                    {!! $queue->id !!}
+                                                                    {!! $queue->route_name !!}
                                                                 </p>
                                                                 <p  class="additional-post-wrap">
                                                                     <span class="additional-post">

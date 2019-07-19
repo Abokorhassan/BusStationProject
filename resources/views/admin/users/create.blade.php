@@ -3,7 +3,6 @@
 {{-- Page title --}}
 @section('title')
     Add User
-    @parent
 @stop
 
 {{-- page level styles --}}

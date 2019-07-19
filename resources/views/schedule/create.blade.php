@@ -104,6 +104,27 @@
                         </div>
                       </div>
 
+                      <div class="form-group {{ $errors->first('route', 'has-error') }}">
+                        <label for="route" class="col-sm-2 control-label">Route *
+                        </label>
+                        <div class="col-sm-10">
+                          <select class="form-control" id="route" name="route">                                         
+                            <option value="">Select route
+                            </option>
+                            @foreach ($routes as $route)
+                              <option value="{{ $route->id}}" 
+                                @if (old('route')=== "{{$route->id}}") selected="selected"@endif
+                                >{{ $route->name}}
+                              </option>
+                            @endforeach
+                          </select>
+                          {!! $errors->first('route', '
+                          <span class="help-block">:message
+                          </span>') !!}
+                        </div>   
+                      </div>
+                      
+
                       <div class="form-group">
                         <div class="col-sm-offset-2 col-sm-4 btn_rtl">
                           <a href="{{ route('user.schedule.index') }}">

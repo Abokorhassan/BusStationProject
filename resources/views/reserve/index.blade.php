@@ -343,15 +343,16 @@
                                                         <div class="row">
                                                             <div class="col-sm-6">
                                                                 <p>
-                                                                    <strong>ID: &nbsp; 
+                                                                    <strong>Name: &nbsp; 
                                                                     </strong>
-                                                                    {{ $reserve->id }}                           
+                                                                    {{ $reserve->rider_first }}                           
                                                                  <p>
-                                                                    <strong>Name:
+                                                                    <strong>Bus:
                                                                     </strong>
-                                                                    @if (isset($reserve->rider_id) && $reserve->rider && $reserve->rider->first_name)
+                                                                    {{ $reserve->bus_number }}  
+                                                                    {{-- @if (isset($reserve->rider_id) && $reserve->rider && $reserve->rider->first_name)
                                                                         {{ $riderName = $reserve->rider->first_name.' '.$reserve->rider->last_name }}                           
-                                                                    @endif
+                                                                    @endif --}}
                                                                 </p>
                                                                 <p  class="additional-post-wrap">
                                                                     <span class="additional-post">
@@ -380,9 +381,9 @@
                                                                     {{ $reserve->seat_number }}
                                                                 </p>
                                                                 <p>
-                                                                    <strong>Bus: &nbsp; 
+                                                                    <strong>Route: &nbsp; 
                                                                     </strong>
-                                                                    {{ $reserve->bus_number }}
+                                                                    {{ $reserve->route_name }}
                                                                 </p>
                                                                 <p class="additional-post-wrap">
                                                                     <span style="margin-right: -15%" class="additional-post">

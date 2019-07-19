@@ -240,6 +240,7 @@ class BusController extends Controller
     public function edit($id)
     {
         $bus = Bus::find($id);
+        
         $id= Sentinel::getUser()->id;
         $user = User::find($id);
         $s_id = $user->station_id; 

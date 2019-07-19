@@ -85,7 +85,17 @@
                         </div>
                       </div>
 
-                      
+                      <div class="form-group {{ $errors->first('route_id', 'has-error') }}">
+                        <label for="route_id" class="col-sm-2 control-label">Route *
+                        </label>
+                        <div class="col-sm-10">
+                              {!! Form::select('route_id', $opRoutes, null, ['placeholder' => 'Select Route', 'id' => 'route_id', 'class' => 'form-control required']) !!}
+                          {!! $errors->first('route_id', '
+                          <span class="help-block">:message
+                          </span>') !!}
+                        </div>
+                      </div>
+                  
                       <div class="form-group">
                         <div class="col-sm-offset-2 col-sm-4 btn_rtl">
                             <a href="{{ route('user.schedule.index') }}">

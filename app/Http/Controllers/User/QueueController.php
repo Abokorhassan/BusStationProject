@@ -8,6 +8,7 @@ use App\Station;
 use App\User;
 use App\Queue;
 use App\Bus;
+use App\Route;
 use DB;
 use App\Schedule;
 use Sentinel;
@@ -34,6 +35,7 @@ class QueueController extends Controller
                             ->where('station_id', $stations_id)
                             ->latest()
                             ->first();
+
             if($schedules == null){
                 return redirect('schedule')->with('error', 'You need to create a Schedule');
             }
@@ -43,7 +45,8 @@ class QueueController extends Controller
             // $stationqueue = Station::find($stations_id)->queue()->paginate(4);
             $stationqueue = Queue::withTrashed()
                                 ->latest()
-                                ->where('schedule_id', $schedule_id)
+                                ->where('station_id', $stations_id)
+                                // ->where('schedule_id', $schedule_id)
                                 ->paginate(4);
            
             return view('queue.index')->with('queues',$stationqueue);
@@ -66,13 +69,60 @@ class QueueController extends Controller
         $station = Station::find($s_id);
         $stations_id = $station->id;
 
+        $routes = Route::select('id','name')
+                    ->where('station_id', $stations_id)
+                    ->get();
+
        // getting the latest schedule saved 
-        $schedules = Schedule::select('*')
-                        ->where('station_id', $stations_id)
-                        ->latest()
-                        ->first();
+        // $schedules = Schedule::select('*')
+        //                 ->where('station_id', $stations_id)
+        //                 ->latest()
+        //                 ->first();
+                        
+        $route = Route::where('station_id',$stations_id)
+                    ->pluck('id')->toArray();
+
+                    // latest()
+                    // ->first()
+                    // ->
+
+
+        // $schedules = [];
+        // foreach ($routes as $route) {
+        //     $schedules[] =Schedule::select('id')
+        //                     ->whereIn('route_id', $route)
+        //                     ->latest()
+        //                     ->first();  
+        // }
+        // $values = array_map(function ($item) {
+        //                 return $item->id;
+        //             }, $schedules);
+        // // $values = collect($schedules)->pluck('id')->toArray();
+        foreach ($routes as $route) {
+            $schedules[] =Schedule::select('id')
+                            ->whereIn('route_id', $route)
+                            ->latest()
+                            ->value('id');  
+        }
+        // return $schedules;
         
-        return view('queue.create', compact('schedules')); 
+
+        $buses = DB::table("buses")->select('id', 'bus_number')
+                    ->whereNotIn('bus_number',function($query) use($schedules) {
+                        $query->select('bus_number')
+                            ->from('queues')
+                            ->whereIn('schedule_id', $schedules);
+                    })
+                    ->where('station_id', $stations_id)
+                    ->whereNotNull('Driver_id')
+                    ->get();
+                    
+        if($buses->isEmpty()){
+            return redirect('queue')->with('error', 'You need to create a Schedule because all buses finished theri routine');
+        }
+        // return $buses;
+                
+        return view('queue.create', compact('schedules', 'routes', 'buses')); 
     }
 
     public function getBusQueue(Request $request)
@@ -83,19 +133,49 @@ class QueueController extends Controller
         $schedule = Schedule::find($id);
         $stations_id = $schedule->station_id;
 
+        // $route = Route::select('id')->get
+
+        
         // getting the buses that are not in queues table
         $buses = DB::table("buses")->select('id', 'bus_number')
                     ->whereNotIn('bus_number',function($query) use($id) {
                         $query->select('bus_number')
                             ->from('queues')
-                            ->where('schedule_id', $id);
+                            ->where('schedule_id', 21,20);
                     })
                     ->where('station_id', $stations_id)
+                    ->whereNotNull('Driver_id')
                     ->get();
 
         $data = $buses;  
         return Response()->json($data);
     }
+
+    public function getRouteSchedule(Request $request)
+    {
+        $id = $request->id; // id of the targert route
+
+        // getting the target station id;
+        $route = Route::find($id);
+        $stations_id = $route->station_id;
+
+        // getting the buses that are not in queues table
+         // getting the latest schedule saved 
+         $schedules = Schedule::select('*')
+                        ->where('station_id', $stations_id)
+                        ->where('route_id', $id)
+                        ->latest()
+                        ->first();
+
+        if(!$schedules){
+            $data = ""; 
+            return Response()->json($data);   
+        }
+
+        $data = $schedules;  
+        return Response()->json($data);
+    }
+
 
     /**
      * Store a newly created resource in storage.
@@ -106,23 +186,31 @@ class QueueController extends Controller
     public function store(Request $request)
     {
         $this->validate($request,[
+            'route' => 'required | numeric',
             'schedule' => 'required | numeric',
             'bus_number' => 'required | numeric',
         ]);
 
         $queue = new Queue();
-        $queue->Schedule_id = $request->input('schedule'); // saving schedule_id
-        $queue->bus_id = $request->input('bus_number'); // saving bus_id
+        $queue->route_id = $request->input('route');  //route_id
+        $route = Route::find($queue->route_id);       
+        $queue->route_name = $route->name;            //route_name
+
+        $queue->Schedule_id = $request->input('schedule'); // schedule_id
+        $schedule = Schedule::find($queue->Schedule_id);
+        $queue->schedule_number = $schedule->schedule_number;  // schedule_name
+
+        $queue->bus_id = $request->input('bus_number'); //  bus_id
+        $bus = Bus::find($queue->bus_id);
+        $queue->bus_number = $bus->bus_number;  // bus_number
+        $queue->station_id = $bus->station_id;  // station_id
+        $queue->station_name = $bus->station_name; // station_name
         // return $queue->bus_id; 
 
-        //saving bus_number and staion
-        $bus =Bus::find($queue->bus_id);
-
-        $queue->bus_number = $bus->bus_number; // saving bus_number
-        $queue->station_id = $bus->station_id; // saving station_id
-        $queue->station_id;
-
-        $queue->user_id = Sentinel::getUser()->id;// saving user_id
+        $queue->user_id = Sentinel::getUser()->id;// user_id
+        $user = User::find($queue->user_id);
+        $queue->user_first = $user->first_name;   // user_first
+        $queue->user_last = $user->last_name;     // user_last
         $queue->save();
 
         return redirect('queue')->with('success', 'Bus Added To The Queue');

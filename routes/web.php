@@ -398,6 +398,7 @@ Route::group(['namespace'=>'User', 'middleware' => 'user', 'as' => 'user.'], fun
         Route::get('data', 'QueueController@data')->name('queue.data');
         Route::get('{queue}/delete', 'QueueController@destroy')->name('queue.delete');
         Route::get('getBusQueue', 'QueueController@getBusQueue')->name('queue.getBusQueue');
+        Route::get('getRouteSchedule', 'QueueController@getRouteSchedule')->name('queue.getRouteSchedule');
     });
     Route::resource('queue', 'QueueController');
 
@@ -406,6 +407,7 @@ Route::group(['namespace'=>'User', 'middleware' => 'user', 'as' => 'user.'], fun
         Route::get('data', 'ReserveController@data')->name('reserve.data');
         Route::get('{reserve}/delete', 'ReserveController@destroy')->name('reserve.delete');
         Route::get('getBusSeat', 'ReserveController@getBusSeat')->name('reserve.getBusSeat');
+        Route::get('getRouteSchedule', 'ReserveController@getRouteSchedule')->name('reserve.getRouteSchedule');
     });
     Route::resource('reserve', 'ReserveController');
 

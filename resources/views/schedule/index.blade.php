@@ -330,8 +330,8 @@
                                         <div id="reocrds" class="featured-post-wide thumbnail polaroid ">
                                             <div class="featured-text relative-left">
                                                 <h3 style="text-align: center" class="success">
-                                                <a style="margin-left: -3em" href="">
-                                                    <strong> Schedule Number: &nbsp; 
+                                                <a style="margin-left: -3em;text-align: center" href="">
+                                                    <strong > Schedule No. &nbsp; 
                                                     </strong>{{$schedule->schedule_number}}
                                                 </a>
                                                 </h3>
@@ -365,7 +365,7 @@
                                                                 <p>
                                                                     <strong>Route: &nbsp; 
                                                                     </strong>
-                                                                    {!! $schedule->rout_id !!} 
+                                                                    {!! $schedule->route_name !!} 
                                                                 </p>
                                                                 <p class="additional-post-wrap">
                                                                     <span style="margin-right: -15%" class="additional-post">

@@ -3,7 +3,7 @@
 {{-- Page title --}}
 @section('title')
 Users List
-@parent
+{{-- @parent --}}
 @stop
 
 {{-- page level styles --}}

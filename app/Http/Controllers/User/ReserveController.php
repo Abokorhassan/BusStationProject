@@ -12,6 +12,7 @@ use App\Rider;
 use App\Seat;
 use App\Reserve;
 use App\Bus;
+use App\Route;
 use DB;
 use App\Schedule;
 use Sentinel;
@@ -33,19 +34,21 @@ class ReserveController extends Controller
             $stations_id = $station->id;
 
             // getting the latest schedule saved 
-            $schedules = Schedule::select('*')
-                            ->where('station_id', $stations_id)
-                            ->latest()
-                            ->first();
-            if($schedules == null){
-                return redirect('schedule')->with('error', 'You need to create a Schedule');
-            }
+            // $schedules = Schedule::select('*')
+            //                 ->where('station_id', $stations_id)
+            //                 // ->latest()
+            //                 // ->first();
+            //                 ->get();
 
-            $schedule_id = $schedules->id;      
+            // if($schedules == null){
+            //     return redirect('schedule')->with('error', 'You need to create a Schedule');
+            // }
+
+            // $schedule_id = $schedules->id;      
 
             // $stationreserve = Station::find($stations_id)->reserve()->paginate(4);
             $stationreserve = Reserve::oldest()
-                                ->where('schedule_id', $schedule_id)
+                                ->where('station_id', $stations_id)
                                 ->paginate(4);
 
             return view('reserve.index')->with('reserves',$stationreserve);
@@ -66,86 +69,110 @@ class ReserveController extends Controller
         $user = User::find($id);
         $s_id = $user->station_id; 
         $station = Station::find($s_id);
-        $stations_id = $station->id;
+        $stations_id = $station->id;     
+
+        $routes = Route::select('id','name')
+                    ->where('station_id', $stations_id)
+                    ->get();
+        $schedules = [];        
+        foreach ($routes as $route) {
+                        echo $schedules[] = Schedule::select('id')
+                                        ->whereIn('route_id', $route)
+                                        ->latest()
+                                        ->value('id');  
+        }
+
+        if(!$schedules){
+            return redirect('schedule')->with('error', 'You need to createSchedule');
+        }
+
+        $queues = Queue::select('bus_number')
+                    ->whereIn('schedule_id', $schedules)
+                    ->get();
+
+        // return $queues;
+
+        if($queues->isEmpty()){
+            return redirect('queue')->with('error', 'You need to Queue a bus');
+        }
+
+        // return $schedules;
 
         
+        // // getting the latest schedule saved 
+        // $schedules = Schedule::select('*')
+        //                 ->where('station_id', $stations_id)
+        //                 ->latest()
+        //                 ->first();
 
-        // getting the latest schedule saved 
-        $schedules = Schedule::select('*')
-                        ->where('station_id', $stations_id)
-                        ->latest()
-                        ->first();
+        // // return $schedule_number;
+        // $schedule_id = $schedules->id;
 
-
-        // getting the latest schedule_number & schedule_id & station_id of the latest schedule
-        $schedule_number = $schedules->schedule_number; 
-        // return $schedule_number;
-        $schedule_id = $schedules->id;
-        // return $schedule_id;
-        // return $schedule_id.'   '.$schedules;
-
-        $queues = Queue::select('*')
-                    ->where('schedule_id', $schedule_id)        
-                    ->oldest()
-                    ->first();
-        // return $queues;
+        // $queues = Queue::select('*')
+        //             ->where('schedule_id', $schedule_id)        
+        //             ->oldest()
+        //             ->first();
+        // // return $queues;
     
-        if($queues == null){
-            return redirect('reserve')->with('error', 'You need to Queue a bus');
-        }
-        // return $schedule_id;
+        // if($queues == null){
+        //     return redirect('reserve')->with('error', 'You need to Queue a bus');
+        // }
+        // // return $schedule_id;
 
-        $bus_id = $queues->bus_id;
-        $bus_number = $queues->bus_number;
-        // return $bus_number;
-        //   getting the seat number
-        $seat = DB::table("seats")->select('*')->whereNotIn('seat_number',function($query) use($schedule_id) {
-                        $query->select('seat_number')
-                            ->from('reserves')
-                            ->where('schedule_id', $schedule_id);
-                    })
-                    ->where('bus_id', $bus_id)
-                    ->get();
+        // $bus_id = $queues->bus_id;
+        // $bus_number = $queues->bus_number;
+        // // return $bus_number;
+        // //   getting the seat number
+        // $seat = DB::table("seats")->select('*')->whereNotIn('seat_number',function($query) use($schedule_id) {
+        //                 $query->select('seat_number')
+        //                     ->from('reserves')
+        //                     ->where('schedule_id', $schedule_id);
+        //             })
+        //             ->where('bus_id', $bus_id)
+        //             ->get();
                     
-        if($seat->isEmpty()){
-            $queue_id = $queues->id;
-            $queue = Queue::find($queue_id);
-            // return $queue_id;
-            $queue->delete();
+        // if($seat->isEmpty()){
+        //     $queue_id = $queues->id;
+        //     $queue = Queue::find($queue_id);
+        //     // return $queue_id;
+        //     $queue->delete();
             
             
-            // again getting the oldest bus in the queue to be savid
-            $queues = Queue::select('*')
-                        ->where('schedule_id', $schedule_id)        
-                        ->oldest()
-                        ->first();
-            if($queues == null){
+        //     // again getting the oldest bus in the queue to be savid
+        //     $queues = Queue::select('*')
+        //                 ->where('schedule_id', $schedule_id)        
+        //                 ->oldest()
+        //                 ->first();
+        //     if($queues == null){
 
-                return redirect('reserve')->with('error', 'You nee to Queue a bus');
-            }
+        //         return redirect('reserve')->with('error', 'You nee to Queue a bus');
+        //     }
 
-            $bus_idAgain = $queues->bus_id;
-            //   getting the seat number
-            $seatAgain = DB::table("seats")->select('*')->whereNotIn('seat_number',function($query) {
-                            $query->select('seat_number')->from('reserves');
-                        })
-                        ->where('bus_id', $bus_id)
-                        ->get();
+        //     $bus_idAgain = $queues->bus_id;
+        //     //   getting the seat number
+        //     $seatAgain = DB::table("seats")->select('*')->whereNotIn('seat_number',function($query) {
+        //                     $query->select('seat_number')->from('reserves');
+        //                 })
+        //                 ->where('bus_id', $bus_id)
+        //                 ->get();
                         
-            return view('reserve.create', compact('riders', 'queues')); 
-        }   
+        //     return view('reserve.create', compact('riders', 'queues')); 
+        // }   
 
-        // $riders = Rider::select('id','id_number')->get();
-
-        $riders = DB::table("Riders")->select('*')->whereNotIn('id',function($query) use($schedule_id) {
+        $riders = DB::table("Riders")->select('*')->whereNotIn('id',function($query) use($schedules) {
                         $query->select('rider_id')
                             ->from('reserves')
-                            ->where('schedule_id', $schedule_id);
+                            ->whereIn('schedule_id', $schedules);
                     })
                     ->get();
         // return $seat;
 
-        return view('reserve.create', compact('riders', 'queues')); 
+        $routes = Route::select('id','name')
+                    ->where('station_id', $stations_id)
+                    ->get();
+       
+
+        return view('reserve.create', compact('riders', 'routes')); 
     }
 
     public function getBusSeat(Request $request)
@@ -157,8 +184,9 @@ class ReserveController extends Controller
         $schedule_id = $queue->schedule_id;
 
         //   getting the seat number
-        $seat = DB::table("seats")->select('*')->whereNotIn('seat_number',function($query) use($schedule_id) {
-                        $query->select('seat_number')
+        $seat = DB::table("seats")->select('*')
+                    ->whereNotIn('id',function($query) use($schedule_id) {
+                        $query->select('seat_id')
                         ->from('reserves')
                         ->where('schedule_id', $schedule_id);
                     })
@@ -167,6 +195,86 @@ class ReserveController extends Controller
 
         $data = $seat;
         return Response()->json($data);
+    }
+
+    public function getRouteSchedule(Request $request)
+    {
+        $id = $request->id; // id of the targert route
+
+        // // getting the target station id;
+        // $route = Route::find($id);
+        // $stations_id = $route->station_id;
+
+        // // getting the buses that are not in queues table
+        //  // getting the latest schedule saved 
+        //  $schedules = Schedule::select('*')
+        //                 ->where('station_id', $stations_id)
+        //                 ->where('route_id', $id)
+        //                 ->latest()
+        //                 ->first();
+
+        // $data = $schedules;  
+
+        $schedule = Schedule::select('id')
+                        ->where('route_id', $id)
+                        ->latest()
+                        ->first();
+        $schedule_id = $schedule->id;
+
+        $queues = Queue::select('*')
+                        ->where('schedule_id', $schedule_id)        
+                        ->oldest()
+                        ->first();
+        if(!$queues){
+            $data = ""; 
+            return Response()->json($data);   
+        }
+
+        // $bus_id = $queues->bus_id;
+        // //   getting the seat number
+        // $seat = DB::table("seats")->select('*')->whereNotIn('seat_number',function($query) use($schedule_id) {
+        //                 $query->select('seat_number')
+        //                     ->from('reserves')
+        //                     ->where('schedule_id', $schedule_id);
+        //             })
+        //             ->where('bus_id', $bus_id)
+        //             ->get();
+                    
+        // if($seat->isEmpty()){
+        //     $queue_id = $queues->id;
+        //     $queue = Queue::find($queue_id);
+        //     // return $queue_id;
+        //     $queue->delete();
+            
+            
+        //     // again getting the oldest bus in the queue to be savid
+        //     $queues = Queue::select('*')
+        //                 ->where('schedule_id', $schedule_id)        
+        //                 ->oldest()
+        //                 ->first();
+        //     // if($queues == null){
+
+        //     //     return redirect('reserve')->with('error', 'You nee to Queue a bus');
+        //     // }
+
+        //     // $bus_idAgain = $queues->bus_id;
+        //     // //   getting the seat number
+        //     // $seatAgain = DB::table("seats")->select('*')->whereNotIn('seat_number',function($query) {
+        //     //                 $query->select('seat_number')->from('reserves');
+        //     //             })
+        //     //             ->where('bus_id', $bus_id)
+        //     //             ->get();
+                        
+        //     // return view('reserve.create', compact('riders', 'queues')); 
+        //     $data = $queues; 
+
+        //     return Response()->json($data);  
+        // }
+
+
+        $data = $queues; 
+
+        return Response()->json($data);   
     }
 
     /**
@@ -179,28 +287,64 @@ class ReserveController extends Controller
     {
         $this->validate($request,[
             'rider' => 'required',
+            'route' => 'required | numeric',
             'bus_number' => 'required | numeric',
             'seat_number' => 'required'
         ]);
         $reserve = new Reserve();
-        $reserve->rider_id = $request->input('rider');
-        // $reserve->schedule_id = $request->input('schedule');
-        $reserve->queue_id = $request->input('bus_number');
 
-        //saving bus_number and station and schedule
+        $reserve->rider_id = $request->input('rider');      //rider_id
+        $rider = Rider::find($reserve->rider_id);
+        $reserve->rider_first = $rider->first_name;     //rider_first
+        $reserve->rider_second = $rider->last_name;     //rider_second
+        $reserve->rider_third = $rider->third_name;     //rider_third
+
+        $reserve->route_id = $request->input('route');  //route_id
+        $route = Route::find($reserve->route_id);       
+        $reserve->route_name = $route->name;            //route_name
+
+        $reserve->queue_id = $request->input('bus_number');     // queue_id
         $queue = Queue::find($reserve->queue_id);
-        $reserve->bus_number = $queue->bus_number;
-        $reserve->station_id = $queue->station_id;
-        $reserve->schedule_id = $queue->schedule_id;
+        $reserve->bus_number = $queue->bus_number;      // bus_number
+        $reserve->schedule_id = $queue->schedule_id;        // schedule_id        
+        $reserve->schedule_number = $queue->schedule_number;       // schedule_number
+        $reserve->station_id = $queue->station_id ;        // station_id         
+        $reserve->station_name = $queue->station_name;       // schedule_number        
 
+        $reserve->seat_id = $request->input('seat_number');  //  seat_id
+        $seat = Seat::find($reserve->seat_id);
+        $reserve->seat_number = $seat->seat_number;     // seat_number
+        // return $reserve->seat_number;
 
-        $reserve->seat_number = $request->input('seat_number');
-
-        $reserve->user_id = Sentinel::getUser()->id;// saving user_id
-        // return $reserve->schedule_id;
+        $reserve->user_id = Sentinel::getUser()->id;   // user_id
+        $user = User::find($queue->user_id);
+        $reserve->user_first = $user->first_name;   // user_first
+        $reserve->user_last = $user->last_name;     // user_last       
 
         $reserve->save();
 
+        $queues = Queue::select('*')
+                        ->where('schedule_id', $reserve->schedule_id)        
+                        ->oldest()
+                        ->first();
+        $scheulele_Id = $reserve->schedule_id;
+        $bus_id = $queues->bus_id;
+        
+        $seat = DB::table("seats")->select('*')->whereNotIn('id',function($query) use($scheulele_Id) {
+                            $query->select('seat_id')
+                                ->from('reserves')
+                                ->where('schedule_id', $scheulele_Id);
+                        })
+                        ->where('bus_id', $bus_id)
+                        ->get();
+  
+        if($seat->isEmpty()){
+            $queue_id = $queues->id;
+            $queue = Queue::find($queue_id);
+            // return $queue_id;
+            $queue->delete();
+        }
+                    
         return redirect('reserve')->with('success', 'Seat Reserved');
 
     }

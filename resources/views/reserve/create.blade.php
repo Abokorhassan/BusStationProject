@@ -94,7 +94,7 @@
                       <input type="hidden" name="_token" value="{{ csrf_token() }}" />
 
                       <div class="form-group {{ $errors->first('rider', 'has-error') }}">
-                        <label for="ridriderer_id" class="col-sm-2 control-label">Rider ID No. *
+                        <label for="ridriderer_id" class="col-sm-2 control-label">Rider No. *
                         </label>
                         <div class="col-sm-10">
                           <select class="form-control ridercatogry" id="riderNumber" title="Select Pas..." name="rider">                                         
@@ -112,6 +112,26 @@
                           </span>') !!}
                         </div>   
                       </div>
+
+                        <div class="form-group {{ $errors->first('route', 'has-error') }}">
+                          <label for="route" class="col-sm-2 control-label">Route *
+                          </label>
+                          <div class="col-sm-10">
+                            <select class="form-control ridercatogry" id="route" name="route">                                         
+                              <option value="">Select route
+                              </option>
+                              @foreach ($routes as $route)
+                              <option value="{{ $route->id}}" 
+                                @if (old('route')=== "{{$route->id}}") selected="selected"@endif
+                                >{{ $route->name}}
+                              </option>
+                              @endforeach
+                            </select>
+                            {!! $errors->first('route', '
+                            <span class="help-block">:message
+                            </span>') !!}
+                          </div>   
+                        </div>
   
 
                       <div class="form-group {{ $errors->first('bus_number', 'has-error') }}">
@@ -122,10 +142,10 @@
                             <option value="">Select Bus
                             </option>
                             
-                            <option value="{{ $queues->id}}" 
+                            {{-- <option value="{{ $queues->id}}" 
                               @if (old('schedule')=== "{{$queues->id}}") selected="selected"@endif
                               >{{ $queues->bus_number}} 
-                            </option>
+                            </option> --}}
                           </select>
                           {!! $errors->first('bus_number', '
                           <span class="help-block">:message
@@ -199,6 +219,39 @@
   <script src="{{ asset('assets/vendors/datetimepicker/js/bootstrap-datetimepicker.min.js') }}" type="text/javascript"></script>
 
   <script>
+
+$(document).ready(function(){
+      $(document).on('change','#route',function(){
+        var id=$(this).val();
+        console.log(id);
+
+        if(id) {
+            $.ajax({
+                url: "{{ route('user.reserve.getRouteSchedule') }}",
+                type: "GET",
+                data:{'id':id},
+                dataType: "json",
+                success:function(data) {
+                    // var bus = data[2].bus_number;
+                    console.log(data);
+                    if(data)
+                    {
+                      //  also This is from stackoverflow
+                      $('select[name="bus_number"]').empty();
+                      $('select[name="bus_number"]').html('<option value=""  selected = "true">Chose seat number</option>');                    
+                      $('select[name="bus_number"]').append('<option value="'+ data['id'] +'" >'+ data['bus_number'] +'</option>');
+                    }else{
+                      $('select[name="seat_number"]').empty(); 
+                      $('select[name="bus_number"]').html('<option value=""  selected = "true">Chose seat number</option>');                    
+                    }      
+                }
+            });
+        }else{
+            $('select[name="seat_number"]').empty();
+        }
+      });
+    });
+
     $(document).ready(function(){
       $(document).on('change','#busnumber',function(){
         var id=$(this).val();
@@ -212,13 +265,13 @@
                     dataType: "json",
                     success:function(data) {
                         // var bus = data[2].bus_number;
-                        // console.log(data);
+                        console.log(data);
 
                         //   //also This is from stackoverflow
                         $('select[name="seat_number"]').empty();
                         // $('select[name="seat_number"]').html('<option value=""  selected = "true">Chose seat number</option>');
                         $.each( data, function( index, object ) {
-                          $('select[name="seat_number"]').append('<option value="'+ object['seat_number'] +'" >'+ object['seat_number'] +'</option>');
+                          $('select[name="seat_number"]').append('<option value="'+ object['id'] +'" >'+ object['seat_number'] +'</option>');
                         });
                     }
                 });
