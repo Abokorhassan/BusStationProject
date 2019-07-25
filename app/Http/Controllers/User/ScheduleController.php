@@ -10,8 +10,10 @@ use App\Schedule;
 use App\Queue;
 use Sentinel;
 use App\Route;
+use DB;
 class ScheduleController extends Controller
 {
+    
     /**
      * Display a listing of the resource.
      *
@@ -30,11 +32,232 @@ class ScheduleController extends Controller
                                 ->where('station_id', $stations_id)
                                 ->paginate(4);
             // $stationschedule = Station::find($stations_id)->schedule()->paginate(4);
-            return view('schedule.index')->with('schedules',$stationschedule);
+            
+            $routes = Route::select('id','name')
+                        ->where('station_id', $stations_id)
+                        ->get();
+            
+            // $tabSchedule = Schedule::
+            //                     where('station_id',$s_id)
+            //                     ->latest()->get();
+
+            // $tabSchedule = Schedule::all()
+            //                     // ->latest()
+            //                     ->groupBy('route_id');
+
+            // $tabSchedule = DB::table('schedules')
+            //                     ->select('schedule_number')
+            //                     ->where('station_id', $stations_id)
+            //                     // ->groupBy('route_id')
+            //                     ->latest()
+            //                     ->get();
+            $id = 5;
+            // $tabSchedule = Schedule::
+            //                     select('schedule_number')
+            //                     // ->groupBy('route_id')
+            //                     ->where('route_id', $id)
+            //                     ->latest()
+            //                     ->get();
+            $tabSchedule = Schedule::
+                                select('*')
+                                // ->where('station_id', $stations_id
+                                // ->where('station_id', $stations_id)
+                                ->where('route_id', $id)
+                                ->latest()
+                                ->get();
+            // $data = DB::table('schedules')
+            //                     ->where('station_id', $stations_id)
+            //                     // ->get();
+            //                     ->paginate(2)->toArray();
+
+            // // return $data;
+            return view('schedule.index', compact('routes','tabSchedule'))->with('schedules',$stationschedule);
         }
         $schedules = null;  
         return view('schedule.index', compact('schedules'));
     }
+
+    public function getId(Request $request)
+    {
+        $id = $request->id;
+
+        $user_id= Sentinel::getUser()->id;
+        $user = User::find($user_id);
+        $s_id = $user->station_id; 
+        $station = Station::find($s_id);
+        $stations_id = $station->id;
+       
+        $tabSchedule = Schedule::
+                            select('*')
+                            ->where('station_id', $stations_id)
+                            ->where('route_id', $id)
+                            ->latest()
+                            ->get();
+        $data = $tabSchedule;
+        // $data = $id;
+
+        return Response()->json($data);
+    }
+
+    public function liveSearch(Request $request)
+    {
+        $user_id= Sentinel::getUser()->id;
+        $user = User::find($user_id);
+        $s_id = $user->station_id; 
+        $station = Station::find($s_id);
+        $stations_id = $station->id;
+      
+        if($request->ajax())
+        {
+            $output = '';
+            $query = $request->get('query');
+            if($query != '')
+            {
+                $data= DB::table('schedules')
+                            ->where('station_id', $stations_id)
+                            
+                            ->where(function($q)use($query){
+                                $q->where('route_name', 'like', '%'.$query.'%')
+                                ->orWhere('schedule_number', 'like', '%'.$query.'%')
+                                ->orWhere('user_first', 'like', '%'.$query.'%')
+                                ->orWhere('id', 'like', '%'.$query.'%')
+                                ->orWhere('created_at', 'like', '%'.$query.'%');
+                            })
+                            ->get();
+                
+
+            }
+            else
+            {
+                $data = DB::table('schedules')
+                            ->where('station_id', $stations_id)
+                            ->get();
+                            // ->paginate(2);
+                            // ->toArray();
+            }
+            $total_row = $data->count();
+            if($total_row > 0)
+            {
+                foreach($data as $row)
+                {
+                        // $output .= '
+                                // <tr>
+                                //     <td>'.$row->id.'</td>
+                                //     <td>'.$row->schedule_number.'</td>
+                                //     <td>'.$row->route_name.'</td>
+                                //     <td>'.$row->user_first.'</td>
+                                //     <td>'.$row->created_at.'</td>
+                                //     <td> <a style="margin-left: em; " href="' . url('schedule/' .$row->id .'/edit') . '">
+                                //         <button style=" font-size: 1em; width: 4.5em; height: 2.5em;"  type="button" class="btn btn-success btn-sm">Edit
+                                //         </button>
+                                //     </a></td>
+                                //     <td> <a style="color: white; margin-left: em;" href="javascript:;" data-toggle="modal" onclick="deleteData('.$row->id.')" 
+                                //         data-target="#delete_confirm" class="btn btn-danger">
+                                        
+                                //         Delete
+                                //     </a></td>
+                                // </tr>
+                        // ';   
+                        
+                        
+                    $output .= '
+            
+                        <!-- BEGIN FEATURED POST -->
+                        <div class="col-sm-6">
+                            <div id="reocrds" class="featured-post-wide thumbnail polaroid ">
+                                <div class="featured-text relative-left">
+                                    <h3 style="text-align: center" class="success">
+                                    <a style="margin-left: -3em;text-align: center" href="">
+                                        <strong > Schedule No. &nbsp; 
+                                        </strong>'.$row->schedule_number.'
+                                    </a>
+                                    </h3>
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <div class="row">
+                                                <div class="col-sm-6">
+                                                    <p>
+                                                        <strong>ID: &nbsp; 
+                                                        </strong>
+                                                        '.$row->id.'
+                                                    </p>
+                                                    <p  class="additional-post-wrap">
+                                                        <span class="additional-post">
+                                                            <i class="livicon" data-name="user" data-size="13" data-loop="true" data-c="#5bc0de" data-hc="#5bc0de">
+                                                            </i>
+                                                            <a href="#">&nbsp;
+                                                            '.$row->user_first.'
+                                                                
+                                                            </a>
+                                                        </span>
+                                                    </p>
+                                                    <a style="margin-left: 5em; " href="' . url('schedule/' .$row->id .'/edit') . '">
+                                                        <button style=" font-size: 1em; width: 4.5em; height: 2.5em;"  type="button" class="btn btn-success btn-sm">Edit
+                                                        </button>
+                                                    </a>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <p>
+                                                        <strong>Route: &nbsp; 
+                                                        </strong>
+                                                        '.$row->route_name.' 
+                                                    </p>
+                                                    <p class="additional-post-wrap">
+                                                        <span style="margin-right: -15%" class="additional-post">
+                                                            <i class="livicon" data-name="clock" data-size="13" data-loop="true" data-c="#5bc0de" data-hc="#5bc0de">
+                                                            </i>
+                                                            <a href="#"> '. $row->created_at .'
+                                                            </a>
+                                                        </span>
+                                                    </p>
+                                                    <a style="color: white; margin-left: -2em;" href="javascript:;" data-toggle="modal" onclick="deleteData('.$row->id.')" 
+                                                        data-target="#delete_confirm" class="btn btn-danger">
+                                                        
+                                                        Delete
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- /.featured-text -->
+                            </div>
+                        </div>
+                    ';
+                }
+            }
+            else
+            {
+                $output = '
+                    <p>
+                        No Schedule Lists found
+                    </p>
+                ';
+            }
+
+            // $records = array(
+            //     'schedule'  => $output,
+            //     'data1'  => $total_row
+            //    );
+
+
+            // echo json_encode($records);
+            return response()->json([       
+                'success' => true, 
+                'schedule' => $output,
+                // 'html' => view('data.list')->render()
+                // 'paginate' => '$data->links()'
+  
+            ]); 
+
+            // return response()->json([
+            //     'success' => true, 
+            //     'html' => view('hospitals.list')->render()
+            // ]);     
+        }
+    
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -185,7 +408,8 @@ class ScheduleController extends Controller
     public function destroy($id)
     {
         $schedule = Schedule::find($id);
-        $schedule->delete();
+        return $schedule->schedule_number;
+        // $schedule->delete();
         return redirect('schedule')->with('success', 'Schedule Deleted');
     }
 }

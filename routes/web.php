@@ -390,6 +390,8 @@ Route::group(['namespace'=>'User', 'middleware' => 'user', 'as' => 'user.'], fun
     Route::group(['prefix' => 'schedule'], function () {
         Route::get('data', 'ScheduleController@data')->name('schedule.data');
         Route::get('{schedule}/delete', 'ScheduleController@destroy')->name('schedule.delete');
+        Route::get('getId', 'ScheduleController@getId')->name('schedule.getId');
+        Route::get('liveSearch', 'ScheduleController@liveSearch')->name('schedule.liveSearch');
     });
     Route::resource('schedule', 'ScheduleController');
 

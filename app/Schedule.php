@@ -10,7 +10,6 @@ class Schedule extends Model
     {
         return $this->belongsTo(User::class);
     }
-
     public function station()
     {
         return $this->belongsTo(Station::class);
@@ -22,5 +21,9 @@ class Schedule extends Model
     public function reserve()
 	{
 		return $this->hasMany(Reserve::class);
+    }
+    public function route()
+	{
+		return $this->belongsTo(Route::class);
 	}
 }
