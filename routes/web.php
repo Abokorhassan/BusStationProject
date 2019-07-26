@@ -388,6 +388,7 @@ Route::group(['namespace'=>'User', 'middleware' => 'user', 'as' => 'user.'], fun
 
     //Schedule
     Route::group(['prefix' => 'schedule'], function () {
+        Route::get('show', 'ScheduleController@show')->name('schedule.show');
         Route::get('data', 'ScheduleController@data')->name('schedule.data');
         Route::get('{schedule}/delete', 'ScheduleController@destroy')->name('schedule.delete');
         Route::get('getId', 'ScheduleController@getId')->name('schedule.getId');

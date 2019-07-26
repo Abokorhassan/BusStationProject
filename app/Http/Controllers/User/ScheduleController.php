@@ -30,7 +30,7 @@ class ScheduleController extends Controller
 
             $stationschedule = Schedule::latest()
                                 ->where('station_id', $stations_id)
-                                ->paginate(4);
+                                ->paginate(2);
             // $stationschedule = Station::find($stations_id)->schedule()->paginate(4);
             
             $routes = Route::select('id','name')
@@ -51,7 +51,7 @@ class ScheduleController extends Controller
             //                     // ->groupBy('route_id')
             //                     ->latest()
             //                     ->get();
-            $id = 5;
+   
             // $tabSchedule = Schedule::
             //                     select('schedule_number')
             //                     // ->groupBy('route_id')
@@ -127,14 +127,14 @@ class ScheduleController extends Controller
                 
 
             }
-            else
-            {
-                $data = DB::table('schedules')
-                            ->where('station_id', $stations_id)
-                            ->get();
-                            // ->paginate(2);
-                            // ->toArray();
-            }
+            // else
+            // {
+            //     $data = DB::table('schedules')
+            //                 ->where('station_id', $stations_id)
+            //                 // ->get();
+            //                 ->paginate(2);
+            //                 // ->toArray();
+            // }
             $total_row = $data->count();
             if($total_row > 0)
             {
@@ -183,8 +183,8 @@ class ScheduleController extends Controller
                                                     </p>
                                                     <p  class="additional-post-wrap">
                                                         <span class="additional-post">
-                                                            <i class="livicon" data-name="user" data-size="13" data-loop="true" data-c="#5bc0de" data-hc="#5bc0de">
-                                                            </i>
+                                                           
+                                                            <i class="fa fa-user"></i>  
                                                             <a href="#">&nbsp;
                                                             '.$row->user_first.'
                                                                 
@@ -196,17 +196,16 @@ class ScheduleController extends Controller
                                                         </button>
                                                     </a>
                                                 </div>
-                                                <div class="col-sm-6">
-                                                    <p>
+                                                <div  class="col-sm-6">
+                                                    <p style="margin-left: -12%">
                                                         <strong>Route: &nbsp; 
                                                         </strong>
                                                         '.$row->route_name.' 
                                                     </p>
-                                                    <p class="additional-post-wrap">
+                                                    <p style="margin-left: -12%" class="additional-post-wrap">
                                                         <span style="margin-right: -15%" class="additional-post">
-                                                            <i class="livicon" data-name="clock" data-size="13" data-loop="true" data-c="#5bc0de" data-hc="#5bc0de">
-                                                            </i>
-                                                            <a href="#"> '. $row->created_at .'
+                                                        <i class="fa fa-clock-o"></i> &nbsp;  
+                                                             <a  href="#"> '. $row->created_at.'
                                                             </a>
                                                         </span>
                                                     </p>
@@ -235,20 +234,21 @@ class ScheduleController extends Controller
                 ';
             }
 
-            // $records = array(
-            //     'schedule'  => $output,
-            //     'data1'  => $total_row
-            //    );
+            $records = array(
+                'output'  => $output,
+                'schedules'  => $data
+            );
 
 
-            // echo json_encode($records);
-            return response()->json([       
-                'success' => true, 
-                'schedule' => $output,
-                // 'html' => view('data.list')->render()
-                // 'paginate' => '$data->links()'
+            echo json_encode($records);
+            // return response()->json($records);
+            // return response()->json([       
+            //     'success' => true, 
+            //     'schedule' => $output,
+            //     // 'html' => view('data.list')->render()
+            //     // 'paginate' => '$data->links()'
   
-            ]); 
+            // ]); 
 
             // return response()->json([
             //     'success' => true, 
@@ -345,7 +345,9 @@ class ScheduleController extends Controller
      */
     public function show($id)
     {
-        //
+        $schedule = Schedule::find($id);
+        // return $schedule;
+        return view('schedule.show', compact('schedule'));
     }
 
     /**

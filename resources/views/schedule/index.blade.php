@@ -32,7 +32,12 @@
             width: 200px;
             height: 150px;   */
         }
-    </style>
+        .clickable
+        {
+        border:1px solid #ccc;
+            cursor:pointer;
+        }
+            </style>
 
     <!-- Modal Delete CSS -->
     <style>
@@ -298,7 +303,7 @@
             <div></div>
             Schedule Lists
             @if($schedules != null)
-                <a style="margin-left: 40%;" href="{{ URL::to('schedule/create') }}">
+                <a style="margin-left: 52%;" href="{{ URL::to('schedule/create') }}">
                     <button style=" border-color: #09bd8f; width: 12%;" type="button" class="btn btn-default bt-lg">Add New Schedule
                     </button>
                 </a>
@@ -326,15 +331,123 @@
 
         <div class="row">
             <div class="content">
-
                 <div id="d" class="col-md-8 right_float ">
-                    
-                    {{-- <ul class="pager">
+                    @if(!$schedules == null)
+                        @forelse ($schedules->chunk(3) as $collection)
+                            @foreach ($collection as $schedule)
+                            
+                                <!-- BEGIN FEATURED POST -->
+                                <div class="col-sm-6">
+                                    <div id="reocrds" class="featured-post-wide thumbnail polaroid clickable ">
+                                        <a id="anchor" href="{{ URL::to('schedule/' .$schedule->id .'') }}"></a>
+                                        <div class="featured-text relative-left">
+                                            <h3 style="text-align: center" class="success">
+                                            <a style="margin-left: -3em;text-align: center" href="#">
+                                                <strong > Schedule No. &nbsp; 
+                                                </strong>{{$schedule->schedule_number}}
+                                            </a>
+                                            </h3>
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <div class="row">
+                                                        <div class="col-sm-6">
+                                                            <p>
+                                                                <strong>ID: &nbsp; 
+                                                                </strong>
+                                                                {!! $schedule->id !!}
+                                                            </p>
+                                                            <p  class="additional-post-wrap">
+                                                                <span class="additional-post">
+                                                                    <i class="livicon" data-name="user" data-size="13" data-loop="true" data-c="#5bc0de" data-hc="#5bc0de">
+                                                                    </i>
+                                                                    <a href="#">&nbsp;
+                                                                        @if (isset($schedule->user_id) && $schedule->user && $schedule->user->first_name)
+                                                                            {{$schedule->user->first_name.' '.$schedule->user->last_name }}
+                                                                        @endif
+                                                                        
+                                                                    </a>
+                                                                </span>
+                                                            </p>
+                                                            <a style="margin-left: 5em; " href="{{ URL::to('schedule/' .$schedule->id .'/edit') }}">
+                                                                <button style=" font-size: 1em; width: 4.5em; height: 2.5em;"  type="button" class="btn btn-success btn-sm">Edit
+                                                                </button>
+                                                            </a>
+                                                        </div>
+                                                        <div class="col-sm-6">
+                                                            <p>
+                                                                <strong>Route: &nbsp; 
+                                                                </strong>
+                                                                {!! $schedule->route_name !!} 
+                                                            </p>
+                                                            <p class="additional-post-wrap">
+                                                                <span style="margin-right: -15%" class="additional-post">
+                                                                    <i class="livicon" data-name="clock" data-size="13" data-loop="true" data-c="#5bc0de" data-hc="#5bc0de">
+                                                                    </i>
+                                                                    <a href="#"> {{$schedule->created_at->diffForHumans()}} 
+                                                                    </a>
+                                                                </span>
+                                                            </p>
+                                                            <a style="color: white; margin-left: -2em;" href="javascript:;" data-toggle="modal" onclick="deleteData({{$schedule->id}})" 
+                                                                data-target="#delete_confirm" class="btn btn-danger">
+                                                                {{-- <i class="fa fa-trash"></i>  --}}
+                                                                Delete
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- /.featured-text -->
+                                    </div>
+                                </div>
+                        
+                                {{-- Delete Modal --}}
+                                <form method="POST" id="deleteForm" >
+                                    {{ csrf_field() }}
+                                    {{ method_field('DELETE') }}
+                                    <div  class="modal fade" id="delete_confirm" tabindex="-1" role="dialog" aria-labelledby="user_delete_confirm_title" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                        <div class="modal-content">
+                                        
+                                            <!-- Modal Header -->
+                                            <div class="modal-header">
+                                                <h4 class="modal-title">
+                                                    <strong>Delete Schedule</strong>
+                                                </h4>
+                                                <button type="button" class="close" style="color: red" data-dismiss="modal">&times;</button>
+                                            </div>
+                                            
+                                            <!-- Modal body -->
+                                            <div class="modal-body">
+                                                <h5>You sure, you want to DELETE This Schedule?</h5>
+                                            </div>
+                                            
+                                            <!-- Modal footer -->
+                                            <div class="modal-footer">
+                                                <button style=" border-color: #09bd8f;" type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                                                <button style="color: white;" type="submit" name="" class="btn btn-danger" data-dismiss="modal" onclick="formSubmit()">Delete</button>
+                                            </div>
+                                            
+                                        </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            @endforeach
+                                <!-- /.featured-post-wide -->
+                                <!-- END FEATURED POST -->
+                        @empty
+                        <h3>No Schedule On your collections!
+                        </h3>
+                            
+                        @endforelse
+                        <ul class="pager">
                             {{ $schedules->links() }}
-                            {!! $apps->render() !!}
-                    </ul> --}}
-                    {{-- <h1>hello</h1> --}}
-  
+                            {{-- {!! $apps->render() !!} --}}
+                        </ul>
+                    @else 
+                        <p>No Schedule Lists found
+                        </p>
+                    @endif
                 </div>
                  
                 {{-- Delete Modal --}}
@@ -434,7 +547,13 @@
             $("#deleteForm").submit();
         }
 
+        $(document).ready(function(){
+ 
+            $('.clickable').click(function(){
+                window.location = $(this).find("#anchor").attr("href");
+            });
         
+        });
         
         
         $("ul.nav-tabs > li > a").click(function() {
@@ -465,7 +584,7 @@
 
         $("ul.nav-tabs > li:first > a").trigger( "click" );
 
-        fetch_customer_data();
+        // fetch_customer_data();
         function fetch_customer_data(query = '')
         {
             $.ajax({
@@ -473,15 +592,15 @@
                 method:'GET',
                 data:{query:query},
                 dataType:'json',
-                success:function(data)
+                success:function(records)
                 {
                     // console.log(records.schedule);
                     // console.log(schedule.output);
                     
-                    console.log(data.schedule);
-                    $('#d').html(data.schedule);
+                    console.log(records.output);
+                    $('#d').html(records.output);
                     // $('tbody').html(output);
-                    // $('#d').prepend(' <ul class="pager">'+ records.data1.links +'</ul>');
+                    // $('#pager').html(' <ul class="pager">'+ records.schedules.links +'</ul>');
                     // $('#d').prepend('<h1>NO</h1>');
                     // $('#d').prepend(records.schedule);
                     
