@@ -27,126 +27,140 @@ class BusController extends Controller
         $station = Station::find($s_id);
         if(!$station == ''){
             $stations_id = $station->id;
-            $stationbus = Station::find($stations_id)->bus()->paginate(3);
-            return view('bus.index')->with('buses',$stationbus);
+            // $stationbus = Station::find($stations_id)->bus()->paginate(3);
+            $stationbus = Bus::latest()
+                            ->where('station_id', $stations_id)
+                            ->paginate(4);
+                            // return $stationbus;
+            $busLatest = Bus::latest()
+                            ->where('station_id', $stations_id)
+                            ->get();
+
+            return view('bus.index', compact('busLatest'))->with('buses',$stationbus);
         }
 
         $buses = null;  
         return view('bus.index', compact('buses'));
     }
 
-    // public function station(){
-    //     $stations = Station::select('id','name')->get();
-    //     $id= Sentinel::getUser()->id;
-    //     $user = User::find($id);
-    //     $s_id = $user->station_id; 
-    //     $station = Station::find($s_id);
-    //     $stations_id = $station->id;
-    //     return $station;
-    // }
-
-    public function search(Request $request)
+    public function liveSearch(Request $request)
     {
-        // return  $availableTags = [
-            //     "abokor",
-            //     "ActionScript",
-            //     "AppleScript",
-            //     "Asp",
-            //     "BASIC",
-            //     "C",
-            //     "C++",
-            //     "Clojure",
-            //     "COBOL",
-            //     "ColdFusion",
-            //     "Erlang",
-            //     "Fortran",
-            //     "Groovy",
-            //     "Haskell",
-            //     "Java",
-            //     "JavaScript",
-            //     "Lisp",
-            //     "Perl",
-            //     "PHP",
-            //     "Python",
-            //     "Ruby",
-            //     "Scala",
-            //     "Scheme"
-        // ];
-
-        $term = $request->term;
-        $buses = Bus::where('bus_number', 'LIKE', '%'.$term.'%')->get();
-        if(count($buses) == 0){
-            $searchResult[] = 'No item found';
-        }else {
-            foreach($buses as $key => $vlaue){
-                $searchResult[] = $vlaue->bus_number;
-            }
-        }
-        return $searchResult;
-    }
-
-    // public function action(Request $request)
-        // {
-        //     if($request->ajax()){
-        //         $query = $request->get('query');
-        //         if($query != ''){
-        //             $data = DB::table('buses')
-        //                     ->where('id', 'like', '%'.$query.'%')
-        //                     ->orwhere('model_type', 'like', '%'.$query.'%')
-        //                     ->orwhere('bus_number', 'like', '%'.$query.'%')
-        //                     ->orwhere('Driver_id', 'like', '%'.$query.'%')
-        //                     ->orderBy('id', 'desc')
-        //                     ->get();
-        //         }else {
-        //             $data = DB::table('buses')
-        //                     ->orderBy('id', 'desc')
-        //                     ->get();
-        //         }
-        //         $total_row = $data>count();
-        //         if($total_row >0){
-        //             foreach($data as $row){
-        //                 $output = '      
-        //                 <div class="featured-text relative-left">
-        //                     <h3 class="primary"><a href="">'.$row->bus_number.'</a></h3>
-        //                     <p><strong>Driver Number:  </strong>
-
-        //                         '.$row->driver_id.'
-        //                     </p>
-        //                     <p>
-        //                         <strong>Model:  </strong>
-        //                         '.$row->model_type.'
-        //                     </p>
-        //                     <p class="additional-post-wrap">
-        //                         <span class="additional-post">
-        //                             <i class="livicon" data-name="user" data-size="13" data-loop="true" data-c="#5bc0de" data-hc="#5bc0de"></i><a href="#">&nbsp;'.$row->bus_id.'</a>
-        //                         </span>
-        //                         <span class="additional-post">
-        //                             <i class="livicon" data-name="clock" data-size="13" data-loop="true" data-c="#5bc0de" data-hc="#5bc0de"></i><a href="#"> '.$row->created_at->diffForHumans().' </a>
-        //                         </span>
-        //                     </p>
-        //                 </div>                 
-        //                 ';
-        //             }
-
-        //         }else {
-        //             $output = '
-        //             <div id="reocrds" class="featured-post-wide thumbnail polaroid ">
-        //                 <div class="featured-text relative-left">
-        //                     Not Data found
-        //                 </div>
-        //             <!-- /.featured-text -->
-        //             </div>
+        $user_id= Sentinel::getUser()->id;
+        $user = User::find($user_id);
+        $s_id = $user->station_id; 
+        $station = Station::find($s_id);
+        $stations_id = $station->id;
+      
+        if($request->ajax())
+        {
+            $output = '';
+            $query = $request->get('query');
+            if($query != '')
+            {
+                $data= DB::table('buses')
+                            ->where('station_id', $stations_id)
                             
-        //             ';
-        //         }
-        //         $data = array(
-        //             'reocrds'  => $output,
-        //             'total_records' => $output
-        //         );
-        //         echo json_encode($data);
-        //     }   
+                            ->where(function($q)use($query){
+                                $q->where('model_type', 'like', '%'.$query.'%')
+                                ->orWhere('bus_number', 'like', '%'.$query.'%')
+                                ->orWhere('driver_number', 'like', '%'.$query.'%')
+                                ->orWhere('user_first', 'like', '%'.$query.'%')
+                                ->orWhere('user_last', 'like', '%'.$query.'%')
+                                ->orWhere('created_at', 'like', '%'.$query.'%');
+                            })
+                            ->get();
+                
 
-    // }
+            }
+            $total_row = $data->count();
+            if($total_row > 0)
+            {
+                foreach($data as $row)
+                {
+                    $output .= '
+            
+                        <!-- BEGIN FEATURED POST -->
+                        <div class="col-sm-6">
+                            <div id="reocrds" class="featured-post-wide thumbnail polaroid ">
+                       
+                                <div class="featured-text relative-left">
+                                    <h3 style="text-align: center" class="success">
+                                    <a style="margin-left: -3em;text-align: center" href="' .url('bus/' .$row->id ).' ">
+                                        <strong > Bus_number No. &nbsp; 
+                                        </strong>'.$row->bus_number.'
+                                    </a>
+                                    </h3>
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <div class="row">
+                                                <div class="col-sm-6">
+                                                    <p>
+                                                        <strong>Model: &nbsp; 
+                                                        </strong>
+                                                        '.$row->model_type.'
+                                                    </p>
+                                                    <p  class="additional-post-wrap">
+                                                        <span class="additional-post">
+                                                           
+                                                            <i class="fa fa-user"></i>  
+                                                            <a href="#">&nbsp;
+                                                            '.$row->user_first.'
+                                                                
+                                                            </a>
+                                                        </span>
+                                                    </p>
+                                                    <a style="margin-left: 5em; " href="' . url('bus/' .$row->id .'/edit') . '">
+                                                        <button style=" font-size: 1em; width: 4.5em; height: 2.5em;"  type="button" class="btn btn-success btn-sm">Edit
+                                                        </button>
+                                                    </a>
+                                                </div>
+                                                <div  class="col-sm-6">
+                                                    <p style="margin-left: -12%">
+                                                        <strong>Driver: &nbsp; 
+                                                        </strong>
+                                                        '.$row->driver_number.' 
+                                                    </p>
+                                                    <p style="margin-left: -12%" class="additional-post-wrap">
+                                                        <span style="margin-right: -15%" class="additional-post">
+                                                        <i class="fa fa-clock-o"></i> &nbsp;  
+                                                             <a  href="#"> '. $row->created_at.'
+                                                            </a>
+                                                        </span>
+                                                    </p>
+                                                    <a style="color: white; margin-left: -2em;" href="javascript:;" data-toggle="modal" onclick="deleteData('.$row->id.')" 
+                                                        data-target="#delete_confirm" class="btn btn-danger">
+                                                        
+                                                        Delete
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- /.featured-text -->
+                            </div>
+                        </div>
+                    ';
+                }
+            }
+          
+            else
+            {
+                $output = '
+                    <p>
+                        No Bus Lists found
+                    </p>
+                ';
+            }
+
+            $records = array(
+                'output'  => $output,
+                'buses'  => $data
+            );
+
+            echo json_encode($records);    
+        }
+    }
 
     /**
      * Show the form for creating a new resource.
@@ -161,6 +175,10 @@ class BusController extends Controller
         $station = Station::find($s_id);
         $stations_id = $station->id;
 
+        $busLatest = Bus::latest()
+                        ->where('station_id', $stations_id)
+                        ->get();
+
         // $drivers = Driver::select('id','driver_number')
         //             ->where('station_id', $stations_id)
         //             ->get();
@@ -172,7 +190,7 @@ class BusController extends Controller
                     ->where('station_id', $stations_id)
                     ->get();
 
-        return view('bus.create', compact('drivers')); 
+        return view('bus.create', compact('drivers','busLatest')); 
     }
 
     /**
@@ -190,30 +208,25 @@ class BusController extends Controller
             
         ]);   
         $bus = new Bus();
-        $bus->model_type =$request->input('model_type');
-        $bus->bus_number =$request->input('bus_number');
+        $bus->model_type =$request->input('model_type');    // model type
+        $bus->bus_number =$request->input('bus_number');    // bus_number
 
-        $driver_id =$request->input('driver_number');
+        $driver_id =$request->input('driver_number');   
         if($driver_id){
-            $bus->Driver_id = $driver_id;
+            $bus->Driver_id = $driver_id;               // driver_id
             $driver = Driver::find($bus->Driver_id);
-            $bus->driver_number = $driver->driver_number;
+            $bus->driver_number = $driver->driver_number;   // driver_number
         }
 
-        // get station id of the current user 
-        // $stations = Station::select('id','name')->get();
-        $id= Sentinel::getUser()->id;
-        $user = User::find($id);
-        $s_id = $user->station_id; 
-        $station = Station::find($s_id);
-        $stations_id = $station->id;
-        $bus->station_id = $stations_id;
-        $bus->station_name = $station->name;
-
-        $bus->user_id = Sentinel::getUser()->id;
+        $bus->user_id = Sentinel::getUser()->id;  // user_id
         $user = User::find($bus->user_id);
-        $bus->user_first = $user->first_name;
-        $bus->user_last = $user->last_name;
+        $bus->user_first = $user->first_name;   // user_first
+        $bus->user_last = $user->last_name;     // user_last
+
+        $bus->station_id = $user->station_id;    // station_id
+        $station = Station::find($bus->station_id);
+        $bus->station_name = $station->name;  // station_name
+
         $bus->save();
 
         return redirect('bus')->with('success', 'Bus Created');
@@ -226,9 +239,10 @@ class BusController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show()
+    public function show($id)
     {
-        return view('bus.show');
+        $bus = Bus::find($id);
+        return view('bus.show',compact('bus'));
     }
 
     /**
@@ -252,7 +266,12 @@ class BusController extends Controller
                         ->orWhere('driver_number', $bus->driver_number);
 
         $opDrivers = $drivers->pluck('driver_number', 'id')->toArray();
-        return view('bus.edit', compact('bus', 'drivers', 'opDrivers'));
+
+        $busLatest = Bus::latest()
+                        ->where('station_id', $stations_id)
+                        ->get();
+
+        return view('bus.edit', compact('bus', 'drivers', 'opDrivers', 'busLatest'));
     }
 
     /**
@@ -271,29 +290,20 @@ class BusController extends Controller
         
         $bus = Bus::find($id);
 
-        $bus->bus_number =$request->input('bus_number');
+        $bus->bus_number =$request->input('bus_number');    // bus_number
         $driver_id =$request->input('Driver_id');
 
         if($driver_id){
-            $bus->Driver_id = $driver_id;
+            $bus->Driver_id = $driver_id;   // driver_id
             $driver = Driver::find($bus->Driver_id);
-            $bus->driver_number = $driver->driver_number;
+            $bus->driver_number = $driver->driver_number;   // driver_number
             // return $bus->driver_number;
         }else{
             $bus->Driver_id = null;
             $bus->driver_number = '';
             // return 'empty';
         }
-
-        // get station id of the current user 
-        // $stations = Station::select('id','name')->get();
-        $id= Sentinel::getUser()->id;
-        $user = User::find($id);
-        $s_id = $user->station_id; 
-        $station = Station::find($s_id);
-        $stations_id = $station->id;
-        $bus->station_id = $stations_id;
-        $bus->station_name = $station->name;
+        
         $bus->save();
 
         #redirect
@@ -331,7 +341,6 @@ class BusController extends Controller
         }else{
             
         }
-
         $bus->delete();
         return redirect('bus')->with('success', 'Bus Deleted');
     }

@@ -1,51 +1,145 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <title>Bootstrap Example</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-</head>
-<body>
+@extends('layouts/default')
 
-<div class="container">
-  <h2>Fading Modal</h2>
-  <p>Add the "fade" class to the modal container if you want the modal to fade in on open and fade out on close.</p>
+{{-- Page title --}}
+@section('title')
+    Bus  Detail
+@stop
 
-  <!-- Button to Open the Modal -->
-  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
-    Open modal
-  </button>
+{{-- page level styles --}}
+@section('header_styles')
+    
+  <meta name="csrf_token" content="{{ csrf_token() }}">
+  <link href="{{ asset('assets/vendors/jasny-bootstrap/css/jasny-bootstrap.css') }}" rel="stylesheet"/>
+  <link href="{{ asset('assets/vendors/x-editable/css/bootstrap-editable.css') }}" rel="stylesheet"/>
+  <link href="{{ asset('assets/css/pages/user_profile.css') }}" rel="stylesheet"/>
+    
+@stop
 
-  <!-- The Modal -->
-  <div class="modal fade" id="myModal">
-    <div class="modal-dialog">
-      <div class="modal-content">
-      
-        <!-- Modal Header -->
-        <div class="modal-header">
-          <h4 class="modal-title">Modal Heading</h4>
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
+{{-- breadcrumb --}}
+@section('top')
+    <div style="background-color: ##68d8bb" class="breadcum">
+        <div  class="container">
+            <ol class="breadcrumb right_float">
+            <li>
+                <a href="{{ route('home') }}"> 
+                <i class="livicon icon3 icon4" data-name="home" data-size="18" data-loop="true" data-c="#3d3d3d" data-hc="#3d3d3d">
+                </i>Dashboard
+                </a>
+            </li>
+            <li class="hidden-xs">
+                <i class="livicon icon3" data-name="angle-double-right" data-size="18" data-loop="true" data-c="#01bc8c" data-hc="#01bc8c">
+                </i>
+                <a href="#">Bus
+                </a>
+            </li>
+            <li class="hidden-xs">
+                <i class="livicon icon3" data-name="angle-double-right" data-size="18" data-loop="true" data-c="#01bc8c" data-hc="#01bc8c">
+                </i>
+                <a href="#">Bus Detail
+                </a>
+            </li>
+            </ol>
         </div>
-        
-        <!-- Modal body -->
-        <div class="modal-body">
-          Modal body..
-        </div>
-        
-        <!-- Modal footer -->
-        <div class="modal-footer">
-          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-        </div>
-        
-      </div>
     </div>
-  </div>
-  
-</div>
+@stop
 
-</body>
-</html>
+{{-- Page content --}}
+@section('content')
+    <!-- Container Section Strat -->
+    <section   class="content">
+        <div  class="row">
+            <div class="col-lg-12">
+                <div style="margin-left: 15em"  class="tab-content mar-top">
+                    <div id="tab1" class="tab-pane fade active in">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="panel">
+                                    <div  class="panel-heading">
+                                        <h1 class="panel-title">
+  
+                                            Bus Detail
+                                            <a style="margin-left: 46%;" href="{{ URL::to('seat/createBusSeats/'.$bus->id .'') }}">
+                                                <button style=" border-color: #09bd8f; width: 12%;" type="button" class="btn btn-default bt-lg">Add Seat
+                                                </button>
+                                            </a>
+                                        </h1>
+                                        
+  
+                                    </div>
+                                    <div class="panel-body">
+                                        <div class="col-md-8">
+                                            <div  class="panel-body">
+                                                <div class="table-responsive">
+                                                    <table  class="table table-bordered table-striped" id="users">
+  
+                                                        <tr>
+                                                            <td>Id</td>
+                                                            <td><p class="user_name_max">{{ $bus->id }}</p></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Bus Number</td>
+                                                            <td><p class="user_name_max">{{ $bus->bus_number}}</p></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Model </td>
+                                                            <td>{{ $bus->model_type}}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Number of seats</td>
+                                                            
+                                                            
+                                                            <td style="border-bottom: 6px solid #09bd8f;border-left: 6px solid #09bd8f; border-width: 3px;">
+                                                                <a href="{{ URL::to('seat/showBusSeats/'.$bus->id .'') }}" title="show seat numbers">
+                                                                    <p class="user_name_max">
+                                                                        {{ $bus->number_seats}}
+                                                                    </p>
+                                                                </a>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Driver_number </td>
+                                                            <td>{{ $bus->driver_number}}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Station </td>
+                                                            <td>{{ $bus->station_name}}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>User</td>
+                                                            <td>{{ $bus->user_first.'  '.$bus->user_last }} </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Created At</td>
+                                                            <td>
+                                                                {!!$bus->created_at->diffForHumans() !!}
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                  </div>
+                
+            </div>
+        </div>
+    </section>
+@stop 
+
+{{-- page level scripts --}}
+@section('footer_scripts')
+    <!-- Bootstrap WYSIHTML5 -->
+    <script  src="{{ asset('assets/vendors/jasny-bootstrap/js/jasny-bootstrap.js') }}" type="text/javascript"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+           
+        });
+    </script>
+
+@stop
+    

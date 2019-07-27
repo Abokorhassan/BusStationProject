@@ -109,15 +109,11 @@
                         </label>
                         <div class="col-sm-10">
                           <select class="form-control" title="Select Bus Number..." name="bus_number">                                         
-                            <option value="">Select Bus Number
-                            </option>
-
-                            @foreach ($buses as $bus)
+                            
                             <option value="{{ $bus->id}}" 
                               @if (old('bus_number')=== "{{$bus->id}}") selected="selected"@endif
                               >{{ $bus->bus_number}}
                             </option>
-                            @endforeach
                           </select>
                           {!! $errors->first('bus_number', '
                           <span class="help-block">:message
@@ -127,7 +123,7 @@
 
                       <div class="form-group">
                         <div class="col-sm-offset-2 col-sm-4 btn_rtl">
-                          <a href="{{ route('user.seat.index') }}">
+                          <a  href="{{ URL::to('bus/' .$bus->id .'') }}">
                             <button type="button" class="btn btn-danger">
                               Cancel 
                             </button>

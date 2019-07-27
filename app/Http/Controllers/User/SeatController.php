@@ -19,19 +19,35 @@ class SeatController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    // public function index()
+    // {
+    //     $id= Sentinel::getUser()->id;
+    //     $user = User::find($id);
+    //     $s_id = $user->station_id; 
+    //     $station = Station::find($s_id);
+    //     if(!$station == ''){
+    //         $stations_id = $station->id;
+    //         $stationseat = Station::find($stations_id)->seat()->paginate(4);
+    //         return view('seat.index')->with('seats',$stationseat);
+    //     }
+    //     $seats = null;  
+    //     return view('seat.index', compact('seats'));
+    // }
+
+    public function showBusSeats($id)
     {
-        $id= Sentinel::getUser()->id;
-        $user = User::find($id);
-        $s_id = $user->station_id; 
-        $station = Station::find($s_id);
-        if(!$station == ''){
-            $stations_id = $station->id;
-            $stationseat = Station::find($stations_id)->seat()->paginate(4);
-            return view('seat.index')->with('seats',$stationseat);
-        }
-        $seats = null;  
-        return view('seat.index', compact('seats'));
+        $seats = Seat::latest()
+                    ->where('bus_id', $id)
+                    ->get();
+        $bus = Bus::find($id);
+        return view('seat.index', compact('seats','bus'));
+
+    }
+    public function createBusSeats($id)
+    {
+        $bus = Bus::find($id);
+        return view('seat.create', compact('bus'));
+
     }
 
     /**
@@ -77,25 +93,22 @@ class SeatController extends Controller
 
         $seat = new Seat();
         //    bus_id
-        $seat->bus_id =$request->input('bus_number');
+        $seat->bus_id =$request->input('bus_number');   // bus_id
         $bus_id = $seat->bus_id;
+        $buss = Bus::find($bus_id);
+        $seat->bus_number = $buss->bus_number;     //bus_number   
 
-        //    seat_number
-        $seat->seat_number =$request->input('seat_number');
+        $seat->seat_number = $request->input('seat_number'); // seat_number
 
-        //getting bus_id from bus_number which is a bus_id in the input
-        $bus_id = $request->input('bus_number');
-        $bus = Bus::find($bus_id);
 
-        // extractinng the matched bus_number and save it to the database with the help of bus id
-        $bus_number = $bus->bus_number;
-        $seat->bus_number = $bus_number; 
+        $seat->user_id = Sentinel::getUser()->id;  // user_id
+        $user = User::find($seat->user_id);
+        $seat->user_first = $user->first_name;   // user_first
+        $seat->user_last = $user->last_name;     // user_last
 
-        $seat->station_id = $bus->station_id;
-        $seat->bus_id =$request->input('bus_number');
-
-        //saving user _id 
-        $seat->user_id = Sentinel::getUser()->id;
+        $seat->station_id = $user->station_id;    // station_id
+        $station = Station::find($bus->station_id);
+        $bus->station_name = $station->name;  // station_name
 
         $seat->save();
 
@@ -107,8 +120,16 @@ class SeatController extends Controller
         $b = Bus::find($bus_id);
         $b->number_seats = $count;
         $b->save();
+
+        $seats = Seat::latest()
+                    ->where('bus_id', $bus_id )
+                    ->get();
+        $bus = Bus::find($bus_id );
+
+        return view('seat.index', compact('seats','bus'))->with('success', 'Seat Created');
+
         
-        return redirect('seat')->with('success', 'Seat Created');  
+        // return redirect('seat', compact('seats','bus'))->with('success', 'Seat Created');  
     }
 
     /**
@@ -131,7 +152,9 @@ class SeatController extends Controller
     public function edit($id)
     {
         $seat = Seat::find($id);
-        return view('seat.edit', compact('seat'));
+        $bus = Seat::find($id)->bus;
+        
+        return view('seat.edit', compact('seat', 'bus'));
     }
 
     /**
@@ -143,15 +166,34 @@ class SeatController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $seat = Seat::find($id);
+        $buss_id = $seat->bus_id;
         $this->validate($request,[
-            'seat_number' => 'required | max:15 | unique:seats,seat_number,'.$id,
+            // 'seat_number' => 'required | max:15 | unique:seats,seat_number,'.$id,
+            'seat_number' => [
+                'required',
+                'max:15',
+                Rule::unique('seats')->where(function ($query) use($buss_id) {
+                                            return $query->where('bus_id', $buss_id);
+                                        })
+                                        ->ignore($id)
+            ]
         ]);
 
-        $seat = Seat::find($id);
+        
         $seat->seat_number = $request->input('seat_number');
         $seat->save();
+        
+        $bus = Seat::find($seat->id)->bus;
+        $bus_id = $bus->id;
+        $seats = Seat::latest()
+                    ->where('bus_id', $bus_id )
+                    ->get();
+        $bus = Bus::find($bus_id );
 
-        return redirect('seat')->with('success', 'Seat Updated');
+        return view('seat.index', compact('seats','bus'))->with('success', 'Seat Created');
+
+        // return redirect('seat')->with('success', 'Seat Updated');
     }
 
     /**
@@ -183,6 +225,12 @@ class SeatController extends Controller
          $seat->delete();
  
          
-         return redirect('seat')->with('success', 'Seat Deleted');
+        $bus = Bus::find($bus_id);
+        $bus_id = $bus->id;
+        $seats = Seat::latest()
+                    ->where('bus_id', $bus->id)
+                    ->get();
+        // return $seats;
+        return view('seat.index', compact('seats','bus'))->with('success', 'Seat Deleted');
     }
 }

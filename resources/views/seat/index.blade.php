@@ -275,8 +275,14 @@
             </li>
             <li class="hidden-xs">
                 <i class="livicon icon3" data-name="angle-double-right" data-size="18" data-loop="true" data-c="#01bc8c" data-hc="#01bc8c">
-                </i>
-                <a href="#">Seat
+                </i> 
+                <a href="{{ route('user.schedule.index') }}">Bus
+                </a>
+            </li>
+            <li class="hidden-xs">
+                <i class="livicon icon3" data-name="angle-double-right" data-size="18" data-loop="true" data-c="#01bc8c" data-hc="#01bc8c">
+                </i> 
+                <a href="{{ URL::to('bus/' .$bus->id .'') }}">Bus Detail
                 </a>
             </li>
             <li class="hidden-xs">
@@ -295,15 +301,12 @@
     <!-- Container Section Strat -->
     <div class="container">
         <h2>
-            Seat Lists
-            @if($seats != null)
-                <a style="margin-left: 40%;" href="{{ URL::to('seat/create') }}">
-                    <button style=" border-color: #09bd8f; width: 12%;" type="button" class="btn btn-default bt-lg">Add New Seat
-                    </button>
-                </a>                
-            @else
-                
-            @endif
+             {{$bus->bus_number}} Seat lists
+             <a style="margin-left: 36%;" href="{{ URL::to('seat/createBusSeats/'.$bus->id .'') }}">
+                <button style=" border-color: #09bd8f; width: 12%;" type="button" class="btn btn-default bt-lg">Add Seat
+                </button>
+            </a>
+          
             
         </h2>
         <hr>
@@ -431,10 +434,10 @@
                         </h3>
                             
                         @endforelse
-                        <ul class="pager">
+                        {{-- <ul class="pager">
                             {{ $seats->links() }}
-                            {{-- {!! $apps->render() !!} --}}
-                        </ul>
+                            {!! $apps->render() !!}
+                        </ul> --}}
                     </div>
                 </div>
             </div>

@@ -34,10 +34,10 @@
         }
         .clickable
         {
-        border:1px solid #ccc;
+            border:1px solid #ccc;
             cursor:pointer;
         }
-            </style>
+    </style>
 
     <!-- Modal Delete CSS -->
     <style>
@@ -300,7 +300,6 @@
     <!-- Container Section Strat -->
     <div class="container">
         <h2>
-            <div></div>
             Schedule Lists
             @if($schedules != null)
                 <a style="margin-left: 52%;" href="{{ URL::to('schedule/create') }}">
@@ -308,7 +307,7 @@
                     </button>
                 </a>
             <div style="margin-left: 25%; margin-top: -3% " class="form-group">
-                <input type="text" name="search" id="search" class="form-control" style="width: 35%; height: 35px; border-color: #09bd8f;" placeholder="Search Customer Data">                                                
+                <input type="text" name="search" id="search" class="form-control" style="width: 35%; height: 35px; border-color: #09bd8f;" placeholder="Search Scedule Data">                                                
                 
             </div>
             @else
@@ -321,13 +320,6 @@
         <div id="notific">
             @include('notifications')
         </div>
-        {{-- 
-        <div class="table-responsive">
-            <h3 > Total Data : 
-            <span id="total_records">
-            </span>
-            </h3>
-        </div> --}}
 
         <div class="row">
             <div class="content">
@@ -338,11 +330,11 @@
                             
                                 <!-- BEGIN FEATURED POST -->
                                 <div class="col-sm-6">
-                                    <div id="reocrds" class="featured-post-wide thumbnail polaroid clickable ">
-                                        <a id="anchor" href="{{ URL::to('schedule/' .$schedule->id .'') }}"></a>
+                                    <div id="reocrds" class="featured-post-wide thumbnail polaroid ">
+                                        {{-- <a id="anchor" href="{{ URL::to('schedule/' .$schedule->id .'') }}"></a> --}}
                                         <div class="featured-text relative-left">
                                             <h3 style="text-align: center" class="success">
-                                            <a style="margin-left: -3em;text-align: center" href="#">
+                                            <a style="margin-left: -3em;text-align: center" href="{{ URL::to('schedule/' .$schedule->id .'') }}">
                                                 <strong > Schedule No. &nbsp; 
                                                 </strong>{{$schedule->schedule_number}}
                                             </a>
@@ -585,7 +577,7 @@
         $("ul.nav-tabs > li:first > a").trigger( "click" );
 
         // fetch_customer_data();
-        function fetch_customer_data(query = '')
+        function search_schedule(query = '')
         {
             $.ajax({
                 url:"{{ route('user.schedule.liveSearch') }}",
@@ -611,7 +603,7 @@
 
         $(document).on('keyup', '#search', function(){
             var query = $(this).val();
-            fetch_customer_data(query);
+            search_schedule(query);
         });
 
     </script>

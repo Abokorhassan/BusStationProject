@@ -343,11 +343,9 @@ Route::group(['namespace'=>'User', 'middleware' => 'user', 'as' => 'user.'], fun
 
     // Bus
     Route::group(['prefix' => 'bus'], function () {
-        Route::get('action', 'BusController@action');
-        Route::get('search', 'BusController@search');
         Route::get('data', 'BusController@data')->name('bus.data');
         Route::get('{bus}/delete', 'BusController@destroy')->name('bus.delete');
-        Route::get('{bus}/confirm-delete', 'BusController@getModalDelete')->name('bus.confirm-delete');
+        Route::get('liveSearch', 'BusController@liveSearch')->name('bus.liveSearch');
     });
     Route::resource('bus', 'BusController');
 
@@ -381,6 +379,8 @@ Route::group(['namespace'=>'User', 'middleware' => 'user', 'as' => 'user.'], fun
 
     //Seat
     Route::group(['prefix' => 'seat'], function () {
+        Route::get('showBusSeats/{seat}', 'SeatController@showBusSeats')->name('seat.showBusSeats');
+        Route::get('createBusSeats/{seat}', 'SeatController@createBusSeats')->name('seat.createBusSeats');
         Route::get('data', 'SeatController@data')->name('seat.data');
         Route::get('{seat}/delete', 'SeatController@destroy')->name('seat.delete');
     });
@@ -388,7 +388,6 @@ Route::group(['namespace'=>'User', 'middleware' => 'user', 'as' => 'user.'], fun
 
     //Schedule
     Route::group(['prefix' => 'schedule'], function () {
-        Route::get('show', 'ScheduleController@show')->name('schedule.show');
         Route::get('data', 'ScheduleController@data')->name('schedule.data');
         Route::get('{schedule}/delete', 'ScheduleController@destroy')->name('schedule.delete');
         Route::get('getId', 'ScheduleController@getId')->name('schedule.getId');

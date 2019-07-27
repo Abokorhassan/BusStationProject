@@ -72,6 +72,7 @@
               <!--main content-->
               <div class="position-center">
                 <div class="row">
+
                   <div class="col-sm-8">
                     {!! Form::model($bus, ['url' => URL::to('bus/' . $bus->id), 'method' => 'put',
                       'class' => 'form-horizontal', 'files'=> true]) !!}
@@ -117,6 +118,21 @@
                       </div>
                     </form>{{--{!!  Form::close()  !!}--}}
                   </div>
+
+                  <div class="col-md-4 right_float ">
+                      <h3 class="martop">Recent Buses</h3>
+                      <div style="height: 22em; overflow: auto" class="tabbable-panel polaroid">
+                          <!-- Tabbablw-line Start -->
+                          <div  class="tabbable-line ">
+                              @foreach ($busLatest as $bus)
+                                  <ul  class="list-group">
+                                      <li class="list-group-item">{{ $bus->bus_number}}</li>
+                                  </ul>
+                              @endforeach
+                          </div>
+                      </div>
+                  </div>
+
                 </div>
               </div>
             </div>

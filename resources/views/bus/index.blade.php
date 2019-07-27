@@ -32,6 +32,11 @@
             width: 200px;
             height: 150px;   */
         }
+        .clickable
+        {
+            border:1px solid #ccc;
+            cursor:pointer;
+        }
     </style>
 
     <!-- Modal Delete CSS -->
@@ -296,169 +301,195 @@
     <div class="container">
         <h2>
             Bus Lists
-            {{-- 
-            <input style="font-size: 20px; border-radius: 5px; margin-top: -30px;  margin-left: 45%; width:20%; height: 25px;" 
-                type="text" name="search" id = "search" class="form-control"
-                placeholder="search bus">               --}}
-            {{-- 
-            <button type="button" class="btn btn-outline-light btn-lg">VIEW DEMO
-            </button>
-            <button type="button" class="btn btn-outline-secondary btn-lg">Web Hosting
-            </button> --}}
             @if($buses != null)
-                <a style="margin-left: 30%;" href="{{ URL::to('bus/create') }}">
+                <a style="margin-left: 58%;" href="{{ URL::to('bus/create') }}">
                     <button style=" border-color: #09bd8f; width: 12%;" type="button" class="btn btn-default bt-lg">Add New Bus
                     </button>
-                </a>  
-
-                <a style="margin-left: 0%;"href="{{ URL::to('seat/create') }}">
-                    <button style=" border-color: blue; width: 12%;" type="button" class="btn btn-default bt-lg">Add Seat Bus
-                    </button>
-                </a>             
+                </a>
+            <div style="margin-left: 25%; margin-top: -3% " class="form-group">
+                <input type="text" name="search" id="search" class="form-control" style="width: 35%; height: 35px; border-color: #09bd8f;" placeholder="Search Bus Data">                                                
+                
+            </div>
             @else
                 
             @endif
+            
         </h2>
         <hr>
+
         <div id="notific">
             @include('notifications')
         </div>
-        {{-- 
-        <div class="table-responsive">
-            <h3 > Total Data : 
-            <span id="total_records">
-            </span>
-            </h3>
-        </div> --}}
-        @if(!$buses == null)
-            <div class="row">
-                <div class="content">
-                    <div class="col-md-8 right_float ">
-                        @forelse ($buses as $bus)
-                            <!-- BEGIN FEATURED POST -->
-                            <div id="reocrds" class="featured-post-wide thumbnail polaroid ">
-                                <div class="featured-text relative-left">
-                                    <h3 style="text-align: center" class="success">
-                                    <a href="">
-                                        <strong> Bus Number: &nbsp; 
-                                        </strong>{{$bus->bus_number}}
-                                    </a>
-                                    </h3>
-                                    <div class="row">
-                                        <div class="col-sm-10">
+
+        <div class="row">
+            <div class="content">
+                <div id="d" class="col-md-8 right_float ">
+                    @if(!$buses == null)
+                        @forelse ($buses->chunk(3) as $collection)
+                            @foreach ($collection as $bus)
+                                <!-- BEGIN FEATURED POST -->
+                                <div class="col-sm-6">
+                                    <div id="reocrds" class="featured-post-wide thumbnail polaroid ">
+                                        <div class="featured-text relative-left">
+                                            <h3 style="text-align: center" class="success">
+                                            <a style="margin-left: -3em;text-align: center" href="{{ URL::to('bus/' .$bus->id .'') }}">
+                                                <strong > Bus No. &nbsp; 
+                                                </strong>{{$bus->bus_number}}
+                                            </a>
+                                            </h3>
                                             <div class="row">
-                                                <div class="col-sm-6">
-                                                    <p>
-                                                    <strong>ID: &nbsp; 
-                                                    </strong>
-                                                    {!! $bus->id !!}
-                                                    </p>
-                                                    <p>
-                                                    <strong>Model: &nbsp; 
-                                                    </strong>
-                                                    {!! $bus->model_type !!}
-                                                    </p>
-                                                </div>
-                                                <div class="col-sm-6">
-                                                    <p>
-                                                        <strong>Driver Number: &nbsp; 
-                                                        </strong>
-                                                       
-                                                        @if(isset($bus->Driver_id) && $bus->driver && $bus->driver->driver_number) 
-                                                           {!! $bus->driver->driver_number !!}
-                                                        @endif
-                                                    </p>
-                                                    <p>
-                                                        <strong>Route: &nbsp; 
-                                                        </strong>
-                                                        {!! $bus->route_id !!}
-                                                    </p>
+                                                <div class="col-sm-12">
+                                                    <div class="row">
+                                                        <div class="col-sm-6">
+                                                            <p>
+                                                                <strong>Model: &nbsp; 
+                                                                </strong>
+                                                                {!! $bus->model_type !!}
+                                                            </p>
+                                                            <p  class="additional-post-wrap">
+                                                                <span class="additional-post">
+                                                                    <i class="livicon" data-name="user" data-size="13" data-loop="true" data-c="#5bc0de" data-hc="#5bc0de">
+                                                                    </i>
+                                                                    <a href="#">&nbsp;
+                                                                        @if (isset($bus->user_id) && $bus->user && $bus->user->first_name)
+                                                                            {{$bus->user->first_name.' '.$bus->user->last_name }}
+                                                                        @endif
+                                                                        
+                                                                    </a>
+                                                                </span>
+                                                            </p>
+                                                            <a style="margin-left: 5em; " href="{{ URL::to('bus/' .$bus->id .'/edit') }}">
+                                                                <button style=" font-size: 1em; width: 4.5em; height: 2.5em;"  type="button" class="btn btn-success btn-sm">Edit
+                                                                </button>
+                                                            </a>
+                                                        </div>
+                                                        <div class="col-sm-6">
+                                                            <p>
+                                                                <strong>Driver: &nbsp; 
+                                                                </strong>
+                                                                {!! $bus->driver_number !!} 
+                                                            </p>
+                                                            <p class="additional-post-wrap">
+                                                                <span style="margin-right: -15%" class="additional-post">
+                                                                    <i class="livicon" data-name="clock" data-size="13" data-loop="true" data-c="#5bc0de" data-hc="#5bc0de">
+                                                                    </i>
+                                                                    <a href="#"> {{$bus->created_at->diffForHumans()}} 
+                                                                    </a>
+                                                                </span>
+                                                            </p>
+                                                            <a style="color: white; margin-left: -2em;" href="javascript:;" data-toggle="modal" onclick="deleteData({{$bus->id}})" 
+                                                                data-target="#delete_confirm" class="btn btn-danger">
+                                                                {{-- <i class="fa fa-trash"></i>  --}}
+                                                                Delete
+                                                            </a>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-sm-2">
-                                            <a href="{{ URL::to('bus/' .$bus->id .'/edit') }}">
-                                                <button  type="button" class="btn btn-success btn-sm">Edit
-                                                </button>
-                                            </a>
-
-                                            <a style="margin-top: 3%; color: white" href="javascript:;" data-toggle="modal" onclick="deleteData({{$bus->id}})" 
-                                                    data-target="#delete_confirm" class="btn btn-danger">
-                                                {{-- <i class="fa fa-trash"></i>  --}}
-                                                Delete
-                                            </a>
-                                        </div>
-                                        <p style="text-align: center" class="additional-post-wrap">
-                                            <span style="margin-left: -15%" class="additional-post">
-                                            <i class="livicon" data-name="user" data-size="13" data-loop="true" data-c="#5bc0de" data-hc="#5bc0de">
-                                            </i>
-                                            <a href="#">&nbsp;
-                                                @if (isset($bus->user_id) && $bus->user && $bus->user->first_name)
-                                                    {{$bus->user->first_name.' '.$bus->user->last_name }}
-                                                @endif
-                                                 
-                                            </a>
-                                            </span>
-                                            <span style="margin-right: -15%" class="additional-post">
-                                            <i class="livicon" data-name="clock" data-size="13" data-loop="true" data-c="#5bc0de" data-hc="#5bc0de">
-                                            </i>
-                                            <a href="#"> {{$bus->created_at->diffForHumans()}} 
-                                            </a>
-                                            </span>
-                                        </p>
+                                        <!-- /.featured-text -->
                                     </div>
                                 </div>
-                                <!-- /.featured-text -->
-                            </div>
-
-                            {{-- Delete Modal --}}
-                            <form method="POST" id="deleteForm">
-                                {{ csrf_field() }}
-                                {{ method_field('DELETE') }}
-                                <div  class="modal fade" id="delete_confirm" tabindex="-1" role="dialog" aria-labelledby="user_delete_confirm_title" aria-hidden="true">
-                                    <div class="modal-dialog">
-                                    <div class="modal-content">
-                                    
-                                        <!-- Modal Header -->
-                                        <div class="modal-header">
-                                            <h4 class="modal-title">
-                                                <strong>Delete Bus</strong>
-                                            </h4>
-                                            <button  type="button"  class="close" style="color: red" data-dismiss="modal">&times;</button>
-                                        </div>
+                        
+                                {{-- Delete Modal --}}
+                                <form method="POST" id="deleteForm" >
+                                    {{ csrf_field() }}
+                                    {{ method_field('DELETE') }}
+                                    <div  class="modal fade" id="delete_confirm" tabindex="-1" role="dialog" aria-labelledby="user_delete_confirm_title" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                        <div class="modal-content">
                                         
-                                        <!-- Modal body -->
-                                        <div class="modal-body">
-                                            <h5>You sure, you want to DELETE This Bus?</h5>
-                                        </div>
-                                        
-                                        <!-- Modal footer -->
-                                        <div class="modal-footer">
+                                            <!-- Modal Header -->
+                                            <div class="modal-header">
+                                                <h4 class="modal-title">
+                                                    <strong>Delete Bus</strong>
+                                                </h4>
+                                                <button type="button" class="close" style="color: red" data-dismiss="modal">&times;</button>
+                                            </div>
+                                            
+                                            <!-- Modal body -->
+                                            <div class="modal-body">
+                                                <h5>You sure, you want to DELETE This Bus?</h5>
+                                            </div>
+                                            
+                                            <!-- Modal footer -->
+                                            <div class="modal-footer">
                                                 <button style=" border-color: #09bd8f;" type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                                            <button style="color: white;" type="submit" name="" class="btn btn-danger" data-dismiss="modal" onclick="formSubmit()">Delete</button>
+                                                <button style="color: white;" type="submit" name="" class="btn btn-danger" data-dismiss="modal" onclick="formSubmit()">Delete</button>
+                                            </div>
+                                            
                                         </div>
-                                        
+                                        </div>
                                     </div>
-                                    </div>
-                                </div>
-                            </form>
-                            <!-- /.featured-post-wide -->
-                            <!-- END FEATURED POST -->
+                                </form>
+                            @endforeach
+                                <!-- /.featured-post-wide -->
+                                <!-- END FEATURED POST -->
                         @empty
-                            <h3>No Bus On your collections!
-                            </h3>
+                        <h3>No Bus On your collections!
+                        </h3>
+                            
                         @endforelse
                         <ul class="pager">
-                        {{ $buses->links() }}
-                        {{-- {!! $apps->render() !!} --}}
+                            {{ $buses->links() }}
+                            {{-- {!! $apps->render() !!} --}}
                         </ul>
+                    @else 
+                        <p>No Bus Lists found
+                        </p>
+                    @endif
+                </div>
+                    
+                {{-- Delete Modal --}}
+                <form method="POST" id="deleteForm" >
+                    {{ csrf_field() }}
+                    {{ method_field('DELETE') }}
+                    <div  class="modal fade" id="delete_confirm" tabindex="-1" role="dialog" aria-labelledby="user_delete_confirm_title" aria-hidden="true">
+                        <div class="modal-dialog">
+                        <div class="modal-content">
+                        
+                            <!-- Modal Header -->
+                            <div class="modal-header">
+                                <h4 class="modal-title">
+                                    <strong>Delete Bus</strong>
+                                </h4>
+                                <button type="button" class="close" style="color: red" data-dismiss="modal">&times;</button>
+                            </div>
+                            
+                            <!-- Modal body -->
+                            <div class="modal-body">
+                                <h5>You sure, you want to DELETE This Bus?</h5>
+                            </div>
+                            
+                            <!-- Modal footer -->
+                            <div class="modal-footer">
+                                <button style=" border-color: #09bd8f;" type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                                <button style="color: white;" type="submit" name="" class="btn btn-danger" data-dismiss="modal" onclick="formSubmit()">Delete</button>
+                            </div>
+                            
+                        </div>
+                        </div>
+                    </div>
+                </form>
+
+                <div class="col-md-4 right_float ">
+                    <h3 class="martop">Recent Buses</h3>
+                    <div style="height: 30em; overflow: auto" class="tabbable-panel polaroid">
+                        <!-- Tabbablw-line Start -->
+                        <div  class="tabbable-line ">
+                            @foreach ($busLatest as $bus)
+                                <ul  class="list-group">
+                                    <li class="list-group-item">{{ $bus->bus_number}}</li>
+                                </ul>
+                            @endforeach
+                            
+                                
+                        </div>
                     </div>
                 </div>
             </div>
-        @else 
-            <p>No Bus Lists found
-            </p>
-        @endif
+        </div>
+        
     </div> 
 @stop 
 
@@ -474,9 +505,32 @@
             url = url.replace(':id', id);
             $("#deleteForm").attr('action', url);
         }
-   
+
         function formSubmit(){
             $("#deleteForm").submit();
         }
+        
+        function search_bus(query = '')
+        {
+            $.ajax({
+                url:"{{ route('user.bus.liveSearch') }}",
+                method:'GET',
+                data:{query:query},
+                dataType:'json',
+                success:function(records)
+                {
+                    
+                    console.log(records.output);
+                    $('#d').html(records.output);
+                }
+            })
+        }
+
+        $(document).on('keyup', '#search', function(){
+            var query = $(this).val();
+            search_bus(query);
+        });
+
+
     </script>
 @stop

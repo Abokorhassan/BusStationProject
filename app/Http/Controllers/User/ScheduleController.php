@@ -36,41 +36,13 @@ class ScheduleController extends Controller
             $routes = Route::select('id','name')
                         ->where('station_id', $stations_id)
                         ->get();
-            
-            // $tabSchedule = Schedule::
-            //                     where('station_id',$s_id)
-            //                     ->latest()->get();
 
-            // $tabSchedule = Schedule::all()
-            //                     // ->latest()
-            //                     ->groupBy('route_id');
-
-            // $tabSchedule = DB::table('schedules')
-            //                     ->select('schedule_number')
-            //                     ->where('station_id', $stations_id)
-            //                     // ->groupBy('route_id')
-            //                     ->latest()
-            //                     ->get();
-   
-            // $tabSchedule = Schedule::
-            //                     select('schedule_number')
-            //                     // ->groupBy('route_id')
-            //                     ->where('route_id', $id)
-            //                     ->latest()
-            //                     ->get();
             $tabSchedule = Schedule::
                                 select('*')
-                                // ->where('station_id', $stations_id
-                                // ->where('station_id', $stations_id)
                                 ->where('route_id', $id)
                                 ->latest()
                                 ->get();
-            // $data = DB::table('schedules')
-            //                     ->where('station_id', $stations_id)
-            //                     // ->get();
-            //                     ->paginate(2)->toArray();
 
-            // // return $data;
             return view('schedule.index', compact('routes','tabSchedule'))->with('schedules',$stationschedule);
         }
         $schedules = null;  
@@ -167,7 +139,7 @@ class ScheduleController extends Controller
                             <div id="reocrds" class="featured-post-wide thumbnail polaroid ">
                                 <div class="featured-text relative-left">
                                     <h3 style="text-align: center" class="success">
-                                    <a style="margin-left: -3em;text-align: center" href="">
+                                    <a style="margin-left: -3em;text-align: center" href="' .url('schedule/' .$row->id ).' ">
                                         <strong > Schedule No. &nbsp; 
                                         </strong>'.$row->schedule_number.'
                                     </a>

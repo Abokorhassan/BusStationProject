@@ -87,7 +87,7 @@
                       
                       <div class="form-group">
                         <div class="col-sm-offset-2 col-sm-4 btn_rtl">
-                            <a href="{{ route('user.seat.index') }}">
+                            <a href="{{ URL::to('seat/showBusSeats/'.$bus->id .'') }}">
                               <button type="button" class="btn btn-danger">
                                 Cancel 
                               </button>
