@@ -22,6 +22,11 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/vendors/jasny-bootstrap/css/jasny-bootstrap.css') }}">
     <link href="{{ asset('assets/css/pages/blog.css') }}" rel="stylesheet" type="text/css">
 
+    <style>
+      #myList li{
+        background: #F0F0EC;
+      }
+    </style>
 
 @stop
 
@@ -66,6 +71,7 @@
               <!--main content-->
               <div class="position-center">
                 <div class="row">
+
                   <div class="col-sm-8">
                     {!! Form::model($rider, ['url' => URL::to('rider/' . $rider->id), 'method' => 'put',
                       'class' => 'form-horizontal', 'files'=> true]) !!}
@@ -149,6 +155,20 @@
                       
                     </form>{{--{!!  Form::close()  !!}--}}
                   </div>
+
+                  <div class="col-md-4 right_float ">
+                    <h3 class="martop">Recent Riders</h3>
+                    <div style="height: 22em; overflow: auto"  class="tabbable-panel ">
+                      <!-- Tabbablw-line Start -->
+                      <div  class="tabbable-line ">
+                          @foreach ($riderLatest as $rider)
+                              <ul id="myList" class="list-group">
+                                  <li class="list-group-item">{{ $rider->id_number}}</li>
+                              </ul>
+                          @endforeach                                
+                      </div>
+                  </div>
+
                 </div>
               </div>
             </div>

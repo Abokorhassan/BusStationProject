@@ -7,18 +7,8 @@
 
 {{-- page level styles --}}
 @section('header_styles')
-    <!--page level css starts-->
-
-    {{-- without bootstrap mini .css modal will not work so we take out all the moda from mini css and plot it on script --}}
-    {{-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"> --}} 
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/frontend/tabbular.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/frontend/blog.css') }}">
-    
-    {{-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js">
-    </script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css" /> --}}
-    
-    <!--end of page level css-->
     
     <style>
         div.polaroid {
@@ -31,6 +21,9 @@
             /* padding: 20px; 
             width: 200px;
             height: 150px;   */
+        }
+        #myList li{
+            background: #F0F0EC;
         }
     </style>
 
@@ -297,10 +290,14 @@
         <h2>
             Rider Lists
             @if($riders != null)
-                <a style="margin-left: 40%;" href="{{ URL::to('rider/create') }}">
+                <a style="margin-left: 56%;" href="{{ URL::to('rider/create') }}">
                     <button style=" border-color: #09bd8f; width: 12%;" type="button" class="btn btn-default bt-lg">Add New Rider
                     </button>
-                </a>                
+                </a>
+            <div style="margin-left: 25%; margin-top: -3% " class="form-group">
+                <input type="text" name="search" id="search" class="form-control" style="width: 35%; height: 35px; border-color: #09bd8f;" placeholder="Search Rider Data">                                                
+                
+            </div>
             @else
                 
             @endif
@@ -311,152 +308,180 @@
         <div id="notific">
             @include('notifications')
         </div>
-        {{-- 
-        <div class="table-responsive">
-            <h3 > Total Data : 
-            <span id="total_records">
-            </span>
-            </h3>
-        </div> --}}
+
         <div class="row">
             <div class="content">
-                <div class="col-md-8 right_float ">
-                    @forelse ($riders as $rider)
-                        <!-- BEGIN FEATURED POST -->
-                        <div id="reocrds" class="featured-post-wide thumbnail polaroid ">
-                            <div class="featured-text relative-left">
-                                <h3 style="text-align: center" class="success">
-                                <a href="">
-                                    <strong> Rider Number: &nbsp; 
-                                    </strong>{{$rider->id_number}}
-                                </a>
-                                </h3>
-                                <div class="row">
-                                    <div class="col-sm-10">
-                                        <div class="row">
-                                            <div class="col-sm-6">
-                                                <p>
-                                                <strong>ID: &nbsp; 
-                                                </strong>
-                                                {!! $rider->id !!}
-                                                </p>
-                                                <p>
-                                                <strong>Phone Number: &nbsp; 
-                                                </strong>
-                                                {!! $rider->ph_number !!}
-                                                </p>
-                                            </div>
-                                            <div class="col-sm-6">
-                                                <p>
-                                                    <strong>Full Name: &nbsp; 
-                                                    </strong>
-                                                    {!! $rider->first_name !!} &nbsp; {!! $rider->last_name !!} &nbsp; {!! $rider->third_name !!}
-                                                </p>
-                                                <p>
-                                                    <strong>Gender: &nbsp; 
-                                                    </strong>
-                                                    {!! $rider->gender !!} 
-                                                </p>
+                <div id="d" class="col-md-8 right_float ">
+                    @if(!$riders == null)
+                        @forelse ($riders->chunk(3) as $collection)
+                            @foreach ($collection as $rider)
+                                <!-- BEGIN FEATURED POST -->
+                                <div class="col-sm-6">
+                                    <div id="reocrds" class="featured-post-wide thumbnail polaroid ">
+                                        <div class="featured-text relative-left">
+                                            <h3 style="text-align: center" class="success">
+                                            <a style="margin-left: -3em;text-align: center" href="{{ URL::to('rider/' .$rider->id .'') }}">
+                                                <strong > Rider No. &nbsp; 
+                                                </strong>{{$rider->id_number}}
+                                            </a>
+                                            </h3>
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <div class="row">
+                                                        <div class="col-sm-6">
+                                                            <p style="white-space: nowrap;">
+                                                                <strong>Name: &nbsp; 
+                                                                </strong>
+                                                                {!! $rider->first_name.' '.$rider->last_name !!}
+                                                            </p>
+                                                            <p  class="additional-post-wrap">
+                                                                <span class="additional-post">
+                                                                    <i class="livicon" data-name="user" data-size="13" data-loop="true" data-c="#5bc0de" data-hc="#5bc0de">
+                                                                    </i>
+                                                                    <a href="#">&nbsp;
+                                                                        @if (isset($rider->user_id) && $rider->user && $rider->user->first_name)
+                                                                            {{$rider->user->first_name.' '.$rider->user->last_name }}
+                                                                        @endif
+                                                                        
+                                                                    </a>
+                                                                </span>
+                                                            </p>
+                                                            <a style="margin-left: 5em; " href="{{ URL::to('rider/' .$rider->id .'/edit') }}">
+                                                                <button style=" font-size: 1em; width: 4.5em; height: 2.5em;"  type="button" class="btn btn-success btn-sm">Edit
+                                                                </button>
+                                                            </a>
+                                                        </div>
+                                                        <div class="col-sm-6">
+                                                            <p>
+                                                                <strong>Phone: &nbsp; 
+                                                                </strong>
+                                                                {!! $rider->ph_number !!} 
+                                                            </p>
+                                                            <p class="additional-post-wrap">
+                                                                
+                                                                <span style="margin-right: -15%" class="additional-post">
+                                                                    <i class="livicon" data-name="fjs" data-size="13" data-loop="true" data-c="#5bc0de" data-hc="#5bc0de">
+                                                                    </i>
+                                                                    <a href="#"> 
+                                                                        {!! $rider->station_name!!}                                                                        
+                                                                    </a>
+                                                                </span>
+                                                            </p>
+                                                            <a style="color: white; margin-left: -2em;" href="javascript:;" data-toggle="modal" onclick="deleteData({{$rider->id}})" 
+                                                                data-target="#delete_confirm" class="btn btn-danger">
+                                                                {{-- <i class="fa fa-trash"></i>  --}}
+                                                                Delete
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
+                                        <!-- /.featured-text -->
                                     </div>
-                                    <div class="col-sm-2">
-                                        <a href="{{ URL::to('rider/' .$rider->id .'/edit') }}">
-                                            <button  type="button" class="btn btn-success btn-sm">Edit
-                                            </button>
-                                        </a>
+                                </div>
+                        
+                                {{-- Delete Modal --}}
+                                <form method="POST" id="deleteForm" >
+                                    {{ csrf_field() }}
+                                    {{ method_field('DELETE') }}
+                                    <div  class="modal fade" id="delete_confirm" tabindex="-1" role="dialog" aria-labelledby="user_delete_confirm_title" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                        <div class="modal-content">
                                         
-                                        <a style="margin-top: 3%; color: white" href="javascript:;" data-toggle="modal" onclick="deleteData({{$rider->id}})" 
-                                                data-target="#delete_confirm" class="btn btn-danger">
-                                            {{-- <i class="fa fa-trash"></i>  --}}
-                                            Delete
-                                        </a>
-
-                                        {{-- <button style="margin-top: 3%" type="button" class="btn btn-danger" data-toggle="modal" data-target="#delete_confirm">
-                                          Delete
-                                        </button> --}}
+                                            <!-- Modal Header -->
+                                            <div class="modal-header">
+                                                <h4 class="modal-title">
+                                                    <strong>Delete Rider</strong>
+                                                </h4>
+                                                <button type="button" class="close" style="color: red" data-dismiss="modal">&times;</button>
+                                            </div>
+                                            
+                                            <!-- Modal body -->
+                                            <div class="modal-body">
+                                                <h5>You sure, you want to DELETE This Rider?</h5>
+                                            </div>
+                                            
+                                            <!-- Modal footer -->
+                                            <div class="modal-footer">
+                                                <button style=" border-color: #09bd8f;" type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                                                <button style="color: white;" type="submit" name="" class="btn btn-danger" data-dismiss="modal" onclick="formSubmit()">Delete</button>
+                                            </div>
+                                            
+                                        </div>
+                                        </div>
                                     </div>
-                                    <p style="text-align: center" class="additional-post-wrap">
-                                        <span style="margin-left: -15%" class="additional-post">
-                                            <i class="livicon" data-name="user" data-size="13" data-loop="true" data-c="#5bc0de" data-hc="#5bc0de">
-                                            </i>
-                                            <a href="#">&nbsp;
-                                                @if (isset($rider->user_id) && $rider->user && $rider->user->first_name)
-                                                    {{$rider->user->first_name.' '.$rider->user->last_name }} 
-                                                @endif
-                                                
-                                            </a>
-                                        </span>
-                                        <span style="" class="additional-post">
-                                            <i class="livicon" data-name="clock" data-size="13" data-loop="true" data-c="#5bc0de" data-hc="#5bc0de">
-                                            </i>
-                                            <a href="#"> {{$rider->created_at->diffForHumans()}} 
-                                            </a>
-                                        </span>
-                                        <span style="margin-right: -15%" class="additional-post">
-                                            <i class="livicon" data-name="fjs" data-size="13" data-loop="true" data-c="#5bc0de" data-hc="#5bc0de">
-                                            </i>
-                                            <a href="#"> 
-                                                @if (isset($rider->station) && $rider->station && $rider->station->name)
-                                                    {{$rider->station->name}} 
-                                                @endif
-                                                
-                                            </a>
-                                        </span>
-                                    </p>
-                                </div>
-                            </div>
-                            <!-- /.featured-text -->
-                        </div>
-
-                        {{-- Delete Modal --}}
-                        <form method="POST" id="deleteForm" >
-                            {{ csrf_field() }}
-                            {{ method_field('DELETE') }}
-                            <div  class="modal fade" id="delete_confirm" tabindex="-1" role="dialog" aria-labelledby="user_delete_confirm_title" aria-hidden="true">
-                                <div class="modal-dialog">
-                                <div class="modal-content">
-                                
-                                    <!-- Modal Header -->
-                                    <div class="modal-header">
-                                        <h4 class="modal-title">
-                                            <strong>Delete Rider/Passenger</strong>
-                                        </h4>
-                                        <button type="button" class="close" style="color: red" data-dismiss="modal">&times;</button>
-                                    </div>
-                                    
-                                    <!-- Modal body -->
-                                    <div class="modal-body">
-                                        <h5>You sure, you want to DELETE This rider?</h5>
-                                    </div>
-                                    
-                                    <!-- Modal footer -->
-                                    <div class="modal-footer">
-                                        <button style=" border-color: #09bd8f;" type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                                        <button style="color: white;" type="submit" name="" class="btn btn-danger" data-dismiss="modal" onclick="formSubmit()">Delete</button>
-                                        {{-- <button  type="submit" class="btn btn-danger" >Confirm</button> --}}
-                                    </div>
-                                    
-                                </div>
-                                </div>
-                            </div>
-                        </form>
-                        <!-- /.featured-post-wide -->
-                        <!-- END FEATURED POST -->
+                                </form>
+                            @endforeach
+                                <!-- /.featured-post-wide -->
+                                <!-- END FEATURED POST -->
                         @empty
                         <h3>No Rider On your collections!
                         </h3>
+                            
                         @endforelse
-                    <ul class="pager">
-                    {{ $riders->links() }}
-                    {{-- {!! $apps->render() !!} --}}
-                    </ul>
+                        <ul class="pager">
+                            {{ $riders->links() }}
+                            {{-- {!! $apps->render() !!} --}}
+                        </ul>
+                    @else 
+                        <p>No Rider Lists found
+                        </p>
+                    @endif
+                </div>
+                    
+                {{-- Delete Modal --}}
+                <form method="POST" id="deleteForm" >
+                    {{ csrf_field() }}
+                    {{ method_field('DELETE') }}
+                    <div  class="modal fade" id="delete_confirm" tabindex="-1" role="dialog" aria-labelledby="user_delete_confirm_title" aria-hidden="true">
+                        <div class="modal-dialog">
+                        <div class="modal-content">
+                        
+                            <!-- Modal Header -->
+                            <div class="modal-header">
+                                <h4 class="modal-title">
+                                    <strong>Delete Driver</strong>
+                                </h4>
+                                <button type="button" class="close" style="color: red" data-dismiss="modal">&times;</button>
+                            </div>
+                            
+                            <!-- Modal body -->
+                            <div class="modal-body">
+                                <h5>You sure, you want to DELETE This Driver?</h5>
+                            </div>
+                            
+                            <!-- Modal footer -->
+                            <div class="modal-footer">
+                                <button style=" border-color: #09bd8f;" type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                                <button style="color: white;" type="submit" name="" class="btn btn-danger" data-dismiss="modal" onclick="formSubmit()">Delete</button>
+                            </div>
+                            
+                        </div>
+                        </div>
+                    </div>
+                </form>
+
+                <div class="col-md-4 right_float ">
+                    <h3 class="martop">Recent Riders</h3>
+                    <div style="height: 30em; overflow: auto" class="tabbable-panel polaroid">
+                        <!-- Tabbablw-line Start -->
+                        <div  class="tabbable-line ">
+                            @foreach ($riderLatest as $rider)
+                                <ul id="myList" class="list-group">
+                                    <li class="list-group-item">{{ $rider->id_number}}</li>
+                                </ul>
+                            @endforeach
+                            
+                                
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-
+        
     </div> 
-@stop 
+@stop
 
 {{-- page level scripts --}}
 @section('footer_scripts')
@@ -474,5 +499,26 @@
         function formSubmit(){
             $("#deleteForm").submit();
         }
+
+        // search_rider();
+        function search_rider(query = '')
+        {
+            $.ajax({
+                url:"{{ route('user.rider.liveSearch') }}",
+                method:'GET',
+                data:{query:query},
+                dataType:'json',
+                success:function(records)
+                {
+                    console.log(records.output);
+                    $('#d').html(records.output);
+                }
+            })
+        }
+
+        $(document).on('keyup', '#search', function(){
+            var query = $(this).val();
+            search_rider(query);
+        });
     </script>
 @stop

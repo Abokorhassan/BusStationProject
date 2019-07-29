@@ -350,12 +350,12 @@ class DriverController extends Controller
         if($bus){
             $bus->Driver_id = null;
             $bus->driver_number = '';
-            // $bus->save();
+            $bus->save();
         }else{
 
         }
-        // $driver->delete();
-        return $driver->driver_number;
+        $driver->delete();
+        // return $driver->driver_number;
         return redirect('driver')->with('success', 'Driver Deleted');
     }
 }

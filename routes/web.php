@@ -361,6 +361,7 @@ Route::group(['namespace'=>'User', 'middleware' => 'user', 'as' => 'user.'], fun
     Route::group(['prefix' => 'rider'], function () {
         Route::get('data', 'RiderController@data')->name('rider.data');
         Route::get('{rider}/delete', 'RiderController@destroy')->name('rider.delete');
+        Route::get('liveSearch', 'RiderController@liveSearch')->name('rider.liveSearch');
     });
     Route::resource('rider', 'RiderController');
 

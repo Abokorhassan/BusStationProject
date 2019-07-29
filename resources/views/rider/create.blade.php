@@ -26,6 +26,9 @@
         width: 200px;
         height: 150px;   */
     }
+    #myList li{
+        background: #F0F0EC;
+    }
   </style>
 
   {{-- Pic and Date css --}}
@@ -86,6 +89,7 @@
               <!--main content-->
               <div class="position-center">
                 <div class="row">
+
                   <div class="col-sm-8">
                     <form id="commentForm" action="{{ route('user.rider.store') }}"
                           method="POST" enctype="multipart/form-data" class="form-horizontal">
@@ -196,54 +200,27 @@
                               <span class="help-block">:message
                               </span>') !!}
                             </div>
-                          </div>                      
-
-                          {{-- <div class="form-group {{ $errors->first('bus_number', 'has-error') }}">
-                            <label style="margin-top: -2%" for="bus_number" class="col-sm-2 control-label">Bus No.*
-                            </label>
-                            <div class="col-sm-10">
-                              <select class="form-control" title="Select Pas..." name="bus_number">                                         
-                                <option value="">Select bus_number
-                                </option>
-                                @foreach ($buses as $bus)
-                                <option value="{{ $bus->id}}" 
-                                  @if (old('bus_number')=== "{{$bus->id}}") selected="selected"@endif
-                                  >{{ $bus->bus_number}}
-                                </option>
-                                @endforeach
-                              </select>
-                              {!! $errors->first('bus_number', '
-                              <span class="help-block">:message
-                              </span>') !!}
-                            </div>   
-                          </div>
-
-                          <div class="form-group {{ $errors->first('station', 'has-error') }}">
-                            <label for="station" class="col-sm-2 control-label">Station*
-                            </label>
-                            <div class="col-sm-10">
-                              <select class="form-control" title="Select Station..." name="station">                                         
-                                <option value="">Select Station
-                                </option>
-      
-                                @foreach ($stations as $station)
-                                <option value="{{ $station->id}}" 
-                                  @if (old('station')=== "{{$station->id}}") selected="selected"@endif
-                                  >{{ $station->name}}
-                                </option>
-                                @endforeach
-                              </select>
-                              {!! $errors->first('station', '
-                              <span class="help-block">:message
-                              </span>') !!}
-                            </div>   
-                          </div> --}}
+                          </div> 
 
                         </div>    
                       </div>
 
                     </form>{{--{!!  Form::close()  !!}--}}
                   </div>
+
+                  <div class="col-md-4 right_float ">
+                    <h3 class="martop">Recent Riders</h3>
+                    <div style="height: 22em; overflow: auto"  class="tabbable-panel ">
+                      <!-- Tabbablw-line Start -->
+                      <div  class="tabbable-line ">
+                          @foreach ($riderLatest as $rider)
+                              <ul id="myList" class="list-group">
+                                  <li class="list-group-item">{{ $rider->id_number}}</li>
+                              </ul>
+                          @endforeach                                
+                      </div>
+                  </div>
+
                 </div>
               </div>
             </div>

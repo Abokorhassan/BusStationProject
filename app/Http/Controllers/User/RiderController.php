@@ -8,6 +8,7 @@ use App\Rider;
 use App\Station;
 use Sentinel;
 use App\User;
+use DB;
 
 class RiderController extends Controller
 {
@@ -18,8 +19,132 @@ class RiderController extends Controller
      */
     public function index()
     {
-        $riders = Rider::orderBy('created_at','desc')->paginate(3);
-        return view('rider.index', compact('riders'));
+        $riders = Rider::orderBy('created_at','desc')->paginate(4);
+
+        $riderLatest = Rider::latest()
+                            ->get();
+        return view('rider.index', compact('riders', 'riderLatest'));
+    }
+
+    public function liveSearch(Request $request)
+    {
+      
+        if($request->ajax())
+        {
+            $output = '';
+            $query = $request->get('query');
+            if($query != '')
+            {
+                $data= DB::table('riders')
+                                ->where('id', 'like', '%'.$query.'%')
+                                ->orWhere('id_number', 'like', '%'.$query.'%')
+                                ->orWhere('first_name', 'like', '%'.$query.'%')
+                                ->orWhere('last_name', 'like', '%'.$query.'%')
+                                ->orWhere('third_name', 'like', '%'.$query.'%')
+                                ->orWhere('ph_number', 'like', '%'.$query.'%')
+                                ->orWhere('gender', 'like', '%'.$query.'%')
+                                ->orWhere('station_name', 'like', '%'.$query.'%')
+                                ->orWhere('user_first', 'like', '%'.$query.'%')
+                                ->orWhere('user_last', 'like', '%'.$query.'%')
+                                ->orWhere('created_at', 'like', '%'.$query.'%')
+                                ->orderBy('id', 'desc')
+                            ->get();
+            }
+            else
+            {
+                $data = DB::table('riders')
+                            ->get();
+            }
+            $total_row = $data->count();
+            if($total_row > 0)
+            {
+                foreach($data as $row)
+                {
+                    $output .= '
+            
+                        <!-- BEGIN FEATURED POST -->
+                        <div class="col-sm-6">
+                            <div id="reocrds" class="featured-post-wide thumbnail polaroid ">
+                       
+                                <div class="featured-text relative-left">
+                                    <h3 style="text-align: center" class="success">
+                                    <a style="margin-left: -3em;text-align: center" href="' .url('rider/' .$row->id ).' ">
+                                        <strong > Rider No. &nbsp; 
+                                        </strong>'.$row->id_number.'
+                                    </a>
+                                    </h3>
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <div class="row">
+                                                <div class="col-sm-6">
+                                                    <p style="white-space: nowrap;">
+                                                        <strong>Name: &nbsp; 
+                                                        </strong>
+                                                        '.$row->first_name.' '. $row->last_name.'
+                                                    </p>
+                                                    <p  class="additional-post-wrap">
+                                                        <span class="additional-post">
+                                                           
+                                                            <i class="fa fa-user"></i>  
+                                                            <a href="#">&nbsp;
+                                                            '.$row->user_first.' '.$row->user_last.'
+                                                                
+                                                            </a>
+                                                        </span>
+                                                    </p>
+                                                    <a style="margin-left: 5em; " href="' . url('rider/' .$row->id .'/edit') . '">
+                                                        <button style=" font-size: 1em; width: 4.5em; height: 2.5em;"  type="button" class="btn btn-success btn-sm">Edit
+                                                        </button>
+                                                    </a>
+                                                </div>
+                                                <div  class="col-sm-6">
+                                                    <p style="margin-left: -12%">
+                                                        <strong>Phone: &nbsp; 
+                                                        </strong>
+                                                        '.$row->ph_number.' 
+                                                    </p>
+                                                    <p style="margin-left: -12%" class="additional-post-wrap">
+                                                        <span style="margin-right: -15%" class="additional-post">
+                                                            <i class="livicon" data-name="fjs" data-size="13" data-loop="true" data-c="#5bc0de" data-hc="#5bc0de">
+                                                            </i>
+                                                            <a href="#"> 
+                                                                '.$row->ph_number.'                                                                       
+                                                            </a>
+                                                        </span>
+                                                    </p>
+                                                    <a style="color: white; margin-left: -2em;" href="javascript:;" data-toggle="modal" onclick="deleteData('.$row->id.')" 
+                                                        data-target="#delete_confirm" class="btn btn-danger">
+                                                        
+                                                        Delete
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- /.featured-text -->
+                            </div>
+                        </div>
+                    ';
+                }
+            }
+          
+            else
+            {
+                $output = '
+                    <p>
+                        No Rider Lists found
+                    </p>
+                ';
+            }
+
+            $records = array(
+                'output'  => $output,
+                'riders'  => $data
+            );
+
+            echo json_encode($records);    
+        }
     }
 
     /**
@@ -29,7 +154,9 @@ class RiderController extends Controller
      */
     public function create()
     {
-        return view('rider.create'); 
+        $riderLatest = Rider::latest()
+                        ->get();
+        return view('rider.create',  compact('riderLatest')); 
     }
 
     /**
@@ -51,27 +178,22 @@ class RiderController extends Controller
         ]);
 
         $rider = new Rider();
-        $rider->id_number = $request->input('rider_number');
-        $rider->first_name = $request->input('first_name');
-        $rider->last_name = $request->input('second_name');
-        $rider->third_name = $request->input('third_name');
-        $rider->gender = $request->input('gender');
-        $rider->ph_number = $request->input('ph_number');
+        $rider->id_number = $request->input('rider_number');    // id_number
+        $rider->first_name = $request->input('first_name');     // first_name
+        $rider->last_name = $request->input('second_name');     // last_name
+        $rider->third_name = $request->input('third_name');     // third_name
 
-        $rider->user_id = Sentinel::getUser()->id;
+        $rider->gender = $request->input('gender');         // gender
+        $rider->ph_number = $request->input('ph_number');       // ph_number
+
+        $rider->user_id = Sentinel::getUser()->id;  // user_id
         $user = User::find($rider->user_id);
-        $rider->user_first = $user->first_name;
-        $rider->user_last = $user->last_name;
+        $rider->user_first = $user->first_name;   // user_first
+        $rider->user_last = $user->last_name;     // user_last
 
-        // get station id of the current user 
-        $stations = Station::select('id','name')->get();
-        $id= Sentinel::getUser()->id;
-        $user = User::find($id);
-        $s_id = $user->station_id; 
-        $station = Station::find($s_id);
-        $rider->station_id = $station->id;;
+        $rider->station_id = $user->station_id;    // station_id
         $station = Station::find($rider->station_id);
-        $rider->station_name = $station->name;
+        $rider->station_name = $station->name;  // station_name       
 
         $rider->save();
 
@@ -86,7 +208,8 @@ class RiderController extends Controller
      */
     public function show($id)
     {
-        //
+        $rider = Rider::find($id);
+        return view('rider.show', compact('rider'));
     }
 
     /**
@@ -98,7 +221,9 @@ class RiderController extends Controller
     public function edit($id)
     {
         $rider = Rider::find($id);
-        return view('rider.edit', compact('rider'));
+        $riderLatest = Rider::latest()
+                        ->get();
+        return view('rider.edit', compact('rider', 'riderLatest'));
     }
 
     /**
@@ -119,11 +244,14 @@ class RiderController extends Controller
             'ph_number' => "required | regex:/^[0-9]{7}$/ | unique:riders,ph_number,$id",
         ]);
 
-        $rider->id_number = $request->input('id_number');
-        $rider->first_name = $request->input('first_name');
-        $rider->last_name = $request->input('last_name');
-        $rider->third_name = $request->input('third_name');
-        $rider->ph_number = $request->input('ph_number');
+        $rider->id_number = $request->input('id_number');      // id_number
+
+        $rider->first_name = $request->input('first_name');     // first_name
+        $rider->last_name = $request->input('last_name');       // last_name
+        $rider->third_name = $request->input('third_name');     // third_name
+
+        $rider->ph_number = $request->input('ph_number');       // ph_number
+        
         $rider->save();
 
         return redirect('rider')->with('success', 'Rider Updated');    

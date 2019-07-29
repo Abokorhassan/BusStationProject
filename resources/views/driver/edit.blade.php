@@ -21,6 +21,11 @@
     <link href="{{ asset('assets/vendors/bootstrap-tagsinput/css/bootstrap-tagsinput.css') }}" rel="stylesheet"/>
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/vendors/jasny-bootstrap/css/jasny-bootstrap.css') }}">
 
+    <style>
+    #myList li{
+        background: #F0F0EC;
+    }
+    </style>
 
 @stop
 
