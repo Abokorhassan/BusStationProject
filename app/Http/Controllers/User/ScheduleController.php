@@ -30,7 +30,7 @@ class ScheduleController extends Controller
 
             $stationschedule = Schedule::latest()
                                 ->where('station_id', $stations_id)
-                                ->paginate(2);
+                                ->paginate(4);
             // $stationschedule = Station::find($stations_id)->schedule()->paginate(4);
             
             $routes = Route::select('id','name')
@@ -99,14 +99,14 @@ class ScheduleController extends Controller
                 
 
             }
-            // else
-            // {
-            //     $data = DB::table('schedules')
-            //                 ->where('station_id', $stations_id)
-            //                 // ->get();
-            //                 ->paginate(2);
-            //                 // ->toArray();
-            // }
+            else
+            {
+                $data = DB::table('schedules')
+                            ->where('station_id', $stations_id)
+                            ->get();
+                            // ->paginate(2);
+                            // ->toArray();
+            }
             $total_row = $data->count();
             if($total_row > 0)
             {

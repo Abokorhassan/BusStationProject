@@ -65,6 +65,7 @@
               <!--main content-->
               <div class="position-center">
                 <div class="row">
+
                   <div class="col-sm-8">
                     {!! Form::model($driver, ['url' => URL::to('driver/' . $driver->id), 'method' => 'put',
                       'class' => 'form-horizontal', 'files'=> true]) !!}
@@ -223,6 +224,23 @@
                       
                     </form>{{--{!!  Form::close()  !!}--}}
                   </div>
+
+                  <div class="col-md-4 right_float ">
+                      <h3 class="martop">Recent Driver</h3>
+                      <div style="height: 22em; overflow: auto" class="tabbable-panel">
+                          <!-- Tabbablw-line Start -->
+                          <div  class="tabbable-line ">
+                              @foreach ($driverLatest as $driver)
+                                <ul id="myList" class="list-group">
+                                    <li class="list-group-item">{{ $driver->driver_number}}</li>
+                                </ul>
+                            @endforeach
+                              
+                                  
+                          </div>
+                      </div>
+                  </div>
+
                 </div>
               </div>
             </div>

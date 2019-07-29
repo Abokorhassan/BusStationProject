@@ -15,17 +15,21 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css" />
     <!--end of page level css-->
     <style>
-    div.polaroid {
-        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    }
-    #rcorners {
-        border-radius: 15px;
-        /* border: 2px solid; */
-        /* border: 2px solid #73AD21; */
-        /* padding: 20px; 
-        width: 200px;
-        height: 150px;   */
-    }
+      div.polaroid {
+          box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+      }
+      #rcorners {
+          border-radius: 15px;
+          /* border: 2px solid; */
+          /* border: 2px solid #73AD21; */
+          /* padding: 20px; 
+          width: 200px;
+          height: 150px;   */
+      }
+      #myList li{
+              background: #F0F0EC;
+      }
+
     </style>
 
 @stop
@@ -121,9 +125,9 @@
 
                   <div class="col-md-4 right_float ">
                       <h3 class="martop">Recent Buses</h3>
-                      <div style="height: 22em; overflow: auto" class="tabbable-panel polaroid">
+                      <div style="height: 22em; overflow: auto" class="tabbable-panel">
                           <!-- Tabbablw-line Start -->
-                          <div  class="tabbable-line ">
+                          <div id="myList" class="tabbable-line ">
                               @foreach ($busLatest as $bus)
                                   <ul  class="list-group">
                                       <li class="list-group-item">{{ $bus->bus_number}}</li>

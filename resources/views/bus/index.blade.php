@@ -37,6 +37,11 @@
             border:1px solid #ccc;
             cursor:pointer;
         }
+
+        #myList li{
+            background: #F0F0EC;
+        }
+        
     </style>
 
     <!-- Modal Delete CSS -->
@@ -478,7 +483,7 @@
                         <!-- Tabbablw-line Start -->
                         <div  class="tabbable-line ">
                             @foreach ($busLatest as $bus)
-                                <ul  class="list-group">
+                                <ul id="myList" class="list-group">
                                     <li class="list-group-item">{{ $bus->bus_number}}</li>
                                 </ul>
                             @endforeach
@@ -509,6 +514,10 @@
         function formSubmit(){
             $("#deleteForm").submit();
         }
+
+        // $(document).ready(function(){
+        //     $('#myList li:nth-child(odd)').css('background','#F0F0EC')
+        // });
         
         function search_bus(query = '')
         {

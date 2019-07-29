@@ -21,6 +21,13 @@
     <link href="{{ asset('assets/vendors/bootstrap-tagsinput/css/bootstrap-tagsinput.css') }}" rel="stylesheet"/>
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/vendors/jasny-bootstrap/css/jasny-bootstrap.css') }}">
     <link href="{{ asset('assets/css/pages/blog.css') }}" rel="stylesheet" type="text/css">
+    <style>
+      #myList li{
+              background: #F0F0EC;
+      }
+    </style>
+      
+    
 
 
 @stop
@@ -113,7 +120,7 @@
                   </div>
                   <div class="col-md-4 right_float ">
                       <h3 class="martop">Recent Schedules</h3>
-                      <div style="height: 30em" class="tabbable-panel polaroid">
+                      <div style="height: 22em; overflow: auto" style="height: 30em" class="tabbable-panel polaroid">
                           <!-- Tabbablw-line Start -->
                           <div class="tabbable-line ">
   
@@ -207,7 +214,7 @@
                           $(".tab-content").empty();
                           $(".tab-content").html('<div class="tab-pane" name="schedule" id="'+ id +'">')
                           $.each( data, function( index, object ) {
-                              $(".tab-content").append('<ul class="list-group"><li class="list-group-item">'+ object['schedule_number'] +'</li></ul></div>');
+                              $(".tab-content").append('<ul id="myList" class="list-group"><li class="list-group-item">'+ object['schedule_number'] +'</li></ul></div>');
                                         
                           });
                           

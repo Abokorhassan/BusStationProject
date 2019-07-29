@@ -7,16 +7,8 @@
 
 {{-- page level styles --}}
 @section('header_styles')
-    <!--page level css starts-->
-
-    {{-- without bootstrap mini .css modal will not work so we take out all the moda from mini css and plot it on script --}}
-    {{-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"> --}} 
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/frontend/tabbular.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/frontend/blog.css') }}">
-    
-    {{-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js">
-    </script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css" /> --}}
     
     <!--end of page level css-->
     
@@ -32,10 +24,8 @@
             width: 200px;
             height: 150px;   */
         }
-        .clickable
-        {
-            border:1px solid #ccc;
-            cursor:pointer;
+        #myList li{
+            background: #F0F0EC;
         }
     </style>
 
@@ -476,7 +466,7 @@
 
                 <div class="col-md-4 right_float ">
                     <h3 class="martop">Recent Schedules</h3>
-                    <div style="height: 30em" class="tabbable-panel polaroid">
+                    <div style="height: 30em; overflow: auto"  class="tabbable-panel polaroid">
                         <!-- Tabbablw-line Start -->
                         <div class="tabbable-line ">
 
@@ -540,13 +530,13 @@
         }
 
         $(document).ready(function(){
- 
+            
             $('.clickable').click(function(){
                 window.location = $(this).find("#anchor").attr("href");
             });
-        
+
         });
-        
+
         
         $("ul.nav-tabs > li > a").click(function() {
             var id = $(this).attr("href").replace("#", "");
@@ -565,7 +555,7 @@
                         $(".tab-content").empty();
                         $(".tab-content").html('<div class="tab-pane" name="schedule" id="'+ id +'">')
                         $.each( data, function( index, object ) {
-                            $(".tab-content").append('<ul class="list-group"><li class="list-group-item">'+ object['schedule_number'] +'</li></ul></div>');
+                            $(".tab-content").append('<ul id="myList" class="list-group"><li class="list-group-item">'+ object['schedule_number'] +'</li></ul></div>');
                                       
                         });
                         

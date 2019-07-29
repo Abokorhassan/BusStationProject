@@ -15,17 +15,20 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css" />
   <!--end of page level css-->
   <style>
-    div.polaroid {
-        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    }
-    #rcorners {
-        border-radius: 15px;
-        /* border: 2px solid; */
-        /* border: 2px solid #73AD21; */
-        /* padding: 20px; 
-        width: 200px;
-        height: 150px;   */
-    }
+      div.polaroid {
+          box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+      }
+      #rcorners {
+          border-radius: 15px;
+          /* border: 2px solid; */
+          /* border: 2px solid #73AD21; */
+          /* padding: 20px; 
+          width: 200px;
+          height: 150px;   */
+      }
+      #myList li{
+              background: #F0F0EC;
+      }
   </style>
 
 
@@ -87,6 +90,7 @@
               <!--main content-->
               <div class="position-center">
                 <div class="row">
+
                   <div class="col-sm-8">
                     <form id="commentForm" action="{{ route('user.driver.store') }}"
                           method="POST" enctype="multipart/form-data" class="form-horizontal">
@@ -282,6 +286,23 @@
                       </div> --}}
                     </form>{{--{!!  Form::close()  !!}--}}
                   </div>
+
+                  <div class="col-md-4 right_float ">
+                      <h3 class="martop">Recent Driver</h3>
+                      <div style="height: 22em; overflow: auto" class="tabbable-panel">
+                          <!-- Tabbablw-line Start -->
+                          <div  class="tabbable-line ">
+                              @foreach ($driverLatest as $driver)
+                                <ul id="myList" class="list-group">
+                                    <li class="list-group-item">{{ $driver->driver_number}}</li>
+                                </ul>
+                            @endforeach
+                              
+                                  
+                          </div>
+                      </div>
+                  </div>
+
                 </div>
               </div>
             </div>

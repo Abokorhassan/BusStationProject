@@ -27,11 +27,9 @@ class BusController extends Controller
         $station = Station::find($s_id);
         if(!$station == ''){
             $stations_id = $station->id;
-            // $stationbus = Station::find($stations_id)->bus()->paginate(3);
             $stationbus = Bus::latest()
                             ->where('station_id', $stations_id)
                             ->paginate(4);
-                            // return $stationbus;
             $busLatest = Bus::latest()
                             ->where('station_id', $stations_id)
                             ->get();
@@ -62,6 +60,7 @@ class BusController extends Controller
                             
                             ->where(function($q)use($query){
                                 $q->where('model_type', 'like', '%'.$query.'%')
+                                ->orWhere('id', 'like', '%'.$query.'%')
                                 ->orWhere('bus_number', 'like', '%'.$query.'%')
                                 ->orWhere('driver_number', 'like', '%'.$query.'%')
                                 ->orWhere('user_first', 'like', '%'.$query.'%')
@@ -71,6 +70,14 @@ class BusController extends Controller
                             ->get();
                 
 
+            }
+            else
+            {
+                $data = DB::table('buses')
+                            ->where('station_id', $stations_id)
+                            ->get();
+                            // ->paginate(2);
+                            // ->toArray();
             }
             $total_row = $data->count();
             if($total_row > 0)
@@ -208,7 +215,7 @@ class BusController extends Controller
             
         ]);   
         $bus = new Bus();
-        $bus->model_type =$request->input('model_type');    // model type
+        $bus->model_type =$request->input('model_type');    // modal type
         $bus->bus_number =$request->input('bus_number');    // bus_number
 
         $driver_id =$request->input('driver_number');   

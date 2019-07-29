@@ -353,6 +353,7 @@ Route::group(['namespace'=>'User', 'middleware' => 'user', 'as' => 'user.'], fun
     Route::group(['prefix' => 'driver'], function () {
         Route::get('data', 'DriverController@data')->name('driver.data');
         Route::get('{driver}/delete', 'DriverController@destroy')->name('driver.delete');
+        Route::get('liveSearch', 'DriverController@liveSearch')->name('driver.liveSearch');
     });
     Route::resource('driver', 'DriverController');
 
