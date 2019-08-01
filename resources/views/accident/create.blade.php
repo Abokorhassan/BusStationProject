@@ -77,7 +77,7 @@
 @section('content')
     <!-- Container Section Strat -->
     <div class="container">
-        <h2> Ad Accident
+        <h2> Add Accident
         </h2>
         <hr>
         <div class="row margin_right_left">
@@ -91,6 +91,27 @@
                           method="POST" enctype="multipart/form-data" class="form-horizontal">
                       <!-- CSRF Token -->
                       <input type="hidden" name="_token" value="{{ csrf_token() }}" />
+
+                      <div class="form-group {{ $errors->first('route', 'has-error') }}">
+                        <label for="route" class="col-sm-2 control-label">
+                          <strong>Route *</strong>
+                        </label>
+                        <div class="col-sm-10">
+                          <select class="form-control" title="Select Pas..." name="route">                                         
+                            <option value="">Select route
+                            </option>
+                            @foreach ($routes as $route)
+                            <option value="{{ $route->id}}" 
+                              @if (old('route')=== "{{$route->id}}") selected="selected"@endif
+                              >{{ $route->name}}
+                            </option>
+                            @endforeach
+                          </select>
+                          {!! $errors->first('route', '
+                          <span class="help-block">:message
+                          </span>') !!}
+                        </div>   
+                      </div>  
                       
                       <div class="form-group {{ $errors->first('bus_number', 'has-error') }}">
                         <label for="bus_number" class="col-sm-2 control-label">
@@ -98,7 +119,7 @@
                         </label>
                         <div class="col-sm-10">
                           <select class="form-control" title="Select Pas..." name="bus_number">                                         
-                            <option value="">Select bus_number
+                            <option value="">Select bus
                             </option>
                             @foreach ($buses as $bus)
                             <option value="{{ $bus->id}}" 

@@ -32,6 +32,9 @@
             width: 200px;
             height: 150px;   */
         }
+        #myList li{
+            background: #F0F0EC;
+        }
     </style>
 
     <!-- Modal Delete CSS -->
@@ -297,10 +300,14 @@
         <h2>
             Accident Lists
             @if($accidents != null)
-                <a style="margin-left: 40%;" href="{{ URL::to('accident/create') }}">
+                <a style="margin-left: 52%;" href="{{ URL::to('accident/create') }}">
                     <button style=" border-color: #09bd8f; width: 12%;" type="button" class="btn btn-default bt-lg">Add New Accident
                     </button>
-                </a>                
+                </a>
+            <div style="margin-left: 25%; margin-top: -3% " class="form-group">
+                <input type="text" name="search" id="search" class="form-control" style="width: 35%; height: 35px; border-color: #09bd8f;" placeholder="Search Accident Data">                                                
+                
+            </div>
             @else
                 
             @endif
@@ -311,145 +318,186 @@
         <div id="notific">
             @include('notifications')
         </div>
-        {{-- 
-        <div class="table-responsive">
-            <h3 > Total Data : 
-            <span id="total_records">
-            </span>
-            </h3>
-        </div> --}}
-        @if(!$accidents == null)
-            <div class="row">
-                <div class="content">
-                    <div class="col-md-8 right_float ">
-                        @forelse ($accidents as $accident)
-                            <!-- BEGIN FEATURED POST -->
-                            <div id="reocrds" class="featured-post-wide thumbnail polaroid ">
-                                <div class="featured-text relative-left">
-                                    <h3 style="text-align: center" class="success">
-                                    <a href="">
-                                        <strong> Accident Number: &nbsp; 
-                                        </strong>{{$accident->acc_num}}
-                                    </a>
-                                    </h3>
-                                    <div class="row">
-                                        <div class="col-sm-10">
+
+        <div class="row">
+            <div class="content">
+                <div id="d" class="col-md-8 right_float ">
+                    @if(!$accidents == null)
+                        @forelse ($accidents->chunk(3) as $collection)
+                            @foreach ($collection as $accident)
+                                <!-- BEGIN FEATURED POST -->
+                                <div class="col-sm-6">
+                                    <div id="reocrds" class="featured-post-wide thumbnail polaroid ">
+                                        <div class="featured-text relative-left">
+                                            <h3 style="text-align: center" class="success">
+                                            <a style="margin-left: -3em;text-align: center" href="{{ URL::to('accident/' .$accident->id .'') }}">
+                                                <strong > Bus No. &nbsp; 
+                                                </strong>{{$accident->bus_number}}
+                                            </a>
+                                            </h3>
                                             <div class="row">
-                                                <div class="col-sm-6">
-                                                    <p>
-                                                        <strong>ID: &nbsp; 
-                                                        </strong>
-                                                        {!! $accident->id !!}
-                                                    </p>
-                                                    <p>
-                                                        <strong>Bus: &nbsp; 
-                                                        </strong>
-                                                        @if (isset($accident->bus_id) && $accident->bus && $accident->bus->bus_number)
-                                                            {!! $accident->bus->bus_number !!}
-                                                        @endif
-                                                    </p>
-                                                </div>
-                                                <div class="col-sm-6">
-                                                    <p>
-                                                        <strong>Latitude: &nbsp; 
-                                                        </strong>
-                                                        {!! $accident->acc_lat !!}
-                                                             
-                                                    </p>
-                                                    <p>
-                                                        <strong>Longitude: &nbsp; 
-                                                        </strong>
-                                                        {!! $accident->acc_long !!}
-                                                    </p>
+                                                <div class="col-sm-12">
+                                                    <div class="row">
+                                                        <div class="col-sm-6">
+                                                            <p>
+                                                                <strong>Driver: &nbsp; 
+                                                                </strong>
+                                                                {!! $accident->driver_number !!}
+                                                            </p>
+                                                            <p  class="additional-post-wrap">
+                                                                <span class="additional-post">
+                                                                    <i class="livicon" data-name="user" data-size="13" data-loop="true" data-c="#5bc0de" data-hc="#5bc0de">
+                                                                    </i>
+                                                                    <a href="#">&nbsp;
+                                                                        @if (isset($accident->user_id) && $accident->user && $accident->user->first_name)
+                                                                            {{$accident->user->first_name.' '.$accident->user->last_name }}
+                                                                        @endif
+                                                                        
+                                                                    </a>
+                                                                </span>
+                                                            </p>
+                                                            <a style="margin-left: 5em; " href="{{ URL::to('accident/' .$accident->id .'/edit') }}">
+                                                                <button style=" font-size: 1em; width: 4.5em; height: 2.5em;"  type="button" class="btn btn-success btn-sm">Edit
+                                                                </button>
+                                                            </a>
+                                                        </div>
+                                                        <div class="col-sm-6">
+                                                            <p>
+                                                                <strong>Route: &nbsp; 
+                                                                </strong>
+                                                                {!! $accident->route_name !!} 
+                                                            </p>
+                                                            <p class="additional-post-wrap">
+                                                                <span style="margin-right: -15%" class="additional-post">
+                                                                    <i class="livicon" data-name="clock" data-size="13" data-loop="true" data-c="#5bc0de" data-hc="#5bc0de">
+                                                                    </i>
+                                                                    <a href="#"> {{$accident->created_at->diffForHumans()}} 
+                                                                    </a>
+                                                                </span>
+                                                            </p>
+                                                            <a style="color: white; margin-left: -2em;" href="javascript:;" data-toggle="modal" onclick="deleteData({{$accident->id}})" 
+                                                                data-target="#delete_confirm" class="btn btn-danger">
+                                                                {{-- <i class="fa fa-trash"></i>  --}}
+                                                                Delete
+                                                            </a>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-sm-2">
-                                            <a href="{{ URL::to('accident/' .$accident->id .'/edit') }}">
-                                                <button  type="button" class="btn btn-success btn-sm">Edit
-                                                </button>
-                                            </a>
-
-                                            <a style="margin-top: 3%; color: white" href="javascript:;" data-toggle="modal" onclick="deleteData({{$accident->id}})" 
-                                                    data-target="#delete_confirm" class="btn btn-danger">
-                                                {{-- <i class="fa fa-trash"></i>  --}}
-                                                Delete
-                                            </a>
-
-                                        </div>
-                                        <p style="text-align: center" class="additional-post-wrap">
-                                            <span style="margin-left: -15%" class="additional-post">
-                                            <i class="livicon" data-name="user" data-size="13" data-loop="true" data-c="#5bc0de" data-hc="#5bc0de">
-                                            </i>
-                                            <a href="#">&nbsp;
-                                                @if (isset($accident->user_id) && $accident->user && $accident->user->first_name)
-                                                    {{$accident->user->first_name.' '.$accident->user->last_name }}
-                                                @endif
-                                                 
-                                            </a>
-                                            </span>
-                                            <span style="margin-right: -15%" class="additional-post">
-                                            <i class="livicon" data-name="clock" data-size="13" data-loop="true" data-c="#5bc0de" data-hc="#5bc0de">
-                                            </i>
-                                            <a href="#"> {{$accident->created_at->diffForHumans()}} 
-                                            </a>
-                                            </span>
-                                        </p>
+                                        <!-- /.featured-text -->
                                     </div>
                                 </div>
-                                <!-- /.featured-text -->
-                            </div>
-
-                            {{-- Delete Modal --}}
-                            <form method="POST" id="deleteForm" >
-                                {{ csrf_field() }}
-                                {{ method_field('DELETE') }}
-                                <div  class="modal fade" id="delete_confirm" tabindex="-1" role="dialog" aria-labelledby="user_delete_confirm_title" aria-hidden="true">
-                                    <div class="modal-dialog">
-                                    <div class="modal-content">
-                                    
-                                        <!-- Modal Header -->
-                                        <div class="modal-header">
-                                            <h4 class="modal-title">
-                                                <strong>Delete Accident</strong>
-                                            </h4>
-                                            <button type="button" class="close" style="color: red" data-dismiss="modal">&times;</button>
-                                        </div>
+                        
+                                {{-- Delete Modal --}}
+                                <form method="POST" id="deleteForm" >
+                                    {{ csrf_field() }}
+                                    {{ method_field('DELETE') }}
+                                    <div  class="modal fade" id="delete_confirm" tabindex="-1" role="dialog" aria-labelledby="user_delete_confirm_title" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                        <div class="modal-content">
                                         
-                                        <!-- Modal body -->
-                                        <div class="modal-body">
-                                            <h5>You sure, you want to DELETE This Accident?</h5>
+                                            <!-- Modal Header -->
+                                            <div class="modal-header">
+                                                <h4 class="modal-title">
+                                                    <strong>Delete Accident</strong>
+                                                </h4>
+                                                <button type="button" class="close" style="color: red" data-dismiss="modal">&times;</button>
+                                            </div>
+                                            
+                                            <!-- Modal body -->
+                                            <div class="modal-body">
+                                                <h5>You sure, you want to DELETE This Accident?</h5>
+                                            </div>
+                                            
+                                            <!-- Modal footer -->
+                                            <div class="modal-footer">
+                                                <button style=" border-color: #09bd8f;" type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                                                <button style="color: white;" type="submit" name="" class="btn btn-danger" data-dismiss="modal" onclick="formSubmit()">Delete</button>
+                                            </div>
+                                            
                                         </div>
-                                        
-                                        <!-- Modal footer -->
-                                        <div class="modal-footer">
-                                            <button style=" border-color: #09bd8f;" type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                                            <button style="color: white;" type="submit" name="" class="btn btn-danger" data-dismiss="modal" onclick="formSubmit()">Delete</button>
                                         </div>
-                                        
                                     </div>
-                                    </div>
-                                </div>
-                            </form>
-                            <!-- /.featured-post-wide -->
-                            <!-- END FEATURED POST -->
-                            @empty
-                            <h3>No Accident On your collections!
-                            </h3>
-                            @endforelse
+                                </form>
+                            @endforeach
+                                <!-- /.featured-post-wide -->
+                                <!-- END FEATURED POST -->
+                        @empty
+                        <h3>No Accident On your collections!
+                        </h3>
+                            
+                        @endforelse
                         <ul class="pager">
-                        {{ $accidents->links() }}
-                        {{-- {!! $apps->render() !!} --}}
+                            {{ $accidents->links() }}
+                            {{-- {!! $apps->render() !!} --}}
                         </ul>
+                    @else 
+                        <p>No Accident Lists found
+                        </p>
+                    @endif
+                </div>
+                    
+                {{-- Delete Modal --}}
+                <form method="POST" id="deleteForm" >
+                    {{ csrf_field() }}
+                    {{ method_field('DELETE') }}
+                    <div  class="modal fade" id="delete_confirm" tabindex="-1" role="dialog" aria-labelledby="user_delete_confirm_title" aria-hidden="true">
+                        <div class="modal-dialog">
+                        <div class="modal-content">
+                        
+                            <!-- Modal Header -->
+                            <div class="modal-header">
+                                <h4 class="modal-title">
+                                    <strong>Delete Accident</strong>
+                                </h4>
+                                <button type="button" class="close" style="color: red" data-dismiss="modal">&times;</button>
+                            </div>
+                            
+                            <!-- Modal body -->
+                            <div class="modal-body">
+                                <h5>You sure, you want to DELETE This Accident?</h5>
+                            </div>
+                            
+                            <!-- Modal footer -->
+                            <div class="modal-footer">
+                                <button style=" border-color: #09bd8f;" type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                                <button style="color: white;" type="submit" name="" class="btn btn-danger" data-dismiss="modal" onclick="formSubmit()">Delete</button>
+                            </div>
+                            
+                        </div>
+                        </div>
+                    </div>
+                </form>
+
+                <div class="col-md-4 right_float ">
+                    <h3 class="martop">Recent Accidents</h3>
+                    <div style="height: 30em; overflow: auto"  class="tabbable-panel polaroid">
+                        <!-- Tabbablw-line Start -->
+                        <div class="tabbable-line ">
+
+                             <ul class="nav nav-tabs tabs_content">
+                                @foreach ($routes as $index => $route)
+                                        <li @if($index== 0) class="active" @endif>
+                                            <a href="#{{ $route->id }}" id="ad{{ $route->id }}" data-toggle="tab">
+                                                {!! $route->name !!}
+                                            </a>
+                                        </li>
+                                @endforeach
+                             </ul>
+
+                            <div class="tab-content blog_tabs">
+                                
+                            </div>
+                        </div>
                     </div>
                 </div>
+
             </div>
-        @else 
-            <p>No Accident Lists found
-            </p>
-        @endif
+        </div>
+        
     </div> 
-@stop 
+@stop
 
 {{-- page level scripts --}}
 @section('footer_scripts')
@@ -467,5 +515,55 @@
         function formSubmit(){
             $("#deleteForm").submit();
         }
+
+        $("ul.nav-tabs > li > a").click(function() {
+            var id = $(this).attr("href").replace("#", "");
+            console.log(id);
+         
+            if(id) {
+                $.ajax({
+                    url: "{{ route('user.accident.getId') }}",
+                    type: "GET",
+                    data:{'id':id},
+                    dataType: "json",
+                    success:function(data) {
+                        console.log(id);
+                        console.log(data);
+
+                        $(".tab-content").empty();
+                        $(".tab-content").html('<div class="tab-pane" name="accident" id="'+ id +'">')
+                        $.each( data, function( index, object ) {
+                            $(".tab-content").append('<ul id="myList" class="list-group"><li class="list-group-item">'+ object['bus_number'] +'</li></ul></div>');
+                                      
+                        });
+                        
+                    }
+                });
+            }    
+        });
+
+        $("ul.nav-tabs > li:first > a").trigger( "click" );
+
+        // search_accident();
+        function search_accident(query = '')
+        {
+            $.ajax({
+                url:"{{ route('user.accident.liveSearch') }}",
+                method:'GET',
+                data:{query:query},
+                dataType:'json',
+                success:function(records)
+                {
+                    console.log(records.output);
+                    $('#d').html(records.output);
+                }
+            })
+        }
+
+        $(document).on('keyup', '#search', function(){
+            var query = $(this).val();
+            search_accident(query);
+        });
+
     </script>
 @stop

@@ -73,6 +73,17 @@
                       <!-- CSRF Token -->
                       <input type="hidden" name="_token" value="{{ csrf_token() }}" />
 
+                      <div class="form-group {{ $errors->first('route_id', 'has-error') }}">
+                          <label for="route_id" class="col-sm-2 control-label">Roue *
+                          </label>
+                          <div class="col-sm-10">
+                                {!! Form::select('route_id', $opRoutes, null, ['placeholder' => 'Select route', 'class' => 'form-control required']) !!}
+                            {!! $errors->first('route_id', '
+                            <span class="help-block">:message
+                            </span>') !!}
+                          </div>
+                        </div>
+
                       <div class="form-group {{ $errors->first('bus_id', 'has-error') }}">
                         <label for="bus_id" class="col-sm-2 control-label">Bus *
                         </label>

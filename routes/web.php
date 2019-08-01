@@ -376,6 +376,8 @@ Route::group(['namespace'=>'User', 'middleware' => 'user', 'as' => 'user.'], fun
     Route::group(['prefix' => 'accident'], function () {
         Route::get('data', 'AccidentController@data')->name('accident.data');
         Route::get('{accident}/delete', 'AccidentController@destroy')->name('accident.delete');
+        Route::get('getId', 'AccidentController@getId')->name('accident.getId');
+        Route::get('liveSearch', 'AccidentController@liveSearch')->name('accident.liveSearch');
     });
     Route::resource('accident', 'AccidentController');
 
