@@ -201,6 +201,7 @@ class QueueController extends Controller
 
         return Response()->json($data);
     }
+    
 
     public function liveSearch(Request $request)
     {
@@ -367,6 +368,13 @@ class QueueController extends Controller
 
         return redirect('queue')->with('success', 'Bus Added To The Queue');
     }
+
+    public function show($id)
+    {
+        $queue = Queue::find($id);
+        return view('queue.show', compact('queue'));
+    }
+
 
 
     /**

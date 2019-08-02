@@ -32,6 +32,9 @@
             width: 200px;
             height: 150px;   */
         }
+        #myList li{
+            background: #F0F0EC;
+        }
     </style>
 
     <!-- Modal Delete CSS -->
@@ -295,12 +298,16 @@
     <!-- Container Section Strat -->
     <div class="container">
         <h2>
-            Reserve Seat Lists
+                Reserve Lists
             @if($reserves != null)
-                <a style="margin-left: 40%;" href="{{ URL::to('reserve/create') }}">
-                    <button style=" border-color: #09bd8f; width: 12%;" type="button" class="btn btn-default bt-lg">Add New Reserve 
+                <a style="margin-left: 52%;" href="{{ URL::to('reserve/create') }}">
+                    <button style=" border-color: #09bd8f; width: 12%;" type="button" class="btn btn-default bt-lg">Add New Reserve
                     </button>
-                </a>                
+                </a>
+            <div style="margin-left: 25%; margin-top: -3% " class="form-group">
+                <input type="text" name="search" id="search" class="form-control" style="width: 35%; height: 35px; border-color: #09bd8f;" placeholder="Search Scedule Data">                                                
+                
+            </div>
             @else
                 
             @endif
@@ -311,104 +318,95 @@
         <div id="notific">
             @include('notifications')
         </div>
-        {{-- 
-        <div class="table-responsive">
-            <h3 > Total Data : 
-            <span id="total_records">
-            </span>
-            </h3>
-        </div> --}}
-        @if(!$reserves == null)
-            <div class="row">
-                <div class="content">
-                    <div class="col-md-8 right_float ">
+
+        <div class="row">
+            <div class="content">
+                <div id="d" class="col-md-8 right_float ">
+                    @if(!$reserves == null)
                         @forelse ($reserves->chunk(3) as $collection)
                             @foreach ($collection as $reserve)
                             
                                 <!-- BEGIN FEATURED POST -->
-                                    <div class="col-sm-6">
-                                        <div id="reocrds" class="featured-post-wide thumbnail polaroid ">
-                                            <div class="featured-text relative-left">
-                                                <h3 style="text-align: center" class="success">
-                                                <a style="margin-left: -3em" href="">
-                                                    <strong> Rider Number: &nbsp; 
-                                                    </strong>
-                                                    @if (isset($reserve->rider_id) && $reserve->rider && $reserve->rider->id_number)
-                                                        {{ $riderName = $reserve->rider->id_number }}
-                                                    @endif
-                                                </a>
-                                                </h3>
-                                                <div class="row">
-                                                    <div class="col-sm-12">
-                                                        <div class="row">
-                                                            <div class="col-sm-6">
+                                <div class="col-sm-6">
+                                    <div id="reocrds" class="featured-post-wide thumbnail polaroid ">
+                                        <div class="featured-text relative-left">
+                                            <h3 style="text-align: center" class="success">
+                                            <a style="margin-left: -3em" href="">
+                                                <strong> Rider Number: &nbsp; 
+                                                </strong>
+                                               
+                                                {{ $reserve->rider_number }}
+                                                
+                                            </a>
+                                            </h3>
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <div class="row">
+                                                        <div class="col-sm-6">
+                                                            <p style="white-space: nowrap;">
+                                                                <strong>Name: &nbsp; 
+                                                                </strong>
+                                                                {{ $reserve->rider_first }}                           
                                                                 <p>
-                                                                    <strong>Name: &nbsp; 
-                                                                    </strong>
-                                                                    {{ $reserve->rider_first }}                           
-                                                                 <p>
-                                                                    <strong>Bus:
-                                                                    </strong>
-                                                                    {{ $reserve->bus_number }}  
-                                                                    {{-- @if (isset($reserve->rider_id) && $reserve->rider && $reserve->rider->first_name)
-                                                                        {{ $riderName = $reserve->rider->first_name.' '.$reserve->rider->last_name }}                           
-                                                                    @endif --}}
-                                                                </p>
-                                                                <p  class="additional-post-wrap">
-                                                                    <span class="additional-post">
-                                                                        <i class="livicon" data-name="user" data-size="13" data-loop="true" data-c="#5bc0de" data-hc="#5bc0de">
-                                                                        </i>
-                                                                        <a href="#">&nbsp;
-                                                                            @if (isset($reserve->user_id) && $reserve->user && $reserve->user->first_name)
-                                                                                {{$reserve->user->first_name.' '.$reserve->user->last_name }}
-                                                                            @endif
-                                                                            
-                                                                        </a>
-                                                                    </span>
-                                                                </p>
-                                                                <a style="margin-left: 5em; " 
-                                                                    href="{{ URL::to('reserve/' .$reserve->id .'/edit') }}"
-                                                                    {{-- href="#" --}}
-                                                                    >
-                                                                    <button style=" font-size: 1em; width: 4.5em; height: 2.5em;"  type="button" class="btn btn-success btn-sm">Edit
-                                                                    </button>
-                                                                </a>
-                                                            </div>
-                                                            <div class="col-sm-6">
-                                                                <p>
-                                                                    <strong>Seat: &nbsp; 
-                                                                    </strong>
-                                                                    {{ $reserve->seat_number }}
-                                                                </p>
-                                                                <p>
-                                                                    <strong>Route: &nbsp; 
-                                                                    </strong>
-                                                                    {{ $reserve->route_name }}
-                                                                </p>
-                                                                <p class="additional-post-wrap">
-                                                                    <span style="margin-right: -15%" class="additional-post">
-                                                                        <i class="livicon" data-name="clock" data-size="13" data-loop="true" data-c="#5bc0de" data-hc="#5bc0de">
-                                                                        </i>
-                                                                        <a href="#"> {{$reserve->created_at->diffForHumans()}} 
-                                                                        </a>
-                                                                    </span>
-                                                                </p>
-                                                                <a style="color: white; margin-left: -2em;" href="javascript:;" data-toggle="modal" onclick="deleteData({{$reserve->id}})" 
-                                                                    data-target="#delete_confirm" class="btn btn-danger">
-                                                                    {{-- <i class="fa fa-trash"></i>  --}}
-                                                                    Delete
-                                                                </a>
-                                                            </div>
+                                                                <strong>Bus:
+                                                                </strong>
+                                                                {{ $reserve->bus_number }}  
+                                                                {{-- @if (isset($reserve->rider_id) && $reserve->rider && $reserve->rider->first_name)
+                                                                    {{ $riderName = $reserve->rider->first_name.' '.$reserve->rider->last_name }}                           
+                                                                @endif --}}
+                                                            </p>
+                                                            <p  class="additional-post-wrap">
+                                                                <span class="additional-post">
+                                                                    <i class="livicon" data-name="user" data-size="13" data-loop="true" data-c="#5bc0de" data-hc="#5bc0de">
+                                                                    </i>
+                                                                    <a href="#">&nbsp;
+                                                                        @if (isset($reserve->user_id) && $reserve->user && $reserve->user->first_name)
+                                                                            {{$reserve->user->first_name.' '.$reserve->user->last_name }}
+                                                                        @endif
+                                                                        
+                                                                    </a>
+                                                                </span>
+                                                            </p>
+                                                            <a style="margin-left: 5em; " 
+                                                                href="{{ URL::to('reserve/' .$reserve->id .'/edit') }}"
+                                                                {{-- href="#" --}}
+                                                                >
+                                                                <button style=" font-size: 1em; width: 4.5em; height: 2.5em;"  type="button" class="btn btn-success btn-sm">Edit
+                                                                </button>
+                                                            </a>
+                                                        </div>
+                                                        <div class="col-sm-6">
+                                                            <p>
+                                                                <strong>Seat: &nbsp; 
+                                                                </strong>
+                                                                {{ $reserve->seat_number }}
+                                                            </p>
+                                                            <p>
+                                                                <strong>Route: &nbsp; 
+                                                                </strong>
+                                                                {{ $reserve->route_name }}
+                                                            </p>
+                                                            <p class="additional-post-wrap">
+                                                                <span style="margin-right: -15%" class="additional-post">
+                                                                    <i class="livicon" data-name="clock" data-size="13" data-loop="true" data-c="#5bc0de" data-hc="#5bc0de">
+                                                                    </i>
+                                                                    <a href="#"> {{$reserve->created_at->diffForHumans()}} 
+                                                                    </a>
+                                                                </span>
+                                                            </p>
+                                                            <a style="color: white; margin-left: -2em;" href="javascript:;" data-toggle="modal" onclick="deleteData({{$reserve->id}})" 
+                                                                data-target="#delete_confirm" class="btn btn-danger">
+                                                                {{-- <i class="fa fa-trash"></i>  --}}
+                                                                Delete
+                                                            </a>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <!-- /.featured-text -->
                                         </div>
+                                        <!-- /.featured-text -->
                                     </div>
-                               
-
-    
+                                </div>
 
                                 {{-- Delete Modal --}}
                                 <form method="POST" id="deleteForm" >
@@ -453,13 +451,47 @@
                             {{ $reserves->links() }}
                             {{-- {!! $apps->render() !!} --}}
                         </ul>
-                    </div>
+                    @else 
+                        <p>No Reserve Lists found
+                        </p>
+                    @endif
                 </div>
+                    
+                {{-- Delete Modal --}}
+                <form method="POST" id="deleteForm" >
+                    {{ csrf_field() }}
+                    {{ method_field('DELETE') }}
+                    <div  class="modal fade" id="delete_confirm" tabindex="-1" role="dialog" aria-labelledby="user_delete_confirm_title" aria-hidden="true">
+                        <div class="modal-dialog">
+                        <div class="modal-content">
+                        
+                            <!-- Modal Header -->
+                            <div class="modal-header">
+                                <h4 class="modal-title">
+                                    <strong>Delete Reserve</strong>
+                                </h4>
+                                <button type="button" class="close" style="color: red" data-dismiss="modal">&times;</button>
+                            </div>
+                            
+                            <!-- Modal body -->
+                            <div class="modal-body">
+                                <h5>You sure, you want to DELETE This Reserve?</h5>
+                            </div>
+                            
+                            <!-- Modal footer -->
+                            <div class="modal-footer">
+                                <button style=" border-color: #09bd8f;" type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                                <button style="color: white;" type="submit" name="" class="btn btn-danger" data-dismiss="modal" onclick="formSubmit()">Delete</button>
+                            </div>
+                            
+                        </div>
+                        </div>
+                    </div>
+                </form>
+
             </div>
-        @else 
-            <p>No Reserve Lists found
-            </p>
-        @endif
+        </div>
+
     </div> 
 @stop 
 
@@ -479,5 +511,26 @@
         function formSubmit(){
             $("#deleteForm").submit();
         }
+
+        // search_reserves();
+        function search_reserves(query = '')
+        {
+            $.ajax({
+                url:"{{ route('user.reserve.liveSearch') }}",
+                method:'GET',
+                data:{query:query},
+                dataType:'json',
+                success:function(records)
+                {
+                    // console.log(records.output);
+                    $('#d').html(records.output);
+                }
+            })
+        }
+
+        $(document).on('keyup', '#search', function(){
+            var query = $(this).val();
+            search_reserves(query);
+        });
     </script>
 @stop

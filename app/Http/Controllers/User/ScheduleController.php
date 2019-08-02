@@ -159,7 +159,7 @@ class ScheduleController extends Controller
                                                            
                                                             <i class="fa fa-user"></i>  
                                                             <a href="#">&nbsp;
-                                                            '.$row->user_first.'
+                                                            '.$row->user_first.' '.$row->user_last.'
                                                                 
                                                             </a>
                                                         </span>

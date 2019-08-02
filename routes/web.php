@@ -416,6 +416,7 @@ Route::group(['namespace'=>'User', 'middleware' => 'user', 'as' => 'user.'], fun
         Route::get('{reserve}/delete', 'ReserveController@destroy')->name('reserve.delete');
         Route::get('getBusSeat', 'ReserveController@getBusSeat')->name('reserve.getBusSeat');
         Route::get('getRouteSchedule', 'ReserveController@getRouteSchedule')->name('reserve.getRouteSchedule');
+        Route::get('liveSearch', 'ReserveController@liveSearch')->name('reserve.liveSearch');
     });
     Route::resource('reserve', 'ReserveController');
 

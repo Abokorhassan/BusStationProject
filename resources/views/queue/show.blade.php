@@ -2,7 +2,7 @@
 
 {{-- Page title --}}
 @section('title')
-    Schedule  Detail
+    Queue  Detail
 @stop
 
 {{-- page level styles --}}
@@ -29,13 +29,13 @@
             <li class="hidden-xs">
                 <i class="livicon icon3" data-name="angle-double-right" data-size="18" data-loop="true" data-c="#01bc8c" data-hc="#01bc8c">
                 </i>
-                <a href="#">Schedule
+                <a href="#">Queue
                 </a>
             </li>
             <li class="hidden-xs">
                 <i class="livicon icon3" data-name="angle-double-right" data-size="18" data-loop="true" data-c="#01bc8c" data-hc="#01bc8c">
                 </i>
-                <a href="#">Schedule Detail
+                <a href="#">Queue Detail
                 </a>
             </li>
             </ol>
@@ -57,28 +57,11 @@
                                     <div  class="panel-heading">
                                         <h1 class="panel-title">
   
-                                            Schedule Detail
+                                                Queue Detail
                                         </h1>
   
                                     </div>
                                     <div class="panel-body">
-                                        {{-- <div class="col-md-4 prof_pic">
-                                            <div class="img-file">
-                                                @if($user->pic)
-                                                    <img src="{!! url('/').'/uploads/users/'.$user->pic !!}" alt="img"
-                                                          class="img-responsive"/>
-                                                @elseif($user->gender === "male")
-                                                    <img src="{{ asset('assets/images/authors/avatar3.png') }}" alt="..."
-                                                          class="img-responsive"/>
-                                                @elseif($user->gender === "female")
-                                                    <img src="{{ asset('assets/images/authors/avatar5.png') }}" alt="..."
-                                                          class="img-responsive"/>
-                                                @else
-                                                    <img src="{{ asset('assets/images/authors/no_avatar.jpg') }}" alt="..."
-                                                          class="img-responsive"/>
-                                                @endif
-                                            </div>
-                                        </div> --}}
                                         <div class="col-md-8">
                                             <div  class="panel-body">
                                                 <div class="table-responsive">
@@ -86,24 +69,32 @@
   
                                                         <tr>
                                                             <td>Id</td>
-                                                            <td><p class="user_name_max">{{ $schedule->id }}</p></td>
+                                                            <td><p class="user_name_max">{{ $queue->id }}</p></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Bus Number</td>
+                                                            <td><p class="user_name_max">{{ $queue->bus_number}}</p></td>
                                                         </tr>
                                                         <tr>
                                                             <td>Schedule Number</td>
-                                                            <td><p class="user_name_max">{{ $schedule->schedule_number}}</p></td>
+                                                            <td><p class="user_name_max">{{ $queue->schedule_number}}</p></td>
                                                         </tr>
                                                         <tr>
                                                             <td>Route</td>
-                                                            <td>{{ $schedule->route_name}}</td>
+                                                            <td>{{ $queue->route_name}}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Station</td>
+                                                            <td><p class="user_name_max">{{ $queue->station_name}}</p></td>
                                                         </tr>
                                                         <tr>
                                                             <td>User</td>
-                                                            <td>{{ $schedule->user_first.'  '.$schedule->user_last }} </td>
+                                                            <td>{{ $queue->user_first.'  '.$queue->user_last }} </td>
                                                         </tr>
                                                         <tr>
                                                             <td>Created At</td>
                                                             <td>
-                                                                {!!$schedule->created_at->diffForHumans() !!}
+                                                                {!!$queue->created_at->diffForHumans() !!}
                                                             </td>
                                                         </tr>
                                                     </table>

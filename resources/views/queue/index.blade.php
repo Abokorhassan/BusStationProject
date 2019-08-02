@@ -300,7 +300,7 @@
         <h2>
             Queue Lists
             @if($queues != null)
-                <a style="margin-left: 52%;" href="{{ URL::to('queue/create') }}">
+                <a style="margin-left: 54.5%;" href="{{ URL::to('queue/create') }}">
                     <button style=" border-color: #09bd8f; width: 12%;" type="button" class="btn btn-default bt-lg">Add New Queue
                     </button>
                 </a>
