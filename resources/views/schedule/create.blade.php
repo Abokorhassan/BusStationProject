@@ -146,7 +146,7 @@
 
                   <div class="col-md-4 right_float ">
                       <h3 class="martop">Recent Schedules</h3>
-                      <div style="height: 22em; overflow: auto" class="tabbable-panel polaroid">
+                      <div style="height: 22em; overflow: auto" class="tabbable-panel ">
                           <!-- Tabbablw-line Start -->
                           <div class="tabbable-line ">
   

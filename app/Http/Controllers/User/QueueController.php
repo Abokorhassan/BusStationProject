@@ -30,6 +30,10 @@ class QueueController extends Controller
         if(!$station == ''){
             $stations_id = $station->id;
 
+            $routes = Route::select('id','name')
+                        ->where('station_id', $stations_id)
+                        ->get();
+
             // getting the latest schedule saved 
             $schedules = Schedule::select('*')
                             ->where('station_id', $stations_id)
@@ -49,7 +53,7 @@ class QueueController extends Controller
                                 // ->where('schedule_id', $schedule_id)
                                 ->paginate(4);
            
-            return view('queue.index')->with('queues',$stationqueue);
+            return view('queue.index', compact('routes'))->with('queues',$stationqueue);
         }
         $queues = null;  
         return view('queue.index', compact('queues'));
@@ -176,6 +180,154 @@ class QueueController extends Controller
         return Response()->json($data);
     }
 
+    public function getId(Request $request)
+    {
+        $id = $request->id;
+
+        $user_id= Sentinel::getUser()->id;
+        $user = User::find($user_id);
+        $s_id = $user->station_id; 
+        $station = Station::find($s_id);
+        $stations_id = $station->id;
+       
+        $tabQueue = Queue::
+                            select('*')
+                            ->where('station_id', $stations_id)
+                            ->where('route_id', $id)
+                            ->latest()
+                            ->get();
+        $data = $tabQueue;
+        // $data = $id;
+
+        return Response()->json($data);
+    }
+
+    public function liveSearch(Request $request)
+    {
+        $user_id= Sentinel::getUser()->id;
+        $user = User::find($user_id);
+        $s_id = $user->station_id; 
+        $station = Station::find($s_id);
+        $stations_id = $station->id;
+      
+        if($request->ajax())
+        {
+            $output = '';
+            $query = $request->get('query');
+            if($query != '')
+            {
+                $data= DB::table('queues')
+                            ->where('station_id', $stations_id)
+                            
+                            ->where(function($q)use($query){
+                                $q->Where('id', 'like', '%'.$query.'%')
+                                ->orwhere('bus_number', 'like', '%'.$query.'%')
+                                ->orwhere('route_name', 'like', '%'.$query.'%')
+                                ->orWhere('schedule_number', 'like', '%'.$query.'%')
+                                ->orWhere('user_first', 'like', '%'.$query.'%')
+                                ->orWhere('user_last', 'like', '%'.$query.'%')
+                                ->orWhere('created_at', 'like', '%'.$query.'%');
+                            })
+                            ->get();
+                
+
+            }
+            else
+            {
+                $data = DB::table('queues')
+                            ->where('station_id', $stations_id)
+                            ->get();
+                            // ->paginate(2);
+                            // ->toArray();
+            }
+            $total_row = $data->count();
+            if($total_row > 0)
+            {
+                foreach($data as $row)
+                {  
+                    $output .= '
+            
+                        <!-- BEGIN FEATURED POST -->
+                        <div class="col-sm-6">
+                            <div id="reocrds" class="featured-post-wide thumbnail polaroid ">
+                                <div class="featured-text relative-left">
+                                    <h3 style="text-align: center" class="success">
+                                    <a style="margin-left: -3em;text-align: center" href="' .url('queue/' .$row->id ).' ">
+                                        <strong > Bus: &nbsp; 
+                                        </strong>'.$row->bus_number.'
+                                    </a>
+                                    </h3>
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <div class="row">
+                                                <div class="col-sm-6">
+                                                    <p>
+                                                        <strong>Route: &nbsp; 
+                                                        </strong>
+                                                        '.$row->route_name.'
+                                                    </p>
+                                                    <p  class="additional-post-wrap">
+                                                        <span class="additional-post">
+                                                           
+                                                            <i class="fa fa-user"></i>  
+                                                            <a href="#">&nbsp;
+                                                            '.$row->user_first.' '.$row->user_last.'
+                                                                
+                                                            </a>
+                                                        </span>
+                                                    </p>
+                                                    <a style="margin-left: 5em; " href="#">
+                                                        <button style=" font-size: 1em; width: 4.5em; height: 2.5em;" disabled="true"  type="button" class="btn btn-success btn-sm">Edit
+                                                        </button>
+                                                    </a>
+                                                </div>
+                                                <div  class="col-sm-6">
+                                                    <p style="margin-left: -12%">
+                                                        <strong>Schedule: &nbsp; 
+                                                        </strong>
+                                                        '.$row->schedule_number.' 
+                                                    </p>
+                                                    <p style="margin-left: -12%" class="additional-post-wrap">
+                                                        <span style="margin-right: -15%" class="additional-post">
+                                                        <i class="fa fa-clock-o"></i> &nbsp;  
+                                                             <a  href="#"> '. $row->created_at.'
+                                                            </a>
+                                                        </span>
+                                                    </p>
+                                                    <a style="color: white; margin-left: -2em;" href="javascript:;" data-toggle="modal" onclick="deleteData('.$row->id.')" 
+                                                        data-target="#delete_confirm" class="btn btn-danger">
+                                                        
+                                                        Delete
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- /.featured-text -->
+                            </div>
+                        </div>
+                    ';
+                }
+            }
+            else
+            {
+                $output = '
+                    <p>
+                        No Queue Lists found
+                    </p>
+                ';
+            }
+
+            $records = array(
+                'output'  => $output,
+                'queues'  => $data
+            );
+
+            echo json_encode($records);    
+        }
+    
+    }
 
     /**
      * Store a newly created resource in storage.
@@ -262,32 +414,9 @@ class QueueController extends Controller
      */
     public function destroy($id)
     {
-        $user_id= Sentinel::getUser()->id;
-        $user = User::find($user_id);
-        $s_id = $user->station_id; 
-        $station = Station::find($s_id);
-        $stations_id = $station->id;
 
-        // getting the latest schedule saved 
-        $schedules = Schedule::select('*')
-                        ->where('station_id', $stations_id)
-                        ->latest()
-                        ->first();
+        $stationqueue = Queue::find($id);
 
-        $schedule_id = $schedules->id;
-
-        $stationqueue = Queue::withTrashed()
-                            ->where('schedule_id', $schedule_id)
-                            ->where('id', $id)
-                            ->first();
-                            
-        // return $stationqueue.' '.$id;
-        $schedule_id = $stationqueue->schedule_id;
-        $queue_id = $stationqueue->id;
-        $bus_number = $stationqueue->bus_number;
-        // return  $queue_id.'  '.$schedule_id.'  '.$bus_number;
-
-        // return $queue;
         $stationqueue->forceDelete();
         $stationqueue->reserve()->forceDelete();
         return redirect('queue')->with('success', 'Bus Deleted from the Queue');

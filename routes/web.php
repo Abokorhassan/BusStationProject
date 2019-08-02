@@ -405,6 +405,8 @@ Route::group(['namespace'=>'User', 'middleware' => 'user', 'as' => 'user.'], fun
         Route::get('{queue}/delete', 'QueueController@destroy')->name('queue.delete');
         Route::get('getBusQueue', 'QueueController@getBusQueue')->name('queue.getBusQueue');
         Route::get('getRouteSchedule', 'QueueController@getRouteSchedule')->name('queue.getRouteSchedule');
+        Route::get('getId', 'QueueController@getId')->name('queue.getId');
+        Route::get('liveSearch', 'QueueController@liveSearch')->name('queue.liveSearch');
     });
     Route::resource('queue', 'QueueController');
 

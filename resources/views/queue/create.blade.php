@@ -26,6 +26,9 @@
         width: 200px;
         height: 150px;   */
     }
+    #myList li{
+        background: #F0F0EC;
+    }
   </style>
 
   {{-- Pic and Date css --}}
@@ -86,6 +89,7 @@
               <!--main content-->
               <div class="position-center">
                 <div class="row">
+
                   <div class="col-sm-8">
                     <form id="commentForm" action="{{ route('user.queue.store') }}"
                           method="POST" enctype="multipart/form-data" class="form-horizontal">
@@ -168,6 +172,51 @@
 
                     </form>{{--{!!  Form::close()  !!}--}}
                   </div>
+
+                  <div class="col-md-4 right_float ">
+                      <h3 class="martop">Recent Schedules</h3>
+                      <div style="height: 22em; overflow: auto" class="tabbable-panel ">
+                          <!-- Tabbablw-line Start -->
+                          <div class="tabbable-line ">
+  
+                              <!-- Nav Nav-tabs Start -->
+                              {{-- <ul class="nav nav-tabs tabs_content">
+                                  @foreach ($routes as $index => $route)
+                                     <li {{ $index== 0 ? 'class="active"' : '' }}>
+                                        <a href="#{{ $route->id }}" id="ad{{ $route->id }}" data-toggle="tab">
+                                           {!! $route->name !!}
+                                        </a>
+                                     </li>
+                                  @endforeach
+                               </ul> --}}
+  
+                               <ul  class="nav nav-tabs tabs_content">
+                                  @foreach ($routes as $index => $route)
+                                      {{-- @if ($loop->first)
+                                          <li class="active"> 
+                                      @endif --}}
+                                          {{-- <li {{ $index== 0 ? 'class="active"' : '' }}> --}}
+                                          <li @if($index== 0) class="active" @endif>
+                                              <a href="#{{ $route->id }}" id="ad{{ $route->id }}" data-toggle="tab">
+                                                  {!! $route->name !!}
+                                              </a>
+                                          </li>
+                                  @endforeach
+                               </ul>
+  
+                              <div class="tab-content blog_tabs">
+                                  {{-- <div class="tab-pane" name="schedule" id="" >
+                                      @foreach ($tabSchedule as $schedule)
+                                          <ul class="list-group">
+                                              <li class="list-group-item">{{ $schedule->schedule_number}}</li>
+                                          </ul>
+                                      @endforeach    
+                                  </div> --}}
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+
                 </div>
               </div>
             </div>
@@ -201,6 +250,34 @@
   <script src="{{ asset('assets/vendors/datetimepicker/js/bootstrap-datetimepicker.min.js') }}" type="text/javascript"></script>
 
   <script>
+
+    $("ul.nav-tabs > li > a").click(function() {
+        var id = $(this).attr("href").replace("#", "");
+        console.log(id);
+      
+        if(id) {
+            $.ajax({
+                url: "{{ route('user.queue.getId') }}",
+                type: "GET",
+                data:{'id':id},
+                dataType: "json",
+                success:function(data) {
+                    console.log(id);
+                    console.log(data);
+
+                    $(".tab-content").empty();
+                    $(".tab-content").html('<div class="tab-pane" name="queue" id="'+ id +'">')
+                    $.each( data, function( index, object ) {
+                        $(".tab-content").append('<ul id="myList" class="list-group"><li class="list-group-item">'+ object['bus_number'] +'</li></ul></div>');
+                                  
+                    });
+                    
+                }
+            });
+        }    
+    });
+
+    $("ul.nav-tabs > li:first > a").trigger( "click" );
 
     $(document).ready(function(){
       $(document).on('change','#route',function(){

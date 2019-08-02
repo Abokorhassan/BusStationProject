@@ -92,6 +92,7 @@ class ScheduleController extends Controller
                                 $q->where('route_name', 'like', '%'.$query.'%')
                                 ->orWhere('schedule_number', 'like', '%'.$query.'%')
                                 ->orWhere('user_first', 'like', '%'.$query.'%')
+                                ->orWhere('user_last', 'like', '%'.$query.'%')
                                 ->orWhere('id', 'like', '%'.$query.'%')
                                 ->orWhere('created_at', 'like', '%'.$query.'%');
                             })
