@@ -11,7 +11,6 @@ use App\User;
 use App\Seat;
 use Sentinel;
 use DB;
-use Illuminate\Notifications\Notification;
 use App\Notifications\BusCreated;
 use App\Notifications\BusDeleted;
 
@@ -241,7 +240,7 @@ class BusController extends Controller
 
         $bus->save();
 
-
+        // send notification
         $role_user =  DB::table('role_users')
                             ->select('user_id')
                             ->where('role_id', 1)
@@ -370,6 +369,8 @@ class BusController extends Controller
             
         }
         $bus->delete();
+
+        // send notification
         $bus_number = $bus->bus_number;
         $user = User::find($bus->user_id);
         // return $user;

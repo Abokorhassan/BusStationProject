@@ -11,6 +11,8 @@ use Sentinel;
 use File;
 use Illuminate\Support\Facades\Storage;
 use DB;
+use App\Notifications\DriverCreated;
+use App\Notifications\DriverDeleted;
 
 class DriverController extends Controller
 {
@@ -214,7 +216,8 @@ class DriverController extends Controller
 
         $driver = new Driver();
 
-        $driver->driver_number = $request->input('driver_number');  // driver_number
+        $driver_number = $request->input('driver_number');  // driver_number
+        $driver->driver_number = $driver_number;
 
         $driver->first_name = $request->input('firstname');     // first_name
         $driver->last_name = $request->input('second_name');    // last_name
@@ -246,6 +249,20 @@ class DriverController extends Controller
         }
         
         $driver->save();
+
+        // send notification
+        $role_user =  DB::table('role_users')
+                            ->select('user_id')
+                            ->where('role_id', 1)
+                            ->get();
+
+        $user_id = collect($role_user)->pluck('user_id')->toArray();
+
+        $notify_users = User::find($user_id);
+        
+        foreach ($notify_users as $users) {
+            $users->notify(new DriverCreated($user, $driver_number ));
+        }
 
         return redirect('driver')->with('success', 'Driver Created');
     }
@@ -354,8 +371,25 @@ class DriverController extends Controller
         }else{
 
         }
+
         $driver->delete();
-        // return $driver->driver_number;
+
+        // send notification
+        $driver_number = $driver->driver_number;
+        $user = User::find($driver->user_id);
+
+        $role_user =  DB::table('role_users')
+                            ->select('user_id')
+                            ->where('role_id', 1)
+                            ->get();
+
+        $user_id = collect($role_user)->pluck('user_id')->toArray();
+
+        $notify_users = User::find($user_id);
+        
+        foreach ($notify_users as $users) {
+            $users->notify(new DriverDeleted($user, $driver_number ));
+        }
         return redirect('driver')->with('success', 'Driver Deleted');
     }
 }
