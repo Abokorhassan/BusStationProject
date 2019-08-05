@@ -288,7 +288,9 @@ class RiderController extends Controller
 
         // send notification
         $rider_number = $rider->id_number;
-        $user = User::find($rider->user_id);
+        $user_id= Sentinel::getUser()->id;
+        $user = User::find($user_id);
+        // return $user;
 
         $role_user =  DB::table('role_users')
                             ->select('user_id')

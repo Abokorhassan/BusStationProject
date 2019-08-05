@@ -34,6 +34,15 @@
             margin-top: 0.5em;
             margin-left: 1.0em;
         }
+        .circle_accident_created {
+            height: 40px;
+            width: 40px;
+            background-color: #edbab4;
+            border-radius: 50%;
+            display: inline-block;
+            margin-top: 0.5em;
+            margin-left: 1.0em;
+        }
     </style>
 @stop
 

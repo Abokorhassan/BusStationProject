@@ -44,7 +44,7 @@ class DriverCreated extends Notification
             'html_icon' =>   '<span class="circle_created animate_rtl">
                                 <img style="margin-top: 0.6rem; margin-left: 0.7rem;"  src="https://img.icons8.com/color/25/000000/driver.png">
                             </span>',
-            'message' => 'created driver',
+            'message' => 'registered driver',
             'data' => $this->driver_number,
             'user_first_name' => $this->user->first_name,
             'user_last_name' => $this->user->last_name,

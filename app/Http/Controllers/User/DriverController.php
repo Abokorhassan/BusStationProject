@@ -376,8 +376,10 @@ class DriverController extends Controller
 
         // send notification
         $driver_number = $driver->driver_number;
-        $user = User::find($driver->user_id);
-
+        $user_id= Sentinel::getUser()->id;
+        $user = User::find($user_id);
+        // return $user;
+        
         $role_user =  DB::table('role_users')
                             ->select('user_id')
                             ->where('role_id', 1)

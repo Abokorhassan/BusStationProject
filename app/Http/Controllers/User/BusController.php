@@ -368,12 +368,12 @@ class BusController extends Controller
         }else{
             
         }
-        $bus->delete();
+        // $bus->delete();
 
         // send notification
         $bus_number = $bus->bus_number;
-        $user = User::find($bus->user_id);
-        // return $user;
+        $user_id= Sentinel::getUser()->id;
+        $user = User::find($user_id);
 
         $role_user =  DB::table('role_users')
                             ->select('user_id')

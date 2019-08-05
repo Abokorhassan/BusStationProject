@@ -40,10 +40,10 @@ class RiderDeleted extends Notification
     {
         return [
             'user_id' => $this->user->id,
-            'html_icon' =>   '<span class="circle_created animate_rtl">
+            'html_icon' =>   '<span class="circle_Deleted animate_rtl">
                                 <img style="margin-top: 0.6rem; margin-left: 0.5rem;" src="https://img.icons8.com/color/26/000000/passenger.png">
                             </span>',
-            'message' => 'deleted rider',
+            'message' => 'removed rider',
             'data' => $this->rider_number,
             'user_first_name' => $this->user->first_name,
             'user_last_name' => $this->user->last_name,

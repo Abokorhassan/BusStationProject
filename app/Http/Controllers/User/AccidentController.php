@@ -12,6 +12,8 @@ use App\Bus;
 use App\Route;
 use Sentinel;
 use DB;
+use App\Notifications\AccidentAdded;
+use App\Notifications\AccidentRemoved;
 
 class AccidentController extends Controller
 {
@@ -243,7 +245,9 @@ class AccidentController extends Controller
 
         $accident->bus_id = $request->input('bus_number');     // bus_id
         $bus = Bus::find($accident->bus_id);
-        $accident->bus_number = $bus->bus_number;       // bus_number
+        $bus_number = $bus->bus_number;       // bus_number
+        $accident->bus_number = $bus_number;
+
         $accident->driver_id = $bus->Driver_id;       // driver_id
         $accident->driver_number= $bus->driver_number;      // driver_number
 
@@ -260,6 +264,20 @@ class AccidentController extends Controller
         $accident->station_name = $station->name;  // station_name
 
         $accident->save();
+
+        // send notification
+        $role_user =  DB::table('role_users')
+                            ->select('user_id')
+                            ->where('role_id', 1)
+                            ->get();
+
+        $user_id = collect($role_user)->pluck('user_id')->toArray();
+
+        $notify_users = User::find($user_id);
+        
+        foreach ($notify_users as $users) {
+            $users->notify(new AccidentAdded($user, $bus_number ));
+        }
 
         return redirect('accident')->with('success', 'Accident Created');
     }
@@ -349,8 +367,26 @@ class AccidentController extends Controller
     public function destroy($id)
     {
         $accident = Accident::find($id);
-        // return $accident->bus_number;
         $accident->delete();
+
+          // send notification
+        $bus_number = $accident->bus_number;
+        $user_id= Sentinel::getUser()->id;
+        $user = User::find($user_id);
+        // return $user;
+  
+        $role_user =  DB::table('role_users')
+                            ->select('user_id')
+                            ->where('role_id', 1)
+                            ->get();
+  
+        $user_id = collect($role_user)->pluck('user_id')->toArray();
+
+        $notify_users = User::find($user_id);
+        
+        foreach ($notify_users as $users) {
+            $users->notify(new AccidentRemoved($user, $bus_number ));
+        }
         return redirect('accident')->with('success', 'Accident Deleted');
     }
 }

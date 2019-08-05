@@ -42,9 +42,9 @@ class BusCreated extends Notification
         return [
             'user_id' => $this->user->id,
             'html_icon' =>   '<span class="circle_created animate_rtl">
-                                <img style="margin-top: 0.9rem; margin-left: 0.7rem;"  src="https://img.icons8.com/color/23/000000/bus.png">
+                                <img style="margin-top: 0.9rem; margin-left: 0.9rem;"  src="https://img.icons8.com/color/23/000000/bus.png">
                             </span>',
-            'message' => 'created bus',
+            'message' => 'added bus',
             'data' => $this->bus_number,
             'user_first_name' => $this->user->first_name,
             'user_last_name' => $this->user->last_name,
