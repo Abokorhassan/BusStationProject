@@ -9,6 +9,8 @@ use App\Station;
 use Sentinel;
 use App\User;
 use DB;
+use App\Notifications\RiderCreated;
+use App\Notifications\RiderDeleted;
 
 class RiderController extends Controller
 {
@@ -178,7 +180,9 @@ class RiderController extends Controller
         ]);
 
         $rider = new Rider();
-        $rider->id_number = $request->input('rider_number');    // id_number
+        $rider_number = $request->input('rider_number');    // id_number
+        $rider->id_number = $rider_number;
+
         $rider->first_name = $request->input('first_name');     // first_name
         $rider->last_name = $request->input('second_name');     // last_name
         $rider->third_name = $request->input('third_name');     // third_name
@@ -196,6 +200,20 @@ class RiderController extends Controller
         $rider->station_name = $station->name;  // station_name       
 
         $rider->save();
+
+        // send notification
+        $role_user =  DB::table('role_users')
+                            ->select('user_id')
+                            ->where('role_id', 1)
+                            ->get();
+
+        $user_id = collect($role_user)->pluck('user_id')->toArray();
+
+        $notify_users = User::find($user_id);
+        
+        foreach ($notify_users as $users) {
+            $users->notify(new RiderCreated($user, $rider_number ));
+        }
 
         return redirect('rider')->with('success', 'Rider Created');
     }
@@ -267,6 +285,24 @@ class RiderController extends Controller
     {
         $rider = Rider::find($id);
         $rider->delete();
+
+        // send notification
+        $rider_number = $rider->id_number;
+        $user = User::find($rider->user_id);
+
+        $role_user =  DB::table('role_users')
+                            ->select('user_id')
+                            ->where('role_id', 1)
+                            ->get();
+
+        $user_id = collect($role_user)->pluck('user_id')->toArray();
+
+        $notify_users = User::find($user_id);
+        
+        foreach ($notify_users as $users) {
+            $users->notify(new RiderDeleted($user, $rider_number ));
+        }
+
         return redirect('rider')->with('success', 'Rider Deleted');   
     }
 }

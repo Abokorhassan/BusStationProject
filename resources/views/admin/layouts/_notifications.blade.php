@@ -29,14 +29,14 @@
             <ul class="menu">
                     {{-- <li>
                             <span class="circle_created" class="animate_rtl">
-                                    <img style="margin-top: 0.6rem; margin-left: 0.7rem;"  src="https://img.icons8.com/color/25/000000/driver.png">
+                                <img style="margin-top: 0.6rem; margin-left: 0.5rem;" src="https://img.icons8.com/color/26/000000/passenger.png">
                             </span>
                           <span class="animate_rtl"> <a href="#">Jef's Birthday today</a></span>
                           <small class="pull-right timezone">
                               <span class="livicon paddingright_10" data-n="timer" data-s="10"></span>
                               Few seconds ago
                           </small>
-                      </li> --}}
+                    </li> --}}
                 @foreach ( $user->unreadnotifications as $notification )
                     <li style="background-color: lightgray">
                         <?php echo $notification->data['html_icon'] ?>
