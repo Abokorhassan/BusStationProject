@@ -2,6 +2,7 @@
 use Cartalyst\Sentinel\Users\EloquentUser;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Cviebrock\EloquentTaggable\Taggable;
+use Illuminate\Notifications\Notifiable;
 
 
 class User extends EloquentUser {
@@ -36,6 +37,7 @@ class User extends EloquentUser {
 	* To allow soft deletes
 	*/
 	use SoftDeletes;
+	use notifiable;
 
     protected $dates = ['deleted_at'];
 

@@ -18,99 +18,83 @@ Home
     <!--end of page level css-->
 @stop
 
-{{-- slider --}}
+{{-- breadcrumb --}}
 @section('top')
-    <!--Carousel Start -->
-    <div id="owl-demo" class="owl-carousel owl-theme">
-        {{-- <div class="item"><img src="{{ asset('assets/images/slide_1.jpg') }}" alt="slider-image">
+    <div style="background-color: ##68d8bb" class="breadcum">
+        <div  class="container">
+            <ol class="breadcrumb right_float">
+            <li>
+                <a href="{{ route('home') }}"> 
+                <i class="livicon icon3 icon4" data-name="home" data-size="18" data-loop="true" data-c="#3d3d3d" data-hc="#3d3d3d">
+                </i>Dashboard
+                </a>
+            </li>
+            </ol>
         </div>
-        <div class="item"><img src="{{ asset('assets/images/slide_2.jpg') }}" alt="slider-image">
-        </div>
-        <div class="item"><img src="{{ asset('assets/images/slide_4.png') }}" alt="slider-image">
-        </div> --}}
     </div>
-    <!-- //Carousel End -->
 @stop
 
 {{-- content --}}
 @section('content')
     <div class="container">
 
-        <section class="purchas-main">
-            <div class="container bg-border wow pulse" data-wow-duration="2.5s">
-                <div class="row">
-                    <div class="col-md-7 col-sm-7 col-xs-12 right_float">
-                        <h1 class="purchae-hed">Excellent admin template for laravel</h1></div>
-                    <div class="col-md-5 col-sm-5 col-xs-12 left_float"><a href="#" class="btn btn-primary purchase-styl pull-right">Purchase now</a></div>
-                </div>
-            </div>
-        </section>
         <!-- Service Section Start-->
         <div class="row">
             <!-- Responsive Section Start -->
             <div class="text-center">
-                <h3 class="border-primary"><span class="heading_border bg-primary">Our Services</span></h3>
+                {{-- <h3 class="border-primary"><span class="heading_border bg-primary"></span></h3> --}}
             </div>
-            <div class="col-sm-6 col-md-3 wow bounceInLeft right_float" data-wow-duration="3.5s">
+
+            <div class="col-sm-6 col-md-3 wow bounceInRight " >
                 <div class="box">
-                    <div class="box-icon">
-                        <i class="livicon icon" data-name="desktop" data-size="55" data-loop="true" data-c="#01bc8c" data-hc="#01bc8c"></i>
+                    <div class="box-icon box-icon3">
+                          <img style="margin-top: 0.7em; margin-right: 0.5em; " src="https://img.icons8.com/color/60/000000/bus.png">
                     </div>
                     <div class="info">
-                        <h3 class="success text-center">Responsive</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corrupti atque, tenetur quam aspernatur corporis at explicabo nulla dolore necessitatibus doloremque exercitationem sequi dolorem architecto perferendis quas aperiam debitis dolor soluta!</p>
-                        <div class="text-right primary"><a href="#">Read more</a>
-                        </div>
+                        <h3 id="bus" class="yellow text-center"></h3>
+                       
                     </div>
                 </div>
             </div>
-            <!-- //Responsive Section End -->
-            <!-- Easy to Use Section Start -->
-            <div class="col-sm-6 col-md-3 wow bounceInDown right_float" data-wow-duration="3s" data-wow-delay="0.4s">
+
+            <div class="col-sm-6 col-md-3 wow bounceInLeft right_float" data-wow-delay="0.4s"  >
+                <div class="box">
+                    <div class="box-icon">
+                        <img style="margin-top: 0.7em; margin-right: 0.5em;" src="https://img.icons8.com/color/60/000000/driver.png">
+                    </div>
+                    <div  class="info">
+                        <h3 id="driver" class="success text-center".></h3>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-6 col-md-3 wow bounceInUp right_float" data-wow-delay="0.8s" >
+                <div class="box">
+                    <div class="box-icon box-icon2">
+                        <i style="margin-top: 0.9em; margin-right: 0.5em; "  class="livicon livicon-evo-holder " data-name="user" data-l="true" data-c="#F89A14"
+                            data-hc="#F89A14" data-s="60">
+                        </i>
+                    </div>
+                    <div class="info">
+                        <h3 id="user" class="warning text-center"></h3>
+                       
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-sm-6 col-md-3 wow bounceInDown right_float"  data-wow-delay="1.2s"  >
                 <!-- Box Start -->
                 <div class="box">
                     <div class="box-icon box-icon1">
-                        <i class="livicon icon1" data-name="gears" data-size="55" data-loop="true" data-c="#418bca" data-hc="#418bca"></i>
+                        <img style="margin-top: 0.6em; margin-right: 0.5em;" src="https://img.icons8.com/cotton/58/000000/route.png">
                     </div>
                     <div class="info">
-                        <h3 class="primary text-center">Easy to Use</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corrupti atque, tenetur quam aspernatur corporis at explicabo nulla dolore necessitatibus doloremque exercitationem sequi dolorem architecto perferendis quas aperiam debitis dolor soluta!.</p>
-                        <div class="text-right primary"><a href="#">Read more</a>
-                        </div>
+                        <h3 id="route" class="primary text-center"></h3>
+                       
                     </div>
                 </div>
             </div>
-            <!-- //Easy to Use Section End -->
-            <!-- Clean Design Section Start -->
-            <div class="col-sm-6 col-md-3 wow bounceInUp right_float" data-wow-duration="3s" data-wow-delay="0.8s">
-                <div class="box">
-                    <div class="box-icon box-icon2">
-                        <i class="livicon icon1" data-name="doc-portrait" data-size="55" data-loop="true" data-c="#f89a14" data-hc="#f89a14"></i>
-                    </div>
-                    <div class="info">
-                        <h3 class="warning text-center">Clean Design</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corrupti atque, tenetur quam aspernatur corporis at explicabo nulla dolore necessitatibus doloremque exercitationem sequi dolorem architecto perferendis quas aperiam debitis dolor soluta!</p>
-                        <div class="text-right primary"><a href="#">Read more</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- //Clean Design Section End -->
-            <!-- 20+ Page Section Start -->
-            <div class="col-sm-6 col-md-3 wow bounceInRight right_float" data-wow-duration="5s" data-wow-delay="1.2s">
-                <div class="box">
-                    <div class="box-icon box-icon3">
-                        <i class="livicon icon1" data-name="folder-open" data-size="55" data-loop="true" data-c="#FFD43C" data-hc="#FFD43C"></i>
-                    </div>
-                    <div class="info">
-                        <h3 class="yellow text-center">20+ Pages</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corrupti atque, tenetur quam aspernatur corporis at explicabo nulla dolore necessitatibus doloremque exercitationem sequi dolorem architecto perferendis quas aperiam debitis dolor soluta!</p>
-                        <div class="text-right primary"><a href="#">Read more</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- //20+ Page Section End -->
+            
         </div>
 
         <!-- //Services Section End -->
@@ -589,4 +573,23 @@ Home
     <script type="text/javascript" src="{{ asset('assets/js/frontend/carousel.js') }}"></script>
     <script type="text/javascript" src="{{ asset('assets/js/frontend/index.js') }}"></script>
     <!--page level js ends-->
+    <script>
+        
+        // driver_count
+        var text = {{$driver_count}};
+        $("#driver").text(text);
+
+        // bus_count
+        var text = {{$bus_count}};
+        $("#bus").text(text);
+
+        // user_count
+        var text = {{$user_count}};
+        $("#user").text(text);
+
+        // route_count
+        var text = {{$route_count}};
+        $("#route").text(text);
+
+    </script>
 @stop

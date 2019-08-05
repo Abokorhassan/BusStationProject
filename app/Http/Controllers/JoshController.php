@@ -8,6 +8,7 @@ use Sentinel;
 use Analytics;
 use App\Station;
 use App\Bus;
+use App\User;
 use App\Driver;
 use App\Queue;
 use App\Schedule;
@@ -18,7 +19,6 @@ use Spatie\Activitylog\Models\Activity;
 use Yajra\DataTables\DataTables;
 use Charts;
 use App\Datatable;
-use App\User;
 use Illuminate\Support\Facades\DB;
 use Spatie\Analytics\Period;
 use Illuminate\Support\Carbon;
@@ -487,13 +487,29 @@ class JoshController extends Controller {
         $queues = Queue::withTrashed()
                     ->latest()
                     ->get();
-         
+        
         // return $queues;
 
+        $user_id = Sentinel::getUser()->id;
+        $user = User::find($user_id);
+        
+        // return $user;
+        // foreach ($user->unreadnotifications as $notification) {
+        //     echo $notification->type;
+        // }
+        // return $user->unreadnotifications()->count();
+
         if(Sentinel::check())
-            return view('admin.index',['queues'=>$queues,'stations'=>$stations,'analytics_error'=>$analytics_error,'chart_data'=>$chart_data, 'blog_count'=>$blog_count,'user_count'=>$user_count,'driver_count'=>$driver_count,'bus_count'=>$bus_count,'station_count'=>$station_count,'users'=>$users,'db_chart'=>$db_chart,'geo'=>$geo,'user_roles'=>$user_roles,'blogs'=>$blogs,'visitors'=>$visitors,'pageVisits'=>$pageVisits,'line_chart'=>$line_chart,'month_visits'=>$month_visits,'year_visits'=>$year_visits] );
+            return view('admin.index',['queues'=>$queues, 'stations'=>$stations,'analytics_error'=>$analytics_error,'chart_data'=>$chart_data, 'blog_count'=>$blog_count,'user_count'=>$user_count,'driver_count'=>$driver_count,'bus_count'=>$bus_count,'station_count'=>$station_count,'users'=>$users,'db_chart'=>$db_chart,'geo'=>$geo,'user_roles'=>$user_roles,'blogs'=>$blogs,'visitors'=>$visitors,'pageVisits'=>$pageVisits,'line_chart'=>$line_chart,'month_visits'=>$month_visits,'year_visits'=>$year_visits] );
         else
             return redirect('admin/signin')->with('error', 'You must be logged in!');
+    }
+
+    public function markAsRead()
+    {
+        $user_id = Sentinel::getUser()->id;
+        $user = User::find($user_id);
+        $user->unreadnotifications->markAsRead();
     }
 
 }

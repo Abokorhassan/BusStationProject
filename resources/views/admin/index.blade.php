@@ -15,6 +15,26 @@
     <link rel="stylesheet" href="{{ asset('assets/vendors/morrisjs/morris.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/pages/dashboard2.css') }}"/>
     {{-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css"> --}}
+    <style>
+        .circle_created {
+            height: 40px;
+            width: 40px;
+            background-color: #038482;
+            border-radius: 50%;
+            display: inline-block;
+            margin-top: 0.5em;
+            margin-left: 1.0em;
+        }
+        .circle_Deleted {
+            height: 40px;
+            width: 40px;
+            background-color: #E86D6A;
+            border-radius: 50%;
+            display: inline-block;
+            margin-top: 0.5em;
+            margin-left: 1.0em;
+        }
+    </style>
 @stop
 
 {{-- Page content --}}
@@ -392,6 +412,15 @@
     {{-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script> --}}
 
     <script>
+
+        $('#markAsRead').click(function () { 
+           $.get("{{ route('admin.markAsRead') }}"); 
+        });
+
+        function markNotificationAsRead(){
+            alert('fuck you');   
+        }
+        
         var useOnComplete = false,
             useEasing = false,
             useGrouping = false,

@@ -11,6 +11,9 @@ use App\User;
 use App\Seat;
 use Sentinel;
 use DB;
+use Illuminate\Notifications\Notification;
+use App\Notifications\BusCreated;
+use App\Notifications\BusDeleted;
 
 class BusController extends Controller
 {
@@ -213,10 +216,12 @@ class BusController extends Controller
             'bus_number' => 'required | max:50|unique:buses,bus_number',
             'driver_number' => 'nullable | unique:buses,Driver_id',
             
-        ]);   
+        ]); 
+
         $bus = new Bus();
         $bus->model_type =$request->input('model_type');    // modal type
-        $bus->bus_number =$request->input('bus_number');    // bus_number
+        $bus_number =$request->input('bus_number');    // bus_number
+        $bus->bus_number = $bus_number;
 
         $driver_id =$request->input('driver_number');   
         if($driver_id){
@@ -236,8 +241,24 @@ class BusController extends Controller
 
         $bus->save();
 
+
+        $role_user =  DB::table('role_users')
+                            ->select('user_id')
+                            ->where('role_id', 1)
+                            ->get();
+
+        $user_id = collect($role_user)->pluck('user_id')->toArray();
+
+        $notify_users = User::find($user_id);
+        
+        foreach ($notify_users as $users) {
+            $users->notify(new BusCreated($user, $bus_number ));
+        }
+
         return redirect('bus')->with('success', 'Bus Created');
         // return Redirect::route('user.bus.index')->with('success', 'Bus Created');
+
+        
     }
 
     /**
@@ -349,6 +370,24 @@ class BusController extends Controller
             
         }
         $bus->delete();
+        $bus_number = $bus->bus_number;
+        $user = User::find($bus->user_id);
+        // return $user;
+
+        $role_user =  DB::table('role_users')
+                            ->select('user_id')
+                            ->where('role_id', 1)
+                            ->get();
+
+        $user_id = collect($role_user)->pluck('user_id')->toArray();
+
+        $notify_users = User::find($user_id);
+        
+        foreach ($notify_users as $users) {
+            $users->notify(new BusDeleted($user, $bus_number ));
+        }
+
+
         return redirect('bus')->with('success', 'Bus Deleted');
     }
 }

@@ -65,6 +65,14 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin', 'as' => 'admin.'], f
 
     # Dashboard / Index
     Route::get('/', 'JoshController@showHome')->name('dashboard');
+
+     Route::get('/markAsRead', function(){
+        $user_id = Sentinel::getUser()->id;
+        $user = App\User::find($user_id);
+        $user->unreadnotifications->markAsRead();
+
+    })->name('markAsRead');
+
     # crop demo
     Route::post('crop_demo', 'JoshController@crop_demo')->name('crop_demo');
     //Log viewer routes
@@ -433,9 +441,12 @@ Route::group(['middleware' => 'user'], function () {
 
     #home
     
-    Route::get('/', ['as' => 'home', function () {
-        return view('index');
-    }]);
+    // Route::get('/', '');
+    Route::get('/', 'HomeController@showHome')->name('home');
+
+    // Route::get('/', ['as' => 'home', function () {
+    //     return view('index');
+    // }]);
     
     Route::post('contact', 'FrontEndController@postContact')->name('contact');
     
