@@ -11,6 +11,8 @@ use App\Queue;
 use Sentinel;
 use App\Route;
 use DB;
+use App\Notifications\Createschedule;
+use App\Notifications\DeleteSchedule;
 class ScheduleController extends Controller
 {
     
@@ -269,7 +271,8 @@ class ScheduleController extends Controller
         ]);
 
         $schedule = new Schedule();
-        $schedule->schedule_number =$request->input('schedule_number'); //schedule_number
+        $schedule_number = $request->input('schedule_number'); //schedule_number
+        $schedule->schedule_number = $schedule_number;
 
         $id= Sentinel::getUser()->id;
         $schedule->user_id = $id;   //user_id
@@ -304,8 +307,21 @@ class ScheduleController extends Controller
                 ->restore();
         }          
 
-        // return $schedules->schedule_number;
         $schedule->save();
+
+        // send notification
+        $role_user =  DB::table('role_users')
+                            ->select('user_id')
+                            ->where('role_id', 1)
+                            ->get();
+
+        $user_id = collect($role_user)->pluck('user_id')->toArray();
+
+        $notify_users = User::find($user_id);
+        
+        foreach ($notify_users as $users) {
+            $users->notify(new Createschedule($user, $schedule_number ));
+        }
 
         return redirect('schedule')->with('success', 'Schedule Created'); 
     }
@@ -383,8 +399,26 @@ class ScheduleController extends Controller
     public function destroy($id)
     {
         $schedule = Schedule::find($id);
-        return $schedule->schedule_number;
-        // $schedule->delete();
+        $schedule->delete();
+
+         // send notification
+         $schedule_number = $schedule->schedule_number;
+         $user_id= Sentinel::getUser()->id;
+         $user = User::find($user_id);
+ 
+         $role_user =  DB::table('role_users')
+                             ->select('user_id')
+                             ->where('role_id', 1)
+                             ->get();
+ 
+         $user_id = collect($role_user)->pluck('user_id')->toArray();
+ 
+         $notify_users = User::find($user_id);
+         
+         foreach ($notify_users as $users) {
+             $users->notify(new DeleteSchedule($user, $schedule_number ));
+         }
+
         return redirect('schedule')->with('success', 'Schedule Deleted');
     }
 }
