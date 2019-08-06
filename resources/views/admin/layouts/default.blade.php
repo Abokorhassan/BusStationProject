@@ -42,7 +42,7 @@
         </div>
         <div class="navbar-right">
             <ul class="nav navbar-nav">
-                @include('admin.layouts._messages')
+                {{-- @include('admin.layouts._messages') --}}
                 @include('admin.layouts._notifications')
                 <li class="dropdown user user-menu rtl_list">
                     <a href="#" class="dropdown-toggle profile_user" data-toggle="dropdown">
@@ -126,7 +126,9 @@
         </div>
     </nav>
 </header>
+
 <div class="wrapper fixed_menu">
+
     <!-- Left side column. contains the logo and sidebar -->
     <aside class="left-side ">
         <section class="sidebar ">
@@ -166,6 +168,7 @@
             </div>
         </section>
     </aside>
+
     <aside class="right-side">
 
         <!-- Notifications -->
@@ -179,6 +182,7 @@
     </aside>
     <!-- right-side -->
 </div>
+
 <a id="back-to-top" href="#" class="btn btn-primary btn-lg back-to-top" role="button">
     <i class="livicon" data-name="plane-up" data-size="18" data-loop="true" data-c="#fff" data-hc="white"></i>
 </a>
