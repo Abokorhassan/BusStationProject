@@ -368,7 +368,7 @@ class BusController extends Controller
         }else{
             
         }
-        // $bus->delete();
+        $bus->delete();
 
         // send notification
         $bus_number = $bus->bus_number;

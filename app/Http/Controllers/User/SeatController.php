@@ -93,8 +93,8 @@ class SeatController extends Controller
 
         $seat = new Seat();
         //    bus_id
-        $seat->bus_id =$request->input('bus_number');   // bus_id
-        $bus_id = $seat->bus_id;
+        $bus_id = $request->input('bus_number');   // bus_id
+        $seat->bus_id = $bus_id;
         $buss = Bus::find($bus_id);
         $seat->bus_number = $buss->bus_number;     //bus_number   
 
@@ -107,8 +107,8 @@ class SeatController extends Controller
         $seat->user_last = $user->last_name;     // user_last
 
         $seat->station_id = $user->station_id;    // station_id
-        $station = Station::find($bus->station_id);
-        $bus->station_name = $station->name;  // station_name
+        $station = Station::find($seat->station_id);
+        $seat->station_name = $station->name;  // station_name
 
         $seat->save();
 

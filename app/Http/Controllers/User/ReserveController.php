@@ -44,12 +44,35 @@ class ReserveController extends Controller
             //     return redirect('schedule')->with('error', 'You need to create a Schedule');
             // }
 
-            // $schedule_id = $schedules->id;      
+            // $schedule_id = $schedules->id;     
 
+            $routes = Route::select('id','name')
+                        ->where('station_id', $stations_id)
+                        ->get();
+            // return $routes;
+            if($routes->isEmpty()){
+                return redirect('/')->with('info', 'There are no Route in this Station. To create Schedule Ask the Admin to Add a Route!');
+            }
+
+            $schedules = Schedule::select('*')
+                            ->where('station_id', $stations_id)
+                            ->get();
+
+            if($schedules == null){
+                return redirect('schedule')->with('info', 'You need to create a Schedule');
+            }
+            
+            // $queues = Queue::select('*')
+            //             ->where('station_id', $stations_id)
+            //             ->get();
+            // if($queues->isEmpty()){
+            //     return redirect('queue')->with('info', 'You need to Queue a bus');
+            // }
             // $stationreserve = Station::find($stations_id)->reserve()->paginate(4);
             $stationreserve = Reserve::oldest()
                                 ->where('station_id', $stations_id)
                                 ->paginate(4);
+                                
 
             return view('reserve.index')->with('reserves',$stationreserve);
         }
@@ -76,7 +99,7 @@ class ReserveController extends Controller
                     ->get();
         $schedules = [];        
         foreach ($routes as $route) {
-                        echo $schedules[] = Schedule::select('id')
+                         $schedules[] = Schedule::select('id')
                                         ->whereIn('route_id', $route)
                                         ->latest()
                                         ->value('id');  
@@ -93,7 +116,7 @@ class ReserveController extends Controller
         // return $queues;
 
         if($queues->isEmpty()){
-            return redirect('queue')->with('error', 'You need to Queue a bus');
+            return redirect('queue')->with('warning', 'You need to Queue a bus');
         }
 
         // return $schedules;
@@ -438,6 +461,7 @@ class ReserveController extends Controller
 
         $reserve->rider_id = $request->input('rider');      //rider_id
         $rider = Rider::find($reserve->rider_id);
+        $reserve->rider_number = $rider->id_number;      // rider_number
         $reserve->rider_first = $rider->first_name;     //rider_first
         $reserve->rider_second = $rider->last_name;     //rider_second
         $reserve->rider_third = $rider->third_name;     //rider_third
@@ -484,11 +508,13 @@ class ReserveController extends Controller
         if($seat->isEmpty()){
             $queue_id = $queues->id;
             $queue = Queue::find($queue_id);
-            // return $queue_id;
             $queue->delete();
+            return redirect('reserve')->with('success', 'Seat Reserved')->with('info', 'the bus is full');
+        }else{
+            return redirect('reserve')->with('success', 'Seat Reserved');
         }
                     
-        return redirect('reserve')->with('success', 'Seat Reserved');
+        
 
     }
 

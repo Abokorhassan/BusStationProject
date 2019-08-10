@@ -8,6 +8,8 @@ use App\User;
 use App\Station;
 use App\Bus;
 use App\Route;
+use App\Schedule;
+use App\Queue;
 use Sentinel;
 use DB;
 
@@ -19,8 +21,7 @@ class HomeController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
-       //
+    { 
     }
 
     public function showHome()
@@ -30,6 +31,9 @@ class HomeController extends Controller
         $s_id = $user->station_id; 
         $station = Station::find($s_id);
         $stations_id = $station->id;
+
+        $station = Station::find($stations_id);
+        // return $station;
 
         //total users
         $user_count = User::
@@ -52,11 +56,45 @@ class HomeController extends Controller
                             ->count();
         // return $driver_count;
 
+        $routes = Route::select('id','name')
+                        ->where('station_id', $stations_id)
+                        ->get();
+
         if(Sentinel::check())
-            return view('index',['user_count'=>$user_count, 'driver_count'=>$driver_count, 'bus_count'=>$bus_count, 'route_count'=>$route_count]);
+            return view('index',compact('station', 'routes'),['user_count'=>$user_count, 'driver_count'=>$driver_count, 'bus_count'=>$bus_count, 'route_count'=>$route_count]);
         else
             return redirect('login')->with('error', 'You must be logged in!');
     }
+
+    public function getId(Request $request)
+    {
+        $id = $request->id;
+
+        $user_id= Sentinel::getUser()->id;
+        $user = User::find($user_id);
+        $s_id = $user->station_id; 
+        $station = Station::find($s_id);
+        $stations_id = $station->id;
+       
+        // getting the latest schedule saved 
+        $schedule = Schedule::select('*')
+                        ->where('station_id', $stations_id)
+                        ->where('route_id', $id)
+                        ->latest()
+                        ->first();
+        $schedule_id = $schedule->id;
+
+        $tabQueue = Queue::select('*')
+                            ->where('station_id', $stations_id)
+                            ->where('schedule_id', $schedule_id)
+                            ->oldest()
+                            ->get();
+        $data = $tabQueue;
+        // $data = $id;
+
+        return Response()->json($data);
+    }
+    
 
     /**
      * Show the form for creating a new resource.

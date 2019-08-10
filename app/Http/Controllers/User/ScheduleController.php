@@ -30,14 +30,19 @@ class ScheduleController extends Controller
         if(!$station == ''){
             $stations_id = $station->id;
 
-            $stationschedule = Schedule::latest()
-                                ->where('station_id', $stations_id)
-                                ->paginate(4);
-            // $stationschedule = Station::find($stations_id)->schedule()->paginate(4);
             
             $routes = Route::select('id','name')
                         ->where('station_id', $stations_id)
                         ->get();
+            // return $routes;
+            if($routes->isEmpty()){
+                return redirect('/')->with('info', 'There are no Route in this Station. To create Schedule Ask the Admin to Add a Route!');
+            }
+
+            $stationschedule = Schedule::latest()
+                                ->where('station_id', $stations_id)
+                                ->paginate(4);
+            // $stationschedule = Station::find($stations_id)->schedule()->paginate(4);
 
             $tabSchedule = Schedule::
                                 select('*')

@@ -142,12 +142,12 @@
                           <select class="form-control " id="busnumber"  name="bus_number">                                         
                             <option value="0" disabled="true" selected = "true"> Select Bus
                             </option>
-                            @foreach ($buses as $bus)
+                            {{-- @foreach ($buses as $bus)
                               <option value="{{ $bus->id}}" 
                                 @if (old('bus_number')=== "{{$bus->id}}") selected="selected"@endif
                                 >{{ $bus->bus_number}}
                               </option>
-                            @endforeach
+                            @endforeach --}}
                           </select>
                           </select>
                           {!! $errors->first('bus_number', '
@@ -325,35 +325,35 @@
         }
       });
     });
-    // $(document).ready(function(){
-    //   $(document).on('change','.schedule',function(){
-    //     var id=$(this).val();
-    //     console.log(id);
+    $(document).ready(function(){
+      $(document).on('change','.schedule',function(){
+        var id=$(this).val();
+        console.log(id);
 
-    //     if(id) {
-    //         $.ajax({
-    //             url: "{{ route('user.queue.getBusQueue') }}",
-    //             type: "GET",
-    //             data:{'id':id},
-    //             dataType: "json",
-    //             success:function(data) {
-    //                 console.log(data);
+        if(id) {
+            $.ajax({
+                url: "{{ route('user.queue.getBusQueue') }}",
+                type: "GET",
+                data:{'id':id},
+                dataType: "json",
+                success:function(data) {
+                    console.log(data);
 
-    //                   //also This is from stackoverflow
-    //                 $('select[name="bus_number"]').empty();
-    //                 $('select[name="bus_number"]').html('<option value=""  selected = "true">Chose Bus</option>');
-    //                 $.each( data, function( index, object ) {
-    //                   $('select[name="bus_number"]').append('<option value="'+ object['id'] +'" >'+ object['bus_number'] +'</option>');
-    //                 });
+                      //also This is from stackoverflow
+                    $('select[name="bus_number"]').empty();
+                    $('select[name="bus_number"]').html('<option value=""  selected = "true">Chose Bus</option>');
+                    $.each( data, function( index, object ) {
+                      $('select[name="bus_number"]').append('<option value="'+ object['id'] +'" >'+ object['bus_number'] +'</option>');
+                    });
 
 
-    //             }
-    //         });
-    //     }else{
-    //         $('select[name="bus_number"]').empty();
-    //     }
-    //   });
-    // });
+                }
+            });
+        }else{
+            $('select[name="bus_number"]').empty();
+        }
+      });
+    });
   </script>
 
 

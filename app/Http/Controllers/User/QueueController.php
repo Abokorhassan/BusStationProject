@@ -33,27 +33,32 @@ class QueueController extends Controller
             $routes = Route::select('id','name')
                         ->where('station_id', $stations_id)
                         ->get();
-
-            // getting the latest schedule saved 
-            $schedules = Schedule::select('*')
+            if($routes->isEmpty()){
+                return redirect('/')->with('info', 'There are no Route in this Station. To create Schedule Ask the Admin to Add a Route!');
+            }
+            
+             // getting the latest schedule saved 
+             $schedules = Schedule::select('*')
                             ->where('station_id', $stations_id)
                             ->latest()
                             ->first();
 
             if($schedules == null){
-                return redirect('schedule')->with('error', 'You need to create a Schedule');
+                return redirect('schedule')->with('info', 'You need to create a Schedule');
             }
 
             $schedule_id = $schedules->id;
 
             // $stationqueue = Station::find($stations_id)->queue()->paginate(4);
-            $stationqueue = Queue::withTrashed()
+            $queues = Queue::withTrashed()
                                 ->latest()
                                 ->where('station_id', $stations_id)
                                 // ->where('schedule_id', $schedule_id)
                                 ->paginate(4);
+                                // ->get();
+            // return $stationqueue;
            
-            return view('queue.index', compact('routes'))->with('queues',$stationqueue);
+            return view('queue.index', compact('routes', 'queues'));
         }
         $queues = null;  
         return view('queue.index', compact('queues'));
@@ -109,24 +114,49 @@ class QueueController extends Controller
                             ->value('id');  
         }
         // return $schedules;
-        
+        $count = 0;
+        foreach ($schedules as $schedule) {
+            // echo $schedule;
+           $buses= DB::table("buses")->select( 'bus_number')
+                                    ->where('station_id', $stations_id)
+                                    ->whereNotIn('bus_number',function($query) use($schedule) {
+                                        $query->select('bus_number')
+                                            ->from('queues')
+                                            ->where('schedule_id', $schedule);
+                                    })
+                                    ->whereNotNull('Driver_id')
+                                    // ->get();
+                                    ->value('bus_number');  
 
-        $buses = DB::table("buses")->select('id', 'bus_number')
-                    ->whereNotIn('bus_number',function($query) use($schedules) {
-                        $query->select('bus_number')
-                            ->from('queues')
-                            ->whereIn('schedule_id', $schedules);
-                    })
-                    ->where('station_id', $stations_id)
-                    ->whereNotNull('Driver_id')
-                    ->get();
-                    
-        if($buses->isEmpty()){
-            return redirect('queue')->with('error', 'You need to create a Schedule because all buses finished theri routine');
+            if($buses){
+                $count+=1; 
+            }
         }
+        // return 'n';
         // return $buses;
+        // return $count;
+
+        if(!$count > 0) {
+            // return '0';
+            return redirect('queue')->with('warning', 'You need to create a Schedule because all buses finished their routine');
+        }
+        // return 'no zero';
+
+
+        // $buses = DB::table("buses")->select('id', 'bus_number')
+        //             ->whereNotIn('bus_number',function($query) use($schedules) {
+        //                 $query->select('bus_number')
+        //                     ->from('queues')
+        //                     ->where('schedule_id', 38);
+        //             })
+        //             // ->whereIn('route_id', $route)
+        //             ->where('station_id', $stations_id)
+        //             ->whereNotNull('Driver_id')
+        //             ->get();
+        // return $buses;
+
                 
-        return view('queue.create', compact('schedules', 'routes', 'buses')); 
+        return view('queue.create', compact('schedules', 'routes' )); 
     }
 
     public function getBusQueue(Request $request)
@@ -145,7 +175,7 @@ class QueueController extends Controller
                     ->whereNotIn('bus_number',function($query) use($id) {
                         $query->select('bus_number')
                             ->from('queues')
-                            ->where('schedule_id', 21,20);
+                            ->where('schedule_id', $id);
                     })
                     ->where('station_id', $stations_id)
                     ->whereNotNull('Driver_id')
@@ -190,10 +220,16 @@ class QueueController extends Controller
         $station = Station::find($s_id);
         $stations_id = $station->id;
        
-        $tabQueue = Queue::
-                            select('*')
+        // getting the latest schedule saved 
+        $schedule = Schedule::select('*')
+                        ->where('station_id', $stations_id)
+                        ->where('route_id', $id)
+                        ->latest()
+                        ->first();
+        $schedule_id = $schedule->id;
+
+        $tabQueue = Queue::withTrashed()
                             ->where('station_id', $stations_id)
-                            ->where('route_id', $id)
                             ->latest()
                             ->get();
         $data = $tabQueue;
@@ -372,6 +408,11 @@ class QueueController extends Controller
     public function show($id)
     {
         $queue = Queue::find($id);
+        if ($queue == null) {
+            $queue = Queue::onlyTrashed()
+                        ->where('id', $id)
+                        ->first(); 
+        }
         return view('queue.show', compact('queue'));
     }
 
@@ -422,11 +463,23 @@ class QueueController extends Controller
      */
     public function destroy($id)
     {
-
+        // return $id;
         $stationqueue = Queue::find($id);
-
-        $stationqueue->forceDelete();
-        $stationqueue->reserve()->forceDelete();
+        if ($stationqueue == null) {
+            $queue = Queue::onlyTrashed()
+                ->where('id', $id)
+                ->first(); 
+            // return $queue;
+            $queue->forceDelete();
+            $queue->reserve()->delete();
+            
+        }else{
+            
+            $stationqueue->forceDelete();
+            $stationqueue->reserve()->delete();  
+        }
+        
+                      
         return redirect('queue')->with('success', 'Bus Deleted from the Queue');
     }
 }

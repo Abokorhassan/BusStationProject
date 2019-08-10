@@ -473,35 +473,23 @@
 
                 <div class="col-md-4 right_float ">
                     <h3 class="martop">Recent Queues</h3>
-                    <div style="height: 30em; overflow: auto"  class="tabbable-panel polaroid">
-                        <!-- Tabbablw-line Start -->
-                        <div class="tabbable-line ">
-
-                            <!-- Nav Nav-tabs Start -->
-                            {{-- <ul class="nav nav-tabs tabs_content">
-                                @foreach ($routes as $index => $route)
-                                   <li {{ $index== 0 ? 'class="active"' : '' }}>
-                                      <a href="#{{ $route->id }}" id="ad{{ $route->id }}" data-toggle="tab">
-                                         {!! $route->name !!}
-                                      </a>
-                                   </li>
-                                @endforeach
-                             </ul> --}}
-
-                             <ul class="nav nav-tabs tabs_content">
-                                @foreach ($routes as $index => $route)
-                                    <li @if($index== 0) class="active" @endif>
-                                        <a href="#{{ $route->id }}" id="ad{{ $route->id }}" data-toggle="tab">
-                                            {!! $route->name !!}
-                                        </a>
-                                    </li>
-                                @endforeach
-                             </ul>
-
-                            <div class="tab-content blog_tabs">
+                        <div style="height: 30em; overflow: auto"  class="tabbable-panel polaroid">
+                            <!-- Tabbablw-line Start -->
+                            <div class="tabbable-line ">
+                                 <ul class="nav nav-tabs tabs_content">
+                                    @foreach ($routes as $index => $route)
+                                        <li @if($index== 0) class="active" @endif>
+                                            <a href="#{{ $route->id }}" id="ad{{ $route->id }}" data-toggle="tab">
+                                                {!! $route->name !!}
+                                            </a>
+                                        </li>
+                                    @endforeach
+                                 </ul>
+    
+                                <div class="tab-content blog_tabs">
+                                </div>
                             </div>
                         </div>
-                    </div>
                 </div>
             </div>
         </div>
@@ -510,6 +498,9 @@
 
 {{-- page level scripts --}}
 @section('footer_scripts')
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script> 
@@ -524,6 +515,15 @@
         function formSubmit(){
             $("#deleteForm").submit();
         }
+
+
+        // $("ul.nav-tabs a").click(function (e) {
+        // e.preventDefault();  
+        //     $(this).tab('show');
+        // });
+
+
+
 
         $("ul.nav-tabs > li > a").click(function() {
             var id = $(this).attr("href").replace("#", "");
