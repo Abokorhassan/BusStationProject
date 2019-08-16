@@ -10,6 +10,7 @@ use App\Bus;
 use App\Route;
 use App\Schedule;
 use App\Queue;
+use App\Reserve;
 use Sentinel;
 use DB;
 
@@ -91,6 +92,36 @@ class HomeController extends Controller
                             ->get();
         $data = $tabQueue;
         // $data = $id;
+
+        return Response()->json($data);
+    }
+
+    public function getBusSeat($id)
+    {
+        $queue = Queue::find($id);
+        $reserves = Reserve::select('*')
+                        ->where('queue_id', $id)
+                        ->get(); 
+        return view('busSeat', compact('reserves', 'queue'));
+    }
+
+    public function getSchedule(Request $request)
+    {
+        $id = $request->id;
+
+        $user_id= Sentinel::getUser()->id;
+        $user = User::find($user_id);
+        $s_id = $user->station_id; 
+        $station = Station::find($s_id);
+        $stations_id = $station->id;
+       
+        // getting the latest schedule saved 
+        $schedule = Schedule::select('*')
+                        ->where('station_id', $stations_id)
+                        ->where('route_id', $id)
+                        ->latest()
+                        ->first();
+        $data = $schedule;
 
         return Response()->json($data);
     }

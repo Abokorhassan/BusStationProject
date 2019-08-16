@@ -43,6 +43,31 @@
             margin-top: 0.5em;
             margin-left: 1.0em;
         }
+        #myList li{
+            background: #bbbec4;
+        }
+        ul.nav-tabs > li > a{
+            background: #23527C;
+            color: white;
+        }
+        ul.nav-tabs > li > a:hover{
+            background: #6f8bd6;
+            color: white;
+        }
+        hr.line {
+            border: 1px solid #3A4252;
+            margin-top: -%
+            
+        }
+
+        ul#myList > li:hover, ul#myList > li > a:hover{
+            background: #333357;
+            color: white;
+        }
+        #li:active{
+            background: #181852;
+            color: white;
+        }
     </style>
 @stop
 
@@ -63,16 +88,6 @@
     </section>
 
     <section class="content">
-        {{-- @if ($analytics_error != 0)
-            <div class="alert alert-danger alert-dismissable margin5">
-                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;
-                </button>
-                <strong>Error:
-                </strong> You Need to add Google Analytics file for full working of the page
-            </div>
-        @endif  --}}
-
-            
 
         <div class="row" >
 
@@ -168,86 +183,36 @@
         </div>
 
 
-        {{-- @foreach ($schedules as $schedule)
-            @if ($schedule != null)
-                <div>
-                    {!! $schedule->id!!}
-                </div>   
-            @else
-                <p>its null</p>    
-
-            @endif  
-        @endforeach --}}
-
-
         <!--/row-->
         <div   class="row"  >
             <div  class="col-md-8 col-sm-7 no_padding animate_rtl">
                 <div class="row"  >
                     <div   class="col-md-12" >
-                        <div  class="panel panel-border main_chart">
-                            <div class="panel-heading ">
-                                <h3 class="panel-title">
-                                    <i class="livicon" data-name="barchart" data-size="16" data-loop="true" data-c="#EF6F6C" data-hc="#EF6F6C">
+                        <div  class="panel panel-border map">
+                            <div style="background: #515763; color: white" class="panel-heading ">
+                                <h3  class="panel-title">
+                                    <i  class="livicon" data-name="barchart" data-size="16" data-loop="true" data-c="#EF6F6C" data-hc="#EF6F6C">
                                     </i> Stations Queues
                                 </h3>
                             </div>
-                            <div  class="panel-body">
-                                <ul  class="nav nav-tabs">
-                                    @forelse ($stations as $station)
-                                        <li >
-                                            <a data-toggle="tab" href="#tab-{{ $station->id }}"  >
-                                            {!! $station->name !!}
+                            <div  class="panel-body nopadmar">
+                                <ul  class="nav nav-pills ">
+                                    @foreach ($stations as $index => $station)
+                                        <li style="font-size: 14.9px;" @if($index== 0) class="active" @endif>
+                                            <a id="li" href="{{ $station->id }}" data-toggle="pill">
+                                                {!! $station->name !!}
                                             </a>
                                         </li>
-                                    @empty
-                                    
-                                    @endforelse
+                                    @endforeach
                                 </ul>
-
-                                <div style="margin-top: 15%"  class="tab-content">
-                                    @forelse($queues as $queue)
-                                            <div id="tab-{{ $queue->station_id}}" class="tab-pane fade">
-                                                    <p>{{ $queue->bus_number }}</p>
-                                            </div>
-                                    @empty
-                            
-                                    @endforelse
+                                <hr  class="line">
+                                <div style="margin-top: -2%"  class="tab-content">
+                                    
                                 </div>
 
-                                {{-- <div style="margin-top: 15%"  class="tab-content">
-                                    @foreach($queues as $station_id => $item)
-                                        @if($item)
-                                            <div id="tab-{{ $station_id}}" class="tab-pane fade">
-                                                @foreach($item as $queue)
-                                                    @if ($queue)
-                                                        <p>{!! $queue['bus_number'] !!}</p>
-                                                    @else
-                                                        <div>empty</div>
-                                                    @endif
 
-                                                @endforeach
-                                            </div>
-                                        @else
-                                            <div>maya</div>
-                                        @endif
-                                        
-                                    @endforeach
-                                </div> --}}
+                                  
 
-
-                                {{-- <div style="margin-top: 15%"  class="tab-content">
-                                    @foreach($schedules as $station_id => $item)
-                                        <div id="tab-{{ $station_id }}" class="tab-pane fade">
-                                                @forelse ($item as $schedule)
-                                                    <p>{!! $schedules->schedule_number !!}</p>
-                                                @empty
-                                                NOTHING
-                                                @endforelse
-                                        </div>
-                                    @endforeach
-                                </div> --}}
-                                        
                             </div>
                         </div>
                     </div>
@@ -305,7 +270,7 @@
 
             <div class="col-lg-4 col-md-4 col-sm-5 animate_rtl">
                 <div class="panel panel-border">
-                    <div class="panel-heading border-light">
+                    <div style="background: #515763; color: white" class="panel-heading border-light">
                         <h3 class="panel-title">
                             <i class="livicon" data-name="users" data-size="18" data-color="#00bc8c" data-hc="#00bc8c"
                                 data-l="true">
@@ -410,15 +375,9 @@
 {{-- page level scripts --}}
 @section('footer_scripts')
     <script type="text/javascript" src="{{ asset('assets/vendors/moment/js/moment.min.js') }}"></script>
-    <!--for calendar-->
     <script src="{{ asset('assets/vendors/moment/js/moment.min.js') }}" type="text/javascript"></script>
-    <!-- Back to Top-->
     <script type="text/javascript" src="{{ asset('assets/vendors/countUp_js/js/countUp.js') }}"></script>
-    {{--<script src="http://demo.lorvent.com/rare/default/vendors/raphael/js/raphael.min.js"></script>--}}
     <script src="{{ asset('assets/vendors/morrisjs/morris.min.js') }}"></script>
-
-    {{-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script> --}}
-    {{-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script> --}}
 
     <script>
 
@@ -526,13 +485,47 @@
         });
     </script>
 
-<script type="text/javascript">
-    $(document).ready(function(){
-        function getQueue(id){
-            var id = id;
-            console.log(id);
-            
-        }
-    });
-</script>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $(document).ready(function(){
+                function getQueue(id){
+                    var id = id;
+                    console.log(id);
+                    
+                }
+            });
+
+            $("ul.nav-pills > li > a").click(function() {
+                var id = $(this).attr("href").replace("#", "");   
+                if(id) {
+                    $.ajax({
+                        url: "{{ route('admin.getRoute') }}",
+                        type: "GET",
+                        data:{'id':id},
+                        dataType: "json",
+                        success:function(data) {
+                            if(data.length > 0){
+                                console.log(data);
+                                var count = 1;
+
+                                $(".tab-content").empty();
+                                $(".tab-content").html('<div  id="'+ id +'">')
+                                $.each( data, function( index, object ) {
+                                    $(".tab-content").append('<ul id="myList"><li id="hva" class="list-group-item"> <a id="hva" style="font-size: 15px; "  href="{{ URL::to('admin/routeQueue/') }}/'+ object['id'] +'"> Route: <strong>'+ object['name'] +'</strong></a> </li></ul></div>');
+                                });
+                            }else{
+                                console.log('empty');
+                                $(".tab-content").empty();
+                                $(".tab-content").append('<ul id="myList"><li id="hva" class="list-group-item"> <strong> No Route in this Station </strong> </li></ul></div>');             
+                            }
+                            
+                        }
+                    });
+                }    
+            });
+
+            $("ul.nav-pills > li:first > a").trigger( "click" );
+        });
+
+    </script>
 @stop

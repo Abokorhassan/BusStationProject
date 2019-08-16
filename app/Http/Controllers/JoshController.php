@@ -11,7 +11,9 @@ use App\Bus;
 use App\User;
 use App\Driver;
 use App\Queue;
+use App\Route;
 use App\Schedule;
+use App\Reserve;
 use Collection;
 use View;
 use Illuminate\Http\Request;
@@ -338,7 +340,58 @@ class JoshController extends Controller {
     }
 
 
+    public function getRoute(Request $request)
+    {
+        $id = $request->id;
+        $route = Route::select('*')
+                    ->where('station_id', $id)
+                    ->get();
+       
+        
+        $data = $route;
+        // $data = $id;
 
+        return Response()->json($data);
+    }
+
+    public function getrouteQueue($id)
+    {
+        $route = Route::find($id);
+        $station_id = $route->station_id;
+
+        // getting the latest schedule saved 
+        $schedule = Schedule::select('*')
+                        ->where('station_id', $station_id)
+                        ->where('route_id', $id)
+                        ->latest()
+                        ->first();
+        if($schedule == null){
+            return redirect('admin')->with('warning', 'There\'s no Schedule in that route ');
+        }
+        $schedule_id = $schedule->id;
+
+
+        $queues = Queue::select('*')
+                            ->where('station_id', $station_id)
+                            ->where('schedule_id', $schedule_id)
+                            ->oldest()
+                            ->get();
+        return view('admin.routeQueue', compact('queues'));
+    }
+
+    public function getSeats(Request $request)
+    {   
+        $id = $request->id;
+        $queue = Queue::find($id);
+
+        $reserves = Reserve::select('*')
+                        ->where('queue_id', $id)
+                        ->get(); 
+        
+        $data = $reserves;
+        return Response()->json($data);
+    }
+    
     public function showHome()
     {
         $storagePath = storage_path().'/app/analytics/';
@@ -504,6 +557,8 @@ class JoshController extends Controller {
         else
             return redirect('admin/signin')->with('error', 'You must be logged in!');
     }
+
+    
 
     public function markAsRead()
     {

@@ -27,7 +27,7 @@
             margin-bottom: -0.5em;
             color: white;
             text-align: center;
-            font-size: 120%;
+            font-size: 150%;
         }
         .span_li{
             margin-bottom: 2em;
@@ -64,19 +64,9 @@
         <h1 style="size: 60em" >Welcome To <Strong><span style="text-transform: uppercase;">{{ $station->name}}</span></Strong> Station</h1>      
     </div>
 
-    {{-- <h1 style="text-align: center;"  class="border-success page-header">
-        <span class="heading_border bg-success">
-                Welcome To <Strong><span>{{ $station->name}}</span></Strong> Station
-        </span>
-    </h1> --}}
-
     <div class="container">
-
-        <!-- Service Section Start-->
         <div  class="row">
-            <!-- Responsive Section Start -->
             <div class="text-center">
-                {{-- <h3 class="border-primary"><span class="heading_border bg-primary"></span></h3> --}}
             </div>
 
             <div class="col-sm-6 col-md-3 wow bounceInRight " >
@@ -151,7 +141,7 @@
                     <!-- Tabbablw-line Start -->
                     <div class="tabbable-line">
                         <!-- Nav Nav-tabs Start -->
-                        <ul class="nav nav-tabs ">
+                        <ul id="routeQueue" class="nav nav-tabs ">
                             @foreach ($routes as $index => $route)
                                 <li @if($index== 0) class="active" @endif>
                                     <a href="#{{ $route->id }}" id="ad{{ $route->id }}" data-toggle="tab">
@@ -163,7 +153,7 @@
                         <!-- //Nav Nav-tabs End -->
 
                         <!-- Tab-content Start -->
-                        <div class="tab-content">
+                        <div id="queue" class="tab-content">
                             
                         </div>
                         <!-- Tab-content End -->
@@ -173,31 +163,39 @@
                 </div>
                 <!-- Tabbable_panel End -->
             </div>
-            {{-- <div class="col-md-3 col-sm-12 wow  right_float" id="tab_content">
+
+            <div class="col-md-5 col-sm-12 wow  right_float" id="tab_content" >
                 <div style="text-align: center;" >
-                    <h3><strong> Today's Recent Queues</strong></h3> 
+                    <h3><strong> Latest Schedule</strong></h3> 
                 </div>  
+                
+                <!-- Tabbable-Panel Start -->
+                <div style="height: 30em; overflow: auto" class="tabbable-panel">
+                    <!-- Tabbablw-line Start -->
+                    <div class="tabbable-line">
+                        <!-- Nav Nav-tabs Start -->
+                        <ul id="routeSchedule" class="nav nav-tabs ">
+                            @foreach ($routes as $index => $route)
+                                <li @if($index== 0) class="active" @endif>
+                                    <a href="#{{ $route->id }}" id="ad{{ $route->id }}" data-toggle="tab">
+                                        {!! $route->name !!}
+                                    </a>
+                                </li>
+                            @endforeach
+                        </ul>
+                        <!-- //Nav Nav-tabs End -->
 
-                <div class="tabbable boxed parentTabs">
-                    <ul class="nav nav-tabs">
-                        
+                        <!-- Tab-content Start -->
+                        <div id="schedule" class="tab-content">
+                            
+                        </div>
+                        <!-- Tab-content End -->
 
-                        @foreach ($routes as $index => $route)
-                            <li @if($index== 0) class="active" @endif>
-                                <a href="#{{ $route->id }}" id="ad{{ $route->id }}">
-                                    {!! $route->name !!}
-                                </a>
-                            </li>
-                        @endforeach
-
-                    </ul>
-                    
-                    <div id="bus_queue" class="tab-content">
-                        
                     </div>
+                    <!-- //Tabbablw-line End -->
                 </div>
-                      
-            </div> --}}
+                <!-- Tabbable_panel End -->
+            </div>
             
         </div>
         <!-- //Accordions Section End -->
@@ -236,12 +234,9 @@
         e.preventDefault();  
             $(this).tab('show');
         });
-
-
         
-        $("ul.nav-tabs > li > a").click(function() {
+        $("ul#routeQueue > li > a").click(function() {
             var id = $(this).attr("href").replace("#", "");
-            console.log(id);
             
          
             if(id) {
@@ -251,24 +246,66 @@
                     data:{'id':id},
                     dataType: "json",
                     success:function(data) {
-                        console.log(id);
-                        console.log(data);
-                        var count = 1;
-                        console.log(count);
+                        if(data.length > 0){
+                            var count = 1;
 
-                        $(".tab-content").empty();
-                        $(".tab-content").html('<div class="tab-pane" name="queue" id="'+ id +'">')
-                        $.each( data, function( index, object ) {
-                            $(".tab-content").append('<ul id="myList" class="list-group cir"><li class="list-group-item"> <span class="circle_li" class="animate_rtl"><span margin-top: 60em; >'+ count++ +'</span></span> <a  style="font-size: 16px;" href="#"> Bus: '+ object['bus_number'] +'</a> </li></ul></div>');
-                                      
-                        });
+                            $("#queue").empty();
+                            $("#queue").html('<div class="tab-pane" name="queue" id="'+ id +'">')
+                            $.each( data, function( index, object ) {
+                                $("#queue").append('<ul id="myList" class="list-group"><li class="list-group-item"> <span class="circle_li" class="animate_rtl"><span >'
+                                + count++ +'</span></span> <a id="ulroute" style="font-size: 18px;" href="{{ URL::to('/busSeat/') }}/'+ object['id'] +'" > Bus: '+ object['bus_number'] +'</a> </li></ul></div>');
+                                        
+                            });
+                        }else{
+                            $("#queue").empty();
+                            $("#queue").append('<ul id="myList"><li id="hva" class="list-group-item"> <strong>Still no bus queued in this Route </strong> </li></ul></div>');             
+                        }
                         
                     }
                 });
             }    
         });
 
-        $("ul.nav-tabs > li:first > a").trigger( "click" );
+        $("ul#routeQueue > li:first > a").trigger( "click" );
+
+
+
+        $("ul#routeSchedule > li > a").click(function() {
+            var id = $(this).attr("href").replace("#", "");
+            console.log(id);
+            
+         
+            if(id) {
+                $.ajax({
+                    url: "{{ route('getSchedule') }}",
+                    type: "GET",
+                    data:{'id':id},
+                    dataType: "json",
+                    success:function(data) {
+                        console.log(data);
+                        if(data){
+                            console.log(id);
+                            console.log(data);
+                            var count = 1;
+                            console.log(count);
+
+                            $("#schedule").empty();
+                            $("#schedule").html('<div class="tab-pane" name="queue" id="'+ id +'">')
+                                $("#schedule").append('<ul id="myList" class="list-group"><li class="list-group-item"> <a id="ulroute" style="font-size: 18px;"  > Schedule:  <strong> '+ data['schedule_number'] +'</strong></a> </li></ul></div>');
+                           
+                        }else{
+                            console.log('empty');
+                            $("#schedule").empty();
+                            $("#schedule").append('<ul id="myList"><li  class="list-group-item"> <strong>Still no schedule in this Route </strong> </li></ul></div>');             
+                        }
+                        
+                    }
+                });
+            }    
+        });
+
+        $("ul#routeSchedule > li:first > a").trigger( "click" );
+
 
     </script>
 @stop

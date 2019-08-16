@@ -73,6 +73,12 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin', 'as' => 'admin.'], f
 
     })->name('markAsRead');
 
+    Route::get('getRoute', 'JoshController@getRoute')->name('getRoute');
+    Route::get('routeQueue/{routeQueue}', 'JoshController@getrouteQueue')->name('getrouteQueue');
+    Route::get('getSeats', 'JoshController@getSeats')->name('getSeats');
+
+    
+
     # crop demo
     Route::post('crop_demo', 'JoshController@crop_demo')->name('crop_demo');
     //Log viewer routes
@@ -443,6 +449,9 @@ Route::group(['middleware' => 'user'], function () {
     
     // Route::get('/', '');
     Route::get('/', 'HomeController@showHome')->name('home');
+    Route::get('getId', 'HomeController@getId')->name('getId');
+    Route::get('getSchedule', 'HomeController@getSchedule')->name('getSchedule');
+    Route::get('busSeat/{busSeat}', 'HomeController@getBusSeat')->name('getBusSeat');
 
     // Route::get('/', ['as' => 'home', function () {
     //     return view('index');
