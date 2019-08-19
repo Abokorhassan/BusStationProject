@@ -8,6 +8,7 @@ use App\Bus;
 use App\Station;
 use App\Driver;
 use App\Seat;
+use App\User;
 use DB;
 
 use DOMDocument;
@@ -113,28 +114,33 @@ class BusController extends Controller
         $this->validate($request,[
             'model_type' => 'required | max:50',
             'bus_number' => 'required | max:50|unique:buses',
+            'number_seats' => 'required | numeric',
             'driver_number' => 'unique:buses,Driver_id',
             'station' => 'required | numeric',
         ]); 
 
         $bus = new Bus();
-        $bus->model_type =$request->input('model_type');
-        $bus->bus_number =$request->input('bus_number');
+        $bus->model_type =$request->input('model_type'); // modal type
+        $bus->bus_number =$request->input('bus_number'); // bus_number
+        $bus->number_seats =$request->input('number_seats'); // number_seats
 
         $driver_id =$request->input('driver_number');
         
         if($driver_id){
-            $bus->Driver_id = $driver_id;
+            $bus->Driver_id = $driver_id;       // driver_id
             $driver = Driver::find($bus->Driver_id);
-            $bus->driver_number = $driver->driver_number;
+            $bus->driver_number = $driver->driver_number;       // driver_number
         }
 
-        $bus->station_id =$request->input('station');
-
+        $bus->station_id =$request->input('station');       // station_id
         $station = Station::find($bus->station_id);
-        $bus->station_name = $station->name;
+        $bus->station_name = $station->name;        // station_name
 
-        //$bus->user_id = auth()->user()->id;
+        $user_id = Sentinel::getUser()->id;  // user_id
+        $bus->user_id = $user_id;
+        $user = User::find($user_id);
+        $bus->user_first = $user->first_name;   // user_first
+        $bus->user_last = $user->last_name;     // user_last
 
         $bus->save();
 
@@ -245,47 +251,44 @@ class BusController extends Controller
     {
         $this->validate($request,[
             'bus_number' => 'required | max:50|  unique:buses,bus_number,'. $id,
+            'number_seats' => 'required | numeric',
             'Driver_id' => 'unique:buses,Driver_id,'. $id,
-            'station_id' => 'required | numeric',
+            'station_id' => 'nullable | required | numeric',
         ]);  
         $bus = Bus::find($id);  
         $station_id = $bus->station_id;
 
-        $bus->bus_number =$request->input('bus_number');
-        $bus->station_id =$request->input('station_id');
-
-        // return $bus->station_id.'---'.$station_id;
+        $bus->bus_number =$request->input('bus_number');    // bus_number
+        $bus->number_seats =$request->input('number_seats');    //number_seats
+        $bus->station_id =$request->input('station_id');    // station_id
         $station = Station::find($bus->station_id);
-        $bus->station_name = $station->name;
+        $bus->station_name = $station->name;        // station_name
 
-        $driver_id =$request->input('Driver_id');
+
+        $driver_id = $request->input('Driver_id');
 
         if($station_id != $bus->station_id)
         {
             $driver = Driver::find($driver_id);
             if($driver_id){
+                //Saving the driver
+                $bus->Driver_id = $driver_id;       // driver_id
+                $driver = Driver::find($bus->Driver_id);
+                $bus->driver_number = $driver->driver_number;   // driver_number
+
+                // Saving the station of the driver
                 $driver->station_id = $bus->station_id ;
                 $driver->station_name = $bus->station_name;
                 $driver->save();
             }else{
 
             }
-            $seats = Bus::find($id)->seat;
-            if($seats){
-                foreach ($seats as $seat) {
-                    $seat->station_id = $bus->station_id;
-                    $seat->station_name = $bus->station_name;
-                    $seat->save();
-                }
-            }else{
-                
-            }
         }else{
             $driver = Driver::find($driver_id);
             if($driver_id){
-                $bus->Driver_id = $driver_id;
+                $bus->Driver_id = $driver_id;       // driver_id
                 $driver = Driver::find($bus->Driver_id);
-                $bus->driver_number = $driver->driver_number;
+                $bus->driver_number = $driver->driver_number;      // driver_number
             }else{
 
             }

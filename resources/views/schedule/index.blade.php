@@ -325,8 +325,8 @@
                                         <div class="featured-text relative-left">
                                             <h3 style="text-align: center" class="success">
                                             <a style="margin-left: -3em;text-align: center" href="{{ URL::to('schedule/' .$schedule->id .'') }}">
-                                                <strong > Schedule No. &nbsp; 
-                                                </strong>{{$schedule->schedule_number}}
+                                                <strong >{{$schedule->schedule_number}}
+                                                </strong>
                                             </a>
                                             </h3>
                                             <div class="row">
@@ -334,9 +334,9 @@
                                                     <div class="row">
                                                         <div class="col-sm-6">
                                                             <p>
-                                                                <strong>ID: &nbsp; 
+                                                                <strong>Start: &nbsp; 
                                                                 </strong>
-                                                                {!! $schedule->id !!}
+                                                                {!! $schedule->start !!}
                                                             </p>
                                                             <p  class="additional-post-wrap">
                                                                 <span class="additional-post">
@@ -555,7 +555,7 @@
                         $(".tab-content").empty();
                         $(".tab-content").html('<div class="tab-pane" name="schedule" id="'+ id +'">')
                         $.each( data, function( index, object ) {
-                            $(".tab-content").append('<ul id="myList" class="list-group"><li class="list-group-item">'+ object['schedule_number'] +'</li></ul></div>');
+                            $(".tab-content").append('<ul id="myList" class="list-group"><li class="list-group-item">'+ object['schedule_number'] +' <span style="margin-left:3em;">'+ object['start']+'</span></li></ul></div>');
                                       
                         });
                         

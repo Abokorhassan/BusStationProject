@@ -307,10 +307,10 @@
         <h2>
             Bus Lists
             @if($buses != null)
-                <a style="margin-left: 58%;" href="{{ URL::to('bus/create') }}">
+                {{-- <a style="margin-left: 58%;" href="{{ URL::to('bus/create') }}">
                     <button style=" border-color: #09bd8f; width: 12%;" type="button" class="btn btn-default bt-lg">Add New Bus
                     </button>
-                </a>
+                </a> --}}
             <div style="margin-left: 25%; margin-top: -3% " class="form-group">
                 <input type="text" name="search" id="search" class="form-control" style="width: 35%; height: 35px; border-color: #09bd8f;" placeholder="Search Bus Data">                                                
                 
@@ -335,7 +335,7 @@
                                 <!-- BEGIN FEATURED POST -->
                                 <div class="col-sm-6">
                                     <div id="reocrds" class="featured-post-wide thumbnail polaroid ">
-                                        <div class="featured-text relative-left">
+                                        <div style="background: #F0F0EC" class="featured-text relative-left">
                                             <h3 style="text-align: center" class="success">
                                             <a style="margin-left: -3em;text-align: center" href="{{ URL::to('bus/' .$bus->id .'') }}">
                                                 <strong > Bus No. &nbsp; 
@@ -363,10 +363,10 @@
                                                                     </a>
                                                                 </span>
                                                             </p>
-                                                            <a style="margin-left: 5em; " href="{{ URL::to('bus/' .$bus->id .'/edit') }}">
+                                                            {{-- <a style="margin-left: 5em; " href="{{ URL::to('bus/' .$bus->id .'/edit') }}">
                                                                 <button style=" font-size: 1em; width: 4.5em; height: 2.5em;"  type="button" class="btn btn-success btn-sm">Edit
                                                                 </button>
-                                                            </a>
+                                                            </a> --}}
                                                         </div>
                                                         <div class="col-sm-6">
                                                             <p>
@@ -382,11 +382,11 @@
                                                                     </a>
                                                                 </span>
                                                             </p>
-                                                            <a style="color: white; margin-left: -2em;" href="javascript:;" data-toggle="modal" onclick="deleteData({{$bus->id}})" 
-                                                                data-target="#delete_confirm" class="btn btn-danger">
+                                                            {{-- <a style="color: white; margin-left: -2em;" href="javascript:;" data-toggle="modal" onclick="deleteData({{$bus->id}})" 
+                                                                data-target="#delete_confirm" class="btn btn-danger"> --}}
                                                                 {{-- <i class="fa fa-trash"></i>  --}}
-                                                                Delete
-                                                            </a>
+                                                                {{-- Delete
+                                                            </a> --}}
                                                         </div>
                                                     </div>
                                                 </div>

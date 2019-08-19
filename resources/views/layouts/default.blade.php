@@ -115,9 +115,9 @@
                     </li>
 
                     {{-- Rider --}}
-                    <li class="frontend_navbar dropdown {!! (Request::is('rider') || Request::is('rider/*')   ? 'active' : '') !!}">
+                    {{-- <li class="frontend_navbar dropdown {!! (Request::is('rider') || Request::is('rider/*')   ? 'active' : '') !!}">
                         <a href="{{ URL::to('rider') }}"> Rider </a>
-                    </li>
+                    </li> --}}
 
                     {{-- Bus stop --}}
                     {{-- <li class="frontend_navbar dropdown {!! (Request::is('busstop') || Request::is('busstop/*')   ? 'active' : '') !!}">
@@ -145,9 +145,9 @@
                     </li>
 
                     {{-- Reserve --}}
-                    <li class="frontend_navbar dropdown {!! (Request::is('reserve') || Request::is('reserve/*')   ? 'active' : '') !!}">
+                    {{-- <li class="frontend_navbar dropdown {!! (Request::is('reserve') || Request::is('reserve/*')   ? 'active' : '') !!}">
                         <a href="{{ URL::to('reserve') }}"> Reserve </a>
-                    </li>
+                    </li> --}}
                     
 
                         {{-- Features --}}

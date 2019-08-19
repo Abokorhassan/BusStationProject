@@ -268,7 +268,7 @@
                     $(".tab-content").empty();
                     $(".tab-content").html('<div class="tab-pane" name="queue" id="'+ id +'">')
                     $.each( data, function( index, object ) {
-                        $(".tab-content").append('<ul id="myList" class="list-group"><li class="list-group-item">'+ object['bus_number'] +'</li></ul></div>');
+                        $(".tab-content").append('<ul id="myList" class="list-group"><li class="list-group-item">'+ object['bus_number'] +' <span style="margin-left:3em;">'+ object['schedule_number']+'</span></li></ul></div>');
                                   
                     });
                     
@@ -299,7 +299,12 @@
                         // $.each( data, function( index, object ) {
                         //   $('select[name="schedule"]').append('<option value="'+ object['id'] +'" >'+ object['schedule_number'] +'</option>');
                         // });
-                          $('select[name="schedule"]').append('<option value="'+ data['id'] +'" >'+ data['schedule_number'] +'</option>');
+                          // $('select[name="schedule"]').append('<option value="'+ data['id'] +'" >'+ data['schedule_number'] +'</option>');
+
+                          $.each( data, function( index, object ) {
+                            $('select[name="schedule"]').append('<option value="'+ object['id'] +'" >'+ object['schedule_number'] +'</option>');
+                          });
+
                       
 
                         // schedule_number

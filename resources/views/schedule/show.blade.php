@@ -93,6 +93,10 @@
                                                             <td><p class="user_name_max">{{ $schedule->schedule_number}}</p></td>
                                                         </tr>
                                                         <tr>
+                                                            <td>Start</td>
+                                                            <td>{{ $schedule->start}}</td>
+                                                        </tr>
+                                                        <tr>
                                                             <td>Route</td>
                                                             <td>{{ $schedule->route_name}}</td>
                                                         </tr>

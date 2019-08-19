@@ -453,6 +453,16 @@ Route::group(['middleware' => 'user'], function () {
     Route::get('getSchedule', 'HomeController@getSchedule')->name('getSchedule');
     Route::get('busSeat/{busSeat}', 'HomeController@getBusSeat')->name('getBusSeat');
 
+    Route::get('fromStationQueues', 'HomeController@fromStationQueues')->name('fromStationQueues');
+    Route::get('toStationQueues', 'HomeController@toStationQueues')->name('toStationQueues');
+    Route::get('fromStationOnGoingBus', 'HomeController@fromStationOnGoingBus')->name('fromStationOnGoingBus');
+    Route::get('toStationOnGoingBus', 'HomeController@toStationOnGoingBus')->name('toStationOnGoingBus');
+
+    Route::get('finish/{finish}', 'HomeController@finishturn')->name('finishturn');
+
+    
+    Route::resource('home', 'HomeController');
+
     // Route::get('/', ['as' => 'home', function () {
     //     return view('index');
     // }]);

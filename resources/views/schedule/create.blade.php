@@ -95,11 +95,26 @@
                       <!-- CSRF Token -->
                       <input type="hidden" name="_token" value="{{ csrf_token() }}" />
 
+                      <div class="form-group {{ $errors->first('start', 'has-error') }}">
+                        <label for="route" class="col-sm-2 control-label">Starting Point *
+                        </label>
+                        <div class="col-sm-10">
+                          <select class="form-control" id="start" name="start">                                         
+                            <option value="">Select start point</option>
+                            <option value="From_Station">From_Station</option>
+                            <option value="To_Station">To_Station</option>
+                          </select>
+                          {!! $errors->first('route', '
+                          <span class="help-block">:message
+                          </span>') !!}
+                        </div>   
+                      </div>
+
                       <div class="form-group {{ $errors->first('schedule_number', 'has-error') }}">
                         <label style="margin-top: -0.9em" for="schedule_number" class="col-sm-2 control-label">Schedule Number *
                         </label>
                         <div class="col-sm-10">
-                          <input id="schedule_number" name="schedule_number" type="text" placeholder="Ex. Sch_sn01"
+                          <input id="schedule_number" name="schedule_number" type="text" placeholder="Ex. Sch_snTo01"
                                   class="form-control required" value="{!! old('schedule_number') !!}"/>
                           {!! $errors->first('schedule_number', '
                           <span class="help-block">:message
@@ -237,7 +252,7 @@
                         $(".tab-content").empty();
                         $(".tab-content").html('<div class="tab-pane" name="schedule" id="'+ id +'">')
                         $.each( data, function( index, object ) {
-                            $(".tab-content").append('<ul id="myList" class="list-group"><li class="list-group-item">'+ object['schedule_number'] +'</li></ul></div>');
+                            $(".tab-content").append('<ul id="myList" class="list-group"><li class="list-group-item">'+ object['schedule_number'] +'<span style="margin-left:3em;">'+ object['start']+'</span></li></ul></div>');
                                       
                         });
                         

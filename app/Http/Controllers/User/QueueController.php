@@ -81,7 +81,7 @@ class QueueController extends Controller
         $routes = Route::select('id','name')
                     ->where('station_id', $stations_id)
                     ->get();
-
+                    
        // getting the latest schedule saved 
         // $schedules = Schedule::select('*')
         //                 ->where('station_id', $stations_id)
@@ -132,9 +132,6 @@ class QueueController extends Controller
                 $count+=1; 
             }
         }
-        // return 'n';
-        // return $buses;
-        // return $count;
 
         if(!$count > 0) {
             // return '0';
@@ -177,6 +174,26 @@ class QueueController extends Controller
                             ->from('queues')
                             ->where('schedule_id', $id);
                     })
+
+                    // ->whereIn('bus_number',function($query) {
+                    //     $query->select('*')
+                    //         ->from('queues')
+                    //         ->select('bus_number')
+                    //         ->whereNotNull('full')
+                    //         ->whereNotNull('finish');
+                    // })
+                    
+                    ->whereNotIn('bus_number',function($query) {
+                        $query->select('*')
+                            ->from('queues')
+                            ->select('bus_number')
+                            ->where(function ($query) {
+                                $query->whereNull('full')
+                                    ->orwhereNull('finish');
+                            });
+                            
+                    })
+
                     ->where('station_id', $stations_id)
                     ->whereNotNull('Driver_id')
                     ->get();
@@ -199,7 +216,9 @@ class QueueController extends Controller
                         ->where('station_id', $stations_id)
                         ->where('route_id', $id)
                         ->latest()
-                        ->first();
+                        ->take(4)
+                        ->get();
+                        
 
         if(!$schedules){
             $data = ""; 
@@ -230,6 +249,7 @@ class QueueController extends Controller
 
         $tabQueue = Queue::withTrashed()
                             ->where('station_id', $stations_id)
+                            ->where('route_id', $id)
                             ->latest()
                             ->get();
         $data = $tabQueue;
@@ -377,8 +397,16 @@ class QueueController extends Controller
         $this->validate($request,[
             'route' => 'required | numeric',
             'schedule' => 'required | numeric',
-            'bus_number' => 'required | numeric',
+            // 'bus_number' => 'required | numeric',
+            // 'bus_number' => [
+            //     'required',
+            //     'max:15',
+            //     Rule::unique('seats')->where(function ($query) use($bus) {
+            //         return $query->where('bus_id', $bus);
+            //     })
+            // ]
         ]);
+         
 
         $queue = new Queue();
         $queue->route_id = $request->input('route');  //route_id
@@ -389,17 +417,34 @@ class QueueController extends Controller
         $schedule = Schedule::find($queue->Schedule_id);
         $queue->schedule_number = $schedule->schedule_number;  // schedule_name
 
-        $queue->bus_id = $request->input('bus_number'); //  bus_id
-        $bus = Bus::find($queue->bus_id);
+        $bus_id = $request->input('bus_number'); //  bus_id
+        $bus = Bus::find($bus_id);
         $queue->bus_number = $bus->bus_number;  // bus_number
         $queue->station_id = $bus->station_id;  // station_id
         $queue->station_name = $bus->station_name; // station_name
-        // return $queue->bus_id; 
+         
+        $q =  DB::table("queues")->select( '*')
+                ->where('bus_id', $bus_id)
+                ->where(function ($query) {
+                    $query->whereNull('full')
+                        ->orwhereNull('finish');
+                })  
+                ->get();
+
+        foreach ($q as $queue) {
+            if($queue->bus_id == $bus_id){
+                $error = \Illuminate\Validation\ValidationException::withMessages([
+                    'bus_number' => ['This bus is either on a queue or on the way' ],
+                ]);
+                throw $error;
+            }
+        }        
 
         $queue->user_id = Sentinel::getUser()->id;// user_id
         $user = User::find($queue->user_id);
         $queue->user_first = $user->first_name;   // user_first
         $queue->user_last = $user->last_name;     // user_last
+        // return  $queue->user_last;
         $queue->save();
 
         return redirect('queue')->with('success', 'Bus Added To The Queue');

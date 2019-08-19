@@ -110,16 +110,25 @@ class DriverController extends Controller
         ]);
 
         $driver = new Driver();
-        $driver->driver_number = $request->input('driver_number');
-        $driver->first_name = $request->input('firstname');
-        $driver->last_name = $request->input('second_name');
-        $driver->third_name = $request->input('third_name');
-        $driver->email = $request->input('email');
-        $driver->gender = 'male';
+        $driver->driver_number = $request->input('driver_number');  // driver_number
 
-        $driver->station_id = $request->input('station'); 
+        $driver->first_name = $request->input('firstname');     // first_name
+        $driver->last_name = $request->input('second_name');    // last_name
+        $driver->third_name = $request->input('third_name');    // third_name
+        $driver->email= $request->input('email');       // email
+        $driver->ph_number = $request->input('ph_number');      // ph_number
+        $driver->dob = $request->input('dob');      // dob
+        $driver->address = $request->input('address');      // address
+        $driver->license_number = $request->input('license_number');    // license_number
+
+        $driver->user_id = Sentinel::getUser()->id;  // user_id
+        $user = User::find($driver->user_id);
+        $driver->user_first = $user->first_name;   // user_first
+        $driver->user_last = $user->last_name;     // user_last
+
+        $driver->station_id = $request->input('station');   // station_id
         $station = Station::find($driver->station_id);
-        $driver->station_name = $station->name;
+        $driver->station_name = $station->name;         // station_name
 
         // Handle File Upload
         // if($request->hasFile('picture')){
@@ -149,13 +158,9 @@ class DriverController extends Controller
             // $request['pic'] = $safeName;
             $driver->pic = $safeName;
         }
-
-        // $driver->pic = null;
-        $driver->license_number = $request->input('license_number');
-        $driver->ph_number = $request->input('ph_number');
-        $driver->dob = $request->input('dob');
-        $driver->address = $request->input('address');
+        
         $driver->save();
+
         return redirect('admin/driver')->with('success', 'Driver Created');
     }
 

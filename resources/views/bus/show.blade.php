@@ -58,10 +58,10 @@
                                         <h1 class="panel-title">
   
                                             Bus Detail
-                                            <a style="margin-left: 46%;" href="{{ URL::to('seat/createBusSeats/'.$bus->id .'') }}">
+                                            {{-- <a style="margin-left: 46%;" href="{{ URL::to('seat/createBusSeats/'.$bus->id .'') }}">
                                                 <button style=" border-color: #09bd8f; width: 12%;" type="button" class="btn btn-default bt-lg">Add Seat
                                                 </button>
-                                            </a>
+                                            </a> --}}
                                         </h1>
                                         
   
@@ -88,12 +88,12 @@
                                                             <td>Number of seats</td>
                                                             
                                                             
-                                                            <td style="border-bottom: 6px solid #09bd8f;border-left: 6px solid #09bd8f; border-width: 3px;">
-                                                                <a href="{{ URL::to('seat/showBusSeats/'.$bus->id .'') }}" title="show seat numbers">
+                                                            <td >
+                                                                {{-- <a href="{{ URL::to('seat/showBusSeats/'.$bus->id .'') }}" title="show seat numbers"> --}}
                                                                     <p class="user_name_max">
                                                                         {{ $bus->number_seats}}
                                                                     </p>
-                                                                </a>
+                                                                {{-- </a> --}}
                                                             </td>
                                                         </tr>
                                                         <tr>

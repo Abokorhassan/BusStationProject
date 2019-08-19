@@ -1,10 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "cba3f10fb7b19b0b5c707a700b0c96a2",
+    "content-hash": "dcb275152469a1d3b5886e1fa1ca38be",
     "packages": [
         {
             "name": "anahkiasen/underscore-php",
@@ -1159,6 +1159,56 @@
             "time": "2017-11-14T20:44:03+00:00"
         },
         {
+            "name": "farhanwazir/laravelgooglemaps",
+            "version": "2.3.9",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/farhanwazir/laravelgooglemaps.git",
+                "reference": "8451e3b0de386e3b779c142692b71645ea75357e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/farhanwazir/laravelgooglemaps/zipball/8451e3b0de386e3b779c142692b71645ea75357e",
+                "reference": "8451e3b0de386e3b779c142692b71645ea75357e",
+                "shasum": ""
+            },
+            "require": {
+                "laravel/framework": "5.*",
+                "php": ">=5.6.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.5.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "FarhanWazir\\GoogleMaps\\": "src/FarhanWazir/GoogleMaps/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Farhan Wazir",
+                    "role": "Author",
+                    "email": "seejee1@gmail.com"
+                }
+            ],
+            "description": "Laravel Google Map package for 5.x. You can use all google map features in laravel.",
+            "keywords": [
+                "gmap",
+                "google",
+                "googlemap",
+                "laravel",
+                "map"
+            ],
+            "time": "2018-03-30T21:00:53+00:00"
+        },
+        {
             "name": "fideloper/proxy",
             "version": "3.3.4",
             "source": {
@@ -1266,12 +1316,12 @@
             "version": "v2.2.1",
             "source": {
                 "type": "git",
-                "url": "https://github.com/google/google-api-php-client.git",
+                "url": "https://github.com/googleapis/google-api-php-client.git",
                 "reference": "b69b8ac4bf6501793c389d4e013a79d09c85c5f2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/google/google-api-php-client/zipball/b69b8ac4bf6501793c389d4e013a79d09c85c5f2",
+                "url": "https://api.github.com/repos/googleapis/google-api-php-client/zipball/b69b8ac4bf6501793c389d4e013a79d09c85c5f2",
                 "reference": "b69b8ac4bf6501793c389d4e013a79d09c85c5f2",
                 "shasum": ""
             },
@@ -1325,12 +1375,12 @@
             "version": "v0.40",
             "source": {
                 "type": "git",
-                "url": "https://github.com/google/google-api-php-client-services.git",
+                "url": "https://github.com/googleapis/google-api-php-client-services.git",
                 "reference": "5f474421169fc2d830cb46035cbc27f88c53ba8f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/google/google-api-php-client-services/zipball/5f474421169fc2d830cb46035cbc27f88c53ba8f",
+                "url": "https://api.github.com/repos/googleapis/google-api-php-client-services/zipball/5f474421169fc2d830cb46035cbc27f88c53ba8f",
                 "reference": "5f474421169fc2d830cb46035cbc27f88c53ba8f",
                 "shasum": ""
             },
@@ -1362,12 +1412,12 @@
             "version": "v1.2.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/google/google-auth-library-php.git",
+                "url": "https://github.com/googleapis/google-auth-library-php.git",
                 "reference": "f3fc99fd621f339ee3d4de01bd6a709ed1396116"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/google/google-auth-library-php/zipball/f3fc99fd621f339ee3d4de01bd6a709ed1396116",
+                "url": "https://api.github.com/repos/googleapis/google-auth-library-php/zipball/f3fc99fd621f339ee3d4de01bd6a709ed1396116",
                 "reference": "f3fc99fd621f339ee3d4de01bd6a709ed1396116",
                 "shasum": ""
             },
@@ -1681,8 +1731,7 @@
             "dist": {
                 "type": "path",
                 "url": "./infyomlabs/laravel-generator",
-                "reference": "e22204a6a64fb486f0a751fcb3196d5c050f5002",
-                "shasum": null
+                "reference": "e22204a6a64fb486f0a751fcb3196d5c050f5002"
             },
             "require": {
                 "illuminate/support": "~5.0",

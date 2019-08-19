@@ -67,6 +67,18 @@
                       </div>
                     </div>
 
+                    <div class="form-group {{ $errors->first('number_seats', 'has-error') }}">
+                      <label for="number_seats" class="col-sm-2 control-label">Number of Seats *
+                      </label>
+                      <div class="col-sm-10">
+                            {!! Form::text('number_seats', null, array('class' => 'form-control required', 'placeholder'=>'number of seats')) !!}
+
+                        {!! $errors->first('number_seats', '
+                        <span class="help-block">:message
+                        </span>') !!}
+                      </div>
+                    </div>
+
                     <div class="form-group {{ $errors->first('station_id', 'has-error') }}">
                         <label for="station_id" class="col-sm-2 control-label">Station *
                         </label>

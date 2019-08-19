@@ -88,6 +88,18 @@
                             </span>') !!}
                           </div>
                         </div>
+
+                        <div class="form-group {{ $errors->first('number_seats', 'has-error') }}">
+                          <label for="number_seats" class="col-sm-2 control-label">Number of Seats *
+                          </label>
+                          <div class="col-sm-10">
+                            <input id="number_seats"  autocomplete="off" name="number_seats" type="text" placeholder="number of seats"
+                                    class="form-control required" value="{!! old('number_seats') !!}"/>
+                            {!! $errors->first('number_seats', '
+                            <span class="help-block">:message
+                            </span>') !!}
+                          </div>
+                        </div>
                         
                         <div class="form-group {{ $errors->first('station', 'has-error') }}">
                           <label for="station" class="col-sm-2 control-label">Station *

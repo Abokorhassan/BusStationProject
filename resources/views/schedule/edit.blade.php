@@ -214,7 +214,7 @@
                           $(".tab-content").empty();
                           $(".tab-content").html('<div class="tab-pane" name="schedule" id="'+ id +'">')
                           $.each( data, function( index, object ) {
-                              $(".tab-content").append('<ul id="myList" class="list-group"><li class="list-group-item">'+ object['schedule_number'] +'</li></ul></div>');
+                              $(".tab-content").append('<ul id="myList" class="list-group"><li class="list-group-item">'+ object['schedule_number'] +'<span style="margin-left:3em;">'+ object['start']+'</span></li></ul></div>');
                                         
                           });
                           

@@ -271,13 +271,16 @@ class ScheduleController extends Controller
     public function store(Request $request)
     {
         $this->validate($request,[
-            'schedule_number' => array('required', 'regex:/(Sch_[a-z]{2,3})[0-9]{2,4}$/','unique:schedules,schedule_number'),
-            'route' => 'required'
+            'schedule_number' => array('required', 'regex:/(Sch_[a-zA-Z]{4,7})[0-9]{2,4}$/','unique:schedules,schedule_number'),
+            'route' => 'required',
+            'start' => 'required'
         ]);
 
         $schedule = new Schedule();
         $schedule_number = $request->input('schedule_number'); //schedule_number
         $schedule->schedule_number = $schedule_number;
+
+        $schedule->start = $request->input('start');    // start
 
         $id= Sentinel::getUser()->id;
         $schedule->user_id = $id;   //user_id
@@ -293,24 +296,7 @@ class ScheduleController extends Controller
 
         $schedule->route_id = $request->input('route'); // route_id
         $route = Route::find($schedule->route_id);     
-        $schedule->route_name = $route->name;       // route_name
-
-        // ReStoring all buses from the softDelete of the last schedule
-        $route_id = $schedule->route_id;
-
-        // getting the latest schedule saved 
-        $schedules = Schedule::select('*')
-                        ->where('route_id', $route_id)
-                        ->latest()
-                        ->first();
-                    
-        if($schedules != null ){
-            $schedule_id = $schedules->id;
-            
-            Queue::withTrashed()
-                ->where('schedule_id',  $schedule_id)
-                ->restore();
-        }          
+        $schedule->route_name = $route->name;       // route_name                
 
         $schedule->save();
 

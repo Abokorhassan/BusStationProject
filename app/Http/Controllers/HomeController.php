@@ -125,7 +125,141 @@ class HomeController extends Controller
 
         return Response()->json($data);
     }
+
+    public function fromStationQueues(Request $request)
+    {
+        $id = $request->id;
+
+        $user_id= Sentinel::getUser()->id;
+        $user = User::find($user_id);
+        $s_id = $user->station_id; 
+        $station = Station::find($s_id);
+        $stations_id = $station->id;
+       
+        // getting the latest schedule saved 
+        $schedule = Schedule::select('*')
+                        ->where('station_id', $stations_id)
+                        ->where('route_id', $id)
+                        ->where('start', 'From_Station')
+                        ->latest()
+                        ->first();
+        $schedule_id = $schedule->id;
+
+        $tabQueue = Queue::select('*')
+                            ->where('station_id', $stations_id)
+                            ->where('schedule_id', $schedule_id)
+                            // ->where('full', '')
+                            ->whereNull('full')
+                            ->whereNull('finish')
+                            ->oldest()
+                            ->get();
+        $data = $tabQueue;
+
+        return Response()->json($data);
+    } 
     
+    public function toStationQueues(Request $request)
+    {
+        $id = $request->id;
+
+        $user_id= Sentinel::getUser()->id;
+        $user = User::find($user_id);
+        $s_id = $user->station_id; 
+        $station = Station::find($s_id);
+        $stations_id = $station->id;
+       
+        // getting the latest schedule saved 
+        $schedule = Schedule::select('*')
+                        ->where('station_id', $stations_id)
+                        ->where('route_id', $id)
+                        ->where('start', 'To_Station')
+                        ->latest()
+                        ->first();
+        $schedule_id = $schedule->id;
+
+        $tabQueue = Queue::select('*')
+                            ->where('station_id', $stations_id)
+                            ->where('schedule_id', $schedule_id)
+                            ->whereNull('full')
+                            ->whereNull('finish')
+                            ->oldest()
+                            ->get();
+        $data = $tabQueue;
+        // $data = $id;
+
+        return Response()->json($data);
+    } 
+
+    public function fromStationOnGoingBus(Request $request)
+    {
+        $id = $request->id;
+
+        $user_id= Sentinel::getUser()->id;
+        $user = User::find($user_id);
+        $s_id = $user->station_id; 
+        $station = Station::find($s_id);
+        $stations_id = $station->id;
+       
+        // getting the latest schedule saved 
+        $schedule = Schedule::select('*')
+                        ->where('station_id', $stations_id)
+                        ->where('route_id', $id)
+                        ->where('start', 'From_Station')
+                        ->latest()
+                        ->first();
+        $schedule_id = $schedule->id;
+
+        $tabQueue = Queue::select('*')
+                            ->where('station_id', $stations_id)
+                            ->where('schedule_id', $schedule_id)
+                            ->whereNotNull('full')
+                            ->whereNull('finish')
+                            ->oldest()
+                            ->get();
+        $data = $tabQueue;
+
+        return Response()->json($data);
+    } 
+
+    public function toStationOnGoingBus(Request $request)
+    {
+        $id = $request->id;
+
+        $user_id= Sentinel::getUser()->id;
+        $user = User::find($user_id);
+        $s_id = $user->station_id; 
+        $station = Station::find($s_id);
+        $stations_id = $station->id;
+       
+        // getting the latest schedule saved 
+        $schedule = Schedule::select('*')
+                        ->where('station_id', $stations_id)
+                        ->where('route_id', $id)
+                        ->where('start', 'To_Station')
+                        ->latest()
+                        ->first();
+        $schedule_id = $schedule->id;
+
+        $tabQueue = Queue::select('*')
+                            ->where('station_id', $stations_id)
+                            ->where('schedule_id', $schedule_id)
+                            ->whereNotNull('full')
+                            ->whereNull('finish')
+                            ->oldest()
+                            ->get();
+        $data = $tabQueue;
+        // $data = $id;
+
+        return Response()->json($data);
+    } 
+
+    public function finishturn($id)
+    {
+        $queue = Queue::find($id);
+        $queue->finish = "finish";
+        $queue->save();
+        return redirect('/')->with('success', 'The bus begins his journey ');
+    }
 
     /**
      * Show the form for creating a new resource.
@@ -148,6 +282,7 @@ class HomeController extends Controller
         //
     }
 
+    
     /**
      * Display the specified resource.
      *
@@ -156,7 +291,6 @@ class HomeController extends Controller
      */
     public function show($id)
     {
-        //
     }
 
     /**
@@ -167,7 +301,6 @@ class HomeController extends Controller
      */
     public function edit($id)
     {
-        //
     }
 
     /**
@@ -190,6 +323,9 @@ class HomeController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $queue = Queue::find($id);
+        $queue->full = "full";
+        $queue->save();
+        return redirect('/')->with('success', 'The bus begins his journey ');
     }
 }

@@ -217,7 +217,7 @@
                         </div>
                     </div>
 
-                    <div class="col-md-6 animate_rtl">
+                    {{-- <div class="col-md-6 animate_rtl">
                         <div class="panel panel-border roles_chart">
                             <div class="panel-heading">
                             <h4 class="panel-title">
@@ -247,7 +247,7 @@
                             </div>
                             </div>
                         </div>
-                    </div>
+                    </div> --}}
 
                     <div class="col-md-12 ">
                         <div class="panel panel-border map">
@@ -256,11 +256,12 @@
                                 <i class="livicon" data-name="map" data-size="16" data-loop="true" data-c="#515763"
                                     data-hc="#515763">
                                 </i>
-                                Users from countries
+                                Map
                             </h3>
                             </div>
                             <div class="panel-body nopadmar">
-                            {!! $geo->html() !!}
+                                <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d33048.757857402015!2d44.06414886069395!3d9.555171203219142!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sso!4v1566030992036!5m2!1sen!2sso" 
+                                width="659" style="margin-left: 0.3em" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
                             </div>
                         </div>
                     </div>
@@ -301,7 +302,7 @@
                     </div>
                 </div>
 
-                <div class="panel panel-border">
+                {{-- <div class="panel panel-border">
                     <div class="panel-heading">
                         <h4 class="panel-title">
                             <i class="livicon" data-name="eye-open" data-size="16" data-loop="true" data-c="#EF6F6C"
@@ -347,7 +348,7 @@
                             </div>
                         @endforeach
                     </div>
-                </div>
+                </div> --}}
             </div>
         </div>
 

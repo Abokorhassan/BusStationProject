@@ -363,7 +363,7 @@
                                                             </a>
                                                         </div>
                                                         <div class="col-sm-6">
-                                                            <p>
+                                                            <p style="margin-left: -1.5em;">
                                                                 <strong>Schedule: &nbsp; 
                                                                 </strong>
                                                                 {!! $queue->schedule_number !!} 
@@ -542,7 +542,7 @@
                         $(".tab-content").empty();
                         $(".tab-content").html('<div class="tab-pane" name="queue" id="'+ id +'">')
                         $.each( data, function( index, object ) {
-                            $(".tab-content").append('<ul id="myList" class="list-group"><li class="list-group-item">'+ object['bus_number'] +'</li></ul></div>');
+                            $(".tab-content").append('<ul id="myList" class="list-group"><li class="list-group-item">'+ object['bus_number'] +'<span style="margin-left:3em;">'+ object['schedule_number']+'</span></li></ul></div>');
                                       
                         });
                         

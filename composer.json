@@ -16,6 +16,7 @@
         "cviebrock/eloquent-sluggable": "^4.2",
         "cviebrock/eloquent-taggable": "^3.2",
         "doctrine/dbal": "^2.5",
+        "farhanwazir/laravelgooglemaps": "^2.3",
         "fideloper/proxy": "~3.3",
         "infyomlabs/core-templates": "5.3.x-dev",
         "infyomlabs/generator-builder": "dev-master",

@@ -300,10 +300,10 @@
         <h2>
             Driver Lists
             @if($drivers != null)
-                <a style="margin-left: 54%;" href="{{ URL::to('driver/create') }}">
+                {{-- <a style="margin-left: 54%;" href="{{ URL::to('driver/create') }}">
                     <button style=" border-color: #09bd8f; width: 12%;" type="button" class="btn btn-default bt-lg">Add New Driver
                     </button>
-                </a>
+                </a> --}}
             <div style="margin-left: 25%; margin-top: -3% " class="form-group">
                 <input type="text" name="search" id="search" class="form-control" style="width: 35%; height: 35px; border-color: #09bd8f;" placeholder="Search Driver Data">                                                
                 
@@ -320,15 +320,15 @@
         </div>
 
         <div class="row">
-            <div class="content">
-                <div id="d" class="col-md-8 right_float ">
+            <div  class="content">
+                <div id="d"  class="col-md-8 right_float ">
                     @if(!$drivers == null)
                         @forelse ($drivers->chunk(3) as $collection)
                             @foreach ($collection as $driver)
                                 <!-- BEGIN FEATURED POST -->
-                                <div class="col-sm-6">
-                                    <div id="reocrds" class="featured-post-wide thumbnail polaroid ">
-                                        <div class="featured-text relative-left">
+                                <div  class="col-sm-6">
+                                    <div  id="reocrds" class="featured-post-wide thumbnail polaroid ">
+                                        <div style="background: #F0F0EC" class="featured-text relative-left">
                                             <h3 style="text-align: center" class="success">
                                             <a style="margin-left: -3em;text-align: center" href="{{ URL::to('driver/' .$driver->id .'') }}">
                                                 <strong > Driver No. &nbsp; 
@@ -356,10 +356,10 @@
                                                                     </a>
                                                                 </span>
                                                             </p>
-                                                            <a style="margin-left: 5em; " href="{{ URL::to('driver/' .$driver->id .'/edit') }}">
+                                                            {{-- <a style="margin-left: 5em; " href="{{ URL::to('driver/' .$driver->id .'/edit') }}">
                                                                 <button style=" font-size: 1em; width: 4.5em; height: 2.5em;"  type="button" class="btn btn-success btn-sm">Edit
                                                                 </button>
-                                                            </a>
+                                                            </a> --}}
                                                         </div>
                                                         <div class="col-sm-6">
                                                             <p>
@@ -375,11 +375,11 @@
                                                                     </a>
                                                                 </span>
                                                             </p>
-                                                            <a style="color: white; margin-left: -2em;" href="javascript:;" data-toggle="modal" onclick="deleteData({{$driver->id}})" 
-                                                                data-target="#delete_confirm" class="btn btn-danger">
+                                                            {{-- <a style="color: white; margin-left: -2em;" href="javascript:;" data-toggle="modal" onclick="deleteData({{$driver->id}})" 
+                                                                data-target="#delete_confirm" class="btn btn-danger"> --}}
                                                                 {{-- <i class="fa fa-trash"></i>  --}}
-                                                                Delete
-                                                            </a>
+                                                                {{-- Delete
+                                                            </a> --}}
                                                         </div>
                                                     </div>
                                                 </div>
