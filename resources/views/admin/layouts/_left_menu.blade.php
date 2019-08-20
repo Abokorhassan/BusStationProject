@@ -82,19 +82,6 @@
                     Add New bus
                 </a>
             </li>
-            <li {!! (Request::is('admin/seat') ? 'class="active" id="active"' : '') !!}>
-                <a href="{{ URL::to('admin/seat') }}">
-                    <i class="fa fa-angle-double-right"></i>
-                    Seat
-                </a>
-            </li>
-
-            <li {!! (Request::is('admin/seat/create') ? 'class="active" id="active"' : '') !!}>
-                <a href="{{ URL::to('admin/seat/create') }}">
-                    <i class="fa fa-angle-double-right"></i>
-                    Add seat
-                </a>
-            </li>
         </ul>
 
     </li>
@@ -124,12 +111,12 @@
     </li>
 
     {{-- Rider --}}
-    <li {!! (Request::is('admin/rider') || Request::is('admin/rider/create') || Request::is('admin/rider/*')   ? 'class="active"' : '') !!}>
+    {{-- <li {!! (Request::is('admin/rider') || Request::is('admin/rider/create') || Request::is('admin/rider/*')   ? 'class="active"' : '') !!}>
         <a style="margin-left: -2%;" href="{{ URL::to('admin/rider') }}">
             <img style="margin-top: -4%;" src="https://img.icons8.com/color/26/000000/passenger.png">
-            <span style="margin-left: 2%" class="title">Rider</span>
+            <span style="margin-left: 2%" class="title">Rider</span> --}}
             {{-- <span class="fa arrow"></span> --}}
-        </a>
+        {{-- </a> --}}
         {{-- <ul class="sub-menu">
             <li {!! (Request::is('admin/rider') ? 'class="active" id="active"' : '') !!}>
                 <a href="{{ URL::to('admin/rider') }}">
@@ -145,7 +132,7 @@
                 </a>
             </li>
         </ul> --}}
-    </li>
+    {{-- </li> --}}
     
     {{-- Schedule --}}
     <li {!! (Request::is('admin/schedule') || Request::is('admin/schedule/create') || Request::is('admin/schedule/*')   ? 'class="active"' : '') !!}>
@@ -197,12 +184,12 @@
     </li>
 
     {{-- Reserve --}}
-    <li {!! (Request::is('admin/reserve') || Request::is('admin/reserve/create') || Request::is('admin/reserve/*')   ? 'class="active"' : '') !!}>
+    {{-- <li {!! (Request::is('admin/reserve') || Request::is('admin/reserve/create') || Request::is('admin/reserve/*')   ? 'class="active"' : '') !!}>
         <a style="margin-left: -1%;" href="{{ URL::to('admin/reserve') }}">
             <img style="margin-top: -4%;"  src="https://img.icons8.com/color/25/000000/ticket-purchase.png">
-            <span style="margin-left: 2%" class="title">Bus Reservation</span>
+            <span style="margin-left: 2%" class="title">Bus Reservation</span> --}}
             {{-- <span  class="fa arrow"></span> --}}
-        </a>
+        {{-- </a> --}}
         {{-- <ul class="sub-menu">
             <li {!! (Request::is('admin/reserve') ? 'class="active" id="active"' : '') !!}>
                 <a href="{{ URL::to('admin/reserve') }}">
@@ -218,7 +205,7 @@
                 </a>
             </li>
         </ul> --}}
-    </li>
+    {{-- </li> --}}
 
     {{-- Accident --}}
     <li {!! (Request::is('admin/accident') || Request::is('admin/accident/create') || Request::is('admin/accident/*')   ? 'class="active"' : '') !!}>
@@ -568,7 +555,7 @@
     </li> --}}
 
     {{-- UI Features  --}}
-    <li {!! (Request::is('admin/animatedicons') || Request::is('admin/buttons') || Request::is('admin/advanced_buttons') || Request::is('admin/tabs_accordions') || Request::is('admin/panels') || Request::is('admin/icon') || Request::is('admin/color') || Request::is('admin/grid') || Request::is('admin/carousel') || Request::is('admin/advanced_modals') || Request::is('admin/tagsinput') || Request::is('admin/nestable_list') || Request::is('admin/sortable_list') || Request::is('admin/toastr') || Request::is('admin/notifications')|| Request::is('admin/treeview_jstree')|| Request::is('admin/sweetalert') || Request::is('admin/session_timeout') || Request::is('admin/portlet_draggable') ? 'class="active"' : '') !!}>
+    {{-- <li {!! (Request::is('admin/animatedicons') || Request::is('admin/buttons') || Request::is('admin/advanced_buttons') || Request::is('admin/tabs_accordions') || Request::is('admin/panels') || Request::is('admin/icon') || Request::is('admin/color') || Request::is('admin/grid') || Request::is('admin/carousel') || Request::is('admin/advanced_modals') || Request::is('admin/tagsinput') || Request::is('admin/nestable_list') || Request::is('admin/sortable_list') || Request::is('admin/toastr') || Request::is('admin/notifications')|| Request::is('admin/treeview_jstree')|| Request::is('admin/sweetalert') || Request::is('admin/session_timeout') || Request::is('admin/portlet_draggable') ? 'class="active"' : '') !!}>
         <a href="#">
             <i class="livicon" data-name="brush" data-c="#F89A14" data-hc="#F89A14" data-size="18"
                data-loop="true"></i>
@@ -696,7 +683,7 @@
                 </a>
             </li>
         </ul>
-    </li>
+    </li> --}}
 
     {{-- UI Component --}}
     {{-- <li {!! (Request::is('admin/general') || Request::is('admin/pickers') || Request::is('admin/x-editable') || Request::is('admin/timeline') || Request::is('admin/transitions') || Request::is('admin/sliders') || Request::is('admin/knob') ? 'class="active"' : '') !!}>
@@ -968,7 +955,7 @@
     </li> --}}
 
     {{-- Googel map --}}
-    <li {!! (Request::is('admin/googlemaps') || Request::is('admin/vectormaps') || Request::is('admin/advancedmaps') ? 'class="active"' : '') !!}>
+    {{-- <li {!! (Request::is('admin/googlemaps') || Request::is('admin/vectormaps') || Request::is('admin/advancedmaps') ? 'class="active"' : '') !!}>
         <a href="#">
             <i class="livicon" data-name="map" data-c="#67C5DF" data-hc="#67C5DF" data-size="18"
                data-loop="true"></i>
@@ -995,7 +982,7 @@
                 </a>
             </li>
         </ul>
-    </li>
+    </li> --}}
 
     {{-- blog --}}
     {{-- <li {!! ((Request::is('admin/blogcategory') || Request::is('admin/blogcategory/create') || Request::is('admin/blog') ||  Request::is('admin/blog/create')) || Request::is('admin/blog/*') || Request::is('admin/blogcategory/*') ? 'class="active"' : '') !!}>

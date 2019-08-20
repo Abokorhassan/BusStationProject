@@ -359,24 +359,97 @@ class JoshController extends Controller {
         $route = Route::find($id);
         $station_id = $route->station_id;
 
-        // getting the latest schedule saved 
-        $schedule = Schedule::select('*')
+        // getting the queues of latest schedule of "From Station" 
+        $FromQschedule = Schedule::select('*')
                         ->where('station_id', $station_id)
                         ->where('route_id', $id)
+                        ->where('start', 'From_Station')
                         ->latest()
                         ->first();
-        if($schedule == null){
-            return redirect('admin')->with('warning', 'There\'s no Schedule in that route ');
+        if($FromQschedule == null){
+            $FromQueues = [];
+        }else{
+            $schedule_id = $FromQschedule->id;
+
+            $FromQueues = Queue::select('*')
+                    ->where('station_id', $station_id)
+                    ->where('schedule_id', $schedule_id)
+                    ->whereNull('full')
+                    ->whereNull('finish')
+                    ->oldest()
+                    ->get();
         }
-        $schedule_id = $schedule->id;
+        // return $FromQueues;
+        
 
 
-        $queues = Queue::select('*')
+        // getting the queues of latest schedule of "To Station" 
+        $ToQschedule = Schedule::select('*')
+                        ->where('station_id', $station_id)
+                        ->where('route_id', $id)
+                        ->where('start', 'To_Station')
+                        ->latest()
+                        ->first();
+        if($ToQschedule == null){
+             $ToQueues = [];
+        }else{
+            
+            $schedule_id = $ToQschedule->id;
+
+            $ToQueues = Queue::select('*')
                             ->where('station_id', $station_id)
                             ->where('schedule_id', $schedule_id)
+                            ->whereNull('full')
+                            ->whereNull('finish')
                             ->oldest()
                             ->get();
-        return view('admin.routeQueue', compact('queues'));
+        }
+
+
+
+        // getting the Ongoing buses of latest schedule of "From Station" 
+        $FromOnschedule = Schedule::select('*')
+                        ->where('station_id', $station_id)
+                        ->where('route_id', $id)
+                        ->where('start', 'From_Station')
+                        ->latest()
+                        ->first();
+        if($FromOnschedule == null){
+            $FromOngoing = [];
+        }else{
+            $schedule_id = $FromOnschedule->id;
+
+            $FromOngoing = Queue::select('*')
+                            ->where('station_id', $station_id)
+                            ->where('schedule_id', $schedule_id)
+                            ->whereNotNull('full')
+                            ->whereNull('finish')
+                            ->oldest()
+                            ->get();
+        }
+        
+        // getting the Ongoing buses of latest schedule of "To Station" 
+        $ToOnschedule = Schedule::select('*')
+                        ->where('station_id', $station_id)
+                        ->where('route_id', $id)
+                        ->where('start', 'To_Station')
+                        ->latest()
+                        ->first();
+        if($ToOnschedule == null){
+            $ToOngoing = [];
+        }else{
+            $schedule_id = $ToOnschedule->id;
+        
+            $ToOngoing = Queue::select('*')
+                            ->where('station_id', $station_id)
+                            ->where('schedule_id', $schedule_id)
+                            ->whereNotNull('full')
+                            ->whereNull('finish')
+                            ->oldest()
+                            ->get();
+        }
+        
+        return view('admin.routeQueue', compact('FromQueues','ToQueues','FromOngoing', 'ToOngoing', 'route'));
     }
 
     public function getSeats(Request $request)

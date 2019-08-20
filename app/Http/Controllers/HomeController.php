@@ -143,9 +143,14 @@ class HomeController extends Controller
                         ->where('start', 'From_Station')
                         ->latest()
                         ->first();
-        $schedule_id = $schedule->id;
+        if ($schedule == null) {
+            $tabQueue = [];
+            $data = $tabQueue;
+            return Response()->json($data);
+        }else{
+            $schedule_id = $schedule->id;
 
-        $tabQueue = Queue::select('*')
+            $tabQueue = Queue::select('*')
                             ->where('station_id', $stations_id)
                             ->where('schedule_id', $schedule_id)
                             // ->where('full', '')
@@ -153,9 +158,11 @@ class HomeController extends Controller
                             ->whereNull('finish')
                             ->oldest()
                             ->get();
+            
         $data = $tabQueue;
 
         return Response()->json($data);
+        }
     } 
     
     public function toStationQueues(Request $request)
@@ -175,19 +182,25 @@ class HomeController extends Controller
                         ->where('start', 'To_Station')
                         ->latest()
                         ->first();
-        $schedule_id = $schedule->id;
+        if ($schedule == null) {
+            $tabQueue = [];
+            $data = $tabQueue;
+            return Response()->json($data);
+        } else {
+            $schedule_id = $schedule->id;
 
-        $tabQueue = Queue::select('*')
-                            ->where('station_id', $stations_id)
-                            ->where('schedule_id', $schedule_id)
-                            ->whereNull('full')
-                            ->whereNull('finish')
-                            ->oldest()
-                            ->get();
-        $data = $tabQueue;
-        // $data = $id;
+            $tabQueue = Queue::select('*')
+                                ->where('station_id', $stations_id)
+                                ->where('schedule_id', $schedule_id)
+                                ->whereNull('full')
+                                ->whereNull('finish')
+                                ->oldest()
+                                ->get();
+            $data = $tabQueue;
 
-        return Response()->json($data);
+            return Response()->json($data);
+        }
+        
     } 
 
     public function fromStationOnGoingBus(Request $request)
@@ -207,18 +220,24 @@ class HomeController extends Controller
                         ->where('start', 'From_Station')
                         ->latest()
                         ->first();
-        $schedule_id = $schedule->id;
+        if ($schedule == null) {
+            $tabQueue = [];
+            $data = $tabQueue;
+            return Response()->json($data);
+        } else {
+            $schedule_id = $schedule->id;
 
-        $tabQueue = Queue::select('*')
-                            ->where('station_id', $stations_id)
-                            ->where('schedule_id', $schedule_id)
-                            ->whereNotNull('full')
-                            ->whereNull('finish')
-                            ->oldest()
-                            ->get();
-        $data = $tabQueue;
+            $tabQueue = Queue::select('*')
+                                ->where('station_id', $stations_id)
+                                ->where('schedule_id', $schedule_id)
+                                ->whereNotNull('full')
+                                ->whereNull('finish')
+                                ->oldest()
+                                ->get();
+            $data = $tabQueue;
 
-        return Response()->json($data);
+            return Response()->json($data);
+        }
     } 
 
     public function toStationOnGoingBus(Request $request)
@@ -238,19 +257,24 @@ class HomeController extends Controller
                         ->where('start', 'To_Station')
                         ->latest()
                         ->first();
-        $schedule_id = $schedule->id;
+        if ($schedule == null) {
+            $tabQueue = [];
+            $data = $tabQueue;
+            return Response()->json($data);
+        } else {
+            $schedule_id = $schedule->id;
 
-        $tabQueue = Queue::select('*')
-                            ->where('station_id', $stations_id)
-                            ->where('schedule_id', $schedule_id)
-                            ->whereNotNull('full')
-                            ->whereNull('finish')
-                            ->oldest()
-                            ->get();
-        $data = $tabQueue;
-        // $data = $id;
+            $tabQueue = Queue::select('*')
+                                ->where('station_id', $stations_id)
+                                ->where('schedule_id', $schedule_id)
+                                ->whereNotNull('full')
+                                ->whereNull('finish')
+                                ->oldest()
+                                ->get();
+            $data = $tabQueue;
 
-        return Response()->json($data);
+            return Response()->json($data);
+        }
     } 
 
     public function finishturn($id)

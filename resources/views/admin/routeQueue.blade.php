@@ -77,7 +77,8 @@
 @section('content')
 
     <section class="content-header">
-        <h1><span class="dashboard1">Welcome to Admin Dashboard </span> </h1>
+        <h1  style="text-align: center"><span class="dashboard1">Route {{ $route->name}}'s Queues and Ongoing Buses</span> </h1>
+        <h1></h1>
 
         <ol class="breadcrumb">
             <li class="active">
@@ -90,25 +91,122 @@
     </section>
 
     <section class="content">
-
+           
 
         <!--/row-->
         <div   class="row"  >
-            <div  class="col-md-8 col-sm-7 no_padding animate_rtl">
+            <h2 style="text-align: center; margin-top:-0.5em; margin-bottom: 1em;"> Queues</h2>
+
+            {{-- From Station Queues --}}
+            <div   class="col-md-6 col-sm-7 no_padding animate_rtl">
+                <div class="row"  >
+                    <div   class="col-md-12" >
+                        <div  class="panel panel-border map">
+                            <div  style="background: #515763; color: white" class="panel-heading ">
+                                <h3  class="panel-title">
+                                    <i  class="livicon" data-name="barchart" data-size="16" data-loop="true" data-c="#EF6F6C" data-hc="#EF6F6C">
+                                    </i> From Station Queues
+                                </h3>
+                            </div>
+                            <div style="height: 20em; overflow: auto"  class="panel-body nopadmar">
+                                <ul  class="nav nav-pills  nav-stacked">
+                                        <?php $count = 1; ?>
+                                            @forelse ($FromQueues as  $queue)
+                                                    <li style="font-size: 14.9px;" >
+                                                            
+                                                        <a id="li" href="{{ $queue->id }}" data-toggle="pill">
+                                                            <span class="circle_a">
+                                                                <span style="margin-bottom: -100%" class="reserve_seat_a"><?php echo $count; ?></span>
+                                                            </span>
+                                                            {!! $queue->bus_number !!}
+                                                        </a>
+                                                    </li>
+                                                    <?php $count++; ?>
+                                            @empty
+                                                    <li style="font-size: 14.9px;">
+                                                        <a id="li" data-toggle="pill">
+                                                            <span style="color: black"><strong> No Bus queued in this Route </strong></span>
+                                                        </a>
+                                                    </li>
+                                            @endforelse
+                                            
+                                </ul>
+                                
+
+
+                                  
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            {{-- To Station Queues --}}
+            <div  class="col-md-6 col-sm-7 no_padding animate_rtl">
                 <div class="row"  >
                     <div   class="col-md-12" >
                         <div  class="panel panel-border map">
                             <div style="background: #515763; color: white" class="panel-heading ">
                                 <h3  class="panel-title">
                                     <i  class="livicon" data-name="barchart" data-size="16" data-loop="true" data-c="#EF6F6C" data-hc="#EF6F6C">
-                                    </i> Stations Queues
+                                    </i> To Station Queues 
                                 </h3>
                             </div>
-                            <div  class="panel-body nopadmar">
-                                <ul  class="nav nav-pills ">
+                            <div style="height: 20em; overflow: auto" class="panel-body nopadmar">
+                                <ul  class="nav nav-pills  nav-stacked">
+                                
+                                        <?php $count = 1; ?>
+                                        @forelse ($ToQueues as $queue)
+                                            <li style="font-size: 14.9px;">
+                                                    
+                                                <a id="li" href="{{ $queue->id }}" data-toggle="pill">
+                                                    <span class="circle_a">
+                                                        <span style="margin-bottom: -100%" class="reserve_seat_a"><?php echo $count; ?></span>
+                                                    </span>
+                                                    {!! $queue->bus_number !!}
+                                                </a>
+                                            </li>
+                                            <?php $count++; ?>
+                                        @empty
+                                            <li style="font-size: 14.9px;" >
+                                                            
+                                                <a id="li" data-toggle="pill">
+                                                    <span style="color: black"><strong> No Bus queued in this Route </strong></span>
+                                                </a>
+                                            </li>
+                                        @endforelse
+                                    
+                                </ul>
+                                                                  
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+
+            <h2 style="text-align: center; margin-top:-0.5em; margin-bottom: 1em;"> Ongoing Buses</h2>
+
+            {{-- From Station Ongoing  --}}
+            <div  class="col-md-6 col-sm-7 no_padding animate_rtl">
+                <div class="row"  >
+                    <div   class="col-md-12" >
+                        <div  class="panel panel-border map">
+                            <div style="background: #515763; color: white" class="panel-heading ">
+                                <h3  class="panel-title">
+                                    <i  class="livicon" data-name="barchart" data-size="16" data-loop="true" data-c="#EF6F6C" data-hc="#EF6F6C">
+                                    </i> From Station Queues
+                                </h3>
+                            </div>
+                            <div style="height: 20em; overflow: auto" class="panel-body nopadmar">
+                                <ul  class="nav nav-pills  nav-stacked">
                                     <?php $count = 1; ?>
-                                   @forelse ($queues as $index => $queue)
-                                        <li style="font-size: 14.9px;" @if($index== 0) class="active" @endif>
+                                   @forelse ($FromOngoing as  $queue)
+                                        <li style="font-size: 14.9px;">
                                                 
                                             <a id="li" href="{{ $queue->id }}" data-toggle="pill">
                                                 <span class="circle_a">
@@ -119,13 +217,61 @@
                                         </li>
                                         <?php $count++; ?>
                                    @empty
-                                       
+                                         <li style="font-size: 14.9px;">
+                                                            
+                                            <a id="li" data-toggle="pill">
+                                                <span style="color: black"><strong> No bus Going on the route </strong></span>
+                                            </a>
+                                        </li>
                                    @endforelse
                                 </ul>
-                                <hr  class="line">
-                                <div style="margin-top: -2%"  class="tab-content">
-                                    
-                                </div>
+                                
+
+
+                                  
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            {{-- To Station Ongoing --}}
+            <div  class="col-md-6 col-sm-7 no_padding animate_rtl">
+                <div class="row"  >
+                    <div   class="col-md-12" >
+                        <div  class="panel panel-border map">
+                            <div style="background: #515763; color: white" class="panel-heading ">
+                                <h3  class="panel-title">
+                                    <i  class="livicon" data-name="barchart" data-size="16" data-loop="true" data-c="#EF6F6C" data-hc="#EF6F6C">
+                                    </i> To Station Queues 
+                                </h3>
+                            </div>
+                            <div style="height: 20em; overflow: auto" class="panel-body nopadmar">
+                                <ul  class="nav nav-pills  nav-stacked">
+                                    <?php $count = 1; ?>
+                                   @forelse ($ToOngoing as $queue)
+                                        <li style="font-size: 14.9px;" >
+                                                
+                                            <a id="li" href="{{ $queue->id }}" data-toggle="pill">
+                                                <span class="circle_a">
+                                                    <span style="margin-bottom: -100%" class="reserve_seat_a"><?php echo $count; ?></span>
+                                                </span>
+                                                {!! $queue->bus_number !!}
+                                            </a>
+                                        </li>
+                                        <?php $count++; ?>
+                                   @empty
+                                        <li style="font-size: 14.9px;">
+                                                        
+                                            <a id="li" data-toggle="pill">
+                                                <span style="color: black"><strong> No bus Going on the route </strong></span>
+                                            </a>
+                                        </li>
+                                   @endforelse
+                                </ul>
+                                
 
 
                                   
