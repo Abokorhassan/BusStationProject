@@ -49,11 +49,11 @@
                             <i class="livicon" data-name="key" data-size="16" data-loop="true" data-c="#000" data-hc="#000"></i>
                             Change Password</a>
                     </li>
-                    <li>
+                    {{-- <li>
                         <a href="{{ URL::to('admin/user_profile') }}" >
                             <i class="livicon" data-name="gift" data-size="16" data-loop="true" data-c="#000" data-hc="#000"></i>
                             Advanced User Profile</a>
-                    </li>
+                    </li> --}}
 
                 </ul>
                 <div  class="tab-content mar-top">
@@ -132,34 +132,16 @@
                                                             @endif
                                                         </tr>
                                                         <tr>
-                                                            <td>@lang('users/title.country')</td>
-                                                            <td>
-                                                                {{ $user->country }}
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>@lang('users/title.state')</td>
-                                                            <td>
-                                                                {{ $user->state }}
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>@lang('users/title.city')</td>
-                                                            <td>
-                                                                {{ $user->city }}
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
                                                             <td>@lang('users/title.address')</td>
                                                             <td>
                                                                 {{ $user->address }}
                                                             </td>
                                                         </tr>
                                                         <tr>
-                                                            <td>@lang('users/title.postal')</td>
-                                                            <td>
-                                                                {{ $user->postal }}
-                                                            </td>
+                                                                <td>Station</td>
+                                                                <td>
+                                                                    {{ $user->station_name }}
+                                                                </td>
                                                         </tr>
                                                         <tr>
                                                             <td>@lang('users/title.status')</td>

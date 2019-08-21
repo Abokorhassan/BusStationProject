@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Driver;
 use App\Station;
 use App\Bus;
+use App\User;
 use DOMDocument;
 use Intervention\Image\Facades\Image;
 use Response;

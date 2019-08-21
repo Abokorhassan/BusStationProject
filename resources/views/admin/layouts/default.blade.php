@@ -29,9 +29,11 @@
             <!--end of page level css-->
 
 <body class="skin-josh">
-<header class="header">
-    <a href="{{ route('admin.dashboard') }}" class="logo">
+<header  class="header">
+    <a style="margin-top: -em" href="{{ route('admin.dashboard') }}" class="logo">
         {{-- <img src="{{ asset('assets/img/logo.png') }}" alt="logo"> --}}
+        {{-- <img src="{{ asset('assets/img/bus_img.jpg') }}" height="100" width="150" alt="logo"> --}}
+         <img  style="margin-top: -1em" src="{{ asset('assets/img/bus_logo_crop.png') }}" height="80" width="150"  alt="logo">
     </a>
     <nav class="navbar navbar-static-top" role="navigation">
         <!-- Sidebar toggle button-->
@@ -127,13 +129,13 @@
     </nav>
 </header>
 
-<div class="wrapper fixed_menu">
+<div  class="wrapper fixed_menu">
 
     <!-- Left side column. contains the logo and sidebar -->
     <aside class="left-side ">
         <section class="sidebar ">
             <div class="page-sidebar sidebar-nav">
-                <div class="nav_icons">
+                {{-- <div class="nav_icons">
                     <ul class="sidebar_threeicons">
                         <li>
                             <a href="{{ URL::to('admin/advanced_tables') }}">
@@ -160,8 +162,8 @@
                             </a>
                         </li>
                     </ul>
-                </div>
-                <div class="clearfix"></div>
+                </div> --}}
+                <div   class="clearfix"></div>
                 <!-- BEGIN SIDEBAR MENU -->
                 @include('admin.layouts._left_menu')
                 <!-- END SIDEBAR MENU -->

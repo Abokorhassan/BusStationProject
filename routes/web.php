@@ -76,6 +76,24 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin', 'as' => 'admin.'], f
     Route::get('getRoute', 'JoshController@getRoute')->name('getRoute');
     Route::get('routeQueue/{routeQueue}', 'JoshController@getrouteQueue')->name('getrouteQueue');
     Route::get('getSeats', 'JoshController@getSeats')->name('getSeats');
+    // Route::get('mapTest', 'JoshController@getMap')->name('getMap');
+    Route::get('mapTest', function(){
+        
+        $config['center'] = 'Air Canada, Troronto';
+        $config['zoom'] = '14';
+        $config['map_height'] = '500px';
+        $config['scrollwheel'] = false;
+
+        GMaps::initialize($config);
+        $map = Gmaps::create_map();
+
+        // $config = array();
+        // $config['center'] = 'New York, USA';
+        // GMaps::initialize($config);
+        // $map = GMaps::create_map();
+
+        return view('admin.mapTest')->with('map', $map);
+    });
 
     
 

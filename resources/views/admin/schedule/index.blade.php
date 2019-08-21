@@ -50,8 +50,9 @@
                                 <tr class="filters">
                                     <th>ID</th>
                                     <th>Schedule Number</th>
-                                    <th>Station</th>
                                     <th>Route</th>
+                                    <th>Station</th>
+                                    <th>Start</th>
                                     <th>User</th>
                                     <th>Created_at</th>
                                     <th>Actions</th>
@@ -82,8 +83,9 @@
                 columns: [
                     { data: 'id', name: 'id' },
                     { data: 'schedule_number', name: 'schedule_number' },
+                    { data: 'route_name', name: 'route_name'},
                     { data: 'Station', name: 'Station' },
-                    { data: 'route_id', name: 'route_id'},
+                    { data: 'start', name: 'start'},
                     { data: 'User', name: 'User'},
                     { data: 'created_at', name:'created_at'},
                     { data: 'actions', name: 'actions', orderable: false, searchable: false }

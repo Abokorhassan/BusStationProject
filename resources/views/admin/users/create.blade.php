@@ -186,9 +186,6 @@
                                           @if(old('gender') === 'female') selected="selected" @endif >
                                     Female
                                   </option>
-                                  <option value="other"
-                                          @if(old('gender') === 'other') selected="selected" @endif >Other
-                                  </option>
                                 </select>
                               </div>
                               <span class="help-block">{{ $errors->first('gender', ':message') }}

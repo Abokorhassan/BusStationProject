@@ -16,6 +16,7 @@ use App\Schedule;
 use App\Reserve;
 use Collection;
 use View;
+use GMpas;
 use Illuminate\Http\Request;
 use Spatie\Activitylog\Models\Activity;
 use Yajra\DataTables\DataTables;
@@ -630,6 +631,11 @@ class JoshController extends Controller {
         else
             return redirect('admin/signin')->with('error', 'You must be logged in!');
     }
+
+    // public function getMap()
+    // {
+        
+    // }
 
     
 

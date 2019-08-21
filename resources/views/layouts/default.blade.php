@@ -77,6 +77,10 @@
                 </button>
                 {{-- <a class="navbar-brand" href="{{ route('home') }}"><img src="{{ asset('assets/images/logo.png') }}" alt="logo" class="logo_position">
                 </a> --}}
+
+                <a style="margin-left: 3em;" class="navbar-brand" href="{{ route('home') }}"> <img  style="margin-top: -1em" src="{{ asset('assets/img/bus_logo_crop.png') }}" height="80" width="150" alt="logo" class="logo_position">
+                </a>
+                {{-- <img  style="margin-top: -1em" src="{{ asset('assets/img/bus_logo_crop.png') }}" height="80" width="150"  alt="logo"> --}}
             </div>
             <div class="collapse navbar-collapse" id="collapse">
                 <ul class="nav navbar-nav navbar-right">

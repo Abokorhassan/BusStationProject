@@ -7,6 +7,8 @@ use App\Http\Controllers\Controller;
 
 use App\Route;
 use App\Station;
+use Sentinel;
+use App\User;
 
 use Yajra\DataTables\DataTables;
 
@@ -73,7 +75,13 @@ class RouteController extends Controller
 
         $route->station_id = $request->input('station');
         $station = Station::find($route->station_id);
-        $route->station_name = $station->name;    
+        $route->station_name = $station->name;   
+        $station->user_id = Sentinel::getUser()->id;
+
+        $user = User::find($station->user_id);
+
+        $station->user_first = $user->first_name;
+        $station->user_last = $user->last_name; 
 
         $route->save();
 

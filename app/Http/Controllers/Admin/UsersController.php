@@ -91,6 +91,7 @@ class UsersController extends JoshController
         $groups = Sentinel::getRoleRepository()->all();
 
         $countries = $this->countries;
+        $stations = Station::select('id','name')->get();
         // Show the page
         return view('admin.users.create', compact('groups', 'countries'));
     }
@@ -210,7 +211,14 @@ class UsersController extends JoshController
                 $user->pic = $safeName;
             }
             // Save the station the user from
-            $user->station_id = $request->input('station_id');
+            $station_id = $request->input('station_id');
+            if(!$station_id){
+
+            }else{
+                $user->station_id = $station_id;
+                $station = Station::find($user->station_id);
+                $user->station_name = $station->name; 
+            }
 
             //save record
             $user->save();

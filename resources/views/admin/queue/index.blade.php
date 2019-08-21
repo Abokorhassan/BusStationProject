@@ -49,10 +49,10 @@
                             <thead>
                                 <tr class="filters">
                                     <th>ID</th>
-                                    <th>Schedule</th>
                                     <th>Bus</th>
-                                    <th>Station</th>
+                                    <th>Schedule</th>
                                     <th>Route</th>
+                                    <th>Station</th>
                                     <th>User</th>
                                     <th>Created_at</th>
                                     <th>Actions</th>
@@ -81,12 +81,12 @@
                 serverSide: true,
                 ajax: '{!! route('admin.queue.data') !!}',
                 columns: [
-                    { data: 'id', name: 'id' },
-                    { data: 'Schedule', name: 'Schedule' },		
-                    { data: 'Bus', name: 'Bus' },
+                    { data: 'id', name: 'id' },	
+                    { data: 'bus_number', name: 'bus_number' },
+                    { data: 'Schedule', name: 'Schedule' },
+                    { data: 'route_name', name: 'route_name' },	
                     { data: 'Station', name: 'Station' },
-                    { data: 'route_id', name: 'route_id' },
-                    { data: 'User', name: 'User'},
+                    { data: 'user_first', name: 'user_first'},
                     { data: 'created_at', name:'created_at'},
                     { data: 'actions', name: 'actions', orderable: false, searchable: false }
                 ]

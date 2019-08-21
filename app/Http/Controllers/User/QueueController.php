@@ -114,29 +114,40 @@ class QueueController extends Controller
                             ->value('id');  
         }
         // return $schedules;
-        $count = 0;
-        foreach ($schedules as $schedule) {
-            // echo $schedule;
-           $buses= DB::table("buses")->select( 'bus_number')
-                                    ->where('station_id', $stations_id)
-                                    ->whereNotIn('bus_number',function($query) use($schedule) {
-                                        $query->select('bus_number')
-                                            ->from('queues')
-                                            ->where('schedule_id', $schedule);
-                                    })
-                                    ->whereNotNull('Driver_id')
-                                    // ->get();
-                                    ->value('bus_number');  
+        // $count = 0;
+        // foreach ($schedules as $schedule) {
+        //     // echo $schedule;
+        //    $buses= DB::table("buses")->select( 'bus_number')
+                                   
+        //                             ->whereNotIn('bus_number',function($query) use($schedule) {
+        //                                 $query->select('bus_number')
+        //                                     ->from('queues')
+        //                                     ->where('schedule_id', $schedule);
+        //                             })
+        //                             ->whereNotIn('bus_number',function($query) {
+        //                                 $query->select('*')
+        //                                     ->from('queues')
+        //                                     ->select('bus_number')
+        //                                     ->where(function ($query) {
+        //                                         $query->whereNull('full')
+        //                                             ->orwhereNull('finish');
+        //                                     });
+        //                             })
+        //                             ->where('station_id', $stations_id)
+        //                             ->whereNotNull('Driver_id')
+        //                             // ->get();
+        //                             ->value('bus_number');  
 
-            if($buses){
-                $count+=1; 
-            }
-        }
+        //     if($buses){
+        //         $count+=1; 
+        //     }
+        // }
+        // return $buses;
 
-        if(!$count > 0) {
-            // return '0';
-            return redirect('queue')->with('warning', 'You need to create a Schedule because all buses finished their routine');
-        }
+        // if(!$count > 0) {
+        //     // return '0';
+        //     return redirect('queue')->with('warning', 'You need to create a Schedule because all buses finished their routine');
+        // }
         // return 'no zero';
 
 
@@ -191,7 +202,6 @@ class QueueController extends Controller
                                 $query->whereNull('full')
                                     ->orwhereNull('finish');
                             });
-                            
                     })
 
                     ->where('station_id', $stations_id)

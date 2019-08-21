@@ -84,6 +84,27 @@
                             </span>') !!}
                           </div>   
                         </div> 
+
+                        <div class="form-group {{ $errors->first('route', 'has-error') }}">
+                            <label for="route" class="col-sm-2 control-label">Station *
+                            </label>
+                            <div class="col-sm-10">
+                              <select class="form-control" title="Select Route..." id="route" name="route">                                         
+                                <option value="">Select Route
+                                </option>
+      
+                                @foreach ($routes as $route)
+                                <option value="{{ $route->id}}" 
+                                  @if (old('route')=== "{{$route->id}}") selected="selected"@endif
+                                  >{{ $route->name}}
+                                </option>
+                                @endforeach
+                              </select>
+                              {!! $errors->first('route', '
+                              <span class="help-block">:message
+                              </span>') !!}
+                            </div>   
+                          </div> 
                         
                         <div class="form-group {{ $errors->first('bus_number', 'has-error') }}">
                           <label for="bus_number" class="col-sm-2 control-label">Bus *

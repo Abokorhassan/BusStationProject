@@ -48,10 +48,11 @@
                             <thead>
                                 <tr class="filters">
                                     <th>ID</th>
-                                    <th>Driver</th>
                                     <th>Bus</th>
+                                    <th>Driver</th>
                                     <th>Latitude</th>
                                     <th>Longitude</th>
+                                    <th>Route</th>
                                     <th>Station</th>
                                     <th>User</th>
                                     <th>Created At</th>
@@ -82,10 +83,11 @@
                 ajax: '{!! route('admin.accident.data') !!}',
                 columns: [
                     { data: 'id', name: 'id' },
-                    { data: 'driver_number', name: 'driver_number' },
                     { data: 'bus_number', name: 'bus_number' },
+                    { data: 'driver_number', name: 'driver_number' },
                     { data: 'acc_lat', name: 'acc_lat' },
                     { data: 'acc_long', name: 'acc_long' },
+                    { data: 'route_name', name: 'route_name' },
                     { data: 'station_name', name: 'station_name' },
                     { data: 'user_first', name: 'user_first' },
                     { data: 'created_at', name:'created_at'},

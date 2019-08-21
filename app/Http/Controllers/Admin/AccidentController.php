@@ -8,6 +8,8 @@ use App\Accident;
 use App\Driver;
 use App\Station;
 use App\Bus;
+use App\Route;
+use App\User;
 use DOMDocument;
 use Intervention\Image\Facades\Image;
 use Response;
@@ -86,8 +88,9 @@ class AccidentController extends Controller
     {
         $drivers = Driver::select('id','driver_number')->get();
         $stations = Station::select('id','name')->get();
+        $routes = Route::select('id','name')->get();
         $buses = Bus::select('id','bus_number')->get();
-        return view('admin.accident.create', compact('drivers', 'stations', 'buses'));
+        return view('admin.accident.create', compact('drivers', 'stations', 'routes', 'buses'));
     }
 
     public function getBusesStation(Request $request)
@@ -114,6 +117,7 @@ class AccidentController extends Controller
             'accident_latitude' => 'required | numeric',
             'accident_longitude' => 'required | numeric',
             'station' => 'required | numeric',
+            'route' => 'required | numeric',
         ]);
 
         $accident = new Accident();
@@ -121,6 +125,10 @@ class AccidentController extends Controller
         $accident->station_id = $request->input('station'); 
         $station = Station::find($accident->station_id);
         $accident->station_name = $station->name;
+
+        $accident->route_id = $request->input('route'); 
+        $route = Route::find($accident->route_id);
+        $accident->route_name = $route->name;
         
         $accident->bus_id = $request->input('bus_number');
         $bus = Bus::find($accident->bus_id);
@@ -134,6 +142,12 @@ class AccidentController extends Controller
         }
         $accident->driver_id = $driver_id;
         $accident->driver_number= $bus->driver_number;
+
+        $user_id = Sentinel::getUser()->id;  // user_id
+        $accident->user_id = $user_id;
+        $user = User::find($user_id);
+        $accident->user_first = $user->first_name;   // user_first
+        $accident->user_last = $user->last_name;     // user_last
         
         $accident->acc_lat = $request->input('accident_latitude');
         $accident->acc_long = $request->input('accident_longitude');

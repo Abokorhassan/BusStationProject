@@ -183,7 +183,7 @@
                                                             <option value="">Select</option>
                                                             <option value="male" @if($user->gender === 'male') selected="selected" @endif >Male</option>
                                                             <option value="female" @if($user->gender === 'female') selected="selected" @endif >Female</option>
-                                                            <option value="other" @if($user->gender === 'other') selected="selected" @endif >Other</option>
+                                                            
 
                                                         </select>
                                                     </div>

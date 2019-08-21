@@ -232,7 +232,7 @@
     </li>
 
     {{-- Bus Stop --}}
-    <li {!! (Request::is('admin/busstop') || Request::is('admin/busstop/create') || Request::is('admin/busstop/*')   ? 'class="active"' : '') !!}>
+    {{-- <li {!! (Request::is('admin/busstop') || Request::is('admin/busstop/create') || Request::is('admin/busstop/*')   ? 'class="active"' : '') !!}>
         <a style="margin-left: -1%;" href="#">
            <img style="margin-top: -3%;" width="10%" src="{{ asset('assets/img/bus-stop.png') }}" alt="">
             <span style="margin-left: 3%" class="title">Bus Stop</span>
@@ -253,7 +253,7 @@
                 </a>
             </li>
         </ul>
-    </li>
+    </li> --}}
 
     {{-- users --}}
     <li {!! (Request::is('admin/users') || Request::is('admin/users/create') || Request::is('admin/user_profile') || Request::is('admin/users/*') || Request::is('admin/deleted_users') ? 'class="active"' : '') !!}>
@@ -276,12 +276,12 @@
                     Add New User
                 </a>
             </li>
-            <li {!! ((Request::is('admin/users/*')) && !(Request::is('admin/users/create')) ? 'class="active" id="active"' : '') !!}>
+            {{-- <li {!! ((Request::is('admin/users/*')) && !(Request::is('admin/users/create')) ? 'class="active" id="active"' : '') !!}>
                 <a href="{{ URL::route('admin.users.show',Sentinel::getUser()->id) }}">
                     <i class="fa fa-angle-double-right"></i>
                     View Profile
                 </a>
-            </li>
+            </li> --}}
             <li {!! (Request::is('admin/deleted_users') ? 'class="active" id="active"' : '') !!}>
                 <a href="{{ URL::to('admin/deleted_users') }}">
                     <i class="fa fa-angle-double-right"></i>
