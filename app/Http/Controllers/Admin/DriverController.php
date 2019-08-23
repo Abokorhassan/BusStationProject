@@ -99,13 +99,13 @@ class DriverController extends Controller
     {
         $this->validate($request,[
             'driver_number' => array('required', 'regex:/(Dr_)[0-9]{2,4}$/', 'unique:drivers,driver_number'),
-            'firstname' => 'required | max:10',
-            'second_name' => 'required | max:10',
-            'third_name' => 'required | max:10',
+            'firstname' => 'bail|required|regex:/^[a-zA-Z]+$/u|min:4|max:12',
+            'second_name' => 'bail|required|regex:/^[a-zA-Z]+$/u|min:4|max:12',
+            'third_name' => 'bail|required|regex:/^[a-zA-Z]+$/u|min:4|max:12',
             'email' => 'required | email | unique:drivers',
             // 'genders' => 'required',
-            'license_number' => 'required',
-            'ph_number' => array('required', 'numeric', 'regex:/^[0-9]{7}$/', 'unique:drivers,ph_number'),
+            'license_number' => 'bail|required|regex:/^[0-9a-zA-Z]+$/u|min:15|max:25',
+            'ph_number' => array('required', 'numeric', 'regex:/^[463]+[0-9]{6}$/', 'unique:drivers,ph_number'),
             'pic_file' => 'nullable | image',
             'station' => 'required | numeric'
         ]);
@@ -204,14 +204,15 @@ class DriverController extends Controller
     public function update(Request $request, $id)
     {  
         $this->validate($request,[
-            'first_name' => 'required | max:50',
-            'last_name' => 'required | max:50',
-            'third_name' => 'required | max:50',
+            'first_name' => 'bail|required|regex:/^[a-zA-Z]+$/u|min:4|max:12',
+            'last_name' => 'bail|required|regex:/^[a-zA-Z]+$/u|min:4|max:12',
+            'third_name' => 'bail|required|regex:/^[a-zA-Z]+$/u|min:4|max:12',
             'email' => 'required | email | unique:drivers,email,'.$id,
             // 'gender' => 'required',
-            'license_number' => 'required',
+            'license_number' => 'bail|required|regex:/^[0-9a-zA-Z]+$/u|min:15|max:25',
             'station_id' => 'required',
-            'ph_number' => "required | regex:/^[0-9]{7}$/ | unique:drivers,ph_number,$id",
+            // 'ph_number' => "required | regex:/^[0-9]{7}$/ | unique:drivers,ph_number,$id",
+            'ph_number' => "required|numeric|required | regex:/^[463]+[0-9]{6}$/ | unique:drivers,ph_number,$id",
             'pic' => 'nullable | image'
             
         ]); 

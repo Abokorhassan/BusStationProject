@@ -249,7 +249,7 @@
                         </div>
                     </div> --}}
 
-                    <div class="col-md-12 ">
+                    {{-- <div class="col-md-12 ">
                         <div class="panel panel-border map">
                             <div class="panel-heading">
                             <h3 class="panel-title">
@@ -264,7 +264,7 @@
                                 width="659" style="margin-left: 0.3em" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
                             </div>
                         </div>
-                    </div>
+                    </div> --}}
 
                 </div>
             </div>

@@ -1,3 +1,4 @@
+{{-- User --}}
 <!DOCTYPE html>
 <html dir="ltr">
 <head>
@@ -51,11 +52,11 @@
 
                     </div>
                     <input type="submit" class="btn btn-block btn-primary" value="Log In">
-                    Don't have an account? <a href="{{ route('register') }}"><strong> Sign Up</strong></a>
+                    {{-- Don't have an account? <a href="{{ route('register') }}"><strong> Sign Up</strong></a> --}}
                 </form>
             </div>
         <div class="bg-light animation flipInX">
-            <a href="{{ route('forgot-password') }}" id="forgot_pwd_title" class="forgot_pwd">Forgot Password?</a>
+            {{-- <a href="{{ route('forgot-password') }}" id="forgot_pwd_title" class="forgot_pwd">Forgot Password?</a> --}}
         </div>
         </div>
     </div>

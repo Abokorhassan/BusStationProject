@@ -1,6 +1,6 @@
+{{-- Admin --}}
 <!DOCTYPE html>
 <html  dir="ltr">
-
 <head>
     <title>Login</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -16,6 +16,7 @@
 </head>
 
 <body>
+
     <div class="container">
         <div class="row vertical-offset-100">
             <!-- Notifications -->
@@ -66,9 +67,9 @@
                                     <input type="submit" value="Log In" class="btn btn-success login" />
                                 </p>
                                 <p class="change_link">
-                                    <a href="#toforgot">
+                                    {{-- <a href="#toforgot">
                                         <button type="button" class="btn btn-responsive botton-alignment btn-warning btn-sm">Forgot password</button>
-                                    </a>
+                                    </a> --}}
                                     {{-- <a href="#toregister">
                                         <button type="button" id="signup" class="btn btn-responsive botton-alignment btn-success btn-sm" style="float:right;">Sign Up</button>
                                     </a> --}}

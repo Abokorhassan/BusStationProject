@@ -112,9 +112,9 @@ class BusController extends Controller
     {
 
         $this->validate($request,[
-            'model_type' => 'required | max:50',
-            'bus_number' => 'required | max:50|unique:buses',
-            'number_seats' => 'required | numeric',
+            'model_type' =>  array('required', 'regex:/[0-9A-Za-z]{4,8}$/', 'max:8'),
+            'bus_number' =>  array('required', 'regex:/[0-9A-Za-z]{4,7}$/', 'unique:buses', 'max:7'),
+            'number_seats' => 'bail:required | integer|min:25|max:50',
             'driver_number' => 'unique:buses,Driver_id',
             'station' => 'required | numeric',
         ]); 
@@ -250,10 +250,15 @@ class BusController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request,[
-            'bus_number' => 'required | max:50|  unique:buses,bus_number,'. $id,
-            'number_seats' => 'required | numeric',
+            // 'bus_number' =>  array('required', 'regex:/[0-9A-Za-z]{4,7}$/', 'unique:buses', 'max:7'),
+
+            // 'ph_number' => "required|numeric|required | regex:/^[463]+[0-9]{6}$/ | unique:drivers,ph_number,$id,
+
+            'bus_number' => 'bail| min:5 |required | max:7| regex:/[0-9A-Za-z]{4,7}$/ |  unique:buses,bus_number,'. $id,
+            'number_seats' => 'bail:required | integer|min:25|max:50',
             'Driver_id' => 'unique:buses,Driver_id,'. $id,
             'station_id' => 'nullable | required | numeric',
+            
         ]);  
         $bus = Bus::find($id);  
         $station_id = $bus->station_id;

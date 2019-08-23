@@ -73,9 +73,12 @@ class StationController extends Controller
     public function store(Request $request)
     {
         $this->validate($request,[
-            'name' => 'required | max:25',
-            'latitude' => 'required | numeric',
-            'longitude' => 'required | numeric',
+            // 'name' =>  array( 'required', 'regex:/[a-zA-Z]{4,12}$/','min:4', 'max:12'),
+            // 'name' => 'bail | required | min:4 | max:25 | unique:stations,name',
+            'name' => 'bail|required|regex:/^[a-zA-Z]+$/u|min:4|max:12| unique:stations,name',
+
+            'latitude' => ['required','regex:/^[-]?(([0-8]?[0-9])\.(\d+))|(90(\.0+)?)$/','numeric'],
+            'longitude' => ['required','regex:/^[-]?(([0-8]?[0-9])\.(\d+))|(90(\.0+)?)$/','numeric'],
         ]);
 
         $station = new Station();
@@ -128,9 +131,11 @@ class StationController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request,[
-            'name' => 'required | max:25',
-            'latitude' => 'required | numeric',
-            'longitude' => 'required | numeric',
+            // 'name' =>  array('bail', 'required', 'regex:/[a-zA-Z]{4,12}$/','min:4', 'max:12', 'unique:stations,name,.$id'),
+            // 'name' => 'bail | required | min:4 | max:25 | unique:stations,name,'.$id,
+            'name' => 'bail|required|regex:/^[a-zA-Z]+$/u|min:4|max:12| unique:stations,name,'.$id,
+            'latitude' => ['required','regex:/^[-]?(([0-8]?[0-9])\.(\d+))|(90(\.0+)?)$/','numeric'],
+            'longitude' => ['required','regex:/^[-]?(([0-8]?[0-9])\.(\d+))|(90(\.0+)?)$/','numeric'],
         ]);
 
         $station = Station::find($id);

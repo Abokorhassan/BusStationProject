@@ -233,8 +233,8 @@ class AccidentController extends Controller
         $this->validate($request, [
             'route' => 'required | numeric',
             'bus_number' => 'required | numeric',
-            'accident_latitude' => 'required | numeric',
-            'accident_longitude' => 'required | numeric',
+            'accident_latitude' => ['required','regex:/^[-]?(([0-8]?[0-9])\.(\d+))|(90(\.0+)?)$/','numeric'],
+            'accident_longitude' => ['required','regex:/^[-]?(([0-8]?[0-9])\.(\d+))|(90(\.0+)?)$/','numeric'],
         ]);
 
         $accident = new Accident();
@@ -335,8 +335,8 @@ class AccidentController extends Controller
         $this->validate($request, [
             'route_id' => 'required | numeric',
             'bus_id' => 'required | numeric',
-            'accident_latitude' => 'required | numeric',
-            'accident_longitude' => 'required | numeric',
+            'accident_latitude' => ['required','regex:/^[-]?(([0-8]?[0-9])\.(\d+))|(90(\.0+)?)$/','numeric'],
+            'accident_longitude' => ['required','regex:/^[-]?(([0-8]?[0-9])\.(\d+))|(90(\.0+)?)$/','numeric'],
         ]);
 
         $accident = Accident::find($id);

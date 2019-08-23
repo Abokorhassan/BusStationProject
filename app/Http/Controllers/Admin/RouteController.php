@@ -65,7 +65,9 @@ class RouteController extends Controller
     public function store(Request $request)
     {
         $this->validate($request,[
-            'name' => 'required | max:25 | unique:routes,name',
+            // 'name' =>  array('required', 'regex:/[a-zA-Z]{4,8}$/'),
+            // 'name' => 'bail | required | min:4 | max:25 | unique:routes,name',
+            'name' => 'bail|required|regex:/^[a-zA-Z]+$/u|min:4|max:12| unique:stations,name',
             'station' => 'required',
         ]);
 
@@ -125,7 +127,10 @@ class RouteController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request,[
-            'name' => 'required | max:50 | unique:routes,name,'.$id,
+            // 'name' =>  array('required', 'regex:/[a-zA-Z]{4,8}$/','min:4'),
+            // 'name' => 'required | min:4| max:8 | unique:routes,name,'.$id,
+            // 'name' => 'bail | required | min:4 | max:25 | unique:routes,name,'.$id,
+            'name' => 'bail|required|regex:/^[a-zA-Z]+$/u|min:4|max:12| unique:stations,name,'.$id,
             'station_id' => 'required',
         ]); 
 
