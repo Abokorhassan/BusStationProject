@@ -1,5 +1,6 @@
 <?php
 include_once 'web_builder.php';
+use App\Events\FormSubmitted;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -76,26 +77,11 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin', 'as' => 'admin.'], f
     Route::get('getRoute', 'JoshController@getRoute')->name('getRoute');
     Route::get('routeQueue/{routeQueue}', 'JoshController@getrouteQueue')->name('getrouteQueue');
     Route::get('getSeats', 'JoshController@getSeats')->name('getSeats');
-    // Route::get('mapTest', 'JoshController@getMap')->name('getMap');
-    Route::get('mapTest', function(){
-        
-        $config['center'] = 'Air Canada, Troronto';
-        $config['zoom'] = '14';
-        $config['map_height'] = '500px';
-        $config['scrollwheel'] = false;
-
-        GMaps::initialize($config);
-        $map = Gmaps::create_map();
-
-        // $config = array();
-        // $config['center'] = 'New York, USA';
-        // GMaps::initialize($config);
-        // $map = GMaps::create_map();
-
-        return view('admin.mapTest')->with('map', $map);
-    });
+    Route::get('mapTest', 'JoshController@getMap')->name('getMap');
 
     
+
+
 
     # crop demo
     Route::post('crop_demo', 'JoshController@crop_demo')->name('crop_demo');
@@ -117,6 +103,15 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin', 'as' => 'admin.'], f
 
    #admin Pages Created
 Route::group(['prefix' => 'admin','namespace'=>'Admin', 'middleware' => 'admin', 'as' => 'admin.'], function () {
+
+    // Route::group([ 'prefix' => 'realtimers'], function () {
+    //     Route::get('create', 'RealTimerTestController@create')->name('create.realtime');
+    //     Route::post('post', 'RealTimerTestController@store')->name('post.realtime');
+    // });
+
+    Route::resource('realtimers', 'RealTimerTestController');
+    
+    
 
     # User Management
     Route::group([ 'prefix' => 'users'], function () {

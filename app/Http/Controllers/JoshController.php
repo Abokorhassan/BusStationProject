@@ -16,11 +16,13 @@ use App\Schedule;
 use App\Reserve;
 use Collection;
 use View;
-use GMpas;
+use FarhanWazir\GoogleMaps\GMaps;
+// use GMpas;
 use Illuminate\Http\Request;
 use Spatie\Activitylog\Models\Activity;
 use Yajra\DataTables\DataTables;
 use Charts;
+
 use App\Datatable;
 use Illuminate\Support\Facades\DB;
 use Spatie\Analytics\Period;
@@ -29,6 +31,13 @@ use File;
 
 
 class JoshController extends Controller {
+
+    // protected $gmaps;
+    
+    // public function __construct(GMaps $gmaps){ 
+    //     $this->gmaps = $gmaps;
+    // }
+    
 
     protected $countries = array(
         ""   => "Select Country",
@@ -632,10 +641,50 @@ class JoshController extends Controller {
             return redirect('admin/signin')->with('error', 'You must be logged in!');
     }
 
-    // public function getMap()
-    // {
-        
-    // }
+    public function getMap()
+    {
+        // $config = array();
+        // $config['center'] = 'New York, USA';
+        // GMaps::initialize($config);
+        // $map = GMaps::create_map();
+
+
+        $config['center'] = '9.562389, 44.077011';
+        $config['zoom'] = '14';
+        $config['map_height'] = '500px';
+        // $config['disableDefaultUI'] = true;
+        // $config['disableStreetViewControl'] = true; 
+        $config['scrollwheel'] = false;
+        $config['onclick'] = 'alert(\'You just clicked at: \' + event.latLng.lat() + \', \' + event.latLng.lng());';
+        // $config['onclick'] = ' window.location.href = \'route("user.schedule.index")\'; ';
+        // $config['onclick'] = ' window.location.href = \'{{ URL::to(\'schedule/create\' }}\'; ';
+        $gmaps = new GMaps($config);
+        $gmaps->initialize($config);   
+
+        $stations = Station::all();
+        // return $stations;
+        foreach($stations as $station){
+            $marker['position'] = $station->lat.','.$station->long;
+            $marker['infowindow_content'] = $station->name;
+            $gmaps->add_marker($marker);
+        }
+
+        $map = $gmaps->create_map();
+        // return view('admin.mapTest')->with('map', $map);
+
+
+        // $stations = Station::find(9);
+        // $marker['position'] = $stations->lat.','.$stations->long;
+        // $marker['infowindow_content'] = $stations->name;
+        //  $marker['icon']='https://img.icons8.com/color/23/000000/bus.png';
+        // $marker['icon']='{{ asset(\'assets/img/bus_station_icon_1.jpg\') }}';
+        // $marker['icon']='BSProject/public/assets/img/bus_station_icon1.jpg';
+        // $marker['icon']='{{ asset("assets/img/bus_logo_crop.png") }}';
+        // $marker['icon']='/public/assets/img/bus_station_icon_1.jpg';
+        // $marker['icon']='https://img.icons8.com/ios-filled/50/000000/bus-stop.png';
+
+        return view('admin.mapTest', compact('stations'));
+    }
 
     
 
