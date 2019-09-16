@@ -1,6 +1,8 @@
 <?php
 include_once 'web_builder.php';
 use App\Events\FormSubmitted;
+use Illuminate\Http\Request;
+use App\Driver;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,6 +15,15 @@ use App\Events\FormSubmitted;
 */
 
 Route::pattern('slug', '[a-z0-9- _]+');
+
+Route::get('/data', function(Request $request){
+
+    $drivers = Driver::select('driver_number','first_name','ph_number')->where('driver_number',$request->get('driver_number'))->get();
+                
+
+    $data = $drivers;
+    return response()->json($data);
+});
 
 #admin auth
 Route::group(['prefix' => 'admin', 'namespace'=>'Admin'], function () {
