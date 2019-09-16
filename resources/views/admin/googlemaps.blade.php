@@ -136,7 +136,7 @@
 @section('footer_scripts')
     <script type="text/javascript" src="{{ asset('assets/js/pages/maps_api.js') }}"></script>
     <script type="text/javascript"
-            src="http://maps.google.com/maps/api/js?key=AIzaSyADWjiTRjsycXf3Lo0ahdc7dDxcQb475qw&libraries=places"></script>
+            src="http://maps.google.com/maps/api/js?key=AIzaSyA9cFPJpgNFZ5otplq5Wu7jSJer0WTbG2w&libraries=places"></script>
     <script type="text/javascript" src="{{ asset('assets/vendors/gmaps/js/gmaps.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('assets/js/pages/custommaps.js') }}"></script>
 

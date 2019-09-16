@@ -2,7 +2,7 @@
 include_once 'web_builder.php';
 use App\Events\FormSubmitted;
 use Illuminate\Http\Request;
-use App\Driver;
+use App\Queue;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -16,14 +16,6 @@ use App\Driver;
 
 Route::pattern('slug', '[a-z0-9- _]+');
 
-Route::get('/data', function(Request $request){
-
-    $drivers = Driver::select('driver_number','first_name','ph_number')->where('driver_number',$request->get('driver_number'))->get();
-                
-
-    $data = $drivers;
-    return response()->json($data);
-});
 
 #admin auth
 Route::group(['prefix' => 'admin', 'namespace'=>'Admin'], function () {
@@ -121,6 +113,17 @@ Route::group(['prefix' => 'admin','namespace'=>'Admin', 'middleware' => 'admin',
     // });
 
     Route::resource('realtimers', 'RealTimerTestController');
+
+
+    Route::get('onlineDrivers', function(Request $request){
+        $queues_drivers = Queue::select('id', 'bus_number', 'driver_number', 'route_name', 'schedule_number', 'station_name')
+                        ->where('driver_number',$request->get('driver_number'))
+                        ->whereNotNull('full')
+                        ->whereNull('finish')
+                        ->get(); 
+
+        return response()->json($queues_drivers);
+    });
     
     
 

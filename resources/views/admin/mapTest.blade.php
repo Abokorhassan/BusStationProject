@@ -85,7 +85,7 @@
         firebase.initializeApp(firebaseConfig);
     </script>
 
-    <script>
+    {{-- <script>
        
         var map;
         function initMap() {
@@ -111,7 +111,7 @@
             }
 
         }
-    </script>
+    </script> --}}
 
     <script>
         // counter for online cars...
