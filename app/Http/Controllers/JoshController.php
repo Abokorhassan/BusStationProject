@@ -373,7 +373,7 @@ class JoshController extends Controller {
         $FromQschedule = Schedule::select('*')
                         ->where('station_id', $station_id)
                         ->where('route_id', $id)
-                        ->where('start', 'From_Station')
+                        ->where('start', 'From_downtown')
                         ->latest()
                         ->first();
         if($FromQschedule == null){
@@ -397,7 +397,7 @@ class JoshController extends Controller {
         $ToQschedule = Schedule::select('*')
                         ->where('station_id', $station_id)
                         ->where('route_id', $id)
-                        ->where('start', 'To_Station')
+                        ->where('start', 'To_downtown')
                         ->latest()
                         ->first();
         if($ToQschedule == null){
@@ -421,7 +421,7 @@ class JoshController extends Controller {
         $FromOnschedule = Schedule::select('*')
                         ->where('station_id', $station_id)
                         ->where('route_id', $id)
-                        ->where('start', 'From_Station')
+                        ->where('start', 'From_downtown')
                         ->latest()
                         ->first();
         if($FromOnschedule == null){
@@ -442,7 +442,7 @@ class JoshController extends Controller {
         $ToOnschedule = Schedule::select('*')
                         ->where('station_id', $station_id)
                         ->where('route_id', $id)
-                        ->where('start', 'To_Station')
+                        ->where('start', 'To_downtown')
                         ->latest()
                         ->first();
         if($ToOnschedule == null){
@@ -576,47 +576,6 @@ class JoshController extends Controller {
             ->groupByMonth( 2017, true);
 
 
-        // $stations = Station::select('id', 'name')->get(); // [{"id":1,"name":"siinay"},{"id":2,"name":"jigjiga"}]
-        // return $stations;
-
-        // $station_ids = [];
-        // foreach ($stations as $station) {
-        //     $station_ids[] =  $station->id;
-        // }
-
-        // $schedules = [];
-        // foreach ($station_ids as $station) {
-        //     $schedules[] =Schedule::select('id')
-        //                     ->where('station_id', $station)
-        //                     ->latest()
-        //                     ->first();  
-        // }
-        
-        // // return $schedules;
-           
-        // $queues = [];
-        // foreach ($schedules as $schedule) {
-        //    if($schedule)
-        //          $queues[]= Queue::
-        //                         withTrashed()
-        //                         ->where('schedule_id', $schedule->id)
-        //                         ->groupBy('station_id')
-        //                         ->latest()
-        //                         ->get(); 
-        //     else{
-        //         $queues[] = null;
-        //     }                    
-        // }
-        // return $queues;
-
-
-        // $users = DB::table('stations')
-        //         ->join('queues', 'queues.id', '=', 'queues.station_id')
-        //         ->select('queues.*', 'stations.*')
-
-        //         ->get();
-
-            // return $queues;
 
         $stations = Station::select('id', 'name')->get();
         // return $staions;
@@ -629,14 +588,10 @@ class JoshController extends Controller {
         $user_id = Sentinel::getUser()->id;
         $user = User::find($user_id);
         
-        // return $user;
-        // foreach ($user->unreadnotifications as $notification) {
-        //     echo $notification->type;
-        // }
-        // return $user->unreadnotifications()->count();
+        $Mapstations = Station::all();
 
         if(Sentinel::check())
-            return view('admin.index',['queues'=>$queues, 'stations'=>$stations,'analytics_error'=>$analytics_error,'chart_data'=>$chart_data, 'blog_count'=>$blog_count,'user_count'=>$user_count,'driver_count'=>$driver_count,'bus_count'=>$bus_count,'station_count'=>$station_count,'users'=>$users,'db_chart'=>$db_chart,'geo'=>$geo,'user_roles'=>$user_roles,'blogs'=>$blogs,'visitors'=>$visitors,'pageVisits'=>$pageVisits,'line_chart'=>$line_chart,'month_visits'=>$month_visits,'year_visits'=>$year_visits] );
+            return view('admin.index',['queues'=>$queues,'Mapstations'=> $Mapstations, 'stations'=>$stations,'analytics_error'=>$analytics_error,'chart_data'=>$chart_data, 'blog_count'=>$blog_count,'user_count'=>$user_count,'driver_count'=>$driver_count,'bus_count'=>$bus_count,'station_count'=>$station_count,'users'=>$users,'db_chart'=>$db_chart,'geo'=>$geo,'user_roles'=>$user_roles,'blogs'=>$blogs,'visitors'=>$visitors,'pageVisits'=>$pageVisits,'line_chart'=>$line_chart,'month_visits'=>$month_visits,'year_visits'=>$year_visits] );
         else
             return redirect('admin/signin')->with('error', 'You must be logged in!');
     }

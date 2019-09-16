@@ -429,6 +429,7 @@ class QueueController extends Controller
 
         $bus_id = $request->input('bus_number'); //  bus_id
         $bus = Bus::find($bus_id);
+        $queue->driver_number = $bus->driver_number; // driver_number
         $queue->bus_number = $bus->bus_number;  // bus_number
         $queue->station_id = $bus->station_id;  // station_id
         $queue->station_name = $bus->station_name; // station_name

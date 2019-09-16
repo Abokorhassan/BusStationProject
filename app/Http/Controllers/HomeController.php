@@ -140,7 +140,7 @@ class HomeController extends Controller
         $schedule = Schedule::select('*')
                         ->where('station_id', $stations_id)
                         ->where('route_id', $id)
-                        ->where('start', 'From_Station')
+                        ->where('start', 'From_downtown')
                         ->latest()
                         ->first();
         if ($schedule == null) {
@@ -179,7 +179,7 @@ class HomeController extends Controller
         $schedule = Schedule::select('*')
                         ->where('station_id', $stations_id)
                         ->where('route_id', $id)
-                        ->where('start', 'To_Station')
+                        ->where('start', 'To_downtown')
                         ->latest()
                         ->first();
         if ($schedule == null) {
@@ -217,7 +217,7 @@ class HomeController extends Controller
         $schedule = Schedule::select('*')
                         ->where('station_id', $stations_id)
                         ->where('route_id', $id)
-                        ->where('start', 'From_Station')
+                        ->where('start', 'From_downtown')
                         ->latest()
                         ->first();
         if ($schedule == null) {
@@ -254,7 +254,7 @@ class HomeController extends Controller
         $schedule = Schedule::select('*')
                         ->where('station_id', $stations_id)
                         ->where('route_id', $id)
-                        ->where('start', 'To_Station')
+                        ->where('start', 'To_downtown')
                         ->latest()
                         ->first();
         if ($schedule == null) {

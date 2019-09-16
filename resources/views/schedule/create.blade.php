@@ -101,8 +101,8 @@
                         <div class="col-sm-10">
                           <select class="form-control" id="start" name="start">                                         
                             <option value="">Select start point</option>
-                            <option value="From_Station">From_Station</option>
-                            <option value="To_Station">To_Station</option>
+                            <option value="From_downtown">From_downtown</option>
+                            <option value="To_downtown">To_downtown</option>
                           </select>
                           {!! $errors->first('route', '
                           <span class="help-block">:message
