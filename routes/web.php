@@ -16,6 +16,15 @@ use App\Queue;
 
 Route::pattern('slug', '[a-z0-9- _]+');
 
+ Route::get('onlineDrivers', function(Request $request){
+        $queues_drivers = Queue::select('id', 'bus_number', 'driver_number', 'route_name', 'schedule_number', 'station_name')
+                        ->where('driver_number',$request->get('driver_number'))
+                        ->whereNotNull('full')
+                        ->whereNull('finish')
+                        ->get(); 
+
+        return response()->json($queues_drivers);
+    });
 
 #admin auth
 Route::group(['prefix' => 'admin', 'namespace'=>'Admin'], function () {
@@ -114,18 +123,8 @@ Route::group(['prefix' => 'admin','namespace'=>'Admin', 'middleware' => 'admin',
 
     Route::resource('realtimers', 'RealTimerTestController');
 
-
-    Route::get('onlineDrivers', function(Request $request){
-        $queues_drivers = Queue::select('id', 'bus_number', 'driver_number', 'route_name', 'schedule_number', 'station_name')
-                        ->where('driver_number',$request->get('driver_number'))
-                        ->whereNotNull('full')
-                        ->whereNull('finish')
-                        ->get(); 
-
-        return response()->json($queues_drivers);
-    });
-    
-    
+   
+ 
 
     # User Management
     Route::group([ 'prefix' => 'users'], function () {

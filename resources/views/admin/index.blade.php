@@ -8,11 +8,10 @@
 {{-- page level styles --}}
 @section('header_styles')
 
-
     <link rel="stylesheet" href="{{ asset('assets/vendors/animate/animate.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/pages/only_dashboard.css') }}"/>
     <meta name="_token" content="{{ csrf_token() }}">
-    <link rel="stylesheet" href="{{ asset('assets/vendors/morrisjs/morris.css') }}">
+    
     <link rel="stylesheet" href="{{ asset('assets/css/pages/dashboard2.css') }}"/>
     {{-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css"> --}}
     <style>
@@ -361,7 +360,7 @@
                     <div id="map"></div>
                     <div id="over_map">
                         <div>
-                            <span>Online Buses: </span><span id="cars">0</span>
+                            <span>Online Buses: </span><span id="buses">0</span>
                         </div>
                     </div>
 
@@ -397,7 +396,7 @@
     <script type="text/javascript" src="{{ asset('assets/vendors/moment/js/moment.min.js') }}"></script>
     <script src="{{ asset('assets/vendors/moment/js/moment.min.js') }}" type="text/javascript"></script>
     <script type="text/javascript" src="{{ asset('assets/vendors/countUp_js/js/countUp.js') }}"></script>
-    <script src="{{ asset('assets/vendors/morrisjs/morris.min.js') }}"></script>
+    
 
     {{----------            Map Script     ------------}}
      
@@ -425,12 +424,10 @@
         firebase.initializeApp(firebaseConfig);
     </script>
 
- 
-
     <script>
-        // counter for online cars...
-        var cars_count = 0;
-        // markers array to store all the markers, so that we could remove marker when any car goes offline and its data will be remove from realtime database...
+        // counter for online buses...
+        var buses_count = 0;
+        // markers array to store all the markers, so that we could remove marker when any bus goes offline and its data will be remove from realtime database...
         var markers = [];
         var map;
         function initMap() { // Google Map Initialization... 
@@ -459,47 +456,75 @@
 
         }
 
-        // This Function will create a car icon with angle and add/display that marker on the map
-        function AddCar(data) {
-            // var icon = { // car icon
-            //     path: 'M29.395,0H17.636c-3.117,0-5.643,3.467-5.643,6.584v34.804c0,3.116,2.526,5.644,5.643,5.644h11.759   c3.116,0,5.644-2.527,5.644-5.644V6.584C35.037,3.467,32.511,0,29.395,0z M34.05,14.188v11.665l-2.729,0.351v-4.806L34.05,14.188z    M32.618,10.773c-1.016,3.9-2.219,8.51-2.219,8.51H16.631l-2.222-8.51C14.41,10.773,23.293,7.755,32.618,10.773z M15.741,21.713   v4.492l-2.73-0.349V14.502L15.741,21.713z M13.011,37.938V27.579l2.73,0.343v8.196L13.011,37.938z M14.568,40.882l2.218-3.336   h13.771l2.219,3.336H14.568z M31.321,35.805v-7.872l2.729-0.355v10.048L31.321,35.805',
-            //     scale: 0.4,
-            //     fillColor: "#427af4", //<-- Car Color, you can change it 
-            //     fillOpacity: 1,
-            //     strokeWeight: 1,
-            //     anchor: new google.maps.Point(0, 5),
-            //     rotation: data.val().angle //<-- Car angle
-            // };
-            var uluru = { lat: parseFloat(data.val().lat), lng: parseFloat(data.val().lng) };
+        // This Function will create a bus icon with angle and add/display that marker on the map
+        function AddBus(data) {
+            var position = { lat: parseFloat(data.val().lat), lng: parseFloat(data.val().lng) };
             var marker = new google.maps.Marker({
-                position: uluru,
+                position: position,
                 icon: "{{URL::asset('assets/img/bus_icon.png')}}/",
                 map: map
             });
-            console.log(data.val().lat);
-            markers[data.key] = marker; // add marker in the markers array...
-            document.getElementById("cars").innerHTML = cars_count;
+            // console.log(data.key);
+            markers[data.key] = marker; // add marker in the markers array
+            document.getElementById("buses").innerHTML = buses_count;
         }
 
-        // get firebase database reference...
-        var cars_Ref = firebase.database().ref('/online_drivers/');
-        // this event will be triggered when a new object will be added in the database...
-        cars_Ref.on('child_added', function (data) {
-            cars_count++;
-            AddCar(data);
+        // get firebase database reference
+        var buses_Ref = firebase.database().ref('/online_drivers/');
+        // this event will be triggered when a new object will be added in the database
+        buses_Ref.on('child_added', function (snapshot) {
+            // console.log(snapshot)
+            snapshot.forEach(function(data) {
+                // console.log(data)
+                buses_count++;
+                AddBus(data);
+                // console.log(data.val().long);
+            })
         });
 
-        // this event will be triggered on location change of any car...
-        cars_Ref.on('child_changed', function (data) {
-            markers[data.key].setMap(null);
-            AddCar(data);
+        // buses_Ref.on('child_added', function (data) {
+        //     buses_count++;
+        //     AddBus(data);
+        // });
+
+        // this event will be triggered on location change of any bus
+
+        // buses_Ref.on('child_changed', function (data) {
+        //     snapshot.forEach(function(data) {
+        //         markers[data.key].setMap(null);
+        //         AddBus(data);
+        //     })
+        // });
+
+        buses_Ref.on('child_changed', function (snapshot) {
+            snapshot.forEach(function(data){
+                // console.log(data);
+                // console.log(data.val());
+                console.log(data.key);
+                markers[data.key].setMap(null);
+                AddBus(data);
+            })      
         });
 
-        // If any car goes offline then this event will get triggered and we'll remove the marker of that car...  
-        cars_Ref.on('child_removed', function (data) {
-            markers[data.key].setMap(null);
-            cars_count--;
-            document.getElementById("cars").innerHTML = cars_count;
+        // If any bus goes offline then this event will get triggered and we'll remove the marker of that bus
+        
+        // buses_Ref.on('child_removed', function (data) {
+        //     snapshot.forEach(function(data) {
+        //         markers[data.key].setMap(null);
+        //         buses_count--;
+        //         document.getElementById("buses").innerHTML = buses_count;
+        //     })
+        // });
+
+        buses_Ref.on('child_removed', function (snapshot) {
+            snapshot.forEach(function(data){
+                // console.log(data);
+                // console.log(data.val());
+                // console.log(data.key);
+                markers[data.key].setMap(null);
+            })
+            buses_count--;
+            document.getElementById("buses").innerHTML = buses_count;
         });
 
     </script>
@@ -556,57 +581,22 @@
         var week_data = {!! $month_visits !!};
         var year_data = {!! $year_visits !!};
 
-        function lineChart() {
-            Morris.Line({
-                element: 'visitors_chart',
-                data: week_data,
-                lineColors: ['#418BCA', '#00bc8c', '#EF6F6C'],
-                xkey: 'date',
-                ykeys: ['pageViews', 'visitors'],
-                labels: ['pageViews', 'visitors'],
-                pointSize: 0,
-                lineWidth: 2,
-                resize: true,
-                fillOpacity: 1,
-                behaveLikeLine: true,
-                gridLineColor: '#e0e0e0',
-                hideHover: 'auto'
 
-            });
-        }
-        function barChart() {
-            Morris.Bar({
-                element: 'bar_chart',
-                data: year_data.length ? year_data :   [ { label:"No Data", value:100 } ],
-                barColors: ['#418BCA', '#00bc8c'],
-                xkey: 'date',
-                ykeys: ['pageViews', 'visitors'],
-                labels: ['pageViews', 'visitors'],
-                pointSize: 0,
-                lineWidth: 2,
-                resize: true,
-                fillOpacity: 0.4,
-                behaveLikeLine: true,
-                gridLineColor: '#e0e0e0',
-                hideHover: 'auto'
-
-            });
-        }
-        lineChart();
-        barChart();
-        $(".sidebar-toggle").on("click",function () {
-            setTimeout(function () {
-                $('#visitors_chart').empty();
-                $('#bar_chart').empty();
-                lineChart();
-                barChart();
-            },10);
-        });
+        // lineChart();
+        // barChart();
+        // $(".sidebar-toggle").on("click",function () {
+        //     setTimeout(function () {
+        //         $('#visitors_chart').empty();
+        //         $('#bar_chart').empty();
+        //         lineChart();
+        //         barChart();
+        //     },10);
+        // });
     </script>
 
-    {!! Charts::scripts() !!}
+    {{-- {!! Charts::scripts() !!}
     {!! $db_chart->script() !!}
-    {!! $geo->script() !!}
+    {!! $geo->script() !!} --}}
     {!! $user_roles->script() !!}
     {{--{!! $line_chart->script() !!}--}}
     
