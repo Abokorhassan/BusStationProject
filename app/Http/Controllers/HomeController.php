@@ -59,7 +59,8 @@ class HomeController extends Controller
 
         $routes = Route::select('id','name')
                         ->where('station_id', $stations_id)
-                        ->get();
+                        ->get();     
+
 
         if(Sentinel::check())
             return view('index',compact('station', 'routes'),['user_count'=>$user_count, 'driver_count'=>$driver_count, 'bus_count'=>$bus_count, 'route_count'=>$route_count]);

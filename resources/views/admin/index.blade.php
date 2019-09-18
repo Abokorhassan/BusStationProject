@@ -437,7 +437,6 @@
                 mapTypeId: 'terrain'
             });
 
-            // var stations = {!! json_encode($stations->toArray()) !!};
             var stations = {!! json_encode($Mapstations->toArray(), JSON_HEX_TAG) !!};
             stations.forEach(myFunction);
 
@@ -471,35 +470,18 @@
 
         // get firebase database reference
         var buses_Ref = firebase.database().ref('/online_drivers/');
+
         // this event will be triggered when a new object will be added in the database
         buses_Ref.on('child_added', function (snapshot) {
-            // console.log(snapshot)
             snapshot.forEach(function(data) {
-                // console.log(data)
                 buses_count++;
                 AddBus(data);
-                // console.log(data.val().long);
             })
         });
 
-        // buses_Ref.on('child_added', function (data) {
-        //     buses_count++;
-        //     AddBus(data);
-        // });
-
         // this event will be triggered on location change of any bus
-
-        // buses_Ref.on('child_changed', function (data) {
-        //     snapshot.forEach(function(data) {
-        //         markers[data.key].setMap(null);
-        //         AddBus(data);
-        //     })
-        // });
-
         buses_Ref.on('child_changed', function (snapshot) {
             snapshot.forEach(function(data){
-                // console.log(data);
-                // console.log(data.val());
                 console.log(data.key);
                 markers[data.key].setMap(null);
                 AddBus(data);
@@ -507,20 +489,8 @@
         });
 
         // If any bus goes offline then this event will get triggered and we'll remove the marker of that bus
-        
-        // buses_Ref.on('child_removed', function (data) {
-        //     snapshot.forEach(function(data) {
-        //         markers[data.key].setMap(null);
-        //         buses_count--;
-        //         document.getElementById("buses").innerHTML = buses_count;
-        //     })
-        // });
-
         buses_Ref.on('child_removed', function (snapshot) {
             snapshot.forEach(function(data){
-                // console.log(data);
-                // console.log(data.val());
-                // console.log(data.key);
                 markers[data.key].setMap(null);
             })
             buses_count--;
