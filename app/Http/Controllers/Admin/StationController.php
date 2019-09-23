@@ -61,7 +61,8 @@ class StationController extends Controller
      */
     public function create()
     {
-        return view('admin.station.create');   
+        $Mapstations = Station::all();
+        return view('admin.station.create', compact('Mapstations'));   
     }
 
     /**
@@ -85,6 +86,7 @@ class StationController extends Controller
         $station->name = $request->input('name');
         $station->lat = $request->input('latitude');
         $station->long = $request->input('longitude');
+        // return $station->lat.'--'.$station->long;
         $station->user_id = Sentinel::getUser()->id;
 
         $user = User::find($station->user_id);

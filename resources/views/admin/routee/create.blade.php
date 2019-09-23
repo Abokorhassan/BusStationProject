@@ -175,8 +175,6 @@
     {{----------            Map Script     ------------}}
 
       <script>
-        // counter for online buses...
-        var buses_count = 0;
         // markers array to store all the markers, so that we could remove marker when any bus goes offline and its data will be remove from realtime database...
         var markers = [];
         var map;

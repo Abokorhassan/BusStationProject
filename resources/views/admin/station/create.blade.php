@@ -19,6 +19,18 @@
   <link href="{{ asset('assets/vendors/datetimepicker/css/bootstrap-datetimepicker.min.css') }}" rel="stylesheet">
   <link href="{{ asset('assets/vendors/iCheck/css/all.css') }}"  rel="stylesheet" type="text/css" />
   <link href="{{ asset('assets/css/pages/wizard.css') }}" rel="stylesheet">
+
+  <style>
+    #map {
+      height: 390px;
+      width: 99%;
+      margin-left: 0.3em;
+    }
+    #map_margin{
+      margin-left: 12em;
+    }
+  </style>
+
 @stop
 
 
@@ -63,6 +75,7 @@
                         <input type="hidden" name="_token" value="{{ csrf_token() }}" />
                           <div id="rootwizard">
                             <h2 class="hidden">&nbsp;</h2>
+
                             <div class="form-group {{ $errors->first('name', 'has-error') }}">
                               <label for="name" class="col-sm-2 control-label">Name *
                               </label>
@@ -76,29 +89,36 @@
                               </div>
                             </div>
 
-                            <div class="form-group {{ $errors->first('latitude', 'has-error') }}">
-                              <label for="latitude" class="col-sm-2 control-label">Latitude *
+                            <div  class="form-group {{ $errors->first('path', 'has-error') }}">
+                              <label for="name" class="col-sm-2 control-label">Position *
                               </label>
                               <div class="col-sm-10">
-                                <input id="latitude" name="latitude" type="text" placeholder="Latitude"
-                                        class="form-control required" value="{!! old('latitude') !!}"/>
-                                {!! $errors->first('latitude', '
-                                <span class="help-block">:message
-                                </span>') !!}
+                                <div id="map"></div>
+                              </div>
+                            </div>
+
+                            <div class="form-group {{ $errors->first('latitude', 'has-error') }}">
+                              <label for="latitude" class="col-sm-2 control-label">
+                              </label>
+                              <div class="col-sm-10">
+                                <input id="latitude" name="latitude" type="hidden" placeholder="Latitude"
+                                  class="form-control required" value="{!! old('latitude') !!}"/>
+                                {!! $errors->first('latitude', '<span class="help-block">:message</span>') !!}
                               </div>
                             </div>
 
                             <div class="form-group {{ $errors->first('longitude', 'has-error') }}">
-                              <label for="longitude" class="col-sm-2 control-label">Longitude *
+                              <label for="longitude" class="col-sm-2 control-label">
                               </label>
                               <div class="col-sm-10">
-                                <input id="longitude" name="longitude" placeholder="Longitude" type="text"
-                                        class="form-control required email" value="{!! old('longitude') !!}"/>
+                                <input id="longitude" name="longitude" placeholder="Longitude" type="hidden"
+                                  class="form-control required email" value="{!! old('longitude') !!}"/>
                                 {!! $errors->first('longitude', '
                                 <span class="help-block">:message
                                 </span>') !!}
                               </div>
                             </div>
+
                             <div class="form-group">
                               <div class="col-sm-offset-2 col-sm-4 btn_rtl">
                                   <a href="{{ route('admin.station.index') }}">
@@ -141,5 +161,62 @@
     <script src="{{ asset('assets/vendors/bootstrapvalidator/js/bootstrapValidator.min.js') }}" type="text/javascript"></script>
     <script src="{{ asset('assets/vendors/datetimepicker/js/bootstrap-datetimepicker.min.js') }}" type="text/javascript"></script>
     <script src="{{ asset('assets/js/pages/adduser.js') }}"></script>
+
+    {{----------            Map Script     ------------}}
+
+      <script>
+        // markers array to store all the markers, so that we could remove marker when any bus goes offline and its data will be remove from realtime database...
+        var markers = [];
+        var map;
+        function initMap() { // Google Map Initialization... 
+          map = new google.maps.Map(document.getElementById('map'), {
+            center: {lat: 9.562389, lng:  44.077011},
+            zoom: 14,
+            mapTypeId: 'terrain'
+          });
+
+          
+          google.maps.event.addListener(map, 'click', function(e){
+            deleteMarkers()
+            lat = e.latLng.lat();
+            long = e.latLng.lng();
+            document.getElementById("latitude").value = lat;
+            document.getElementById("longitude").value = long;
+            var marker = new google.maps.Marker({
+              position: e.latLng, 
+              icon: "{{URL::asset('assets/img/bus_station.png')}}/",
+              map: map, 
+            }); 
+            markers.push(marker);
+          });
+
+          // Sets the map on all markers in the array.
+          function setMapOnAll(map) {
+            for (var i = 0; i < markers.length; i++) {
+              markers[i].setMap(map);
+            }
+          }
+
+          // Removes the markers from the map, but keeps them in the array.
+          function clearMarkers() {
+            setMapOnAll(null);
+          }
+
+          // Deletes all markers in the array by removing references to them.
+          function deleteMarkers() {
+            clearMarkers();
+            markers = [];
+          }
+
+        }
+
+          
+      </script>
+      
+      <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA9cFPJpgNFZ5otplq5Wu7jSJer0WTbG2w&libraries=geometry&callback=initMap" 
+          async defer>
+      </script>
+
+    {{----------            End Map Script     ------------}}
 
 @stop
