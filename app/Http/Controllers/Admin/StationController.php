@@ -76,7 +76,7 @@ class StationController extends Controller
         $this->validate($request,[
             // 'name' =>  array( 'required', 'regex:/[a-zA-Z]{4,12}$/','min:4', 'max:12'),
             // 'name' => 'bail | required | min:4 | max:25 | unique:stations,name',
-            'name' => 'bail|required|regex:/^[a-zA-Z]+$/u|min:4|max:12| unique:stations,name',
+            'name' => 'bail|required|regex:/^[a-zA-Z ]+$/u|min:4|max:12| unique:stations,name',
 
             'latitude' => ['required','regex:/^[-]?(([0-8]?[0-9])\.(\d+))|(90(\.0+)?)$/','numeric'],
             'longitude' => ['required','regex:/^[-]?(([0-8]?[0-9])\.(\d+))|(90(\.0+)?)$/','numeric'],
@@ -144,6 +144,7 @@ class StationController extends Controller
         $station->name = $request->input('name');
         $station->lat = $request->input('latitude');
         $station->long = $request->input('longitude');
+        
         $station->save();
 
         return redirect('admin/station')->with('success', 'station Updated');

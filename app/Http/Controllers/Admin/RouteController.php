@@ -68,7 +68,7 @@ class RouteController extends Controller
         $this->validate($request,[
             // 'name' =>  array('required', 'regex:/[a-zA-Z]{4,8}$/'),
             // 'name' => 'bail | required | min:4 | max:25 | unique:routes,name',
-            'name' => 'bail|required|regex:/^[a-zA-Z]+$/u|min:4|max:12| unique:stations,name',
+            'name' => 'bail|required|regex:/^[a-zA-Z ]+$/u|min:4|max:12| unique:stations,name',
             'station' => 'required',
             'path' => 'required',
         ]);
