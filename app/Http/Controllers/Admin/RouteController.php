@@ -53,7 +53,8 @@ class RouteController extends Controller
     public function create()
     {
         $stations = Station::select('id','name')->get();
-        return view('admin.routee.create', compact('stations'));  
+        $Mapstations = Station::all();
+        return view('admin.routee.create', compact('stations', 'Mapstations'));  
     }
 
     /**
@@ -69,6 +70,7 @@ class RouteController extends Controller
             // 'name' => 'bail | required | min:4 | max:25 | unique:routes,name',
             'name' => 'bail|required|regex:/^[a-zA-Z]+$/u|min:4|max:12| unique:stations,name',
             'station' => 'required',
+            'path' => 'required',
         ]);
 
         $route = new Route();
@@ -84,6 +86,8 @@ class RouteController extends Controller
 
         $station->user_first = $user->first_name;
         $station->user_last = $user->last_name; 
+
+        $route->path = $request->input('path');
 
         $route->save();
 
