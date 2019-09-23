@@ -427,7 +427,6 @@
                     data:{'id':id},
                     dataType: "json",
                     success:function(data) {
-                        console.log(data);
                         if(data.length > 0){
                             var count = 1;
 
@@ -567,100 +566,106 @@
 
     </script>
 
-        {{----------            Map Script     ------------}}
+    {{----------            Map Script     ------------}}
      
-    <!-- jQuery CDN                I commented it because it disables all the clickes    -->   
-    {{-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> --}}
+        <!-- jQuery CDN                I commented it because it disables all the clickes    -->   
+        {{-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> --}}
 
-    <!-- The core Firebase JS SDK is always required and must be listed first -->
-    <script src="https://www.gstatic.com/firebasejs/6.6.1/firebase.js"></script>
+        <!-- The core Firebase JS SDK is always required and must be listed first -->
+        <script src="https://www.gstatic.com/firebasejs/6.6.1/firebase.js"></script>
 
-    <!-- TODO: Add SDKs for Firebase products that you want to use
-        https://firebase.google.com/docs/web/setup#config-web-app -->
+        <!-- TODO: Add SDKs for Firebase products that you want to use
+            https://firebase.google.com/docs/web/setup#config-web-app -->
 
-    <script>
-        // Your web app's Firebase configuration
-        var firebaseConfig = {
-            apiKey: "AIzaSyBfSDMPSQtF9AVgu6M0w55-k6uTJ1YRfyg",
-            authDomain: "bsproject-251005.firebaseapp.com",
-            databaseURL: "https://bsproject-251005.firebaseio.com",
-            projectId: "bsproject-251005",
-            storageBucket: "",
-            messagingSenderId: "676642236343",
-            appId: "1:676642236343:web:9960edb7f8d1259adaea32"
-        };
-        // Initialize Firebase
-        firebase.initializeApp(firebaseConfig);
-    </script>
+        <script>
+            // Your web app's Firebase configuration
+            var firebaseConfig = {
+                apiKey: "AIzaSyBfSDMPSQtF9AVgu6M0w55-k6uTJ1YRfyg",
+                authDomain: "bsproject-251005.firebaseapp.com",
+                databaseURL: "https://bsproject-251005.firebaseio.com",
+                projectId: "bsproject-251005",
+                storageBucket: "",
+                messagingSenderId: "676642236343",
+                appId: "1:676642236343:web:9960edb7f8d1259adaea32"
+            };
+            // Initialize Firebase
+            firebase.initializeApp(firebaseConfig);
+        </script>
 
-    <script>
-        // counter for online buses...
-        var buses_count = 0;
-        // markers array to store all the markers, so that we could remove marker when any bus goes offline and its data will be remove from realtime database...
-        var markers = [];
-        var map;
-        function initMap() { // Google Map Initialization... 
-            map = new google.maps.Map(document.getElementById('map'), {
-                center: {lat: 9.562389, lng:  44.077011},
-                zoom: 14,
-                mapTypeId: 'terrain'
+        <script>
+            // counter for online buses...
+            var buses_count = 0;
+            // markers array to store all the markers, so that we could remove marker when any bus goes offline and its data will be remove from realtime database...
+            var markers = [];
+            var map;
+            function initMap() { // Google Map Initialization... 
+                map = new google.maps.Map(document.getElementById('map'), {
+                    center: {lat: 9.562389, lng:  44.077011},
+                    zoom: 14,
+                    mapTypeId: 'terrain'
+                });
+
+                var station = {!! json_encode($station->toArray(), JSON_HEX_TAG) !!};
+                var latitude = parseFloat(station.lat);
+                var longitude = parseFloat(station.long);
+                var LatLn = {lat: latitude, lng: longitude};
+
+                var marker = new google.maps.Marker({
+                    position: LatLn,
+                    icon: "{{URL::asset('assets/img/bus_station.png')}}/",
+                    map: map,
+                    title: station.name
+                });  
+
+                // google.maps.event.addListener(map, "click", function (e) {
+                //     //lat and lng is available in e object
+                //     var latLng = e.latLng;
+                //     console.log(latLng);
+                //     alert(latLng);
+                // });     
+            }
+
+            // This Function will create a bus icon with angle and add/display that marker on the map
+            function AddBus(data) {
+                var position = { lat: parseFloat(data.val().lat), lng: parseFloat(data.val().lng) };
+                var marker = new google.maps.Marker({
+                    position: position,
+                    icon: "{{URL::asset('assets/img/bus_icon.png')}}/",
+                    map: map
+                });
+                markers[data.key] = marker; // add marker in the markers array
+                document.getElementById("buses").innerHTML = buses_count;
+            }
+
+            // get firebase database reference
+            var buses_Ref = firebase.database().ref('/online_drivers/Jigjiga Yar');
+
+            // this event will be triggered when a new object will be added in the database
+            buses_Ref.on('child_added', function (data) {
+                buses_count++;
+                AddBus(data);
             });
 
-            var station = {!! json_encode($station->toArray(), JSON_HEX_TAG) !!};
-            var latitude = parseFloat(station.lat);
-            var longitude = parseFloat(station.long);
-            console.log(latitude);
-            var LatLng = {lat: latitude, lng: longitude};
-
-            var marker = new google.maps.Marker({
-                position: LatLng,
-                icon: "{{URL::asset('assets/img/bus_station.png')}}/",
-                map: map,
-                title: station.name
-            });            
-        }
-
-        // This Function will create a bus icon with angle and add/display that marker on the map
-        function AddBus(data) {
-            var position = { lat: parseFloat(data.val().lat), lng: parseFloat(data.val().lng) };
-            var marker = new google.maps.Marker({
-                position: position,
-                icon: "{{URL::asset('assets/img/bus_icon.png')}}/",
-                map: map
+            // this event will be triggered on location change of any bus
+            buses_Ref.on('child_changed', function (data) {
+                markers[data.key].setMap(null);
+                AddBus(data);
+        
             });
-            markers[data.key] = marker; // add marker in the markers array
-            document.getElementById("buses").innerHTML = buses_count;
-        }
 
-        // get firebase database reference
-        var buses_Ref = firebase.database().ref('/online_drivers/Jigjiga Yar');
+            // If any bus goes offline then this event will get triggered and we'll remove the marker of that bus
+            buses_Ref.on('child_removed', function (data) {
+                markers[data.key].setMap(null);
+                buses_count--;
+                document.getElementById("buses").innerHTML = buses_count;
+            });
 
-        // this event will be triggered when a new object will be added in the database
-        buses_Ref.on('child_added', function (data) {
-            buses_count++;
-            AddBus(data);
-        });
-
-        // this event will be triggered on location change of any bus
-        buses_Ref.on('child_changed', function (data) {
-            markers[data.key].setMap(null);
-            AddBus(data);
-     
-        });
-
-        // If any bus goes offline then this event will get triggered and we'll remove the marker of that bus
-        buses_Ref.on('child_removed', function (data) {
-            markers[data.key].setMap(null);
-            buses_count--;
-            document.getElementById("buses").innerHTML = buses_count;
-        });
-
-    </script>
-    
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA9cFPJpgNFZ5otplq5Wu7jSJer0WTbG2w&callback=initMap" 
-        async defer>
-    </script>
-
+        </script>
+        
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA9cFPJpgNFZ5otplq5Wu7jSJer0WTbG2w&callback=initMap" 
+            async defer>
+        </script>
+    {{----------            End Map Script     ------------}}
 
 
 @stop

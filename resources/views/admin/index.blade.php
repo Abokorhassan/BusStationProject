@@ -15,7 +15,6 @@
     <link rel="stylesheet" href="{{ asset('assets/css/pages/dashboard2.css') }}"/>
     {{-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css"> --}}
     <style>
-
         #map {
           height: 500px;
           width: 99%;
@@ -347,10 +346,10 @@
         {{-- Online Buses --}}
         <div class="col-md-12 ">
             <div class="panel panel-border map">
-                <div class="panel-heading">
+                <div style="background: #515763; color: white"  class="panel-heading">
                 <h3 class="panel-title">
-                    <i class="livicon" data-name="map" data-size="16" data-loop="true" data-c="#515763"
-                        data-hc="#515763">
+                    <i class="livicon" data-name="map" data-size="16" data-loop="true" data-c="#fcfdff"
+                        data-hc="#fcfdff">
                     </i>
                     Online Buses
                 </h3>
@@ -364,9 +363,7 @@
                         </div>
                     </div>
 
-                    {{-- <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d33048.757857402015!2d44.06414886069395!3d9.555171203219142!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sso!4v1566030992036!5m2!1sen!2sso" 
-                    width="99%" style="margin-left: 0.3em" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
-                </div> --}}
+                </div>
             </div>
         </div>
 
@@ -430,6 +427,14 @@
         // markers array to store all the markers, so that we could remove marker when any bus goes offline and its data will be remove from realtime database...
         var markers = [];
         var map;
+
+        // route.forEach(getRoute);
+        // function getRoute(item, index){
+        //     console.log(item.path);
+        //     // var obj =  JSON.parse(item.path);
+        //     // console.log(obj);
+        // }
+
         function initMap() { // Google Map Initialization... 
             map = new google.maps.Map(document.getElementById('map'), {
                 center: {lat: 9.562389, lng:  44.077011},
@@ -452,6 +457,27 @@
                     title: item.name
                 });            
             }
+
+            var route = {!! json_encode($routes->toArray(), JSON_HEX_TAG) !!};
+
+            route.forEach(polylineRoute);
+
+            function polylineRoute(item, index){
+                var encodedString = item.path
+                console.log(encodedString);
+                var decodedString = google.maps.geometry.encoding.decodePath(encodedString);
+                console.log(decodedString);
+
+                var polyline = new google.maps.Polyline({
+                    path: decodedString,
+                    geodesic: true,
+                    strokeColor: '#FF0000',
+                    strokeOpacity: 1.0,
+                    strokeWeight: 5
+                });
+                polyline.setMap(map);
+            }
+
 
         }
 
@@ -499,9 +525,9 @@
 
     </script>
     
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA9cFPJpgNFZ5otplq5Wu7jSJer0WTbG2w&callback=initMap" 
-        async defer>
-    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA9cFPJpgNFZ5otplq5Wu7jSJer0WTbG2w&libraries=geometry&callback=initMap" 
+          async defer>
+      </script>
 
     {{----------            End Map Script     ------------}}
 
@@ -596,7 +622,6 @@
                         dataType: "json",
                         success:function(data) {
                             if(data.length > 0){
-                                console.log(data);
                                 var count = 1;
 
                                 $(".tab-content").empty();

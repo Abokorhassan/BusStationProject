@@ -80,10 +80,9 @@ class RouteController extends Controller
         $route->station_id = $request->input('station');
         $station = Station::find($route->station_id);
         $route->station_name = $station->name;   
+
         $station->user_id = Sentinel::getUser()->id;
-
         $user = User::find($station->user_id);
-
         $station->user_first = $user->first_name;
         $station->user_last = $user->last_name; 
 
@@ -117,8 +116,9 @@ class RouteController extends Controller
 
         $stations = Station::select('id','name')->get();
         $opStations = $stations->pluck('name', 'id')->toArray();
+        $Mapstations = Station::all();
 
-        return view('admin.routee.edit', compact('route', 'stations', 'opStations'));
+        return view('admin.routee.edit', compact('route', 'stations', 'opStations', 'Mapstations'));
     }
 
     /**
@@ -134,8 +134,9 @@ class RouteController extends Controller
             // 'name' =>  array('required', 'regex:/[a-zA-Z]{4,8}$/','min:4'),
             // 'name' => 'required | min:4| max:8 | unique:routes,name,'.$id,
             // 'name' => 'bail | required | min:4 | max:25 | unique:routes,name,'.$id,
-            'name' => 'bail|required|regex:/^[a-zA-Z]+$/u|min:4|max:12| unique:stations,name,'.$id,
+            'name' => 'bail|required|regex:/^[a-zA-Z ]+$/u|min:4|max:12| unique:routes,name,'.$id,
             'station_id' => 'required',
+            'path' => 'required',
         ]); 
 
         $route = Route::find($id);
@@ -146,6 +147,7 @@ class RouteController extends Controller
         $station = Station::find($route->station_id);
         $route->station_name = $station->name;    
 
+        $route->path = $request->input('path');
         $route->save();
 
         return redirect('admin/route')->with('success', 'Route Updated');

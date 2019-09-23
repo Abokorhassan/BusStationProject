@@ -589,9 +589,12 @@ class JoshController extends Controller {
         $user = User::find($user_id);
         
         $Mapstations = Station::all();
+        $routes = Route::all();
+        // $routes = Route::whereIn('id', [20,21])
+        //             ->get();
 
         if(Sentinel::check())
-            return view('admin.index',['queues'=>$queues,'Mapstations'=> $Mapstations, 'stations'=>$stations,'analytics_error'=>$analytics_error,'chart_data'=>$chart_data, 'blog_count'=>$blog_count,'user_count'=>$user_count,'driver_count'=>$driver_count,'bus_count'=>$bus_count,'station_count'=>$station_count,'users'=>$users,'db_chart'=>$db_chart,'geo'=>$geo,'user_roles'=>$user_roles,'blogs'=>$blogs,'visitors'=>$visitors,'pageVisits'=>$pageVisits,'line_chart'=>$line_chart,'month_visits'=>$month_visits,'year_visits'=>$year_visits] );
+            return view('admin.index',['queues'=>$queues,'routes' => $routes ,'Mapstations'=> $Mapstations, 'stations'=>$stations,'analytics_error'=>$analytics_error,'chart_data'=>$chart_data, 'blog_count'=>$blog_count,'user_count'=>$user_count,'driver_count'=>$driver_count,'bus_count'=>$bus_count,'station_count'=>$station_count,'users'=>$users,'db_chart'=>$db_chart,'geo'=>$geo,'user_roles'=>$user_roles,'blogs'=>$blogs,'visitors'=>$visitors,'pageVisits'=>$pageVisits,'line_chart'=>$line_chart,'month_visits'=>$month_visits,'year_visits'=>$year_visits] );
         else
             return redirect('admin/signin')->with('error', 'You must be logged in!');
     }

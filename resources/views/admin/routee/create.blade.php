@@ -121,20 +121,11 @@
                                   <span class="help-block">:message
                                   </span>') !!}
                                 <div id="map"></div>
-
-
-
                               </div>
                             </div>
-
-                            {{-- <input id="path" name="path" type="hidden"
-                                        placeholder="Path of the route"  class="form-control required"
-                                        value="{!! old('path') !!}"/> --}}
-
-                            {{-- <div id="map_margin" class="panel-body nopadmar">
-                                <div id="map"></div>
-                            </div> --}}
+                            
                             <br>
+
                             <div class="form-group">
                               <div class="col-sm-offset-2 col-sm-4 btn_rtl">
                                 <a href="{{ route('admin.route.index') }}">
@@ -142,9 +133,6 @@
                                       Cancel 
                                     </button>
                                 </a>
-                                {{-- <button type="submit" class="btn btn-success">
-                                    @lang('button.save')
-                                </button> --}}
                                 <button type="submit" class="btn btn-success">
                                     @lang('button.save')
                                 </button>
@@ -187,54 +175,51 @@
     {{----------            Map Script     ------------}}
 
       <script>
+        // counter for online buses...
+        var buses_count = 0;
+        // markers array to store all the markers, so that we could remove marker when any bus goes offline and its data will be remove from realtime database...
+        var markers = [];
+        var map;
+        function initMap() { // Google Map Initialization... 
+          map = new google.maps.Map(document.getElementById('map'), {
+            center: {lat: 9.562389, lng:  44.077011},
+            zoom: 14,
+            mapTypeId: 'terrain'
+          });
 
-         
+          var stations = {!! json_encode($Mapstations->toArray(), JSON_HEX_TAG) !!};
+          stations.forEach(myFunction);
 
-          // counter for online buses...
-          var buses_count = 0;
-          // markers array to store all the markers, so that we could remove marker when any bus goes offline and its data will be remove from realtime database...
-          var markers = [];
-          var map;
-          function initMap() { // Google Map Initialization... 
-              map = new google.maps.Map(document.getElementById('map'), {
-                  center: {lat: 9.562389, lng:  44.077011},
-                  zoom: 14,
-                  mapTypeId: 'terrain'
-              });
+          function myFunction(item, index) {
+            var latitude = parseFloat(item.lat);
+            var longitude = parseFloat(item.long);
+            var LatLng = {lat: latitude, lng: longitude};
 
-              var stations = {!! json_encode($Mapstations->toArray(), JSON_HEX_TAG) !!};
-              stations.forEach(myFunction);
-
-              function myFunction(item, index) {
-                  var latitude = parseFloat(item.lat);
-                  var longitude = parseFloat(item.long);
-                  var LatLng = {lat: latitude, lng: longitude};
-
-                  var marker = new google.maps.Marker({
-                      position: LatLng,
-                      icon: "{{URL::asset('assets/img/bus_station.png')}}/",
-                      map: map,
-                      title: item.name
-                  });            
-              }
-
-             var path = new google.maps.MVCArray();
-              var polyline = new google.maps.Polyline({
-                  path:  path,
-                  geodesic: true,
-                  strokeColor: '#FF0000',
-                  strokeOpacity: 1.0,
-                  strokeWeight: 5
-              });
-              polyline.setMap(map);
-
-              google.maps.event.addListener(map, 'click', function(e){
-                currentPath = polyline.getPath();
-                currentPath.push(e.latLng);
-                encodeString = google.maps.geometry.encoding.encodePath(currentPath);
-                document.getElementById("path").value = encodeString;
-              });
+            var marker = new google.maps.Marker({
+              position: LatLng,
+              icon: "{{URL::asset('assets/img/bus_station.png')}}/",
+              map: map,
+              title: item.name
+            });            
           }
+
+          var path = new google.maps.MVCArray();
+          var polyline = new google.maps.Polyline({
+            path:  path,
+            geodesic: true,
+            strokeColor: '#FF0000',
+            strokeOpacity: 1.0,
+            strokeWeight: 5
+          });
+          polyline.setMap(map);
+
+          google.maps.event.addListener(map, 'click', function(e){
+            currentPath = polyline.getPath();
+            currentPath.push(e.latLng);
+            encodeString = google.maps.geometry.encoding.encodePath(currentPath);
+            document.getElementById("path").value = encodeString;
+          });
+        }
 
           
       </script>
