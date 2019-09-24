@@ -57,7 +57,7 @@ class HomeController extends Controller
                             ->count();
         // return $driver_count;
 
-        $routes = Route::select('id','name')
+        $routes = Route::select('*')
                         ->where('station_id', $stations_id)
                         ->get();     
 

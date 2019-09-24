@@ -21,10 +21,11 @@
             margin-left: 0.3em;
         }
         #over_map {
-            position: absolute;
-            top: 7em;
+            /* position: absolute;
+            top: 1em;
             left: 87%;
-            z-index: 99;
+            z-index: 99; */
+            margin: 0em .4em;
             background-color: #ccffcc;
             padding: 10px;
         }
@@ -287,7 +288,7 @@
         <div class="text-center wow flash">
             <h3 class="border-success"><span class="heading_border bg-success">Daily Transaction</span></h3>
         </div>  
-        <div>
+        <div class="panel panel-border map">
             <div id="map"></div>
             <div id="over_map">
                 <div>
@@ -567,9 +568,6 @@
     </script>
 
     {{----------            Map Script     ------------}}
-     
-        <!-- jQuery CDN                I commented it because it disables all the clickes    -->   
-        {{-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> --}}
 
         <!-- The core Firebase JS SDK is always required and must be listed first -->
         <script src="https://www.gstatic.com/firebasejs/6.6.1/firebase.js"></script>
@@ -615,14 +613,28 @@
                     icon: "{{URL::asset('assets/img/bus_station.png')}}/",
                     map: map,
                     title: station.name
-                });  
+                }); 
 
-                // google.maps.event.addListener(map, "click", function (e) {
-                //     //lat and lng is available in e object
-                //     var latLng = e.latLng;
-                //     console.log(latLng);
-                //     alert(latLng);
-                // });     
+                var route = {!! json_encode($routes->toArray(), JSON_HEX_TAG) !!};
+
+                route.forEach(polylineRoute);
+
+                function polylineRoute(item, index){
+                    var encodedString = item.path
+                    console.log(encodedString);
+                    var decodedString = google.maps.geometry.encoding.decodePath(encodedString);
+                    console.log(decodedString);
+
+                    var polyline = new google.maps.Polyline({
+                        path: decodedString,
+                        geodesic: true,
+                        strokeColor: '#FF0000',
+                        strokeOpacity: 1.0,
+                        strokeWeight: 5
+                    });
+                    polyline.setMap(map);
+                }
+
             }
 
             // This Function will create a bus icon with angle and add/display that marker on the map
@@ -662,7 +674,7 @@
 
         </script>
         
-        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA9cFPJpgNFZ5otplq5Wu7jSJer0WTbG2w&callback=initMap" 
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA9cFPJpgNFZ5otplq5Wu7jSJer0WTbG2w&libraries=geometry&callback=initMap" 
             async defer>
         </script>
     {{----------            End Map Script     ------------}}
