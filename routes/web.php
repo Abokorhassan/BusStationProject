@@ -3,6 +3,7 @@ include_once 'web_builder.php';
 use App\Events\FormSubmitted;
 use Illuminate\Http\Request;
 use App\Queue;
+use App\Bus;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -16,15 +17,23 @@ use App\Queue;
 
 Route::pattern('slug', '[a-z0-9- _]+');
 
- Route::get('onlineDrivers', function(Request $request){
-        $queues_drivers = Queue::select('id', 'bus_number', 'driver_number', 'route_name', 'schedule_number', 'station_name')
-                        ->where('driver_number',$request->get('driver_number'))
-                        ->whereNotNull('full')
-                        ->whereNull('finish')
-                        ->get(); 
+Route::get('onlineDrivers', function(Request $request){
+    $queues_drivers = Queue::select('id', 'bus_number', 'driver_number', 'route_name', 'schedule_number', 'station_name')
+                    ->where('driver_number',$request->get('driver_number'))
+                    ->whereNotNull('full')
+                    ->whereNull('finish')
+                    ->get(); 
 
-        return response()->json($queues_drivers);
-    });
+    return response()->json($queues_drivers);
+});
+
+Route::get('routes', function(Request $request){
+    $routes = App\Route::select('*')
+                    ->where('name',$request->get('name'))
+                    ->get(); 
+
+    return response()->json($routes);
+});
 
 #admin auth
 Route::group(['prefix' => 'admin', 'namespace'=>'Admin'], function () {
