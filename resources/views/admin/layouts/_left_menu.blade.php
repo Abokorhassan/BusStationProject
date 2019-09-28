@@ -291,6 +291,15 @@
         </ul>
     </li>
 
+    {{-- Report Generating --}}
+    <li {!! (Request::is('admin/Report-Generating') || Request::is('admin/Report-Generating/*')   ? 'class="active"' : '') !!}>
+        <a style="margin-left: -2%;" href="{{ URL::to('admin/Report-Generating') }}">
+            <img style="margin-top: -2%;" src="https://img.icons8.com/color/26/000000/overtime.png">
+            <span style="margin-left: 3%" class="title">Report Generating</span>
+            {{-- <span class="fa arrow"></span> --}}
+        </a>
+    </li>
+
     {{-- Seat --}}
     {{-- <li {!! (Request::is('admin/seat') || Request::is('admin/seat/create') || Request::is('admin/seat/*')   ? 'class="active"' : '') !!}>
         <a style="margin-left: -1%;" href="#">

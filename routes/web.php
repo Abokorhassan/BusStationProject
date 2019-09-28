@@ -141,6 +141,14 @@ Route::group(['prefix' => 'admin','namespace'=>'Admin', 'middleware' => 'admin',
 
     Route::get('deleted_users',['before' => 'Sentinel', 'uses' => 'UsersController@getDeletedUsers'])->name('deleted_users');
 
+    // Report Generating
+    Route::group([ 'prefix' => 'Report-Generating'], function () {
+        Route::get('filter', 'ReportController@data')->name('filter.data');;
+
+    });
+    Route::resource('Report-Generating', 'ReportController');
+
+
     // Test Management
     Route::group([ 'prefix' => 'tests'], function () {
         Route::get('data', 'TestController@data')->name('tests.data');
