@@ -356,7 +356,7 @@
                 </div>
                 <div class="panel-body nopadmar">
 
-                    <div id="map"></div>
+                    {{-- <div id="map"></div> --}}
                     <div id="over_map">
                         <div>
                             <span>Online Buses: </span><span id="buses">0</span>

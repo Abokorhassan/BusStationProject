@@ -75,7 +75,11 @@
                           <input type="text" name="schedule_number" id="schedule_number" class="form-control datepicker-autoclose"
                             placeholder="Enter schedule_number">
                         </div>
-                        <br>
+                        <div class="col-sm-6">
+                          <h5>Driver <span class="text-danger"></span></h5>
+                          <input type="text" name="driver_number" id="driver_number" class="form-control datepicker-autoclose"
+                            placeholder="Enter driver_number">
+                        </div>
                         <div class="text-left col-sm-6" >
                           <button type="text" id="btnFiterSubmitSearch" class="btn btn-info">Filter</button>
                         </div>
@@ -87,6 +91,7 @@
                                 <tr class="filters">
                                     <th>ID</th>
                                     <th>Bus</th>
+                                    <th>Driver</th>
                                     <th>Schedule</th>
                                     <th>Route</th>
                                     <th>Station</th>
@@ -129,6 +134,7 @@
               d.start_date = $('#start_date').val();
               d.end_date = $('#end_date').val();
               d.bus_number = $('#bus_number').val();
+              d.driver_number = $('#driver_number').val();
               d.station_name = $('#station_name').val();
               d.route_name = $('#route_name').val();
               d.schedule_number = $('#schedule_number').val();
@@ -137,6 +143,7 @@
             columns: [
                 { data: 'id', name: 'id' },	
                 { data: 'bus_number', name: 'bus_number' },
+                { data: 'driver_number', name: 'driver_number' },
                 { data: 'schedule_number', name: 'schedule_number' },
                 { data: 'route_name', name: 'route_name' },	
                 { data: 'station_name', name: 'station_name' },

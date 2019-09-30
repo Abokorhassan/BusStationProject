@@ -427,8 +427,8 @@ class QueueController extends Controller
         $schedule = Schedule::find($queue->Schedule_id);
         $queue->schedule_number = $schedule->schedule_number;  // schedule_name
 
-        $bus_id = $request->input('bus_number'); //  bus_id
-        $bus = Bus::find($bus_id);
+        $queue->bus_id = $request->input('bus_number'); //  bus_id
+        $bus = Bus::find($queue->bus_id);
         $queue->driver_number = $bus->driver_number; // driver_number
         $queue->bus_number = $bus->bus_number;  // bus_number
         $queue->station_id = $bus->station_id;  // station_id
