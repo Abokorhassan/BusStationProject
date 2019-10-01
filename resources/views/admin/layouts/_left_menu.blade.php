@@ -964,7 +964,7 @@
     </li> --}}
 
     {{-- Googel map --}}
-    <li {!! (Request::is('admin/googlemaps') || Request::is('admin/vectormaps') || Request::is('admin/advancedmaps') ? 'class="active"' : '') !!}>
+    {{-- <li {!! (Request::is('admin/googlemaps') || Request::is('admin/vectormaps') || Request::is('admin/advancedmaps') ? 'class="active"' : '') !!}>
         <a href="#">
             <i class="livicon" data-name="map" data-c="#67C5DF" data-hc="#67C5DF" data-size="18"
                data-loop="true"></i>
@@ -991,7 +991,7 @@
                 </a>
             </li>
         </ul>
-    </li>
+    </li> --}}
 
     {{-- blog --}}
     {{-- <li {!! ((Request::is('admin/blogcategory') || Request::is('admin/blogcategory/create') || Request::is('admin/blog') ||  Request::is('admin/blog/create')) || Request::is('admin/blog/*') || Request::is('admin/blogcategory/*') ? 'class="active"' : '') !!}>

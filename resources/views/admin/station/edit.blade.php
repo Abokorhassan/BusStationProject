@@ -87,8 +87,8 @@
                                 </div>
 
                                 <div class="form-group {{ $errors->first('latitude', 'has-error') }}">
-                                  <label for="latitude" class="col-sm-2 control-label">Latitude *
-                                  </label>
+                                  {{-- <label for="latitude" class="col-sm-2 control-label">Latitude *
+                                  </label> --}}
                                   <div class="col-sm-10">
                                     <input id="latitude" name="latitude" type="hidden" value="{{ $station->lat }}"
                                     class="form-control required"
@@ -100,8 +100,8 @@
                                 </div>
 
                                 <div class="form-group {{ $errors->first('longitude', 'has-error') }}">
-                                  <label for="longitude" class="col-sm-2 control-label">Longitude *
-                                  </label>
+                                  {{-- <label for="longitude" class="col-sm-2 control-label">Longitude *
+                                  </label> --}}
                                   <div class="col-sm-10">
                                     <input id="longitude" name="longitude" type="hidden" value="{{ $station->long }}"
                                      class="form-control required"
