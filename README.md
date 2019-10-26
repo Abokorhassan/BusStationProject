@@ -1,22 +1,36 @@
-# BSProject
+# Bus Station Management System
 
-1- git clone or download.
+## Installing
 
-Get Composer packages
-2- composer install
+follow these steps to install:
 
-permissions
-3-chmod -R 775 storage
-4-chmod 775 bootstrap/cache
+1. #### First, clone this project: open git and run this command.
+``` 
+git clone https://github.com/Abokorhassan/BSProject.git 
+```
 
-database credentials
-5- cp .env.example .env
-then modify your .env to match yours previous
+2. #### Then, open git in root directory and install composer
+```
+composer install
+```
 
-Generate Key
-6- php artisan key:generate
+3. #### Permission : run these two command.
+```
+chmod -R 775 storage
+chmod 775 bootstrap/cache
+```
 
-Create Database
-7- create database, then import if you already have database file 
+5. #### Database credentials
+ `
+ cp .env.example .env
+ `
+ ##### then modify your .env to match yours previous database, if any ofcourse.
+
+6. #### Generate Key
+`
+php artisan key:generate
+`
+
+7. #### Create Database: create database, then import if you already have database file 
 
 for more info, follow this https://lorvent.gitbooks.io/josh/content/laravel-55.html
