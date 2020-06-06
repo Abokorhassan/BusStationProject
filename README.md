@@ -1,5 +1,10 @@
 # Bus Station Management System
 
+## Pre Installing
+you should have install in your computer:
+ - php
+ - composer
+
 ## Installing
 
 follow these steps to install:
